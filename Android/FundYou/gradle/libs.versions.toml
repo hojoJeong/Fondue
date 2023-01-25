@@ -36,6 +36,9 @@ ybq-spinkit_version = "1.4.0"
 shawnlin013_number_picker_version = "2.4.13"
 skydoves_balloon_version = "1.4.6"
 
+# google
+google_auth_version = "20.4.1"
+
 
 [libraries]
 androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
@@ -59,22 +62,23 @@ androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensi
 circleindicator = { module = "me.relex:circleindicator", version.ref = "circleindicator" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
-retrofit-rxjava = {module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit"}
+retrofit-rxjava = { module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit" }
 ybq-spinkit = { module = "com.github.ybq:Android-SpinKit", version.ref = "ybq-spinkit_version" }
 okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp3" }
 okhttp3-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
 okhttp3-urlconnection = { module = "com.squareup.okhttp3:okhttp-urlconnection", version.ref = "okhttp3" }
-okhttp3-logging = {module = "com.squareup.okhttp3:logging-interceptor", version.ref="okhttp3"}
+okhttp3-logging = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
 shawnlin013-numberpicker = { module = "io.github.ShawnLin013:number-picker", version.ref = "shawnlin013_number_picker_version" }
 skydoves-balloon = { module = "com.github.skydoves:balloon", version.ref = "skydoves_balloon_version" }
-google-gson = {module ="com.google.code.gson:gson", version.ref = "gson_version"}
+google-gson = { module = "com.google.code.gson:gson", version.ref = "gson_version" }
+google_auth = { module = "com.google.android.gms:play-services-auth", version.ref = "google_auth_version" }
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",
     "androidx-fragment-ktx", "androidx-lifecycle-extensions"]
 navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing"]
-retrofit-bundles = ["retrofit", "retrofit-gson-converter" , "retrofit-rxjava"]
-okhttp3-bundles = ["okhttp3", "okhttp3-interceptor","okhttp3-urlconnection", "okhttp3-logging"]
+retrofit-bundles = ["retrofit", "retrofit-gson-converter", "retrofit-rxjava"]
+okhttp3-bundles = ["okhttp3", "okhttp3-interceptor", "okhttp3-urlconnection", "okhttp3-logging"]
 
 [plugins]
 kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

@@ -28,6 +28,20 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
+        <activity
+            android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:host="oauth"
+                    android:scheme="@string/kakao_login_scheme" />
+            </intent-filter>
+
+        </activity>
         <activity android:name=".ui.keyhash.KeyHashActivity"/>
         <activity android:name=".ui.token.DeleteTokenActivity"/>
         <activity android:name=".ui.splash.SplashActivity"/>

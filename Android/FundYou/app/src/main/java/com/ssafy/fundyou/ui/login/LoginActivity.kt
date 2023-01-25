@@ -4,6 +4,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.kakao.sdk.auth.model.OAuthToken
+import com.kakao.sdk.common.model.ClientError
+import com.kakao.sdk.common.model.ClientErrorCause
+import com.kakao.sdk.user.UserApiClient
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.showAlignTop
@@ -16,7 +22,14 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityLoginBinding
+    private lateinit var binding: ActivityLoginBinding
+    private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
+        if (error != null) {
+            Log.e(TAG, "카카오계정으로 로그인 실패", error)
+        } else if (token != null) {
+            Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,17 +37,47 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initLoginBanner()
+        addKakaoLoginEvent()
     }
 
-    private fun initLoginBanner(){
+    private fun initLoginBanner() {
         val bannerAdapter = LoginBannerAdapter(this)
         bannerAdapter.addAllBannerList(initLoginBannerList())
 
-        with(binding){
+        with(binding) {
             vpLoginBanner.adapter = bannerAdapter
             Log.d(TAG, "initLoginBanner: ${vpLoginBanner.currentItem}")
             ciLoginBannerIndicator.setViewPager(vpLoginBanner)
             btnLoginKakao.showAlignTop(makeBalloon())
+        }
+    }
+
+    private fun addGoogleLoginEvent(){
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+
+        val client = GoogleSignIn.getClient(this, gso)
+    }
+
+    private fun addKakaoLoginEvent() {
+        with(binding){
+            btnLoginKakao.setOnClickListener {
+                if (UserApiClient.instance.isKakaoTalkLoginAvailable(this@LoginActivity)) {
+                    UserApiClient.instance.loginWithKakaoTalk(this@LoginActivity) { token, error ->
+                        if (error != null) {
+                            if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
+                                return@loginWithKakaoTalk
+                            }
+                            UserApiClient.instance.loginWithKakaoAccount(this@LoginActivity, callback = kakaoLoginCallback)
+                        } else if (token != null) {
+                            Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
+                        }
+                    }
+                } else {
+                    UserApiClient.instance.loginWithKakaoAccount(this@LoginActivity, callback = kakaoLoginCallback)
+                }
+            }
         }
     }
 
@@ -65,15 +108,31 @@ class LoginActivity : AppCompatActivity() {
         return popUpMessage.build()
     }
 
-    private fun initLoginBannerList() : List<LoginBannerModel>{
+    private fun initLoginBannerList(): List<LoginBannerModel> {
         val list = mutableListOf<LoginBannerModel>()
-        list.add(LoginBannerModel(R.drawable.ic_launcher_background, getString(R.string.content_login_banner_1)))
-        list.add(LoginBannerModel(R.drawable.ic_launcher_background,  getString(R.string.content_login_banner_2)))
-        list.add(LoginBannerModel(R.drawable.ic_launcher_background,  getString(R.string.content_login_banner_3)))
+        list.add(
+            LoginBannerModel(
+                R.drawable.ic_launcher_background,
+                getString(R.string.content_login_banner_1)
+            )
+        )
+        list.add(
+            LoginBannerModel(
+                R.drawable.ic_launcher_background,
+                getString(R.string.content_login_banner_2)
+            )
+        )
+        list.add(
+            LoginBannerModel(
+                R.drawable.ic_launcher_background,
+                getString(R.string.content_login_banner_3)
+            )
+        )
 
         return list
     }
-    companion object{
+
+    companion object {
         private const val TAG = "LoginActivity"
     }
 }
