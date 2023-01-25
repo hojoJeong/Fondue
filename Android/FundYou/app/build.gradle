@@ -1,11 +1,12 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
     id 'kotlin-parcelize'
     id 'kotlin-android'
     id 'androidx.navigation.safeargs.kotlin'
+    // kapt는 항상 맨 아래로
+    id 'kotlin-kapt'
 }
 
 android {
@@ -34,6 +35,12 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    dataBinding {
+        enabled = true
+    }
+    viewBinding {
+        enabled = true
     }
 }
 
