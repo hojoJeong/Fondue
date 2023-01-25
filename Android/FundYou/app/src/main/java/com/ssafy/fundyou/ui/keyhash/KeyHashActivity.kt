@@ -7,8 +7,10 @@ import android.util.Base64
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import dagger.hilt.android.AndroidEntryPoint
 import java.security.MessageDigest
 
+@AndroidEntryPoint
 class KeyHashActivity: AppCompatActivity(){
     @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -9,7 +9,9 @@ import com.ssafy.fundyou.ui.bridge.adapter.BridgeAdapter
 import com.ssafy.fundyou.ui.keyhash.KeyHashActivity
 import com.ssafy.fundyou.ui.splash.SplashActivity
 import com.ssafy.fundyou.ui.token.DeleteTokenActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class BridgeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityBridgeBinding
@@ -31,7 +33,7 @@ class BridgeActivity : AppCompatActivity() {
         )
         adapter.addItems(layoutList)
         binding.rvBridge.apply {
-            this.layoutManager = LinearLayoutManager(this@BridgeActivity, LinearLayoutManager.HORIZONTAL, false)
+            this.layoutManager = LinearLayoutManager(this@BridgeActivity, LinearLayoutManager.VERTICAL, false)
             this.adapter = adapter
         }
     }

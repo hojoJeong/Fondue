@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".GlobalApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -26,8 +27,10 @@
                 android:value="" />
         </activity>
         <activity android:name=".ui.keyhash.KeyHashActivity"/>
+        <activity android:name=".ui.token.DeleteTokenActivity"/>
         <activity android:name=".ui.splash.SplashActivity"/>
         <activity android:name=".ui.login.LoginActivity"/>
+        <activity android:name=".ui.MainActivity"/>
     </application>
 
 </manifest>
