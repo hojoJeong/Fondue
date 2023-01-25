@@ -1,25 +1,20 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
-    id 'kotlin-parcelize'
-    id 'kotlin-android'
-    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
-    namespace 'com.ssafy.fundyou'
-    compileSdk 33
+    namespace 'com.ssafy.fundyou.domain'
+    compileSdk 32
 
     defaultConfig {
-        applicationId "com.ssafy.fundyou"
         minSdk 21
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -38,27 +33,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":common"))
-    implementation libs.bundles.androidx
-    implementation libs.android.material
+
     implementation libs.hilt
-    implementation libs.databinding
-    implementation libs.circleindicator
-
-    implementation libs.bundles.retrofit.bundles
-    implementation libs.bundles.okhttp3.bundles
-
-    implementation libs.shawnlin013.numberpicker
-    implementation libs.skydoves.balloon
+    kapt libs.hilt.compiler
 
     testImplementation libs.junit
-
     androidTestImplementation libs.android.test.junit
     androidTestImplementation libs.android.test.espresso
-
-    kapt libs.hilt.compiler
-}
-
-kapt {
-    correctErrorTypes true
 }

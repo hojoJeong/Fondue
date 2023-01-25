@@ -1,0 +1,84 @@
+[versions]
+# androidx
+androidx-core = "1.7.0"
+androidx-appcompat = "1.5.1"
+androidx-test-junit = "1.1.4"
+androidx-test-espresso = "3.5.0"
+androidx_navigation_version = "2.5.0"
+androidx_fragment_version = "1.5.0"
+androidx_lifecycle_extension_version = "2.2.0"
+
+navigation_safe_args_version = "2.4.2"
+
+# android
+android-material = "1.7.0"
+android-library = "7.3.0"
+android-application = "7.3.0"
+
+# junit
+junit = "4.13.2"
+
+kotlin = "1.7.10"
+hilt = "2.44"
+kakao_sdk_version = "2.11.2"
+retrofit = "2.9.0"
+
+databinding = "7.3.1"
+
+okhttp3 = "4.10.0"
+
+# gson
+gson_version = "2.9.1"
+
+# custom view library
+circleindicator = "2.1.6"
+ybq-spinkit_version = "1.4.0"
+shawnlin013_number_picker_version = "2.4.13"
+skydoves_balloon_version = "1.4.6"
+
+
+[libraries]
+androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
+androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+android_material = { module = "com.google.android.material:material", version.ref = "android-material" }
+junit = { module = "junit:junit", version.ref = "junit" }
+android_test_junit = { module = "androidx.test.ext:junit", version.ref = "androidx-test-junit" }
+android_test_espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
+hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt_compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+kakao-sdk-user = { module = "com.kakao.sdk:v2-user", version.ref = "kakao_sdk_version" }
+databinding = { module = "androidx.databinding:databinding-runtime", version.ref = "databinding" }
+databinding_compiler = { module = "com.android.databinding:compiler", version.ref = "databinding" }
+androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx_navigation_version" }
+androidx-navigation-ui-ktx = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx_navigation_version" }
+androidx-navigation-common = { module = "androidx.navigation:navigation-common", version.ref = "androidx_navigation_version" }
+androidx-navigation-dynamic-features-fragment = { module = "androidx.navigation:navigation-dynamic-features-fragment", version.ref = "androidx_navigation_version" }
+androidx-navigation-testing = { module = "androidx.navigation:navigation-testing", version.ref = "androidx_navigation_version" }
+androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "androidx_fragment_version" }
+androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "androidx_lifecycle_extension_version" }
+circleindicator = { module = "me.relex:circleindicator", version.ref = "circleindicator" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+retrofit-rxjava = {module = "com.squareup.retrofit2:adapter-rxjava2", version.ref = "retrofit"}
+ybq-spinkit = { module = "com.github.ybq:Android-SpinKit", version.ref = "ybq-spinkit_version" }
+okhttp3 = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp3" }
+okhttp3-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okhttp3" }
+okhttp3-urlconnection = { module = "com.squareup.okhttp3:okhttp-urlconnection", version.ref = "okhttp3" }
+okhttp3-logging = {module = "com.squareup.okhttp3:logging-interceptor", version.ref="okhttp3"}
+shawnlin013-numberpicker = { module = "io.github.ShawnLin013:number-picker", version.ref = "shawnlin013_number_picker_version" }
+skydoves-balloon = { module = "com.github.skydoves:balloon", version.ref = "skydoves_balloon_version" }
+google-gson = {module ="com.google.code.gson:gson", version.ref = "gson_version"}
+
+[bundles]
+androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",
+    "androidx-fragment-ktx", "androidx-lifecycle-extensions"]
+navigation = ["androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing"]
+retrofit-bundles = ["retrofit", "retrofit-gson-converter" , "retrofit-rxjava"]
+okhttp3-bundles = ["okhttp3", "okhttp3-interceptor","okhttp3-urlconnection", "okhttp3-logging"]
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+android_library = { id = "com.android.library", version.ref = "android-library" }
+android_application = { id = "com.android.application", version.ref = "android-application" }
+hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+navigation_safe_args_plugin = { id = "androidx.navigation.safeargs", version.ref = "navigation_safe_args_version" }
