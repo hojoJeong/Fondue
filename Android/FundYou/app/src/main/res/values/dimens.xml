@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base -->
+    <dimen name="base_horizontal_margin">18dp</dimen>
+    <dimen name="base_vertical_margin">18dp</dimen>
+
+    <!-- Login Banner Size -->
+    <dimen name="login_banner_size">400dp</dimen>
+</resources>

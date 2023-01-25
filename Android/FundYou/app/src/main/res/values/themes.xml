@@ -13,4 +13,40 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
+    <!-- base type -->
+    <style name="base_font_bold">
+        <item name="android:fontFamily">@font/notosanskr_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="base_font_medium">
+        <item name="android:fontFamily">@font/notosanskr_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- bold size -->
+    <style name="base_font_bold_16" parent="base_font_bold">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- medium size -->
+    <style name="base_font_medium_16" parent="base_font_medium">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <!-- medium size color -->
+    <style name="base_font_medium_16_black" parent="base_font_medium_16">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_medium_16_white" parent="base_font_medium_16">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!-- bold size color -->
+    <style name="base_font_bold_16_black" parent="base_font_bold_16">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>
