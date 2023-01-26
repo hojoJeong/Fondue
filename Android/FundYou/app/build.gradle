@@ -4,6 +4,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
     id 'kotlin-parcelize'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
     // kapt는 항상 맨 아래로
     id 'kotlin-kapt'
@@ -30,11 +31,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
     }
     dataBinding {
         enabled = true
@@ -46,17 +47,26 @@ android {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
     implementation libs.bundles.androidx
     implementation libs.android.material
     implementation libs.hilt
     implementation libs.databinding
-    implementation libs.circleindicator
 
     implementation libs.bundles.retrofit.bundles
     implementation libs.bundles.okhttp3.bundles
 
     implementation libs.shawnlin013.numberpicker
     implementation libs.skydoves.balloon
+    implementation libs.circleindicator
+
+    implementation libs.kakao.sdk.user
+
+    implementation libs.google.auth
+    implementation platform (libs.google.firebase)
+    implementation libs.google.firebase.analytics
 
     testImplementation libs.junit
 
