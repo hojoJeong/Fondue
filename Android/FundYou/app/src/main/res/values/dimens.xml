@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="pageMargin">100dp</dimen>
-    <dimen name="pageWidth">300dp</dimen>
+    <dimen name="margin_main">20dp</dimen>
+    <dimen name="margin_main_between_content">40dp</dimen>
+    <dimen name="margin_item_between_tv">2dp</dimen>
 </resources>

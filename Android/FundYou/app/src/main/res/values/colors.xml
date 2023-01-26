@@ -7,5 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="lightgray_whisper">#E4E4E4</color>
+
+    <color name="grey">#808080</color>
+    <color name="whisper">#E4E4E4</color>
+    <color name="vert_light_gray">#CACACA</color>
+    <color name="franch_rose">#FF4E8D</color>
+    <color name="blue_marguerite">#B0ACDD</color>
+    <color name="pig_pink">#FFD3E5</color>
 </resources>

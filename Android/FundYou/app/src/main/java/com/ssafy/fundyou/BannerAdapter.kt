@@ -1,17 +1,17 @@
 package com.ssafy.fundyou
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.ssafy.fundyou.databinding.ContainerMainBannerBinding
+import com.ssafy.fundyou.databinding.ItemMainBannerBinding
 
-class BannerAdapter(
-    private val bannerItems: MutableList<Int>,
-    private var banner: ViewPager2
-) : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
+class BannerAdapter : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {
+    private val bannerItems = mutableListOf<Int>()
 
-    class BannerViewHolder(val binding: ContainerMainBannerBinding) :
+    class BannerViewHolder(private val binding: ItemMainBannerBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun onBind(image: Int) {
@@ -21,18 +21,18 @@ class BannerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BannerViewHolder {
         val imageBinding =
-            ContainerMainBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemMainBannerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return BannerViewHolder(imageBinding)
     }
 
     override fun onBindViewHolder(holder: BannerViewHolder, position: Int) {
-        holder.onBind(bannerItems[position])
-        if (position == bannerItems.size - 1) {
-            banner.post(runnable)
-        }
+        holder.onBind(bannerItems[position % bannerItems.size])
     }
 
     override fun getItemCount(): Int = Int.MAX_VALUE
 
-    private val runnable = Runnable { bannerItems.addAll(bannerItems) }
+    fun addAllItems(list : List<Int>){
+        bannerItems.clear()
+        bannerItems.addAll(list)
+    }
 }

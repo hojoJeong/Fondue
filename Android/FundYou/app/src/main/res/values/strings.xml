@@ -3,4 +3,18 @@
     <string name="content_searchbar">찾으시는 선물을 검색해보세요</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_banner_indicator">%1$d / %2$d</string>
+    <string name="title_category">어떤 상품을 찾고 있나요?</string>
+    <string name="title_rank">앗 뜨거! 퐁듀에서 핫한 아이템!</string>
+    <string name="title_random">오늘의 퐁듀</string>
+    <string name="content_random_btn">더보기</string>
+    <string name="title_popular_search">많이 검색한 키워드</string>
+    <string name="title_AR_btn">AR</string>
+    <string name="title_category_all">전체</string>
+    <string name="title_category_digital">디지털/가전</string>
+    <string name="title_category_living">리빙/인테리어</string>
+    <string name="title_category_etc">기타</string>
+    <string name="title_rank_price">가격대</string>
+    <string name="title_rank_startprice">0원</string>
+    <string name="title_rank_endprice">50만원</string>
 </resources>
