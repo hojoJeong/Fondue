@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "initLoginViewModel: get token...")
                 }
                 is ViewState.Success -> {
-                    showToast(response.value?.accessToken ?: "Token Empty")
+                    Log.d(TAG, "initLoginViewModel: ${response.value?.accessToken ?: "Token Empty"}")
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initLoginViewModel: token error ${response.message}")
