@@ -1,11 +1,11 @@
-package com.ssafy.fundyou.ui.login.adapter
+package com.ssafy.fundyou.ui.login.banner.adapter
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.ssafy.fundyou.ui.login.LoginBannerFragment
-import com.ssafy.fundyou.ui.login.model.LoginBannerModel
+import com.ssafy.fundyou.ui.login.banner.LoginBannerFragment
+import com.ssafy.fundyou.ui.login.banner.model.LoginBannerModel
 
 class LoginBannerAdapter(fm : FragmentActivity) : FragmentStateAdapter(fm) {
 

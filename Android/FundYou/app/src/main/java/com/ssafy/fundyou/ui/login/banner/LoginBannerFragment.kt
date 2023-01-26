@@ -1,18 +1,15 @@
-package com.ssafy.fundyou.ui.login
+package com.ssafy.fundyou.ui.login.banner
 
-import android.os.Build
 import android.os.Build.VERSION
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentLoginBannerBinding
-import com.ssafy.fundyou.ui.login.adapter.LoginBannerAdapter
-import com.ssafy.fundyou.ui.login.model.LoginBannerModel
+import com.ssafy.fundyou.ui.login.banner.model.LoginBannerModel
 
 class LoginBannerFragment : Fragment() {
 

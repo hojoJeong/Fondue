@@ -1,7 +1,6 @@
 package com.ssafy.fundyou.ui.login
 
 import android.app.Activity
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
@@ -10,9 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
@@ -25,8 +22,8 @@ import com.skydoves.balloon.showAlignTop
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityLoginBinding
-import com.ssafy.fundyou.ui.login.adapter.LoginBannerAdapter
-import com.ssafy.fundyou.ui.login.model.LoginBannerModel
+import com.ssafy.fundyou.ui.login.banner.adapter.LoginBannerAdapter
+import com.ssafy.fundyou.ui.login.banner.model.LoginBannerModel
 import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -45,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
     private val googleLoginLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             if (result.resultCode == Activity.RESULT_OK) {
+                Log.d(TAG, "launcher: ${result.data}")
                 val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
                 handleSignInResult(task)
             }
@@ -91,8 +89,8 @@ class LoginActivity : AppCompatActivity() {
     private fun addGoogleLoginEvent() {
         binding.btnLoginGoogle.setOnClickListener {
             val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.google_server_client_key))
-                .requestServerAuthCode(getString(R.string.google_server_client_key))
+                .requestIdToken(getString(R.string.google_client_key))
+                .requestServerAuthCode(getString(R.string.google_client_key))
                 .requestEmail()
                 .build()
 
@@ -104,10 +102,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         val getAuthCode = completedTask.getResult(ApiException::class.java)?.serverAuthCode
+        Log.d(TAG, "handleSignInResult: $getAuthCode")
         loginViewModel.getGoogleAuthToken(
             authCode = getAuthCode!!,
-            clientId = getString(R.string.google_server_client_key),
-            clientSecretId = getString(R.string.google_server_client_key)
+            clientId = getString(R.string.google_client_key),
+            clientSecretId = getString(R.string.google_client_secret_key)
         )
     }
 
@@ -190,6 +189,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val TAG = "LoginActivity"
+        private const val TAG = "LoginActivity..."
     }
 }

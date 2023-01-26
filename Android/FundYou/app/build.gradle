@@ -4,6 +4,7 @@ plugins {
     id 'com.google.dagger.hilt.android'
     id 'kotlin-parcelize'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs.kotlin'
     // kapt는 항상 맨 아래로
     id 'kotlin-kapt'
@@ -64,6 +65,8 @@ dependencies {
     implementation libs.kakao.sdk.user
 
     implementation libs.google.auth
+    implementation platform (libs.google.firebase)
+    implementation libs.google.firebase.analytics
 
     testImplementation libs.junit
 

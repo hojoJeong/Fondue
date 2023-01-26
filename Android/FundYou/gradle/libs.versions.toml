@@ -22,7 +22,6 @@ kotlin = "1.7.10"
 hilt = "2.44"
 kakao_sdk_version = "2.11.2"
 retrofit = "2.9.0"
-
 databinding = "7.3.1"
 
 okhttp3 = "4.10.0"
@@ -38,9 +37,12 @@ skydoves_balloon_version = "1.4.6"
 
 # google
 google_auth_version = "20.4.1"
-
+google_service_version = "4.3.15"
+firebase_version = "31.2.0"
 
 [libraries]
+google_firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase_version" }
+google_firebase_analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
 androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 android_material = { module = "com.google.android.material:material", version.ref = "android-material" }
@@ -86,3 +88,4 @@ android_library = { id = "com.android.library", version.ref = "android-library" 
 android_application = { id = "com.android.application", version.ref = "android-application" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 navigation_safe_args_plugin = { id = "androidx.navigation.safeargs", version.ref = "navigation_safe_args_version" }
+google_service = { id = "com.google.gms.google-services", version.ref = "google_service_version" }

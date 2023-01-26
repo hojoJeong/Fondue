@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.login.model
+package com.ssafy.fundyou.ui.login.banner.model
 
 import android.os.Parcelable
 import dagger.multibindings.IntoMap

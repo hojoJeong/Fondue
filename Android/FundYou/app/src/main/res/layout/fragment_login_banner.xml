@@ -7,7 +7,7 @@
 
         <variable
             name="bannerModel"
-            type="com.ssafy.fundyou.ui.login.model.LoginBannerModel" />
+            type="com.ssafy.fundyou.ui.login.banner.model.LoginBannerModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
