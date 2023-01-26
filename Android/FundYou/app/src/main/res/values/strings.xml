@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">FundYou</string>
+
+    <string name="content_login_balloon">가입하여 선물 펀딩하기</string>
+    <string name="content_login_banner_1">선물을 펀딩으로 받아보세요!</string>
+    <string name="content_login_banner_2">받고 싶은 선물을 선택한 후,\n링크를 공유해 보세요.</string>
+    <string name="content_login_banner_3">링크를 통해,\n친구들이 선물을 펀딩 할 거에요.</string>
+    <string name="content_kakao_login">카카오톡으로 로그인</string>
+    <string name="content_google_login">구글로 로그인</string>
 </resources>
