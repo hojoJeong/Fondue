@@ -35,6 +35,14 @@
     </style>
 
     <!-- medium size -->
+    <style name="base_font_medium_12" parent="base_font_medium">
+        <item name="android:textSize">12sp</item>
+    </style>
+    
+    <style name="base_font_medium_15" parent="base_font_medium">
+        <item name="android:textSize">15sp</item>
+    </style>
+    
     <style name="base_font_medium_16" parent="base_font_medium">
         <item name="android:textSize">16sp</item>
     </style>
@@ -44,16 +52,32 @@
     </style>
 
     <!-- medium size color -->
+    <style name="base_font_medium_12_hawkes_blue" parent="base_font_medium_12">
+        <item name="android:textColor">@color/hawkes_blue</item>
+    </style>
+
+    <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <style name="base_font_medium_14_black" parent="base_font_medium_14">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_medium_14_raven" parent="base_font_medium_14">
+        <item name="android:textColor">@color/raven</item>
+    </style>
+
+    <style name="base_font_medium_15_midnight_express" parent="base_font_medium">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
     <style name="base_font_medium_16_black" parent="base_font_medium_16">
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="base_font_medium_16_white" parent="base_font_medium_16">
         <item name="android:textColor">@color/white</item>
-    </style>
-
-    <style name="base_font_medium_14_black" parent="base_font_medium_14">
-        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- bold size color -->
@@ -63,6 +87,10 @@
 
     <style name="base_font_bold_16_black" parent="base_font_bold_16">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_bold_16_midnight_express" parent="base_font_bold_16">
+        <item name="android:textColor">@color/midnight_express</item>
     </style>
 
 </resources>
