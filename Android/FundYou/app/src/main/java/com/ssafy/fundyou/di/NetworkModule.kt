@@ -1,11 +1,13 @@
-package com.ssafy.fundyou.data.di
+package com.ssafy.fundyou.di
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.ssafy.fundyou.common.Constant.BASE_URL
 import com.ssafy.fundyou.common.Constant.GOOGLE_BASE_URL
 import com.ssafy.fundyou.common.Constant.KAKAO_BASE_URL
-import com.ssafy.fundyou.data.R
+import com.ssafy.fundyou.util.AuthInterceptorClient
+import com.ssafy.fundyou.util.GoogleInterceptorClient
+import com.ssafy.fundyou.util.KakaoInterceptorClient
+import com.ssafy.fundyou.util.NoAuthInterceptorClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

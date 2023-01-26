@@ -46,6 +46,9 @@ android {
 
 dependencies {
     implementation(project(":common"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
+
     implementation libs.bundles.androidx
     implementation libs.android.material
     implementation libs.hilt

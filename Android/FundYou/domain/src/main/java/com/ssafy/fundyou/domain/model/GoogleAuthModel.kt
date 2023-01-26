@@ -1,4 +1,5 @@
 package com.ssafy.fundyou.domain.model
 
-class GoogleAuthModel {
-}
+data class GoogleAuthModel(
+    val accessToken : String
+)

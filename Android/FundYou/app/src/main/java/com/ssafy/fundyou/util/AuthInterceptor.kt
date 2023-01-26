@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.data.util
+package com.ssafy.fundyou.util
 
 import android.content.SharedPreferences
 import okhttp3.Interceptor

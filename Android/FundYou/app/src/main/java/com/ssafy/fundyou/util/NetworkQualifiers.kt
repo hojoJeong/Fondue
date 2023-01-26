@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.data.di
+package com.ssafy.fundyou.util
 
 import javax.inject.Qualifier
 

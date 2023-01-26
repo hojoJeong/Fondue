@@ -1,11 +1,20 @@
 package com.ssafy.fundyou.ui.login
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.Scopes
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -14,15 +23,18 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.showAlignTop
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityLoginBinding
 import com.ssafy.fundyou.ui.login.adapter.LoginBannerAdapter
 import com.ssafy.fundyou.ui.login.model.LoginBannerModel
+import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
+    private val loginViewModel: LoginViewModel by viewModels()
     private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
@@ -30,6 +42,13 @@ class LoginActivity : AppCompatActivity() {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
         }
     }
+    private val googleLoginLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleSignInResult(task)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,7 +56,25 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initLoginBanner()
+        initLoginViewModel()
         addKakaoLoginEvent()
+        addGoogleLoginEvent()
+    }
+
+    private fun initLoginViewModel() {
+        loginViewModel.googleAuthToken.observe(this) { response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initLoginViewModel: get token...")
+                }
+                is ViewState.Success -> {
+                    showToast(response.value?.accessToken ?: "Token Empty")
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initLoginViewModel: token error ${response.message}")
+                }
+            }
+        }
     }
 
     private fun initLoginBanner() {
@@ -46,22 +83,36 @@ class LoginActivity : AppCompatActivity() {
 
         with(binding) {
             vpLoginBanner.adapter = bannerAdapter
-            Log.d(TAG, "initLoginBanner: ${vpLoginBanner.currentItem}")
             ciLoginBannerIndicator.setViewPager(vpLoginBanner)
             btnLoginKakao.showAlignTop(makeBalloon())
         }
     }
 
-    private fun addGoogleLoginEvent(){
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
+    private fun addGoogleLoginEvent() {
+        binding.btnLoginGoogle.setOnClickListener {
+            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.google_server_client_key))
+                .requestServerAuthCode(getString(R.string.google_server_client_key))
+                .requestEmail()
+                .build()
 
-        val client = GoogleSignIn.getClient(this, gso)
+            val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+            val intent = mGoogleSignInClient.signInIntent
+            googleLoginLauncher.launch(intent)
+        }
+    }
+
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        val getAuthCode = completedTask.getResult(ApiException::class.java)?.serverAuthCode
+        loginViewModel.getGoogleAuthToken(
+            authCode = getAuthCode!!,
+            clientId = getString(R.string.google_server_client_key),
+            clientSecretId = getString(R.string.google_server_client_key)
+        )
     }
 
     private fun addKakaoLoginEvent() {
-        with(binding){
+        with(binding) {
             btnLoginKakao.setOnClickListener {
                 if (UserApiClient.instance.isKakaoTalkLoginAvailable(this@LoginActivity)) {
                     UserApiClient.instance.loginWithKakaoTalk(this@LoginActivity) { token, error ->
@@ -69,13 +120,19 @@ class LoginActivity : AppCompatActivity() {
                             if (error is ClientError && error.reason == ClientErrorCause.Cancelled) {
                                 return@loginWithKakaoTalk
                             }
-                            UserApiClient.instance.loginWithKakaoAccount(this@LoginActivity, callback = kakaoLoginCallback)
+                            UserApiClient.instance.loginWithKakaoAccount(
+                                this@LoginActivity,
+                                callback = kakaoLoginCallback
+                            )
                         } else if (token != null) {
                             Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
                         }
                     }
                 } else {
-                    UserApiClient.instance.loginWithKakaoAccount(this@LoginActivity, callback = kakaoLoginCallback)
+                    UserApiClient.instance.loginWithKakaoAccount(
+                        this@LoginActivity,
+                        callback = kakaoLoginCallback
+                    )
                 }
             }
         }
