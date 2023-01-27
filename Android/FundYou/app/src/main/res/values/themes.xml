@@ -112,4 +112,10 @@
         <item name="labelStyle">@style/Widget.App.Tooltip</item>
     </style>
 
+    <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor" >@color/chip_background</item>
+        <item name="chipStrokeColor">@color/chip_stroke</item>
+        <item name="android:textColor">@color/chip_text</item>
+    </style>
+
 </resources>

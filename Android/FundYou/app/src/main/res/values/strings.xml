@@ -21,7 +21,7 @@
     <string name="title_category_living">리빙/인테리어</string>
     <string name="title_category_etc">기타</string>
     <string name="title_rank_price_default">상품 가격대를 설정해주세요</string>
-    <string name="title_rank_price_range">%1$d원 ~ %2$d원</string>
+    <string name="title_rank_price_range">%1$d만원 ~ %2$d만원</string>
     <string name="title_rank_startprice">0원</string>
     <string name="title_rank_endprice">100만원</string>
 

@@ -1,13 +1,20 @@
 package com.ssafy.fundyou.ui
 
+import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -15,6 +22,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.chip.Chip
+import com.google.android.material.chip.ChipGroup
+import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.BannerAdapter
 import com.ssafy.fundyou.MainCategoryAdapter
 import com.ssafy.fundyou.MainCategoryModel
@@ -42,8 +52,7 @@ class MainFragment : Fragment() {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
         return binding.root
@@ -54,6 +63,8 @@ class MainFragment : Fragment() {
 
         bannerInit()
         initCategory()
+        initRankCategory()
+        initTitlePriceRange()
     }
 
     private fun bannerInit() {
@@ -64,9 +75,7 @@ class MainFragment : Fragment() {
         bannerAdapter.addAllItems(bannerImageList)
 
         binding.tvMainBannerIndicator.text = getString(
-            R.string.content_banner_indicator,
-            binding.vpMainBanner.currentItem + 1,
-            bannerSize
+            R.string.content_banner_indicator, binding.vpMainBanner.currentItem + 1, bannerSize
         )
 
         with(binding.vpMainBanner) {
@@ -108,32 +117,28 @@ class MainFragment : Fragment() {
         categoryList.add(
             MainCategoryModel(
                 ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.bg_category_living
+                    requireContext(), R.drawable.bg_category_living
                 )!!, "리빙/인테리어"
             )
         )
         categoryList.add(
             MainCategoryModel(
                 ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.bg_category_digital
+                    requireContext(), R.drawable.bg_category_digital
                 )!!, "디지털/가전"
             )
         )
         categoryList.add(
             MainCategoryModel(
                 ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.bg_category_kitchen
+                    requireContext(), R.drawable.bg_category_kitchen
                 )!!, "주방용품"
             )
         )
         categoryList.add(
             MainCategoryModel(
                 ContextCompat.getDrawable(
-                    requireContext(),
-                    R.drawable.bg_category_etc
+                    requireContext(), R.drawable.bg_category_etc
                 )!!, "기타"
             )
         )
@@ -155,6 +160,30 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun initRankCategory() {
+        binding.chipgMainRankCategory.setOnCheckedStateChangeListener { group, checkedId ->
+
+
+            //칩 선택 변경 시 서버통신 추가
+        }
+    }
+
+    private fun initTitlePriceRange(){
+        binding.sldMainRank.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
+            override fun onStartTrackingTouch(slider: RangeSlider) {
+            }
+
+            override fun onStopTrackingTouch(slider: RangeSlider) {
+                val sliderValueList = binding.sldMainRank.values
+                val minPrice = sliderValueList[0].toInt()
+                val maxPrice = sliderValueList[sliderValueList.size-1].toInt()
+                binding.tvMainRankPriceRange.text = getString(R.string.title_rank_price_range, minPrice, maxPrice)
+
+                //가격 범위 변경 시 서버통신 추가
+            }
+        })
+    }
+
 
 
     override fun onResume() {
@@ -167,6 +196,7 @@ class MainFragment : Fragment() {
         job.cancel()
     }
 }
+
 @BindingAdapter("setcategoryimage")
 fun bindImageFromRes(view: ImageView, drawable: Drawable) {
     view.setImageDrawable(drawable)

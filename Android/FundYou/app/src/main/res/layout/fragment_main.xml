@@ -105,40 +105,43 @@
                     app:layout_constraintTop_toBottomOf="@+id/tv_main_rank_title">
 
                     <com.google.android.material.chip.ChipGroup
+                        android:id="@+id/chipg_main_rank_category"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         style="@style/Widget.MaterialComponents.Chip.Choice"
-                        app:singleLine="true">
-
+                        app:singleLine="true"
+                        app:singleSelection="true"
+                        app:selectionRequired="true">
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/btn_main_rank_category_all"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_all"
-                            app:chipBackgroundColor="@color/white"
+                            android:checked="true"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="@color/whisper"/>
+                            style="@style/custom_chip"/>
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/btn_main_rank_category_digital"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_digital"
-                            app:chipBackgroundColor="@color/white"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="@color/whisper"/>
+                            style="@style/custom_chip"/>
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/btn_main_rank_category_living"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_living"
-                            app:chipBackgroundColor="@color/white"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="@color/whisper"/>
+                            style="@style/custom_chip" />
                         <com.google.android.material.chip.Chip
+                            android:id="@+id/btn_main_rank_category_etc"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_etc"
-                            app:chipBackgroundColor="@color/white"
                             app:chipStrokeWidth="1dp"
-                            app:chipStrokeColor="@color/whisper"/>
+                            style="@style/custom_chip"/>
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
 
@@ -154,7 +157,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/hscv_main_rank_category" />
 
                 <TextView
-                    android:id="@+id/tv_main_rank_price"
+                    android:id="@+id/tv_main_rank_price_range"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +172,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:stepSize="10.0"
-                    android:valueFrom="0.0"
+                    android:valueFrom="00.0"
                     android:valueTo="100.0"
                     android:layout_margin="20dp"
                     app:layout_constraintBottom_toTopOf="@+id/dv_main_under_sld"
@@ -186,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="@+id/sld_main_rank"
-                    app:layout_constraintBottom_toBottomOf="@+id/sld_main_rank"
+                    app:layout_constraintTop_toBottomOf="@+id/sld_main_rank"
                     android:text="@string/title_rank_startprice"
                     android:layout_marginStart="6dp"
                     style="@style/base_font_medium"/>
@@ -195,7 +198,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:layout_constraintEnd_toEndOf="@+id/sld_main_rank"
-                    app:layout_constraintBottom_toBottomOf="@+id/sld_main_rank"
+                    app:layout_constraintTop_toBottomOf="@+id/sld_main_rank"
                     android:text="@string/title_rank_endprice"
                     android:layout_marginEnd="6dp"
                     style="@style/base_font_medium"/>
