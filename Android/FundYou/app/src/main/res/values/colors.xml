@@ -9,6 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="grey">#808080</color>
+    <color name="transparent">#00000000</color>
+    <color name="midnight_express">#272D3F</color>
+    <color name="golden_yellow">#FEE500</color>
     <color name="whisper">#E4E4E4</color>
     <color name="vert_light_gray">#CACACA</color>
     <color name="franch_rose">#FF4E8D</color>
