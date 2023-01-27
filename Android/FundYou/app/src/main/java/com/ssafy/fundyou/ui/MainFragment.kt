@@ -1,29 +1,22 @@
 package com.ssafy.fundyou.ui
 
-import android.annotation.SuppressLint
-import android.content.ContentValues.TAG
-import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.drawable.Drawable
-import android.os.Build
+import android.opengl.Visibility
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
+import android.widget.ScrollView
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
+import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.BannerAdapter
 import com.ssafy.fundyou.MainCategoryAdapter
@@ -65,6 +58,7 @@ class MainFragment : Fragment() {
         initCategory()
         initRankCategory()
         initTitlePriceRange()
+        initFloatingBtn()
     }
 
     private fun bannerInit() {
@@ -182,6 +176,35 @@ class MainFragment : Fragment() {
                 //가격 범위 변경 시 서버통신 추가
             }
         })
+    }
+
+    private fun initFloatingBtn(){
+        val scrollView = binding.svMain
+        val scrollUpBtn = binding.btnMainScrollUp
+        scrollUpBtn.visibility = View.GONE
+
+        scrollView.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener{
+            override fun onScrollChange(
+                v: NestedScrollView,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int
+            ) {
+                if(v.scrollY > -1){
+                    scrollUpBtn.visibility = View.VISIBLE
+                }
+                if(!v.canScrollVertically(-1)){
+                    scrollUpBtn.visibility = View.GONE
+                }
+            }
+        })
+
+        scrollUpBtn.setOnClickListener {
+            scrollView.post {
+                scrollView.fullScroll(ScrollView.FOCUS_UP)
+            }
+        }
     }
 
 

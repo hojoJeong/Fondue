@@ -281,22 +281,24 @@
                     app:layout_constraintStart_toStartOf="@+id/rv_main_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_main_popular_search_title" />
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/btn_main_scroll_up"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/margin_main"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/ic_arrow_upward_24"
-                    app:backgroundTint="@color/whisper"
-                    app:borderWidth="1dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:tint="@color/vert_light_gray" />
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btn_main_scroll_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_main"
+            android:backgroundTint="@color/white"
+            android:src="@drawable/ic_arrow_upward_24"
+            app:backgroundTint="@color/whisper"
+            app:borderWidth="1dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/vert_light_gray" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
