@@ -2,7 +2,6 @@ package com.ssafy.fundyou.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ssafy.fundyou.MainFragment
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint

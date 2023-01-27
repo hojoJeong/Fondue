@@ -7,7 +7,7 @@
     android:padding="10dp">
 
     <ImageView
-        android:id="@+id/iv_main_item_rank"
+        android:id="@+id/iv_item_list_product"
         android:layout_width="150dp"
         android:layout_height="150dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,45 +16,54 @@
         android:padding="4dp"
         tools:src="@drawable/bg_banner_ssafylogo3"/>
 
-    <TextView
-        android:id="@+id/tv_main_item_rank_ranking"
+    <ImageView
+        android:id="@+id/iv_item_list_product_favorite"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/iv_main_item_rank"
-        app:layout_constraintStart_toEndOf="@+id/iv_main_item_rank"
+        app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
+        android:src="@drawable/ic_favorite_border_24"
+        android:layout_margin="6dp"/>
+    <TextView
+        android:id="@+id/tv_item_list_product_ranking"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
+        app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
         style="@style/base_font_bold_16_black"
         android:layout_marginStart="20dp"
         tools:text="1위"/>
     <TextView
-        android:id="@+id/tv_main_item_rank_brand"
+        android:id="@+id/tv_item_list_product_brand"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tv_main_item_rank_ranking"
-        app:layout_constraintTop_toBottomOf="@+id/tv_main_item_rank_ranking"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
         style="@style/base_font_medium"
         android:layout_marginTop="6dp"
         tools:text="삼성"/>
     <TextView
-        android:id="@+id/tv_main_item_rank_name"
+        android:id="@+id/tv_item_list_product_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tv_main_item_rank_ranking"
-        app:layout_constraintTop_toBottomOf="@+id/tv_main_item_rank_brand"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
         style="@style/base_font_medium_16_black"
         android:layout_marginTop="@dimen/margin_item_between_tv"
         tools:text="상품 이름"/>
 
     <TextView
-        android:id="@+id/tv_main_item_rank_price"
+        android:id="@+id/tv_item_list_product_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tv_main_item_rank_ranking"
-        app:layout_constraintTop_toBottomOf="@+id/tv_main_item_rank_name"
+        app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+        app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
         style="@style/base_font_bold_16_black"
         android:layout_marginTop="@dimen/margin_item_between_tv"
         tools:text="2,890,000원"/>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_item_list_product_ar"
         android:layout_width="50dp"
         android:layout_height="26dp"
         app:layout_constraintEnd_toEndOf="parent"

@@ -29,12 +29,48 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="base_font_bold_14" parent="base_font_bold">
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <!-- medium size -->
+    <style name="base_font_medium_12" parent="base_font_medium">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="base_font_medium_15" parent="base_font_medium">
+        <item name="android:textSize">15sp</item>
+    </style>
+
     <style name="base_font_medium_16" parent="base_font_medium">
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="base_font_medium_14" parent="base_font_medium">
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <!-- medium size color -->
+    <style name="base_font_medium_12_hawkes_blue" parent="base_font_medium_12">
+        <item name="android:textColor">@color/hawkes_blue</item>
+    </style>
+
+    <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <style name="base_font_medium_14_black" parent="base_font_medium_14">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_medium_14_raven" parent="base_font_medium_14">
+        <item name="android:textColor">@color/raven</item>
+    </style>
+
+    <style name="base_font_medium_15_midnight_express" parent="base_font_medium">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
     <style name="base_font_medium_16_black" parent="base_font_medium_16">
         <item name="android:textColor">@color/black</item>
     </style>
@@ -44,8 +80,16 @@
     </style>
 
     <!-- bold size color -->
+    <style name="base_font_bold_14_black" parent="base_font_bold_14">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="base_font_bold_16_black" parent="base_font_bold_16">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_bold_16_midnight_express" parent="base_font_bold_16">
+        <item name="android:textColor">@color/midnight_express</item>
     </style>
 
     <!-- set slider in main-->

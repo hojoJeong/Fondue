@@ -178,7 +178,6 @@
                     app:layout_constraintTop_toBottomOf="@+id/dv_main_on_sld"
                     app:values="@array/initial_rank_price_values"
                     style="@style/main_slider"
-                    android:paddingBottom="40dp"
                     app:labelBehavior="gone"
                     />
 
