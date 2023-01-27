@@ -14,6 +14,7 @@
         android:scaleType="fitEnd"
         android:layout_marginBottom="20dp"
         tools:src="@drawable/bg_banner_ssafylogo3"/>
+
     <TextView
         android:id="@+id/tv_main_item_category"
         android:layout_width="wrap_content"
@@ -23,6 +24,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         style="@style/base_font_medium"
         tools:text="카테고리 이름"/>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

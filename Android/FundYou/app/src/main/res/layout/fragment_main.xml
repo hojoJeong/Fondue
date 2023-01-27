@@ -159,8 +159,8 @@
                     android:layout_height="wrap_content"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/sld_main_rank"
-                    android:text="@string/title_rank_price"
+                    app:layout_constraintBottom_toTopOf="@+id/sld_main_rank"
+                    android:text="@string/title_rank_price_default"
                     style="@style/base_font_bold"
                     android:textColor="@color/franch_rose"/>
 
@@ -168,7 +168,7 @@
                     android:id="@+id/sld_main_rank"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:stepSize="20.0"
+                    android:stepSize="10.0"
                     android:valueFrom="0.0"
                     android:valueTo="100.0"
                     android:layout_margin="20dp"
@@ -178,7 +178,8 @@
                     app:layout_constraintTop_toBottomOf="@+id/dv_main_on_sld"
                     app:values="@array/initial_rank_price_values"
                     style="@style/main_slider"
-                    android:paddingBottom="50dp"
+                    android:paddingBottom="40dp"
+                    app:labelBehavior="gone"
                     />
 
                 <TextView

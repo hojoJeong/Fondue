@@ -10,7 +10,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlin.math.ceil
 
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
@@ -22,8 +21,9 @@ class MainFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         bannerImageList.apply {
+            add(R.drawable.bg_banner_motiondesk)
+            add(R.drawable.bg_banner_samsung_bespoke)
             add(R.drawable.bg_banner_ssafylogo2)
-            add(R.drawable.bg_banner_ssafylogo3)
             add(R.drawable.bg_banner_ssafylogo3)
         }
     }
