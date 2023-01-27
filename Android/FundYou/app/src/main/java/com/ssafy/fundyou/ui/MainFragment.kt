@@ -1,7 +1,6 @@
 package com.ssafy.fundyou.ui
 
 import android.graphics.drawable.Drawable
-import android.opengl.Visibility
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -10,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
@@ -54,14 +52,18 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bannerInit()
+        init()
+    }
+
+    private fun init(){
+        initBanner()
         initCategory()
         initRankCategory()
         initTitlePriceRange()
         initFloatingBtn()
     }
 
-    private fun bannerInit() {
+    private fun initBanner() {
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 
@@ -164,8 +166,7 @@ class MainFragment : Fragment() {
 
     private fun initTitlePriceRange(){
         binding.sldMainRank.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
-            override fun onStartTrackingTouch(slider: RangeSlider) {
-            }
+            override fun onStartTrackingTouch(slider: RangeSlider){}
 
             override fun onStopTrackingTouch(slider: RangeSlider) {
                 val sliderValueList = binding.sldMainRank.values
@@ -183,20 +184,12 @@ class MainFragment : Fragment() {
         val scrollUpBtn = binding.btnMainScrollUp
         scrollUpBtn.visibility = View.GONE
 
-        scrollView.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener{
-            override fun onScrollChange(
-                v: NestedScrollView,
-                scrollX: Int,
-                scrollY: Int,
-                oldScrollX: Int,
-                oldScrollY: Int
-            ) {
-                if(v.scrollY > -1){
-                    scrollUpBtn.visibility = View.VISIBLE
-                }
-                if(!v.canScrollVertically(-1)){
-                    scrollUpBtn.visibility = View.GONE
-                }
+        scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, _, _, _ ->
+            if(v.scrollY > -1){
+                scrollUpBtn.visibility = View.VISIBLE
+            }
+            if(!v.canScrollVertically(-1)){
+                scrollUpBtn.visibility = View.GONE
             }
         })
 
