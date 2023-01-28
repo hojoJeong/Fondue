@@ -14,13 +14,13 @@ import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.slider.RangeSlider
-import com.ssafy.fundyou.BannerAdapter
-import com.ssafy.fundyou.MainCategoryAdapter
-import com.ssafy.fundyou.MainCategoryModel
-import com.ssafy.fundyou.R
+import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
+import com.ssafy.fundyou.domain.model.ProductItemlistModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
@@ -28,6 +28,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
+    private val rankingProductList = mutableListOf<ProductItemlistModel>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
@@ -60,6 +61,7 @@ class MainFragment : Fragment() {
         initCategory()
         initRankCategory()
         initTitlePriceRange()
+        initRankingItem()
         initFloatingBtn()
     }
 
@@ -179,6 +181,24 @@ class MainFragment : Fragment() {
         })
     }
 
+    private fun initRankingItem(){
+        //임시 데이터 추가
+        rankingProductList.add(ProductItemlistModel(0, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
+        rankingProductList.add(ProductItemlistModel(1, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
+        rankingProductList.add(ProductItemlistModel(2, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", false))
+        rankingProductList.add(ProductItemlistModel(3, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", true))
+
+
+        val rankingItemAdapter = ProductItemAdapter()
+        rankingItemAdapter.submitList(rankingProductList)
+
+        with(binding.rvMainRank){
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = rankingItemAdapter
+        }
+
+    }
+
     private fun initFloatingBtn(){
         val scrollView = binding.svMain
         val scrollUpBtn = binding.btnMainScrollUp
@@ -213,7 +233,7 @@ class MainFragment : Fragment() {
     }
 }
 
-@BindingAdapter("setcategoryimage")
+@BindingAdapter("bindImage")
 fun bindImageFromRes(view: ImageView, drawable: Drawable) {
     view.setImageDrawable(drawable)
 }

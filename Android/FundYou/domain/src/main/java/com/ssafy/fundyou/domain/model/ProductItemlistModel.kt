@@ -2,7 +2,7 @@ package com.ssafy.fundyou.domain.model
 
 data class ProductItemlistModel(
     val id: Long,
-    val price: Int,
+    val price: String,
     val img: String,
     val name: String,
     val isAr: Boolean,

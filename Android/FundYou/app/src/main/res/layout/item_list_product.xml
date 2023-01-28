@@ -1,75 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp">
+<layout>
 
-    <ImageView
-        android:id="@+id/iv_item_list_product"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
-        android:padding="4dp"
-        tools:src="@drawable/bg_banner_ssafylogo3"/>
+    <data>
+        <variable
+            name="context"
+            type="com.ssafy.fundyou.ui.MainFragment" />
+        <variable
+            name="product"
+            type="com.ssafy.fundyou.domain.model.ProductItemlistModel" />
+    </data>
 
-    <ImageView
-        android:id="@+id/iv_item_list_product_favorite"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product"
-        app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
-        android:src="@drawable/ic_favorite_border_24"
-        android:layout_margin="6dp"/>
-    <TextView
-        android:id="@+id/tv_item_list_product_ranking"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
-        app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
-        style="@style/base_font_bold_16_black"
-        android:layout_marginStart="20dp"
-        tools:text="1위"/>
-    <TextView
-        android:id="@+id/tv_item_list_product_brand"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
-        style="@style/base_font_medium"
-        android:layout_marginTop="6dp"
-        tools:text="삼성"/>
-    <TextView
-        android:id="@+id/tv_item_list_product_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
-        style="@style/base_font_medium_16_black"
-        android:layout_marginTop="@dimen/margin_item_between_tv"
-        tools:text="상품 이름"/>
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tv_item_list_product_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
-        app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
-        style="@style/base_font_bold_16_black"
-        android:layout_marginTop="@dimen/margin_item_between_tv"
-        tools:text="2,890,000원"/>
+        <ImageView
+            android:id="@+id/iv_item_list_product"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
+            android:padding="4dp"
+            android:src="@drawable/bg_category_digital"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_item_list_product_ar"
-        android:layout_width="50dp"
-        android:layout_height="26dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:text="@string/title_AR_btn"
-        android:textColor="@color/franch_rose"
-        style="@style/base_font_medium"
-        android:background="@drawable/bg_rect_gradient_white_roud10_stroke1"/>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/iv_item_list_product_favorite"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="6dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_favorite_line"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
+            app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product" />
+
+        <TextView
+            android:id="@+id/tv_item_list_product_ranking"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
+            app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
+            tools:text="1위" />
+
+        <TextView
+            android:id="@+id/tv_item_list_product_brand"
+            style="@style/base_font_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
+            android:text="@{product.name}"
+            tools:text="삼성" />
+
+        <TextView
+            android:id="@+id/tv_item_list_product_name"
+            style="@style/base_font_medium_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_between_tv"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
+            android:text="@{product.brand}"
+            tools:text="상품 이름" />
+
+        <TextView
+            android:id="@+id/tv_item_list_product_price"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_between_tv"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
+            android:text="@{product.price}"
+            tools:text="2,890,000원" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_item_list_product_ar"
+            style="@style/base_font_medium"
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:background="@drawable/bg_rect_gradient_white_roud10_stroke1"
+            android:text="@string/title_AR_btn"
+            android:textColor="@color/franch_rose"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
