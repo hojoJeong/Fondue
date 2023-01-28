@@ -8,12 +8,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.databinding.ItemListProductBinding
-import com.ssafy.fundyou.domain.model.ProductItemlistModel
-import com.ssafy.fundyou.ui.MainFragment
+import com.ssafy.fundyou.domain.model.ProductItemlModel
+import java.text.DecimalFormat
 
-class ProductItemAdapter: ListAdapter<ProductItemlistModel, ProductItemAdapter.ProductItemViewHolder>(ProductDiffUtil()) {
+class ProductItemAdapter: ListAdapter<ProductItemlModel, ProductItemAdapter.ProductItemViewHolder>(ProductDiffUtil()) {
     class ProductItemViewHolder(val binding: ItemListProductBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: ProductItemlistModel, position: Int){
+        fun bind(item: ProductItemlModel, position: Int){
             when(item.isFavorite){
                 true -> {
                     binding.ivItemListProductFavorite.setImageResource(R.drawable.bg_favorite)
@@ -43,12 +43,12 @@ class ProductItemAdapter: ListAdapter<ProductItemlistModel, ProductItemAdapter.P
         holder.bind(getItem(position), position)
     }
 
-    class ProductDiffUtil : DiffUtil.ItemCallback<ProductItemlistModel>(){
-        override fun areItemsTheSame(oldItem: ProductItemlistModel, newItem: ProductItemlistModel): Boolean {
+    class ProductDiffUtil : DiffUtil.ItemCallback<ProductItemlModel>(){
+        override fun areItemsTheSame(oldItem: ProductItemlModel, newItem: ProductItemlModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ProductItemlistModel, newItem: ProductItemlistModel): Boolean {
+        override fun areContentsTheSame(oldItem: ProductItemlModel, newItem: ProductItemlModel): Boolean {
             return oldItem == newItem
         }
     }

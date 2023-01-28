@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="product"
+            type="com.ssafy.fundyou.domain.model.ProductItemlModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_item_random_product"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
+            android:padding="4dp"
+            android:src="@drawable/bg_category_digital"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/tv_item_random_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/iv_item_random_product"
+            app:layout_constraintTop_toBottomOf="@+id/iv_item_random_product"
+            style="@style/base_font_medium_12"
+            android:text="@{product.brand}"
+            tools:text="삼성"/>
+        <TextView
+            android:id="@+id/tv_item_random_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_random_brand"
+            app:layout_constraintStart_toStartOf="@+id/iv_item_random_product"
+            style="@style/base_font_medium_14_black"
+            android:maxWidth="100dp"
+            android:text="@{product.name}"
+            tools:text="BESPOKE 냉장고"/>
+        <TextView
+            android:id="@+id/tv_item_random_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/iv_item_random_product"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_random_name"
+            android:layout_marginTop="10dp"
+            android:maxWidth="100dp"
+            style="@style/base_font_bold_14_black"
+            android:text="@{product.price}"
+            tools:text="100,000원"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -15,12 +15,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.domain.model.ProductItemlistModel
+import com.ssafy.fundyou.domain.model.ProductItemlModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
@@ -28,7 +27,7 @@ class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
-    private val rankingProductList = mutableListOf<ProductItemlistModel>()
+    private val rankingProductList = mutableListOf<ProductItemlModel>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
@@ -63,6 +62,7 @@ class MainFragment : Fragment() {
         initTitlePriceRange()
         initRankingItem()
         initFloatingBtn()
+        initRandomToday()
     }
 
     private fun initBanner() {
@@ -183,10 +183,12 @@ class MainFragment : Fragment() {
 
     private fun initRankingItem(){
         //임시 데이터 추가
-        rankingProductList.add(ProductItemlistModel(0, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemlistModel(1, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
-        rankingProductList.add(ProductItemlistModel(2, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", false))
-        rankingProductList.add(ProductItemlistModel(3, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", true))
+        rankingProductList.add(ProductItemlModel(0, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
+        rankingProductList.add(ProductItemlModel(1, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
+        rankingProductList.add(ProductItemlModel(2, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", false))
+        rankingProductList.add(ProductItemlModel(3, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", true))
+        rankingProductList.add(ProductItemlModel(4, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
+        rankingProductList.add(ProductItemlModel(5, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
 
 
         val rankingItemAdapter = ProductItemAdapter()
@@ -197,6 +199,16 @@ class MainFragment : Fragment() {
             adapter = rankingItemAdapter
         }
 
+    }
+
+    private fun initRandomToday(){
+        val randomAdapter = MainRandomItemAdapter()
+        randomAdapter.submitList(rankingProductList)
+
+        with(binding.rvMainRandom){
+            layoutManager = GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false)
+            adapter = randomAdapter
+        }
     }
 
     private fun initFloatingBtn(){
