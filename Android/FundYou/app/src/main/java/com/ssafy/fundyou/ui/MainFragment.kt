@@ -1,8 +1,8 @@
 package com.ssafy.fundyou.ui
 
+import android.graphics.Rect
 import android.graphics.drawable.Drawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +12,12 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
@@ -23,11 +26,13 @@ import com.ssafy.fundyou.domain.model.ProductItemlModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
+
 class MainFragment : Fragment() {
     private lateinit var binding: FragmentMainBinding
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
     private val rankingProductList = mutableListOf<ProductItemlModel>()
+    private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
@@ -63,6 +68,7 @@ class MainFragment : Fragment() {
         initRankingItem()
         initFloatingBtn()
         initRandomToday()
+        initPopularSearch()
     }
 
     private fun initBanner() {
@@ -203,12 +209,35 @@ class MainFragment : Fragment() {
 
     private fun initRandomToday(){
         val randomAdapter = MainRandomItemAdapter()
+        val spanCount = 4
         randomAdapter.submitList(rankingProductList)
 
         with(binding.rvMainRandom){
-            layoutManager = GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false)
+            layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = randomAdapter
+            addItemDecoration(HorizontalItemDecorator(25))
         }
+
+    }
+
+    private fun initPopularSearch(){
+        //임시 데이터 추가
+        for(i in 0 until 10){
+            popularSearchList.add("검색어")
+        }
+
+        val popularSearchAdapter = MainPopularSearchAdapter()
+        popularSearchAdapter.submitList(popularSearchList)
+
+        with(binding.rvMainPopularSearch){
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            adapter = popularSearchAdapter
+            val dividerItemDecoration = DividerItemDecoration(binding.rvMainPopularSearch.context, LinearLayoutManager(requireContext()).orientation)
+            addItemDecoration(dividerItemDecoration)
+
+            //아이템 사이 간격 넓히기
+        }
+
     }
 
     private fun initFloatingBtn(){
@@ -232,8 +261,6 @@ class MainFragment : Fragment() {
         }
     }
 
-
-
     override fun onResume() {
         super.onResume()
         setJobForBanner()
@@ -243,6 +270,19 @@ class MainFragment : Fragment() {
         super.onPause()
         job.cancel()
     }
+
+
+    class HorizontalItemDecorator(private val divWidth : Int) : RecyclerView.ItemDecoration() {
+
+        @Override
+        override fun getItemOffsets(outRect: Rect, view: View, parent : RecyclerView, state : RecyclerView.State) {
+            super.getItemOffsets(outRect, view, parent, state)
+            outRect.left = divWidth
+            outRect.right = divWidth
+        }
+    }
+
+
 }
 
 @BindingAdapter("bindImage")

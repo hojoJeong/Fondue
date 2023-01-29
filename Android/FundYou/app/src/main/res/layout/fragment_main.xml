@@ -275,14 +275,11 @@
                     android:id="@+id/rv_main_popular_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_main"
+                    android:layout_marginBottom="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/rv_main_category"
                     app:layout_constraintStart_toStartOf="@+id/rv_main_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_main_popular_search_title" />
-
-
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
