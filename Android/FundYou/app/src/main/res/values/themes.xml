@@ -38,11 +38,11 @@
     <style name="base_font_medium_12" parent="base_font_medium">
         <item name="android:textSize">12sp</item>
     </style>
-    
+
     <style name="base_font_medium_15" parent="base_font_medium">
         <item name="android:textSize">15sp</item>
     </style>
-    
+
     <style name="base_font_medium_16" parent="base_font_medium">
         <item name="android:textSize">16sp</item>
     </style>
@@ -58,10 +58,6 @@
 
     <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
         <item name="android:textColor">@color/midnight_express</item>
-    </style>
-
-    <style name="base_font_medium_14_black" parent="base_font_medium_14">
-        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="base_font_medium_14_raven" parent="base_font_medium_14">
@@ -91,6 +87,32 @@
 
     <style name="base_font_bold_16_midnight_express" parent="base_font_bold_16">
         <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <!-- set slider in main-->
+    <style name="slider_color_list" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/franch_rose</item>
+        <item name="colorOnPrimary">@color/franch_rose</item>
+        <item name="colorOnSurface">@color/pig_pink</item>
+    </style>
+    <style name="Widget.App.Tooltip" parent="Widget.Material3.Tooltip">
+        <item name="android:textAppearance">@style/TextAppearance.App.Tooltip</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+    <style name="TextAppearance.App.Tooltip" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/franch_rose</item>
+        <item name="fontFamily">@font/notosanskr_light</item>
+        <item name="android:fontFamily">@font/notosanskr_light</item>
+    </style>
+    <style name="main_slider" parent="Widget.MaterialComponents.Slider">
+        <item name="materialThemeOverlay">@style/slider_color_list</item>
+        <item name="labelStyle">@style/Widget.App.Tooltip</item>
+    </style>
+
+    <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor" >@color/chip_background</item>
+        <item name="chipStrokeColor">@color/chip_stroke</item>
+        <item name="android:textColor">@color/chip_text</item>
     </style>
 
 </resources>

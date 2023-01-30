@@ -9,6 +9,25 @@
     <string name="content_kakao_login">카카오톡으로 로그인</string>
     <string name="content_google_login">구글로 로그인</string>
 
+    <!-- 홈 -->
+    <string name="content_searchbar">찾으시는 선물을 검색해보세요</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_banner_indicator">%1$d / %2$d</string>
+    <string name="title_category">어떤 상품을 찾고 있나요?</string>
+    <string name="title_rank">앗 뜨거! 퐁듀에서 핫한 아이템!</string>
+    <string name="title_random">오늘의 퐁듀</string>
+    <string name="content_random_btn">더보기</string>
+    <string name="title_popular_search">많이 검색한 키워드</string>
+    <string name="title_AR_btn">AR</string>
+    <string name="title_category_all">전체</string>
+    <string name="title_category_digital">디지털/가전</string>
+    <string name="title_category_living">리빙/인테리어</string>
+    <string name="title_category_etc">기타</string>
+    <string name="title_rank_price_default">상품 가격대를 설정해주세요</string>
+    <string name="title_rank_price_range">%1$d만원 ~ %2$d만원</string>
+    <string name="title_rank_startprice">0원</string>
+    <string name="title_rank_endprice">100만원</string>
+
     <!-- 검색 -->
     <string name="title_search_recent_keyword_title">최근 검색어</string>
     <string name="title_search_recent_delete_keyword">모두 지우기</string>
