@@ -24,7 +24,6 @@ import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
-
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
