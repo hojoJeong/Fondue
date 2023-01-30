@@ -9,26 +9,25 @@ class SearchKeywordPreference(context: Context) {
     private val prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE)
 
     /** 현재 저장된 검색어 가져오기 */
-    fun getKeywordList(): ArrayList<String> {
+    fun getKeywordList(): List<String> {
         return decodeJSONArray(prefs.getString(KEY, null))
     }
 
-
     /** SharePreference에 데이터 저장 */
-    fun addKeyword(baseList: ArrayList<String>, value: String) {
+    fun addKeyword(value: String) {
+        val baseList = getKeywordList()
         val jsonArray = JSONArray()
-        if (baseList.size == MAX_SIZE) {
-            baseList.removeAt(MAX_SIZE - 1)
-        }
+
         jsonArray.put(value)
         baseList.forEach { keyword ->
             jsonArray.put(keyword)
         }
+
         prefs.edit().putString(KEY, jsonArray.toString()).apply()
     }
 
 
-    fun removeKeyword(baseList: ArrayList<String>, index : Int) {
+    fun removeKeyword(baseList: List<String>, index : Int) {
         val jsonArray = JSONArray()
         baseList.forEachIndexed { listIndex, keyword ->
             if(listIndex != index) jsonArray.put(keyword)
@@ -41,8 +40,8 @@ class SearchKeywordPreference(context: Context) {
     }
 
     //String으로 받은 sp를 ArrayList로 변환
-    private fun decodeJSONArray(json: String?): ArrayList<String> {
-        val keywordList = arrayListOf<String>()
+    private fun decodeJSONArray(json: String?): List<String> {
+        val keywordList = mutableListOf<String>()
 
         if (json != null) {
             val jsonArray = JSONArray(json)
@@ -55,6 +54,5 @@ class SearchKeywordPreference(context: Context) {
 
     companion object {
         private const val KEY = "SEARCH_KEYWORD"
-        private const val MAX_SIZE = 5
     }
 }

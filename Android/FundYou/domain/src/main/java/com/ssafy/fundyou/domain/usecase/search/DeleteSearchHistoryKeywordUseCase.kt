@@ -6,5 +6,5 @@ import javax.inject.Inject
 class DeleteSearchHistoryKeywordUseCase @Inject constructor(
     private val searchRepository: SearchRepository
 ) {
-    suspend operator fun invoke(keywordList : ArrayList<String>, index : Int) = searchRepository.deleteHistoryKeyword(keywordList, index)
+    suspend operator fun invoke(keywordList : List<String>, index : Int) = searchRepository.deleteHistoryKeyword(keywordList, index)
 }

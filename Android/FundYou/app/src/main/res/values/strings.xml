@@ -14,4 +14,5 @@
     <string name="title_search_recent_delete_keyword">모두 지우기</string>
     <string name="title_search_popular_keyword_title">인기 검색어</string>
     <string name="content_search_input_hint">찾으시는 선물을 검색해 보세요.</string>
+    <string name="content_search_no_keyword">검색기록이 없습니다.</string>
 </resources>

@@ -1,11 +1,13 @@
 package com.ssafy.fundyou.ui.search
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.Constant.SUCCESS
 import com.ssafy.fundyou.common.ViewState
+import com.ssafy.fundyou.domain.usecase.search.AddSearchHistoryKeyword
 import com.ssafy.fundyou.domain.usecase.search.DeleteAllHistoryKeywordUseCase
 import com.ssafy.fundyou.domain.usecase.search.DeleteSearchHistoryKeywordUseCase
 import com.ssafy.fundyou.domain.usecase.search.GetSearchHistoryListUseCase
@@ -15,18 +17,22 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SearchViewModel @Inject constructor(
+    private val addSearchHistoryKeyword: AddSearchHistoryKeyword,
     private val getSearchHistoryListUseCase: GetSearchHistoryListUseCase,
     private val deleteSearchHistoryKeywordUseCase: DeleteSearchHistoryKeywordUseCase,
     private val deleteAllHistoryKeywordUseCase: DeleteAllHistoryKeywordUseCase
 ) : ViewModel() {
-    private val _searchKeywordList = MutableLiveData<ViewState<ArrayList<String>>>()
-    val searchKeywordList: LiveData<ViewState<ArrayList<String>>> get() = _searchKeywordList
+    private val _searchKeywordList = MutableLiveData<ViewState<List<String>>>()
+    val searchKeywordList: LiveData<ViewState<List<String>>> get() = _searchKeywordList
 
     private val _allRemoveState = MutableLiveData<ViewState<Int>>()
     val allRemoveState: LiveData<ViewState<Int>> get() = _allRemoveState
 
     private val _keywordRemoveState = MutableLiveData<ViewState<Int>>()
     val keywordRemoveState: LiveData<ViewState<Int>> get() = _keywordRemoveState
+
+    private val _keywordAddState = MutableLiveData<ViewState<Int>>()
+    val keywordAddState: LiveData<ViewState<Int>> get() = _keywordAddState
 
     fun getSearchKeywordList() = viewModelScope.launch {
         _searchKeywordList.value = ViewState.Loading()
@@ -35,6 +41,20 @@ class SearchViewModel @Inject constructor(
             _searchKeywordList.value = ViewState.Success(response)
         } catch (e: Exception) {
             _searchKeywordList.value = ViewState.Error(e.message)
+        }
+    }
+
+    fun addSearchKeywordList(keyword: String) = viewModelScope.launch {
+        _keywordAddState.value = ViewState.Loading()
+        try {
+            val response = addSearchHistoryKeyword(keyword)
+            if (response == SUCCESS) {
+                _keywordAddState.value = ViewState.Success(response)
+            } else {
+                _keywordAddState.value = ViewState.Error("error")
+            }
+        } catch (e: Exception) {
+            _keywordAddState.value = ViewState.Error(e.message)
         }
     }
 
@@ -53,7 +73,7 @@ class SearchViewModel @Inject constructor(
             }
         }
 
-    fun deleteSearchKeyword(baseList: ArrayList<String>, keywordIndex: Int) =
+    fun deleteSearchKeyword(baseList: List<String>, keywordIndex: Int) =
         viewModelScope.launch {
             _allRemoveState.value = ViewState.Loading()
             try {

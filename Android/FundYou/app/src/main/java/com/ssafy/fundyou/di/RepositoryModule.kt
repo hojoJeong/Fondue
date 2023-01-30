@@ -1,8 +1,11 @@
 package com.ssafy.fundyou.di
 
+import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.repository.AuthRepositoryImpl
+import com.ssafy.fundyou.data.remote.repository.SearchRepositoryImpl
 import com.ssafy.fundyou.domain.repository.AuthRepository
+import com.ssafy.fundyou.domain.repository.SearchRepository
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -15,9 +18,17 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun bindsAuthRepository(
+    fun provideAuthRepository(
         authRemoteDataSourceImpl: AuthRemoteDataSourceImpl
     ): AuthRepository{
         return AuthRepositoryImpl(authRemoteDataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSearchRepository(
+        searchKeywordPreference: SearchKeywordPreference
+    ) : SearchRepository{
+        return SearchRepositoryImpl(searchKeywordPreference)
     }
 }
