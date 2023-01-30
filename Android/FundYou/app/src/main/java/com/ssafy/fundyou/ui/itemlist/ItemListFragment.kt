@@ -50,21 +50,25 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     private fun initTitlePriceRange() {
-        val slider = binding.sldItemList
-
-        slider.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
-            override fun onStartTrackingTouch(slider: RangeSlider) {
-            }
-
-            override fun onStopTrackingTouch(slider: RangeSlider) {
-                val priceRange = slider.values
-                val minPrice = priceRange[0].toInt()
-                val maxPrice = priceRange[priceRange.size - 1].toInt()
-
+        with(binding.sldItemList) {
+            addOnChangeListener { slider, _, _ ->
+                val sliderValueList = slider.values
+                val minPrice = sliderValueList[0].toInt()
+                val maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
                 binding.tvItemListPriceRange.text =
                     getString(R.string.title_rank_price_range, minPrice, maxPrice)
             }
-        })
+            addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
+                override fun onStartTrackingTouch(slider: RangeSlider) {
+
+                }
+
+                override fun onStopTrackingTouch(slider: RangeSlider) {
+
+                    //가격 범위 변경 시 서버통신 추가
+                }
+            })
+        }
     }
 
     private fun initItemList() {

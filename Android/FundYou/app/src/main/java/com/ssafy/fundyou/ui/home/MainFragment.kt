@@ -169,87 +169,159 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun initTitlePriceRange(){
-        binding.sldMainRank.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
-            override fun onStartTrackingTouch(slider: RangeSlider){}
-
-            override fun onStopTrackingTouch(slider: RangeSlider) {
-                val sliderValueList = binding.sldMainRank.values
+    private fun initTitlePriceRange() {
+        with(binding.sldMainRank) {
+            addOnChangeListener { slider, _, _ ->
+                val sliderValueList = slider.values
                 val minPrice = sliderValueList[0].toInt()
-                val maxPrice = sliderValueList[sliderValueList.size-1].toInt()
-                binding.tvMainRankPriceRange.text = getString(R.string.title_rank_price_range, minPrice, maxPrice)
-
-                //가격 범위 변경 시 서버통신 추가
+                val maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
+                binding.tvMainRankPriceRange.text =
+                    getString(R.string.title_rank_price_range, minPrice, maxPrice)
             }
-        })
+            addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
+                override fun onStartTrackingTouch(slider: RangeSlider) {
+
+                }
+
+                override fun onStopTrackingTouch(slider: RangeSlider) {
+
+                    //가격 범위 변경 시 서버통신 추가
+                }
+            })
+        }
     }
 
-    private fun initRankingItem(){
+    private fun initRankingItem() {
         //임시 데이터 추가
         rankingProductList.clear()
-        rankingProductList.add(ProductItemlModel(0, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemlModel(1, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
-        rankingProductList.add(ProductItemlModel(2, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", false))
-        rankingProductList.add(ProductItemlModel(3, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", true))
-        rankingProductList.add(ProductItemlModel(4, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemlModel(5, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
+        rankingProductList.add(
+            ProductItemlModel(
+                0,
+                "100,000 원",
+                "",
+                "BESPOKE 냉장고",
+                false,
+                "삼성",
+                true
+            )
+        )
+        rankingProductList.add(
+            ProductItemlModel(
+                1,
+                "100,000 원",
+                "",
+                "BESPOKE 냉장고",
+                true,
+                "삼성",
+                false
+            )
+        )
+        rankingProductList.add(
+            ProductItemlModel(
+                2,
+                "100,000 원",
+                "",
+                "BESPOKE 냉장고",
+                false,
+                "삼성",
+                false
+            )
+        )
+        rankingProductList.add(
+            ProductItemlModel(
+                3,
+                "100,000 원",
+                "",
+                "BESPOKE 냉장고",
+                true,
+                "삼성",
+                true
+            )
+        )
+        rankingProductList.add(
+            ProductItemlModel(
+                4,
+                "100,000 원",
+                "",
+                "BESPOKE 냉장고",
+                false,
+                "삼성",
+                true
+            )
+        )
+        rankingProductList.add(
+            ProductItemlModel(
+                5,
+                "100,000 원",
+                "",
+                "BESPOKE 냉장고",
+                true,
+                "삼성",
+                false
+            )
+        )
 
 
         val rankingItemAdapter = ProductItemAdapter()
         rankingItemAdapter.submitList(rankingProductList)
 
-        with(binding.rvMainRank){
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        with(binding.rvMainRank) {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
         }
 
     }
 
-    private fun initRandomItemList(){
+    private fun initRandomItemList() {
         val randomAdapter = MainRandomItemAdapter()
         val spanCount = 3
         randomAdapter.submitList(rankingProductList)
 
-        with(binding.rvMainRandom){
-            layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
+        with(binding.rvMainRandom) {
+            layoutManager =
+                GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = randomAdapter
             addItemDecoration(HorizontalItemDecorator(spanCount, 30))
         }
     }
 
-    private fun initShowMoreBtnListener(){
+    private fun initShowMoreBtnListener() {
         binding.btnMainRandomShowMore.setOnClickListener {
 
-            val actionItemListFragment = MainFragmentDirections.actionMainFragmentToItemListFragment(getString(R.string.title_category_all))
+            val actionItemListFragment =
+                MainFragmentDirections.actionMainFragmentToItemListFragment(getString(R.string.title_category_all))
             navigate(actionItemListFragment)
         }
     }
-    private fun initPopularSearch(){
+
+    private fun initPopularSearch() {
         //임시 데이터 추가
-        for(i in 0 until 10){
+        for (i in 0 until 10) {
             popularSearchList.add("검색어")
         }
         val spanCount = 2
         val popularSearchAdapter = MainPopularSearchAdapter()
         popularSearchAdapter.submitList(popularSearchList)
 
-        with(binding.rvMainPopularSearch){
-            layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
+        with(binding.rvMainPopularSearch) {
+            layoutManager =
+                GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = popularSearchAdapter
             addItemDecoration(HorizontalItemDecorator(spanCount, 30))
         }
     }
 
-    private fun initFloatingBtn(){
+    private fun initFloatingBtn() {
         val scrollView = binding.svMain
         val scrollUpBtn = binding.btnMainScrollUp
         scrollUpBtn.visibility = View.GONE
 
         scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, _, _, _ ->
-            if(v.scrollY > -1){
+            if (v.scrollY > -1) {
                 scrollUpBtn.visibility = View.VISIBLE
             }
-            if(!v.canScrollVertically(-1)){
+            if (!v.canScrollVertically(-1)) {
                 scrollUpBtn.visibility = View.GONE
             }
         })
@@ -272,16 +344,22 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
 
-    class HorizontalItemDecorator(private val spanCount: Int, private val leftMargin : Int) : RecyclerView.ItemDecoration() {
+    class HorizontalItemDecorator(private val spanCount: Int, private val leftMargin: Int) :
+        RecyclerView.ItemDecoration() {
 
         @Override
-        override fun getItemOffsets(outRect: Rect, view: View, parent : RecyclerView, state : RecyclerView.State) {
+        override fun getItemOffsets(
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
+        ) {
             super.getItemOffsets(outRect, view, parent, state)
 
             val position = parent.getChildAdapterPosition(view)
             val column = position % spanCount
 
-            if(column != 0){
+            if (column != 0) {
                 outRect.left = leftMargin
             }
         }
