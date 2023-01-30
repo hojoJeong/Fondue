@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.util
+package com.ssafy.fundyou.util.view
 
 import android.graphics.Rect
 import android.view.View

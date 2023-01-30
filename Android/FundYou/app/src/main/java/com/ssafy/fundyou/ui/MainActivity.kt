@@ -8,7 +8,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import com.ssafy.fundyou.R
-import com.ssafy.fundyou.databinding.ActivityBridgeBinding
 import com.ssafy.fundyou.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 

@@ -1,16 +1,13 @@
 package com.ssafy.fundyou.ui.home
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.view.View
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
@@ -19,7 +16,7 @@ import com.ssafy.fundyou.domain.model.ProductItemlModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
-import com.ssafy.fundyou.util.HorizontalItemDecorator
+import com.ssafy.fundyou.util.view.HorizontalItemDecorator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 

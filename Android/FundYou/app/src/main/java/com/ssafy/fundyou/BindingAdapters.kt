@@ -8,13 +8,13 @@ import androidx.databinding.BindingAdapter
 object BindingAdapters {
 
     @JvmStatic
-    @BindingAdapter("imgSrc")
+    @BindingAdapter("srcByResId")
     fun ImageView.setImgByResId(resId : Int){
         this.setImageResource(resId)
     }
 
     @JvmStatic
-    @BindingAdapter("bindImage")
+    @BindingAdapter("srcByDrawable")
     fun ImageView.bindImageFromRes(drawable: Drawable) {
         this.setImageDrawable(drawable)
     }
