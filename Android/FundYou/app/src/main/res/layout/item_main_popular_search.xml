@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             style="@style/base_font_bold_16_black"
             tools:text="1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
         <TextView
@@ -24,6 +25,7 @@
             app:layout_constraintBottom_toTopOf="@+id/dv_item_popular_search"
             app:layout_constraintBaseline_toBaselineOf="@+id/tv_main_popular_rank"
             tools:text="검색어"
+            android:textColor="@color/black"
             style="@style/base_font_medium_14_black"
             android:layout_marginStart="10dp"
             app:chainUseRtl="true"/>

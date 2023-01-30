@@ -40,6 +40,7 @@
         <TextView
             android:id="@+id/tv_item_random_name"
             style="@style/base_font_medium_14_black"
+            android:textColor="@color/black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:ellipsize="end"
@@ -62,7 +63,8 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/iv_item_random_product"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_random_name"
-            tools:text="100,000원" />
+            tools:text="100,000원"
+            android:textColor="@color/black" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

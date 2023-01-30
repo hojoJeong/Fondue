@@ -34,7 +34,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        bannerImageList.apply {
+        with(bannerImageList) {
             add(R.drawable.bg_banner_motiondesk)
             add(R.drawable.bg_banner_samsung_bespoke)
             add(R.drawable.bg_banner_ssafylogo2)

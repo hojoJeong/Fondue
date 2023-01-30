@@ -46,7 +46,8 @@
             android:layout_marginStart="20dp"
             app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
             app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
-            tools:text="1위" />
+            tools:text="1위"
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_item_list_product_brand"
@@ -69,6 +70,7 @@
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
             android:text="@{product.brand}"
+            android:textColor="@color/black"
             tools:text="상품 이름" />
 
         <TextView
@@ -80,6 +82,7 @@
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
             android:text="@{product.price}"
+            android:textColor="@color/black"
             tools:text="2,890,000원" />
 
         <androidx.appcompat.widget.AppCompatButton
