@@ -13,6 +13,9 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.ProductItemlModel
+import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
+import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
+import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
@@ -65,15 +68,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 
-        val bannerAdapter = BannerAdapter()
-        bannerAdapter.addAllItems(bannerImageList)
+        val mainBannerAdapter = MainBannerAdapter()
+        mainBannerAdapter.addAllItems(bannerImageList)
 
         binding.tvMainBannerIndicator.text = getString(
             R.string.content_banner_indicator, binding.vpMainBanner.currentItem + 1, bannerSize
         )
 
         with(binding.vpMainBanner) {
-            adapter = bannerAdapter
+            adapter = mainBannerAdapter
             setCurrentItem(currentBannerPosition, false)
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
