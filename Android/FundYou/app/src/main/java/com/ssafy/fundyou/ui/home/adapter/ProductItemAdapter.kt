@@ -14,7 +14,9 @@ import com.ssafy.fundyou.domain.model.ProductItemlModel
 class ProductItemAdapter: ListAdapter<ProductItemlModel, ProductItemAdapter.ProductItemViewHolder>(
     ProductDiffUtil()
 ) {
-    class ProductItemViewHolder(val binding: ItemListProductBinding): RecyclerView.ViewHolder(binding.root){
+    private var isItemListFragment = false
+
+    inner class ProductItemViewHolder(val binding: ItemListProductBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: ProductItemlModel, position: Int){
             when(item.isFavorite){
                 true -> {
@@ -26,11 +28,16 @@ class ProductItemAdapter: ListAdapter<ProductItemlModel, ProductItemAdapter.Prod
             }
 
             with(binding){
-                tvItemListProductRanking.text = "${position+1}위"
                 this.product = item
-
                 if(!item.isAr){
                     binding.btnItemListProductAr.visibility = View.GONE
+                }
+            }
+
+            if(!isItemListFragment){
+                with(binding.tvItemListProductRanking){
+                    visibility = View.VISIBLE
+                    text = "${position+1}위"
                 }
             }
         }
@@ -44,6 +51,10 @@ class ProductItemAdapter: ListAdapter<ProductItemlModel, ProductItemAdapter.Prod
 
     override fun onBindViewHolder(holder: ProductItemViewHolder, position: Int) {
         holder.bind(getItem(position), position)
+    }
+
+    fun setRanking(value: Boolean){
+        isItemListFragment = value
     }
 
     class ProductDiffUtil : DiffUtil.ItemCallback<ProductItemlModel>(){

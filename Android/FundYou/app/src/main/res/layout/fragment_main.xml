@@ -92,12 +92,12 @@
                     android:layout_marginBottom="@dimen/base_horizontal_margin"
                     android:text="@string/title_rank"
                     android:textColor="@color/black"
-                    app:layout_constraintBottom_toTopOf="@+id/hscv_main_rank_category"
+                    app:layout_constraintBottom_toTopOf="@+id/hscv_item_list_category"
                     app:layout_constraintStart_toStartOf="@+id/tv_main_category_title"
                     app:layout_constraintTop_toBottomOf="@+id/rv_main_category" />
 
                 <HorizontalScrollView
-                    android:id="@+id/hscv_main_rank_category"
+                    android:id="@+id/hscv_item_list_category"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
@@ -161,7 +161,7 @@
                     app:layout_constraintBottom_toTopOf="@+id/tv_main_rank_price_range"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/hscv_main_rank_category" />
+                    app:layout_constraintTop_toBottomOf="@+id/hscv_item_list_category" />
 
                 <TextView
                     android:id="@+id/tv_main_rank_price_range"
@@ -226,13 +226,13 @@
                     android:id="@+id/rv_main_random"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_main_random"
+                    app:layout_constraintBottom_toTopOf="@+id/btn_main_random_show_more"
                     app:layout_constraintEnd_toEndOf="@+id/rv_main_rank"
                     app:layout_constraintStart_toStartOf="@+id/rv_main_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_main_random_title" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/btn_main_random"
+                    android:id="@+id/btn_main_random_show_more"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/base_vertical_margin"
@@ -257,7 +257,7 @@
                     android:text="@string/title_popular_search"
                     app:layout_constraintBottom_toTopOf="@+id/rv_main_popular_search"
                     app:layout_constraintStart_toStartOf="@+id/tv_main_random_title"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_main_random" />
+                    app:layout_constraintTop_toBottomOf="@+id/btn_main_random_show_more" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_main_popular_search"

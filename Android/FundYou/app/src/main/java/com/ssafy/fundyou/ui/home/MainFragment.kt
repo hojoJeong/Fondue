@@ -1,17 +1,19 @@
 package com.ssafy.fundyou.ui.home
 
+import android.content.ContentValues.TAG
 import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
@@ -28,6 +30,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val categoryList = mutableListOf<MainCategoryModel>()
     private val rankingProductList = mutableListOf<ProductItemlModel>()
     private val popularSearchList = mutableListOf<String>()
+    private val categoryType = ""
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
@@ -54,6 +57,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initRankCategory()
         initTitlePriceRange()
         initRankingItem()
+        initShowMoreBtnListener()
         initFloatingBtn()
         initRandomItemList()
         initPopularSearch()
@@ -109,6 +113,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initCategory() {
         //임시 데이터 추가
+        categoryList.clear()
         categoryList.add(
             MainCategoryModel(
                 ContextCompat.getDrawable(
@@ -158,7 +163,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private fun initRankCategory() {
         binding.chipgMainRankCategory.setOnCheckedStateChangeListener { group, checkedId ->
 
-
+            val checkedChip = group.getChildAt(0) as Chip
+            val checkedChip2 = group.findViewById<Chip>(group.checkedChipId) as Chip
+            Log.d(TAG, "initRankCategory: ${checkedChip2.text}")
             //칩 선택 변경 시 서버통신 추가
         }
     }
@@ -180,6 +187,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initRankingItem(){
         //임시 데이터 추가
+        rankingProductList.clear()
         rankingProductList.add(ProductItemlModel(0, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
         rankingProductList.add(ProductItemlModel(1, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
         rankingProductList.add(ProductItemlModel(2, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", false))
@@ -208,9 +216,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             adapter = randomAdapter
             addItemDecoration(HorizontalItemDecorator(spanCount, 30))
         }
-
     }
 
+    private fun initShowMoreBtnListener(){
+        binding.btnMainRandomShowMore.setOnClickListener {
+
+            val actionItemListFragment = MainFragmentDirections.actionMainFragmentToItemListFragment(getString(R.string.title_category_all))
+            navigate(actionItemListFragment)
+        }
+    }
     private fun initPopularSearch(){
         //임시 데이터 추가
         for(i in 0 until 10){
@@ -271,7 +285,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             if(column != 0){
                 outRect.left = leftMargin
             }
-
         }
     }
 }
