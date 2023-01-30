@@ -90,7 +90,7 @@
             style="@style/base_font_medium"
             android:layout_width="50dp"
             android:layout_height="26dp"
-            android:background="@drawable/bg_rect_gradient_white_roud10_stroke1"
+            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
             android:text="@string/title_AR_btn"
             android:textColor="@color/franch_rose"
             app:layout_constraintBottom_toBottomOf="parent"

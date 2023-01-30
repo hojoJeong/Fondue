@@ -56,6 +56,10 @@
         <item name="android:textColor">@color/hawkes_blue</item>
     </style>
 
+    <style name="base_font_medium_12_link_water" parent="base_font_medium_12">
+        <item name="android:textColor">@color/link_water</item>
+    </style>
+
     <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
         <item name="android:textColor">@color/midnight_express</item>
     </style>
@@ -68,7 +72,11 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
-    <style name="base_font_medium_15_midnight_express" parent="base_font_medium">
+    <style name="base_font_medium_14_franch_rose" parent="base_font_medium_14">
+        <item name="android:textColor">@color/franch_rose</item>
+    </style>
+
+    <style name="base_font_medium_15_midnight_express" parent="base_font_medium_15">
         <item name="android:textColor">@color/midnight_express</item>
     </style>
 

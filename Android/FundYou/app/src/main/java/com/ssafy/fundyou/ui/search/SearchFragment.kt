@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_search) {
 
     private val viewModels by viewModels<SearchViewModel>()
+    private var isExistKeyword = false
     private val recentKeywordAdapter = SearchHistoryKeywordAdapter { currentList, index ->
         viewModels.deleteSearchKeyword(baseList = currentList, keywordIndex = index)
     }
@@ -47,7 +48,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun initDeleteAllRecentKeyword(){
         binding.tvAllDeleteRecentKeyword.setOnClickListener {
-            viewModels.deleteAllKeyword()
+            if(isExistKeyword) viewModels.deleteAllKeyword()
         }
     }
 
@@ -71,7 +72,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                 }
                 is ViewState.Success -> {
                     val result = response.value ?: emptyList()
-                    if (result.isEmpty()) binding.lySearchNoKeyword.root.visibility = View.VISIBLE
+                    if (result.isEmpty()) {
+                        binding.lySearchNoKeyword.root.visibility = View.VISIBLE
+                        isExistKeyword = false
+                    } else{
+                        isExistKeyword = true
+                    }
 
                     with(recentKeywordAdapter) {
                         addKeywordList(result)
