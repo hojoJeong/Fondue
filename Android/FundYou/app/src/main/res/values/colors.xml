@@ -12,4 +12,13 @@
     <color name="transparent">#00000000</color>
     <color name="midnight_express">#272D3F</color>
     <color name="golden_yellow">#FEE500</color>
+    <color name="hawkes_blue">#D6D8DE</color>
+    <color name="raven">#646A7E</color>
+    <color name="whisper">#E4E4E4</color>
+    <color name="vert_light_gray">#CACACA</color>
+    <color name="franch_rose">#FF4E8D</color>
+    <color name="blue_marguerite">#B0ACDD</color>
+    <color name="pig_pink">#FFD3E5</color>
+    <color name="link_water">#C5C8D0</color>
 </resources>
+
