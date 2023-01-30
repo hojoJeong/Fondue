@@ -30,7 +30,9 @@ class MainActivity : AppCompatActivity() {
     private var arFragment: ArFragment? = null
     private lateinit var renderable: ModelRenderable
     override fun onCreate(savedInstanceState: Bundle?) {
-
+        if(!checkIsSupportedDeviceOrFinish(this)){
+            return
+        }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         initFirebase()
@@ -102,5 +104,27 @@ class MainActivity : AppCompatActivity() {
         arFragment!!.arSceneView.scene.addChild(node)
         // 설치된 노드를 선택상태로 만듬
         transformableNode.select()
+    }
+
+    fun checkIsSupportedDeviceOrFinish(activity: Activity): Boolean {
+        if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
+            Log.e("suyong", "Sceneform requires Android N or later")
+            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG)
+                .show()
+            activity.finish()
+            return false
+        }
+        val openGlVersionString =
+            (activity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
+                .deviceConfigurationInfo
+                .glEsVersion
+        if (openGlVersionString.toDouble() < MIN_OPENGL_VERSION) {
+            Log.e("suyong", "Sceneform requires OpenGL ES 3.0 later")
+            Toast.makeText(activity, "Sceneform requires OpenGL ES 3.0 or later", Toast.LENGTH_LONG)
+                .show()
+            activity.finish()
+            return false
+        }
+        return true
     }
 }
