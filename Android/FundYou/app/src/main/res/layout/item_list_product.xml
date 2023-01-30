@@ -4,7 +4,7 @@
     <data>
         <variable
             name="context"
-            type="com.ssafy.fundyou.ui.MainFragment" />
+            type="com.ssafy.fundyou.ui.home.MainFragment" />
         <variable
             name="product"
             type="com.ssafy.fundyou.domain.model.ProductItemlModel" />
@@ -57,6 +57,7 @@
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
             android:text="@{product.name}"
+            android:textColor="@color/link_water"
             tools:text="삼성" />
 
         <TextView

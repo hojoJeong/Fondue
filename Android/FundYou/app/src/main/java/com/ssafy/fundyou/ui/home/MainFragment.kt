@@ -1,18 +1,11 @@
-package com.ssafy.fundyou.ui
+package com.ssafy.fundyou.ui.home
 
 import android.graphics.Rect
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
-import androidx.databinding.BindingAdapter
-import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
@@ -23,12 +16,14 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.ProductItemlModel
+import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.home.adapter.*
+import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
 
-class MainFragment : Fragment() {
-    private lateinit var binding: FragmentMainBinding
+class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
     private val rankingProductList = mutableListOf<ProductItemlModel>()
@@ -47,28 +42,24 @@ class MainFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_main, container, false)
-        return binding.root
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        init()
+        initView()
     }
 
-    private fun init(){
+    override fun initView() {
         initBanner()
         initCategory()
         initRankCategory()
         initTitlePriceRange()
         initRankingItem()
         initFloatingBtn()
-        initRandomToday()
+        initRandomItemList()
         initPopularSearch()
+    }
+
+    override fun initViewModels() {
     }
 
     private fun initBanner() {
@@ -207,15 +198,15 @@ class MainFragment : Fragment() {
 
     }
 
-    private fun initRandomToday(){
+    private fun initRandomItemList(){
         val randomAdapter = MainRandomItemAdapter()
-        val spanCount = 4
+        val spanCount = 3
         randomAdapter.submitList(rankingProductList)
 
         with(binding.rvMainRandom){
             layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = randomAdapter
-            addItemDecoration(HorizontalItemDecorator(25))
+            addItemDecoration(HorizontalItemDecorator(spanCount, 30))
         }
 
     }
@@ -225,19 +216,15 @@ class MainFragment : Fragment() {
         for(i in 0 until 10){
             popularSearchList.add("검색어")
         }
-
+        val spanCount = 2
         val popularSearchAdapter = MainPopularSearchAdapter()
         popularSearchAdapter.submitList(popularSearchList)
 
         with(binding.rvMainPopularSearch){
-            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = popularSearchAdapter
-            val dividerItemDecoration = DividerItemDecoration(binding.rvMainPopularSearch.context, LinearLayoutManager(requireContext()).orientation)
-            addItemDecoration(dividerItemDecoration)
-
-            //아이템 사이 간격 넓히기
+            addItemDecoration(HorizontalItemDecorator(spanCount, 30))
         }
-
     }
 
     private fun initFloatingBtn(){
@@ -272,20 +259,19 @@ class MainFragment : Fragment() {
     }
 
 
-    class HorizontalItemDecorator(private val divWidth : Int) : RecyclerView.ItemDecoration() {
+    class HorizontalItemDecorator(private val spanCount: Int, private val leftMargin : Int) : RecyclerView.ItemDecoration() {
 
         @Override
         override fun getItemOffsets(outRect: Rect, view: View, parent : RecyclerView, state : RecyclerView.State) {
             super.getItemOffsets(outRect, view, parent, state)
-            outRect.left = divWidth
-            outRect.right = divWidth
+
+            val position = parent.getChildAdapterPosition(view)
+            val column = position % spanCount
+
+            if(column != 0){
+                outRect.left = leftMargin
+            }
+
         }
     }
-
-
-}
-
-@BindingAdapter("bindImage")
-fun bindImageFromRes(view: ImageView, drawable: Drawable) {
-    view.setImageDrawable(drawable)
 }

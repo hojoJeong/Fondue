@@ -1,16 +1,15 @@
-package com.ssafy.fundyou
+package com.ssafy.fundyou.ui.home.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.databinding.ItemMainPopularSearchBinding
-import com.ssafy.fundyou.domain.model.ProductItemlModel
 
-class MainPopularSearchAdapter: ListAdapter<String, MainPopularSearchAdapter.MainPopularSearchViewHolder>(ProductDiffUtil()) {
+class MainPopularSearchAdapter: ListAdapter<String, MainPopularSearchAdapter.MainPopularSearchViewHolder>(
+    ProductDiffUtil()
+) {
 
     class MainPopularSearchViewHolder(val binding: ItemMainPopularSearchBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(term: String, position: Int){

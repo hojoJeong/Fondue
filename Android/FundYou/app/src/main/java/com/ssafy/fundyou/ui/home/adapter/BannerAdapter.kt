@@ -1,11 +1,8 @@
-package com.ssafy.fundyou
+package com.ssafy.fundyou.ui.home.adapter
 
-import android.content.ContentValues.TAG
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.fundyou.databinding.ItemMainBannerBinding
 
 class BannerAdapter : RecyclerView.Adapter<BannerAdapter.BannerViewHolder>() {

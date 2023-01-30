@@ -1,12 +1,13 @@
-package com.ssafy.fundyou
+package com.ssafy.fundyou.ui.home.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemMainCategoryBinding
-import com.ssafy.fundyou.ui.MainFragment
+import com.ssafy.fundyou.ui.home.model.MainCategoryModel
+import com.ssafy.fundyou.ui.home.MainFragment
 
 class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.MainCategoryViewHolder>() {
     private var categoryItemList = mutableListOf<MainCategoryModel>()

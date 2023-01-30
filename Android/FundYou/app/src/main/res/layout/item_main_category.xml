@@ -3,10 +3,10 @@
     <data>
         <variable
             name="activity"
-            type="com.ssafy.fundyou.ui.MainFragment" />
+            type="com.ssafy.fundyou.ui.home.MainFragment" />
         <variable
             name="category"
-            type="com.ssafy.fundyou.MainCategoryModel" />
+            type="com.ssafy.fundyou.ui.home.model.MainCategoryModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"

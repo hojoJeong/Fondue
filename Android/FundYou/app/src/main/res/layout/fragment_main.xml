@@ -106,42 +106,46 @@
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chipg_main_rank_category"
+                        style="@style/Widget.MaterialComponents.Chip.Choice"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
+                        app:selectionRequired="true"
                         app:singleLine="true"
-                        app:singleSelection="true"
-                        app:selectionRequired="true">
+                        app:singleSelection="true">
+
                         <com.google.android.material.chip.Chip
                             android:id="@+id/btn_main_rank_category_all"
+                            style="@style/custom_chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/title_category_all"
                             android:checked="true"
-                            app:chipStrokeWidth="1dp"
-                            style="@style/custom_chip"/>
+                            android:text="@string/title_category_all"
+                            app:chipStrokeWidth="1dp" />
+
                         <com.google.android.material.chip.Chip
                             android:id="@+id/btn_main_rank_category_digital"
+                            style="@style/custom_chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_digital"
-                            app:chipStrokeWidth="1dp"
-                            style="@style/custom_chip"/>
+                            app:chipStrokeWidth="1dp" />
+
                         <com.google.android.material.chip.Chip
                             android:id="@+id/btn_main_rank_category_living"
+                            style="@style/custom_chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_living"
-                            app:chipStrokeWidth="1dp"
-                            style="@style/custom_chip" />
+                            app:chipStrokeWidth="1dp" />
+
                         <com.google.android.material.chip.Chip
                             android:id="@+id/btn_main_rank_category_etc"
+                            style="@style/custom_chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_etc"
-                            app:chipStrokeWidth="1dp"
-                            style="@style/custom_chip"/>
+                            app:chipStrokeWidth="1dp" />
                     </com.google.android.material.chip.ChipGroup>
                 </HorizontalScrollView>
 
@@ -158,50 +162,50 @@
 
                 <TextView
                     android:id="@+id/tv_main_rank_price_range"
+                    style="@style/base_font_bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toTopOf="@+id/sld_main_rank"
                     android:text="@string/title_rank_price_default"
-                    style="@style/base_font_bold"
-                    android:textColor="@color/franch_rose"/>
+                    android:textColor="@color/franch_rose"
+                    app:layout_constraintBottom_toTopOf="@+id/sld_main_rank"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/sld_main_rank"
+                    style="@style/main_slider"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
                     android:stepSize="10.0"
                     android:valueFrom="00.0"
                     android:valueTo="100.0"
-                    android:layout_margin="20dp"
+                    app:labelBehavior="gone"
                     app:layout_constraintBottom_toTopOf="@+id/dv_main_under_sld"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dv_main_on_sld"
-                    app:values="@array/initial_rank_price_values"
-                    style="@style/main_slider"
-                    app:labelBehavior="gone"
-                    />
+                    app:values="@array/initial_rank_price_values" />
 
                 <TextView
                     android:id="@+id/tv_main_rank_startprice"
+                    style="@style/base_font_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/sld_main_rank"
-                    app:layout_constraintTop_toBottomOf="@+id/sld_main_rank"
-                    android:text="@string/title_rank_startprice"
                     android:layout_marginStart="6dp"
-                    style="@style/base_font_medium"/>
+                    android:text="@string/title_rank_startprice"
+                    app:layout_constraintStart_toStartOf="@+id/sld_main_rank"
+                    app:layout_constraintTop_toBottomOf="@+id/sld_main_rank" />
+
                 <TextView
                     android:id="@+id/tv_main_rank_endprice"
+                    style="@style/base_font_medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:layout_constraintEnd_toEndOf="@+id/sld_main_rank"
-                    app:layout_constraintTop_toBottomOf="@+id/sld_main_rank"
-                    android:text="@string/title_rank_endprice"
                     android:layout_marginEnd="6dp"
-                    style="@style/base_font_medium"/>
+                    android:text="@string/title_rank_endprice"
+                    app:layout_constraintEnd_toEndOf="@+id/sld_main_rank"
+                    app:layout_constraintTop_toBottomOf="@+id/sld_main_rank" />
 
                 <com.google.android.material.divider.MaterialDivider
                     android:id="@+id/dv_main_under_sld"
@@ -230,16 +234,16 @@
                     android:layout_marginTop="@dimen/margin_main_between_content"
                     android:layout_marginBottom="@dimen/margin_main"
                     android:text="@string/title_random"
+                    app:layout_constraintBottom_toTopOf="@+id/rv_main_random"
                     app:layout_constraintStart_toStartOf="@+id/tv_main_rank_title"
-                    app:layout_constraintTop_toBottomOf="@+id/rv_main_rank"
-                    app:layout_constraintBottom_toTopOf="@+id/rv_main_random"/>
+                    app:layout_constraintTop_toBottomOf="@+id/rv_main_rank" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_main_random"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     app:layout_constraintBottom_toTopOf="@+id/btn_main_random"
-                    app:layout_constraintEnd_toEndOf="@+id/rv_main_category"
+                    app:layout_constraintEnd_toEndOf="@+id/rv_main_rank"
                     app:layout_constraintStart_toStartOf="@+id/rv_main_category"
                     app:layout_constraintTop_toBottomOf="@+id/tv_main_random_title" />
 
@@ -247,11 +251,11 @@
                     android:id="@+id/btn_main_random"
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_main"
                     android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
                     android:drawableRight="@drawable/ic_arrow_forward_24"
                     android:drawableTint="@color/vert_light_gray"
                     android:padding="10dp"
-                    android:layout_marginTop="@dimen/margin_main"
                     android:text="@string/content_random_btn"
                     android:textColor="@color/vert_light_gray"
                     app:layout_constraintBottom_toTopOf="@+id/tv_main_popular_search_title"
@@ -264,9 +268,9 @@
                     style="@style/base_font_bold_16_black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_popular_search"
                     android:layout_marginTop="@dimen/margin_main_between_content"
                     android:layout_marginBottom="@dimen/margin_main"
+                    android:text="@string/title_popular_search"
                     app:layout_constraintBottom_toTopOf="@+id/rv_main_popular_search"
                     app:layout_constraintStart_toStartOf="@+id/tv_main_random_title"
                     app:layout_constraintTop_toBottomOf="@+id/btn_main_random" />

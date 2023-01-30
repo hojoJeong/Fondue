@@ -1,4 +1,4 @@
-package com.ssafy.fundyou
+package com.ssafy.fundyou.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +7,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemListProductBinding
 import com.ssafy.fundyou.domain.model.ProductItemlModel
-import java.text.DecimalFormat
 
-class ProductItemAdapter: ListAdapter<ProductItemlModel, ProductItemAdapter.ProductItemViewHolder>(ProductDiffUtil()) {
+class ProductItemAdapter: ListAdapter<ProductItemlModel, ProductItemAdapter.ProductItemViewHolder>(
+    ProductDiffUtil()
+) {
     class ProductItemViewHolder(val binding: ItemListProductBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: ProductItemlModel, position: Int){
             when(item.isFavorite){
@@ -35,7 +37,8 @@ class ProductItemAdapter: ListAdapter<ProductItemlModel, ProductItemAdapter.Prod
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductItemViewHolder {
-        val view = DataBindingUtil.inflate<ItemListProductBinding>(LayoutInflater.from(parent.context), R.layout.item_list_product, parent, false)
+        val view = DataBindingUtil.inflate<ItemListProductBinding>(LayoutInflater.from(parent.context),
+            R.layout.item_list_product, parent, false)
         return ProductItemViewHolder(view)
     }
 
