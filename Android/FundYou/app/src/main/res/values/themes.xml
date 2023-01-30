@@ -64,6 +64,10 @@
         <item name="android:textColor">@color/raven</item>
     </style>
 
+    <style name="base_font_medium_14_black" parent="base_font_medium_14">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
     <style name="base_font_medium_15_midnight_express" parent="base_font_medium">
         <item name="android:textColor">@color/midnight_express</item>
     </style>

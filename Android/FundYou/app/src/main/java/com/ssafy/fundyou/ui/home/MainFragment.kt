@@ -19,6 +19,7 @@ import com.ssafy.fundyou.domain.model.ProductItemlModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
+import com.ssafy.fundyou.util.HorizontalItemDecorator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
@@ -57,6 +58,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initFloatingBtn()
         initRandomItemList()
         initPopularSearch()
+        initSearchClickEvent()
     }
 
     override fun initViewModels() {
@@ -104,6 +106,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     }
                 }
             })
+        }
+    }
+
+    private fun initSearchClickEvent(){
+        binding.editMainSearch.setOnClickListener {
+            navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
     }
 
@@ -157,8 +165,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initRankCategory() {
         binding.chipgMainRankCategory.setOnCheckedStateChangeListener { group, checkedId ->
-
-
             //칩 선택 변경 시 서버통신 추가
         }
     }
@@ -256,22 +262,5 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun onPause() {
         super.onPause()
         job.cancel()
-    }
-
-
-    class HorizontalItemDecorator(private val spanCount: Int, private val leftMargin : Int) : RecyclerView.ItemDecoration() {
-
-        @Override
-        override fun getItemOffsets(outRect: Rect, view: View, parent : RecyclerView, state : RecyclerView.State) {
-            super.getItemOffsets(outRect, view, parent, state)
-
-            val position = parent.getChildAdapterPosition(view)
-            val column = position % spanCount
-
-            if(column != 0){
-                outRect.left = leftMargin
-            }
-
-        }
     }
 }

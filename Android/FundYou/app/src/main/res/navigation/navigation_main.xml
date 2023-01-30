@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.ssafy.fundyou.ui.main.MainFragment"
+        android:name="com.ssafy.fundyou.ui.home.MainFragment"
         android:label="MainFragment" >
         <action
             android:id="@+id/action_mainFragment_to_searchFragment"
