@@ -9,7 +9,7 @@ import com.ssafy.fundyou.databinding.ItemMainCategoryBinding
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import com.ssafy.fundyou.ui.home.MainFragment
 
-class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.MainCategoryViewHolder>() {
+class MainCategoryAdapter(private val categoryType: (String) -> Unit) : RecyclerView.Adapter<MainCategoryAdapter.MainCategoryViewHolder>() {
     private var categoryItemList = mutableListOf<MainCategoryModel>()
     private lateinit var activity: MainFragment
 
@@ -18,6 +18,9 @@ class MainCategoryAdapter : RecyclerView.Adapter<MainCategoryAdapter.MainCategor
         fun bind(item: MainCategoryModel) {
             binding.category = item
             binding.activity = activity
+            binding.cstlItemMainCategory.setOnClickListener {
+                categoryType.invoke(binding.tvMainItemCategory.text.toString())
+            }
         }
     }
 

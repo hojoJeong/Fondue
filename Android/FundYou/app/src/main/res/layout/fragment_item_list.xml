@@ -15,18 +15,18 @@
             android:id="@+id/hscv_item_list_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/base_horizontal_margin"
             android:layout_marginTop="@dimen/base_vertical_margin"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            android:scrollbars="none">
 
             <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chipg_item_list_category"
                 style="@style/Widget.MaterialComponents.Chip.Choice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
+                android:layout_gravity="end"
                 app:selectionRequired="true"
                 app:singleLine="true"
                 app:singleSelection="true">
@@ -38,6 +38,15 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="@string/title_category_all"
+                    app:chipStrokeWidth="1dp"
+                    android:layout_marginStart="10dp"/>
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/btn_item_list_category_living"
+                    style="@style/custom_chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_category_living"
                     app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
@@ -49,12 +58,12 @@
                     app:chipStrokeWidth="1dp" />
 
                 <com.google.android.material.chip.Chip
-                    android:id="@+id/btn_item_list_category_living"
-                    style="@style/custom_chip"
+                    android:id="@+id/btn_main_rank_category_kitchen"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/title_category_living"
-                    app:chipStrokeWidth="1dp" />
+                    android:text="@string/title_category_kitchen"
+                    style="@style/custom_chip"
+                    app:chipStrokeWidth="1dp"/>
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/btn_item_list_category_etc"
@@ -62,7 +71,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/title_category_etc"
-                    app:chipStrokeWidth="1dp" />
+                    app:chipStrokeWidth="1dp"
+                    android:layout_marginEnd="10dp"/>
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 

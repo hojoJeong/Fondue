@@ -2,13 +2,17 @@ package com.ssafy.fundyou.ui.itemlist
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.os.TokenWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.HorizontalScrollView
+import android.widget.ScrollView
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemListBinding
@@ -44,8 +48,22 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     private fun initCategory() {
-        binding.chipgItemListCategory.setOnCheckedStateChangeListener { group, checkedId ->
-            //칩 선택시 데이터 갱신을 위한 서버통신
+        val categoryGroup = binding.chipgItemListCategory
+        val hScrollView = binding.hscvItemListCategory
+        for(chipNum in 0 until categoryGroup.childCount){
+            val category = categoryGroup.getChildAt(chipNum) as Chip
+            Log.d(TAG, "initCategory: ${category.text}")
+            if(category.text.equals(categoryType.categoryType)){
+                category.isChecked = true
+                hScrollView.post{
+                    hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
+                }
+                //TODO("상품 목록 초기 진입 시 카테고리에 따른 데이터 호출")
+                break
+            }
+        }
+        categoryGroup.setOnCheckedStateChangeListener { group, checkedId ->
+            //TODO("칩 변경 시 서버통신")
         }
     }
 
@@ -65,7 +83,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
 
-                    //가격 범위 변경 시 서버통신 추가
+                    //TODO("가격 변경 시 서버통신")
                 }
             })
         }

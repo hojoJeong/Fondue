@@ -34,7 +34,7 @@
             android:layout_height="20dp"
             android:layout_margin="6dp"
             android:scaleType="centerInside"
-            android:src="@drawable/bg_favorite_line"
+
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product" />
 
@@ -47,6 +47,7 @@
             app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
             tools:text="1위"
             android:visibility="gone"
+            tools:visibility="visible"
             android:textColor="@color/black"/>
 
         <TextView

@@ -29,7 +29,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val categoryList = mutableListOf<MainCategoryModel>()
     private val rankingProductList = mutableListOf<ProductItemlModel>()
     private val popularSearchList = mutableListOf<String>()
-    private val categoryType = ""
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
@@ -142,7 +141,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
 
-        val categoryAdapter = MainCategoryAdapter()
+        val categoryAdapter = MainCategoryAdapter{ categoryType ->
+            val actionCategory = MainFragmentDirections.actionMainFragmentToItemListFragment(categoryType)
+            navigate(actionCategory)
+        }
+
         categoryAdapter.initCategoryItem(categoryList, this)
 
         binding.rvMainCategory.apply {
@@ -289,14 +292,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private fun initShowMoreBtnListener() {
         binding.btnMainRandomShowMore.setOnClickListener {
 
-            val actionItemListFragment =
+            val actionShowMoreBtn =
                 MainFragmentDirections.actionMainFragmentToItemListFragment(getString(R.string.title_category_all))
-            navigate(actionItemListFragment)
+            navigate(actionShowMoreBtn)
         }
     }
 
     private fun initPopularSearch() {
         //임시 데이터 추가
+        popularSearchList.clear()
         for (i in 0 until 10) {
             popularSearchList.add("검색어")
         }
