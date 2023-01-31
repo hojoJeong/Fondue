@@ -1,8 +1,8 @@
 package com.ssafy.fundyou.domain.model
 
-data class ProductItemlModel(
+data class ProductItemModel(
     val id: Long,
-    val price: String,
+    val price: Int,
     val img: String,
     val name: String,
     val isAr: Boolean,
