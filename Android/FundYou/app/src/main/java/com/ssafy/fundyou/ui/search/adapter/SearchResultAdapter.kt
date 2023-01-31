@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemSearchResultListBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 
 class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.SearchResultHolder>(SearchResultDiffUtil) {
 

@@ -14,6 +14,9 @@
         <action
             android:id="@+id/action_mainFragment_to_itemDetailFragment"
             app:destination="@id/itemDetailFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_itemListFragment"
+            app:destination="@id/itemListFragment" />
     </fragment>
 
     <fragment
@@ -46,5 +49,15 @@
             app:argType="integer"
             app:nullable="false"/>
     </fragment>
+    <fragment
+        android:id="@+id/itemListFragment"
+        android:name="com.ssafy.fundyou.ui.itemlist.ItemListFragment"
+        android:label="ItemListFragment">
+        <argument
+            android:name="category_type"
+            app:nullable="false"
+            app:argType="string"/>
+    </fragment>
+
 
 </navigation>

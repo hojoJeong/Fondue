@@ -33,8 +33,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="6dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_favorite_line"
+            android:scaleType="centerInside"
+            app:favoriteImage="@{product.favorite}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product" />
 
@@ -43,10 +43,11 @@
             style="@style/base_font_bold_16_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_brand"
             app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
             tools:text="1위"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:textColor="@color/black"/>
 
         <TextView
@@ -55,9 +56,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+            app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
             android:text="@{product.name}"
+            android:layout_marginStart="20dp"
+
             android:textColor="@color/link_water"
             tools:text="삼성" />
 
@@ -94,6 +97,7 @@
             android:text="@string/title_AR_btn"
             android:textColor="@color/franch_rose"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:arVisibility="@{product.ar}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
