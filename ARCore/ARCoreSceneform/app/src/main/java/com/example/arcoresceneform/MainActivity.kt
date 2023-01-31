@@ -41,6 +41,7 @@ private const val MIN_OPENGL_VERSION = 3.0
 
 class MainActivity : AppCompatActivity() {
     private var arFragment: ArFragment? = null
+    private lateinit var btnCapture: Button
     private lateinit var renderable: ModelRenderable
 
     @RequiresApi(VERSION_CODES.O)
@@ -50,15 +51,20 @@ class MainActivity : AppCompatActivity() {
         }
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         initFirebase()
         arFragment = supportFragmentManager.findFragmentById(R.id.arFragment) as ArFragment?
-        findViewById<Button>(R.id.btn_capture).setOnClickListener {
-            getBitmapFromView(findViewById(R.id.arFragment)){
-                screenShot(it)
+
+        btnCapture = findViewById<Button>(R.id.btn_capture)
+        btnCapture.setOnClickListener {
+            it.visibility = View.INVISIBLE
+            getBitmapFromView(findViewById(R.id.arFragment)) {
+                convertBMPtoPNG(it)
             }
         }
     }
 
+    /** Firebase Storage에서 가져올 데이터 초기화 */
     private fun initFirebase() {
         FirebaseApp.initializeApp(this)
         val storage = FirebaseStorage.getInstance()
@@ -68,9 +74,9 @@ class MainActivity : AppCompatActivity() {
         val file = File.createTempFile("sofa", "glb")
         // StorageReference에서 file에 파일을 비동기식으로 다운로드.
         writeFileFromFirebase(modelRef, file)
-
     }
 
+    /** Firebase Storage에서 파일을 다운로드*/
     private fun writeFileFromFirebase(modelRef: StorageReference, file: File) {
         modelRef.getFile(file)
             .addOnSuccessListener { // 다운로드 성공
@@ -109,6 +115,7 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
+    /** 특정 위치에 모델을 배치 */
     private fun addModelToScene(anchor: Anchor, modelRenderable: ModelRenderable) {
 
         // ARCore 앵커를 기반으로 월드 공간에 자동으로 배치되는 노드
@@ -116,17 +123,19 @@ class MainActivity : AppCompatActivity() {
 
         // TransformationSystem의 동작을 사용하여 선택하고 변환하고 회전하고 확장할 수 있는 노드
         val transformableNode = TransformableNode(arFragment!!.transformationSystem)
-        transformableNode.setParent(node)
-        transformableNode.scaleController.maxScale = 1.0f
-        transformableNode.scaleController.minScale = 0.8f
-        transformableNode.renderable = modelRenderable
+        transformableNode.apply {
+            setParent(node)
+            scaleController.maxScale = 1.0f
+            scaleController.minScale = 0.8f
+            renderable = modelRenderable
+        }
 
         // 현재 AR Scene에 노드를 등록
         arFragment!!.arSceneView.scene.addChild(node)
         // 설치된 노드를 선택상태로 만듬
         transformableNode.select()
     }
-
+    /** 디바이스의 Sceneform 지원 여부 확인 */
     fun checkIsSupportedDeviceOrFinish(activity: Activity): Boolean {
         if (Build.VERSION.SDK_INT < VERSION_CODES.N) {
             Log.e("suyong", "Sceneform requires Android N or later")
@@ -149,6 +158,7 @@ class MainActivity : AppCompatActivity() {
         return true
     }
 
+    /** view에 표시된 픽셀을 비트맵으로 복사 */
     @RequiresApi(VERSION_CODES.O)
     fun getBitmapFromView(view: View, callback: (Bitmap?) -> Unit) {
         Log.d("suyong", "starting capture")
@@ -169,7 +179,10 @@ class MainActivity : AppCompatActivity() {
                 ),
                 bitmap,
                 { copyResult -> // PixelCopy.OnPixelCopyFinishedListener
-                    if (copyResult == PixelCopy.SUCCESS) callback.invoke(bitmap)
+                    if (copyResult == PixelCopy.SUCCESS) {
+                        callback.invoke(bitmap)
+                        btnCapture.visibility = View.VISIBLE
+                    }
                     else callback.invoke(null)
                 }, Handler(Looper.getMainLooper())
             )
@@ -178,7 +191,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun screenShot(bitmap: Bitmap?) {
+    /** 비트맵 -> png파일로 저장 및 공유*/
+    private fun convertBMPtoPNG(bitmap: Bitmap?) {
         try {
             Log.d("suyong", "sharing picture")
 
@@ -200,8 +214,10 @@ class MainActivity : AppCompatActivity() {
                 FileProvider.getUriForFile(this, "com.example.arcoresceneform", newFile)
 
             val sharingIntent = Intent(Intent.ACTION_SEND)
-            sharingIntent.type = "image/png"
-            sharingIntent.putExtra(Intent.EXTRA_STREAM, contentUri)
+            sharingIntent.apply {
+                type = "image/png"
+                putExtra(Intent.EXTRA_STREAM, contentUri)
+            }
             startActivity(Intent.createChooser(sharingIntent, "share image"))
         } catch (e: IOException) {
             Log.d("suyong", "faild to sharing")
