@@ -25,12 +25,15 @@ import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
-
+@AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
+    @Inject lateinit var mainBannerAdapter: MainBannerAdapter
     private val categoryList = mutableListOf<MainCategoryModel>()
     private val rankingProductList = mutableListOf<ProductItemModel>()
     private val popularSearchList = mutableListOf<String>()
@@ -74,7 +77,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 
-        val mainBannerAdapter = MainBannerAdapter()
         mainBannerAdapter.addAllItems(bannerImageList)
 
         binding.tvMainBannerIndicator.text = getString(
