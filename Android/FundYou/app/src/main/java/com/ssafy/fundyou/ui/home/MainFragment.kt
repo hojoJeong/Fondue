@@ -12,14 +12,14 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.domain.model.ProductItemlModel
+import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
-import com.ssafy.fundyou.util.view.HorizontalItemDecorator
+import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
@@ -27,7 +27,7 @@ import kotlinx.coroutines.delay
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
-    private val rankingProductList = mutableListOf<ProductItemlModel>()
+    private val rankingProductList = mutableListOf<ProductItemModel>()
     private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
@@ -186,12 +186,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initRankingItem(){
         //임시 데이터 추가
-        rankingProductList.add(ProductItemlModel(0, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemlModel(1, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
-        rankingProductList.add(ProductItemlModel(2, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", false))
-        rankingProductList.add(ProductItemlModel(3, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", true))
-        rankingProductList.add(ProductItemlModel(4, "100,000 원", "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemlModel(5, "100,000 원", "", "BESPOKE 냉장고", true, "삼성", false))
+        rankingProductList.add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+        rankingProductList.add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+        rankingProductList.add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
+        rankingProductList.add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
+        rankingProductList.add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+        rankingProductList.add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
 
 
         val rankingItemAdapter = ProductItemAdapter()
@@ -212,7 +212,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         with(binding.rvMainRandom){
             layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = randomAdapter
-            addItemDecoration(HorizontalItemDecorator(spanCount, 30))
+            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
         }
 
     }
@@ -229,7 +229,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         with(binding.rvMainPopularSearch){
             layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = popularSearchAdapter
-            addItemDecoration(HorizontalItemDecorator(spanCount, 30))
+            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
         }
     }
 

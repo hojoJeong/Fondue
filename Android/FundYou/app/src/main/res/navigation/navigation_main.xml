@@ -17,6 +17,20 @@
         android:id="@+id/searchFragment"
         android:name="com.ssafy.fundyou.ui.search.SearchFragment"
         android:label="SearchFragment" >
+        <action
+            android:id="@+id/action_searchFragment_to_searchResultFragment"
+            app:destination="@id/searchResultFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/searchResultFragment"
+        android:name="com.ssafy.fundyou.ui.search.SearchResultFragment"
+        android:label="SearchResultFragment" >
+        <argument
+            android:name="keyword"
+            app:nullable="false"
+            app:argType="string"/>
+    </fragment>
+
 
 </navigation>

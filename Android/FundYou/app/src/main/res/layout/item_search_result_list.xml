@@ -4,21 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="product"
+            type="com.ssafy.fundyou.domain.model.ProductItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginBottom="55dp"
         android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/iv_item_img"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="180dp"
+            android:scaleType="fitCenter"
             android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_back_arrow_24"/>
 
         <ImageView
             android:id="@+id/iv_item_like"
@@ -36,6 +41,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:text="@{product.brand}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_item_img"
             tools:text="브랜드 이름 영역입니다." />
@@ -46,6 +52,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@{product.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_brand"
             tools:text="상품 이름 영역입니다." />
@@ -56,6 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="29dp"
+            app:addCommaText="@{product.price}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name"
             tools:text="100,000" />
@@ -68,6 +76,7 @@
             android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
             android:paddingHorizontal="19dp"
             android:paddingVertical="4dp"
+            app:arVisibility="@{product.isAr}"
             app:layout_constraintBottom_toBottomOf="@id/tv_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_price"

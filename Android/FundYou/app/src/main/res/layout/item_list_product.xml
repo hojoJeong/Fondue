@@ -7,7 +7,7 @@
             type="com.ssafy.fundyou.ui.home.MainFragment" />
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.ProductItemlModel" />
+            type="com.ssafy.fundyou.domain.model.ProductItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -81,7 +81,7 @@
             android:layout_marginTop="@dimen/margin_item_between_tv"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
-            android:text="@{product.price}"
+            app:addCommaText="@{product.price}"
             android:textColor="@color/black"
             tools:text="2,890,000원" />
 

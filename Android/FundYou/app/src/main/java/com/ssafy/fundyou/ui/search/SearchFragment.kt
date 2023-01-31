@@ -56,9 +56,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.editSearch.setOnEditorActionListener { v, actionId, _ ->
             val keyword = v.text.toString()
             if (actionId == EditorInfo.IME_ACTION_SEARCH && keyword != "") {
-                // TODO 서버 연동 후 검색 결과 출력
                 viewModels.addSearchKeywordList(keyword)
                 v.text = ""
+                navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(keyword))
             }
             true
         }
