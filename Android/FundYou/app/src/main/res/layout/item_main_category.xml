@@ -2,9 +2,6 @@
 <layout>
     <data>
         <variable
-            name="activity"
-            type="com.ssafy.fundyou.ui.home.MainFragment" />
-        <variable
             name="category"
             type="com.ssafy.fundyou.ui.home.model.MainCategoryModel" />
     </data>

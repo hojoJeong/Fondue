@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.mypage.MyPageFragment">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/iv_mypage_profile"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cdv_mypage_pay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:chainUseRtl="true"
+            app:layout_constraintHorizontal_weight="1"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginEnd="40dp"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            tools:src="@drawable/bg_banner_ssafylogo3"
+            />
+        <TextView
+            android:id="@+id/tv_mypage_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/iv_mypage_profile"
+            app:layout_constraintEnd_toEndOf="@+id/iv_mypage_profile"
+            app:layout_constraintTop_toBottomOf="@+id/iv_mypage_profile"
+            android:layout_marginTop="10dp"
+            tools:text="닉네임"
+            style="@style/base_font_bold_14"
+            android:textColor="@color/black"/>
+
+        <include layout="@layout/layout_cardview_pay"
+            android:id="@+id/cdv_mypage_pay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_mypage_profile"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_mypage_profile"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_mypage_name"
+            app:layout_constraintHorizontal_weight="2"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"/>
+
+
+        <ImageView
+            android:id="@+id/iv_mypage_otherfondue"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_mypage_name"
+            app:layout_constraintEnd_toStartOf="@id/iv_mypage_myfondue"
+            tools:src="@drawable/bg_banner_ssafylogo3"
+            android:scaleType="centerCrop"
+            android:layout_marginTop="20dp"/>
+        <TextView
+            android:id="@+id/tv_mypage_otherfondue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/iv_mypage_otherfondue"
+            app:layout_constraintEnd_toEndOf="@+id/iv_mypage_otherfondue"
+            app:layout_constraintTop_toBottomOf="@+id/iv_mypage_otherfondue"
+            android:text=""/>
+        <ImageView
+            android:id="@+id/iv_mypage_myfondue"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_mypage_otherfondue"
+            app:layout_constraintEnd_toStartOf="@+id/iv_mypage_favorite"
+            app:layout_constraintTop_toTopOf="@+id/iv_mypage_otherfondue"
+            tools:src="@drawable/bg_banner_ssafylogo3"
+            android:scaleType="centerCrop"/>
+        <ImageView
+            android:id="@+id/iv_mypage_favorite"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toEndOf="@+id/iv_mypage_myfondue"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_mypage_otherfondue"
+            tools:src="@drawable/bg_banner_ssafylogo3"
+            android:scaleType="centerCrop"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -158,7 +158,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             navigate(actionCategory)
         }
 
-        categoryAdapter.initCategoryItem(categoryList, this)
+        categoryAdapter.initCategoryItem(categoryList)
 
         binding.rvMainCategory.apply {
             layoutManager =

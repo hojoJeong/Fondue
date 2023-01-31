@@ -35,9 +35,13 @@
     <string name="title_search_popular_keyword_title">인기 검색어</string>
     <string name="content_search_input_hint">찾으시는 선물을 검색해 보세요.</string>
     <string name="content_search_no_keyword">검색기록이 없습니다.</string>
+    
+    <!-- 퐁듀페이 CardView -->
+    <string name="title_fondue_pay">퐁듀Pay</string>
+    <string name="content_fondue_pay_balance">잔액 : %1$d원</string>
 
-    <string name="kakao_login_scheme">kakaoa11043022c1304bec35a66a073852e06</string>
-    <string name="kakao_native_key">a11043022c1304bec35a66a073852e06</string>
-    <string name="google_client_key">636220307565-9rf9g8o0ooilu2uet2tsac96ta9vipov.apps.googleusercontent.com</string>
-    <string name="google_client_secret_key">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</string>
+    <!-- 마이페이지 -->
+    <string name="title_mypage_invited_fondue">초대 받은 퐁듀</string>
+    <string name="title_mypage_my_fondue">내 퐁듀</string>
+    <string name="title_mypage_favorite">찜</string>
 </resources>

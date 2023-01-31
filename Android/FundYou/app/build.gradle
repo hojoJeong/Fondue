@@ -74,6 +74,8 @@ dependencies {
     androidTestImplementation libs.android.test.espresso
 
     kapt libs.hilt.compiler
+
+    implementation libs.circleimageview
 }
 
 kapt {

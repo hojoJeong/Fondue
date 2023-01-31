@@ -52,6 +52,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                 hScrollView.post{
                     hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
                 }
+
                 //TODO("상품 목록 초기 진입 시 카테고리에 따른 데이터 호출")
                 break
             }
