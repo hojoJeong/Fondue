@@ -1,12 +1,10 @@
 package com.ssafy.fundyou.ui.search
 
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchBinding

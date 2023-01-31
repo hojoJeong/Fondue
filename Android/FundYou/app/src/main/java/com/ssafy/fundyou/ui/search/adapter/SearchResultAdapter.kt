@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemSearchResultListBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
 
-class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.SearchResultHolder>(SearchResultDiffUtil) {
+class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.SearchResultHolder>(ProductListDiffUtil) {
 
     private lateinit var clickEvent : (Int) -> Unit
 
@@ -31,23 +32,7 @@ class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.Se
         holder.bind(currentList[position])
     }
 
-    fun initEvent(event : (Int) -> Unit) {
+    fun initItemClickEvent(event : (Int) -> Unit) {
         this.clickEvent = event
-    }
-
-    object SearchResultDiffUtil : DiffUtil.ItemCallback<ProductItemModel>(){
-        override fun areItemsTheSame(
-            oldItem: ProductItemModel,
-            newItem: ProductItemModel
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(
-            oldItem: ProductItemModel,
-            newItem: ProductItemModel
-        ): Boolean {
-            return oldItem == newItem
-        }
     }
 }

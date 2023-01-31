@@ -50,4 +50,10 @@ object BindingAdapters {
             this.setImageResource(R.drawable.bg_favorite_line)
         }
     }
+
+    @JvmStatic
+    @BindingAdapter("favoriteVisibility")
+    fun ImageView.setFavoriteVisibility(type : String){
+        if(type == "ITEM_DETAIL") this.visibility = View.INVISIBLE
+    }
 }

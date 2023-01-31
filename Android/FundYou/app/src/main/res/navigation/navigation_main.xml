@@ -48,6 +48,11 @@
             android:name="itemId"
             app:argType="integer"
             app:nullable="false"/>
+        <action
+            android:id="@+id/action_itemDetailFragment_self2"
+            app:destination="@id/itemDetailFragment"
+            app:popUpTo="@id/itemDetailFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
