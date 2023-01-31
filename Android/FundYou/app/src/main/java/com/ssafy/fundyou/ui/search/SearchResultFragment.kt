@@ -10,7 +10,9 @@ import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchResultAdapter
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(R.layout.fragment_search_result) {
 
     private val resultAdapter = SearchResultAdapter()
@@ -48,6 +50,10 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(R.layout.
     }
 
     private fun initSearchResultList(){
+        resultAdapter.initEvent { itemId ->
+            navigate(SearchResultFragmentDirections.actionSearchResultFragmentToItemDetailFragment(itemId))
+        }
+
         with(binding.rvSearchItemList) {
             adapter = resultAdapter
             addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,2))

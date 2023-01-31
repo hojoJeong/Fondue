@@ -12,9 +12,16 @@ import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 
 class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.SearchResultHolder>(SearchResultDiffUtil) {
-    class SearchResultHolder(private val binding : ItemSearchResultListBinding) : RecyclerView.ViewHolder(binding.root){
+
+    private lateinit var clickEvent : (Int) -> Unit
+
+    inner class SearchResultHolder(private val binding : ItemSearchResultListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : ProductItemModel){
             binding.product = item
+
+            binding.root.setOnClickListener {
+                clickEvent.invoke(item.id.toInt())
+            }
         }
     }
 
@@ -23,6 +30,10 @@ class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.Se
 
     override fun onBindViewHolder(holder: SearchResultHolder, position: Int) {
         holder.bind(currentList[position])
+    }
+
+    fun initEvent(event : (Int) -> Unit) {
+        this.clickEvent = event
     }
 
     object SearchResultDiffUtil : DiffUtil.ItemCallback<ProductItemModel>(){
