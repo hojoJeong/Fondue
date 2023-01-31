@@ -34,7 +34,7 @@
             android:layout_height="20dp"
             android:layout_margin="6dp"
             android:scaleType="centerInside"
-
+            app:favoriteImage="@{product.favorite}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product" />
 
@@ -97,6 +97,7 @@
             android:text="@string/title_AR_btn"
             android:textColor="@color/franch_rose"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:arVisibility="@{product.ar}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

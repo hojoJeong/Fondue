@@ -21,7 +21,6 @@ import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
@@ -33,7 +32,7 @@ import kotlinx.coroutines.delay
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
-    private val rankingProductList = mutableListOf<ProductItemlModel>()
+    private val rankingProductList = mutableListOf<ProductItemModel>()
     private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
@@ -211,9 +210,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         //임시 데이터 추가
         rankingProductList.clear()
         rankingProductList.add(
-            ProductItemlModel(
+            ProductItemModel(
                 0,
-                "100,000 원",
+                100000,
                 "",
                 "BESPOKE 냉장고",
                 false,
@@ -222,9 +221,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
         rankingProductList.add(
-            ProductItemlModel(
+            ProductItemModel(
                 1,
-                "100,000 원",
+                100000,
                 "",
                 "BESPOKE 냉장고",
                 true,
@@ -233,9 +232,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
         rankingProductList.add(
-            ProductItemlModel(
+            ProductItemModel(
                 2,
-                "100,000 원",
+                100000,
                 "",
                 "BESPOKE 냉장고",
                 false,
@@ -244,9 +243,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
         rankingProductList.add(
-            ProductItemlModel(
+            ProductItemModel(
                 3,
-                "100,000 원",
+                100000,
                 "",
                 "BESPOKE 냉장고",
                 true,
@@ -255,9 +254,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
         rankingProductList.add(
-            ProductItemlModel(
+            ProductItemModel(
                 4,
-                "100,000 원",
+                100000,
                 "",
                 "BESPOKE 냉장고",
                 false,
@@ -266,9 +265,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
         rankingProductList.add(
-            ProductItemlModel(
+            ProductItemModel(
                 5,
-                "100,000 원",
+                100000,
                 "",
                 "BESPOKE 냉장고",
                 true,
@@ -280,7 +279,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         val rankingItemAdapter = ProductItemAdapter()
         rankingItemAdapter.submitList(rankingProductList)
-
+        rankingItemAdapter.checkNeedRanking(true)
         with(binding.rvMainRank){
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
@@ -357,27 +356,5 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun onPause() {
         super.onPause()
         job.cancel()
-    }
-
-
-    class HorizontalItemDecorator(private val spanCount: Int, private val leftMargin: Int) :
-        RecyclerView.ItemDecoration() {
-
-        @Override
-        override fun getItemOffsets(
-            outRect: Rect,
-            view: View,
-            parent: RecyclerView,
-            state: RecyclerView.State
-        ) {
-            super.getItemOffsets(outRect, view, parent, state)
-
-            val position = parent.getChildAdapterPosition(view)
-            val column = position % spanCount
-
-            if (column != 0) {
-                outRect.left = leftMargin
-            }
-        }
     }
 }
