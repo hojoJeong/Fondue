@@ -1,21 +1,26 @@
 package com.ssafy.fundyou.ui.home
 
+import android.content.ContentValues.TAG
+import android.graphics.Rect
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
@@ -55,6 +60,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initRankCategory()
         initTitlePriceRange()
         initRankingItem()
+        initShowMoreBtnListener()
         initFloatingBtn()
         initRandomItemList()
         initPopularSearch()
@@ -117,6 +123,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initCategory() {
         //임시 데이터 추가
+        categoryList.clear()
         categoryList.add(
             MainCategoryModel(
                 ContextCompat.getDrawable(
@@ -146,7 +153,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
 
-        val categoryAdapter = MainCategoryAdapter()
+        val categoryAdapter = MainCategoryAdapter{ categoryType ->
+            val actionCategory = MainFragmentDirections.actionMainFragmentToItemListFragment(categoryType)
+            navigate(actionCategory)
+        }
+
         categoryAdapter.initCategoryItem(categoryList, this)
 
         binding.rvMainCategory.apply {
@@ -165,38 +176,110 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initRankCategory() {
         binding.chipgMainRankCategory.setOnCheckedStateChangeListener { group, checkedId ->
+
+            val checkedChip = group.getChildAt(0) as Chip
+            val checkedChip2 = group.findViewById<Chip>(group.checkedChipId) as Chip
+            Log.d(TAG, "initRankCategory: ${checkedChip2.text}")
             //칩 선택 변경 시 서버통신 추가
         }
     }
 
-    private fun initTitlePriceRange(){
-        binding.sldMainRank.addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener{
-            override fun onStartTrackingTouch(slider: RangeSlider){}
-
-            override fun onStopTrackingTouch(slider: RangeSlider) {
-                val sliderValueList = binding.sldMainRank.values
+    private fun initTitlePriceRange() {
+        with(binding.sldMainRank) {
+            addOnChangeListener { slider, _, _ ->
+                val sliderValueList = slider.values
                 val minPrice = sliderValueList[0].toInt()
-                val maxPrice = sliderValueList[sliderValueList.size-1].toInt()
-                binding.tvMainRankPriceRange.text = getString(R.string.title_rank_price_range, minPrice, maxPrice)
-
-                //가격 범위 변경 시 서버통신 추가
+                val maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
+                binding.tvMainRankPriceRange.text =
+                    getString(R.string.title_rank_price_range, minPrice, maxPrice)
             }
-        })
+            addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
+                override fun onStartTrackingTouch(slider: RangeSlider) {
+
+                }
+
+                override fun onStopTrackingTouch(slider: RangeSlider) {
+
+                    //가격 범위 변경 시 서버통신 추가
+                }
+            })
+        }
     }
 
-    private fun initRankingItem(){
+    private fun initRankingItem() {
         //임시 데이터 추가
-        rankingProductList.add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-        rankingProductList.add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-        rankingProductList.add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-        rankingProductList.add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+        rankingProductList.clear()
+        rankingProductList.add(
+            ProductItemModel(
+                0,
+                100000,
+                "",
+                "BESPOKE 냉장고",
+                false,
+                "삼성",
+                true
+            )
+        )
+        rankingProductList.add(
+            ProductItemModel(
+                1,
+                100000,
+                "",
+                "BESPOKE 냉장고",
+                true,
+                "삼성",
+                false
+            )
+        )
+        rankingProductList.add(
+            ProductItemModel(
+                2,
+                100000,
+                "",
+                "BESPOKE 냉장고",
+                false,
+                "삼성",
+                false
+            )
+        )
+        rankingProductList.add(
+            ProductItemModel(
+                3,
+                100000,
+                "",
+                "BESPOKE 냉장고",
+                true,
+                "삼성",
+                true
+            )
+        )
+        rankingProductList.add(
+            ProductItemModel(
+                4,
+                100000,
+                "",
+                "BESPOKE 냉장고",
+                false,
+                "삼성",
+                true
+            )
+        )
+        rankingProductList.add(
+            ProductItemModel(
+                5,
+                100000,
+                "",
+                "BESPOKE 냉장고",
+                true,
+                "삼성",
+                false
+            )
+        )
 
 
         val rankingItemAdapter = ProductItemAdapter()
         rankingItemAdapter.submitList(rankingProductList)
-
+        rankingItemAdapter.checkNeedRanking(true)
         with(binding.rvMainRank){
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
@@ -204,45 +287,56 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     }
 
-    private fun initRandomItemList(){
+    private fun initRandomItemList() {
         val randomAdapter = MainRandomItemAdapter()
         val spanCount = 3
         randomAdapter.submitList(rankingProductList)
 
-        with(binding.rvMainRandom){
-            layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
+        with(binding.rvMainRandom) {
+            layoutManager =
+                GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = randomAdapter
             addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
         }
-
     }
 
-    private fun initPopularSearch(){
+    private fun initShowMoreBtnListener() {
+        binding.btnMainRandomShowMore.setOnClickListener {
+
+            val actionShowMoreBtn =
+                MainFragmentDirections.actionMainFragmentToItemListFragment(getString(R.string.title_category_all))
+            navigate(actionShowMoreBtn)
+        }
+    }
+
+    private fun initPopularSearch() {
         //임시 데이터 추가
-        for(i in 0 until 10){
+        popularSearchList.clear()
+        for (i in 0 until 10) {
             popularSearchList.add("검색어")
         }
         val spanCount = 2
         val popularSearchAdapter = MainPopularSearchAdapter()
         popularSearchAdapter.submitList(popularSearchList)
 
-        with(binding.rvMainPopularSearch){
-            layoutManager = GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
+        with(binding.rvMainPopularSearch) {
+            layoutManager =
+                GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = popularSearchAdapter
             addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
         }
     }
 
-    private fun initFloatingBtn(){
+    private fun initFloatingBtn() {
         val scrollView = binding.svMain
         val scrollUpBtn = binding.btnMainScrollUp
         scrollUpBtn.visibility = View.GONE
 
         scrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { v, _, _, _, _ ->
-            if(v.scrollY > -1){
+            if (v.scrollY > -1) {
                 scrollUpBtn.visibility = View.VISIBLE
             }
-            if(!v.canScrollVertically(-1)){
+            if (!v.canScrollVertically(-1)) {
                 scrollUpBtn.visibility = View.GONE
             }
         })

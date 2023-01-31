@@ -40,4 +40,14 @@ object BindingAdapters {
         }
         else this.visibility = View.INVISIBLE
     }
+
+    @JvmStatic
+    @BindingAdapter("favoriteImage")
+    fun ImageView.setImageByFavorite(isFavorite : Boolean){
+        if(isFavorite) {
+            this.setImageResource(R.drawable.bg_favorite)
+        } else {
+            this.setImageResource(R.drawable.bg_favorite_line)
+        }
+    }
 }
