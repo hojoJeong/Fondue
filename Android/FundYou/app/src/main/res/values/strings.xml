@@ -1,12 +1,15 @@
 <resources>
     <string name="app_name">FundYou</string>
 
+    <!-- 로그인 -->
     <string name="content_login_balloon">가입하여 선물 펀딩하기</string>
     <string name="content_login_banner_1">선물을 펀딩으로 받아보세요!</string>
     <string name="content_login_banner_2">받고 싶은 선물을 선택한 후,\n링크를 공유해 보세요.</string>
     <string name="content_login_banner_3">링크를 통해,\n친구들이 선물을 펀딩 할 거에요.</string>
     <string name="content_kakao_login">카카오톡으로 로그인</string>
     <string name="content_google_login">구글로 로그인</string>
+
+    <!-- 홈 -->
     <string name="content_searchbar">찾으시는 선물을 검색해보세요</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="content_banner_indicator">%1$d / %2$d</string>
@@ -26,8 +29,10 @@
     <string name="title_rank_startprice">0원</string>
     <string name="title_rank_endprice">100만원</string>
 
-    <string name="kakao_login_scheme">kakaoa11043022c1304bec35a66a073852e06</string>
-    <string name="kakao_native_key">a11043022c1304bec35a66a073852e06</string>
-    <string name="google_client_key">636220307565-9rf9g8o0ooilu2uet2tsac96ta9vipov.apps.googleusercontent.com</string>
-    <string name="google_client_secret_key">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</string>
+    <!-- 검색 -->
+    <string name="title_search_recent_keyword_title">최근 검색어</string>
+    <string name="title_search_recent_delete_keyword">모두 지우기</string>
+    <string name="title_search_popular_keyword_title">인기 검색어</string>
+    <string name="content_search_input_hint">찾으시는 선물을 검색해 보세요.</string>
+    <string name="content_search_no_keyword">검색기록이 없습니다.</string>
 </resources>

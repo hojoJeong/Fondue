@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ActivityBridgeBinding
 import com.ssafy.fundyou.databinding.ActivityMainBinding
+import com.ssafy.fundyou.ui.home.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -33,6 +34,9 @@ class MainActivity : AppCompatActivity() {
             when (navController.currentDestination?.id) {
                 R.id.mainFragment -> {
                     Log.d(TAG, "initNavigation: main")
+                }
+                R.id.searchFragment -> {
+                    Log.d(TAG, "initNavigation: search")
                 }
             }
         }

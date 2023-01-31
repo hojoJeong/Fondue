@@ -9,6 +9,7 @@ import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +18,17 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.*
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.domain.model.ProductItemlModel
+import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
+import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
+import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.*
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
+import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+
 
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
@@ -59,6 +65,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initFloatingBtn()
         initRandomItemList()
         initPopularSearch()
+        initSearchClickEvent()
     }
 
     override fun initViewModels() {
@@ -68,15 +75,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 
-        val bannerAdapter = BannerAdapter()
-        bannerAdapter.addAllItems(bannerImageList)
+        val mainBannerAdapter = MainBannerAdapter()
+        mainBannerAdapter.addAllItems(bannerImageList)
 
         binding.tvMainBannerIndicator.text = getString(
             R.string.content_banner_indicator, binding.vpMainBanner.currentItem + 1, bannerSize
         )
 
         with(binding.vpMainBanner) {
-            adapter = bannerAdapter
+            adapter = mainBannerAdapter
             setCurrentItem(currentBannerPosition, false)
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -106,6 +113,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     }
                 }
             })
+        }
+    }
+
+    private fun initSearchClickEvent(){
+        binding.editMainSearch.setOnClickListener {
+            navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
     }
 
@@ -268,9 +281,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val rankingItemAdapter = ProductItemAdapter()
         rankingItemAdapter.submitList(rankingProductList)
 
-        with(binding.rvMainRank) {
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        with(binding.rvMainRank){
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
         }
 
@@ -285,7 +297,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = randomAdapter
-            addItemDecoration(HorizontalItemDecorator(spanCount, 30))
+            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
         }
     }
 
@@ -312,7 +324,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = popularSearchAdapter
-            addItemDecoration(HorizontalItemDecorator(spanCount, 30))
+            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
         }
     }
 

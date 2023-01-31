@@ -24,7 +24,7 @@
             android:scaleType="fitEnd"
             app:layout_constraintBottom_toTopOf="@+id/tv_main_item_category"
             app:layout_constraintStart_toStartOf="parent"
-            app:bindImage = "@{category.categoryImg}"
+            app:srcByDrawable = "@{category.categoryImg}"
             tools:src="@drawable/bg_banner_ssafylogo3" />
 
         <TextView

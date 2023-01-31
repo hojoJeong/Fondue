@@ -24,6 +24,7 @@
                     android:id="@+id/edit_main_search"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
+                    android:focusable="false"
                     android:layout_margin="@dimen/base_horizontal_margin"
                     android:background="@drawable/bg_rect_black_white_round8_stroke1"
                     android:drawableLeft="@drawable/bg_search"
