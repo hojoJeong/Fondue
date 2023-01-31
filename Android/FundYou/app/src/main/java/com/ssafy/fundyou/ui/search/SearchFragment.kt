@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.ui.search
 
+import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -19,9 +20,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private val viewModels by viewModels<SearchViewModel>()
     private var isExistKeyword = false
-    private val recentKeywordAdapter = SearchHistoryKeywordAdapter { currentList, index ->
+    private val recentDeleteListener : (List<String>, Int) -> Unit = { currentList, index ->
         viewModels.deleteSearchKeyword(baseList = currentList, keywordIndex = index)
     }
+
+    private val recentClickListener : (String) -> Unit = { keyword ->
+        navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(keyword))
+    }
+
+    private val recentKeywordAdapter = SearchHistoryKeywordAdapter(recentDeleteListener, recentClickListener)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,9 +53,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         binding.rvRecentSearchKeyword.adapter = recentKeywordAdapter
     }
 
-    private fun initDeleteAllRecentKeyword(){
+    private fun initDeleteAllRecentKeyword() {
         binding.tvAllDeleteRecentKeyword.setOnClickListener {
-            if(isExistKeyword) viewModels.deleteAllKeyword()
+            if (isExistKeyword) viewModels.deleteAllKeyword()
         }
     }
 
@@ -75,7 +82,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                     if (result.isEmpty()) {
                         binding.lySearchNoKeyword.root.visibility = View.VISIBLE
                         isExistKeyword = false
-                    } else{
+                    } else {
                         isExistKeyword = true
                     }
 
