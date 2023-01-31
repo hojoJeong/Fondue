@@ -19,7 +19,7 @@
             android:id="@+id/iv_login_banner"
             android:layout_width="0dp"
             android:layout_height="@dimen/login_banner_size"
-            app:imgSrc="@{bannerModel.img}"
+            app:srcByResId="@{bannerModel.img}"
             app:layout_constraintBottom_toTopOf="@id/tv_login_banner_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
