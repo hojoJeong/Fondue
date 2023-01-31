@@ -12,3 +12,9 @@ fun Context.showToast(message : String){
 fun View.showSnackBar(message : String){
     Snackbar.make(this, message, Snackbar.LENGTH_SHORT).show()
 }
+
+fun addComma(number: Int): String = if (number >= 0) {
+    "%,d".format(number)
+} else {
+    "- "
+}

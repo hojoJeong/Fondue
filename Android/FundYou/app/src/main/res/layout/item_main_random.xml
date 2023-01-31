@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.ProductItemlModel" />
+            type="com.ssafy.fundyou.domain.model.ProductItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="@{product.price}"
+            app:addCommaText="@{product.price}"
             app:layout_constraintEnd_toEndOf="@id/tv_item_random_name"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/iv_item_random_product"
