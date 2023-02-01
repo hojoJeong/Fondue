@@ -8,9 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemMyFundingListBinding
+import com.ssafy.fundyou.ui.adapter.diffutil.FundingItemModelDiffUtil
 import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
 
-class MyFundingListAdapter : ListAdapter<FundingItemModel, MyFundingListAdapter.MyFundingListHolder>(FundingItemModelDiffUtil){
+class MyFundingProcessingListAdapter : ListAdapter<FundingItemModel, MyFundingProcessingListAdapter.MyFundingListHolder>(
+    FundingItemModelDiffUtil
+){
 
     private lateinit var clickEvent : (Int) -> Unit
 
@@ -33,21 +36,5 @@ class MyFundingListAdapter : ListAdapter<FundingItemModel, MyFundingListAdapter.
 
     fun addClickEvent(event : (Int) -> Unit){
         this.clickEvent = event
-    }
-
-    object FundingItemModelDiffUtil : DiffUtil.ItemCallback<FundingItemModel>(){
-        override fun areItemsTheSame(
-            oldItem: FundingItemModel,
-            newItem: FundingItemModel
-        ): Boolean {
-            return oldItem.id == newItem.id
-        }
-
-        override fun areContentsTheSame(
-            oldItem: FundingItemModel,
-            newItem: FundingItemModel
-        ): Boolean {
-            return oldItem == newItem
-        }
     }
 }

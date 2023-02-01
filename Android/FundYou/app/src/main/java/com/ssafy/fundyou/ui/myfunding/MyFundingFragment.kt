@@ -6,13 +6,14 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMyFundingBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.myfunding.adapter.MyFundingListAdapter
+import com.ssafy.fundyou.ui.myfunding.adapter.MyFundingEndListAdapter
+import com.ssafy.fundyou.ui.myfunding.adapter.MyFundingProcessingListAdapter
 import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
 
 class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragment_my_funding) {
 
-    private val processingFundingAdapter = MyFundingListAdapter()
-    private val endFundingAdapter = MyFundingListAdapter()
+    private val processingFundingAdapter = MyFundingProcessingListAdapter()
+    private val endFundingAdapter = MyFundingEndListAdapter()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

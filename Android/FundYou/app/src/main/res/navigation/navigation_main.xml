@@ -63,6 +63,10 @@
             app:nullable="false"
             app:argType="string"/>
     </fragment>
+    <fragment
+        android:id="@+id/myFundingFragment"
+        android:name="com.ssafy.fundyou.ui.myfunding.MyFundingFragment"
+        android:label="MyFundingFragment" />
 
 
 </navigation>

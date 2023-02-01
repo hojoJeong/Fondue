@@ -11,5 +11,5 @@ data class FundingItemModel(
     val currentFundingPrice : Int,
     val fundingParticipate : Int,
 ){
-    val fundingProgress =  (currentFundingPrice.toDouble() / product.price.toDouble()).roundToInt()
+    val fundingProgress =  ((currentFundingPrice.toDouble() / product.price.toDouble()) * 100).roundToInt()
 }

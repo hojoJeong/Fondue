@@ -84,6 +84,10 @@
         <item name="android:textColor">@color/tomato</item>
     </style>
 
+    <style name="base_font_medium_12_matter_horn" parent="base_font_medium_12">
+        <item name="android:textColor">@color/matter_horn</item>
+    </style>
+
     <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
         <item name="android:textColor">@color/midnight_express</item>
     </style>
@@ -139,6 +143,10 @@
 
     <style name="base_font_bold_20_franch_rose" parent="base_font_bold_20">
         <item name="android:textColor">@color/franch_rose</item>
+    </style>
+    
+    <style name="base_font_bold_20_matter_horn" parent="base_font_bold_20">
+        <item name="android:textColor">@color/matter_horn</item>
     </style>
 
     <style name="base_font_bold_26_midnight_express" parent="base_font_bold_26">
