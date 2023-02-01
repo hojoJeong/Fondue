@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
+    implementation libs.bundles.navigation
     implementation libs.bundles.androidx
     implementation libs.android.material
     implementation libs.hilt

@@ -34,15 +34,22 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="base_font_bold_20" parent="base_font_bold">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="base_font_bold_26" parent="base_font_bold">
         <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="base_font_bold_32" parent="base_font_bold">
+        <item name="android:textSize">32sp</item>
     </style>
 
     <!-- medium size -->
     <style name="base_font_medium_12" parent="base_font_medium">
         <item name="android:textSize">12sp</item>
     </style>
-
 
     <style name="base_font_medium_14" parent="base_font_medium">
         <item name="android:textSize">14sp</item>
@@ -71,6 +78,14 @@
 
     <style name="base_font_medium_12_raven" parent="base_font_medium_12">
         <item name="android:textColor">@color/raven</item>
+    </style>
+
+    <style name="base_font_medium_12_tomato" parent="base_font_medium_12">
+        <item name="android:textColor">@color/tomato</item>
+    </style>
+
+    <style name="base_font_medium_12_matter_horn" parent="base_font_medium_12">
+        <item name="android:textColor">@color/matter_horn</item>
     </style>
 
     <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
@@ -114,6 +129,10 @@
         <item name="android:textColor">@color/black</item>
     </style>
 
+    <style name="base_font_bold_14_echo_blue" parent="base_font_bold_14">
+        <item name="android:textColor">@color/echo_blue</item>
+    </style>
+
     <style name="base_font_bold_16_black" parent="base_font_bold_16">
         <item name="android:textColor">@color/black</item>
     </style>
@@ -122,8 +141,20 @@
         <item name="android:textColor">@color/midnight_express</item>
     </style>
 
+    <style name="base_font_bold_20_franch_rose" parent="base_font_bold_20">
+        <item name="android:textColor">@color/franch_rose</item>
+    </style>
+    
+    <style name="base_font_bold_20_matter_horn" parent="base_font_bold_20">
+        <item name="android:textColor">@color/matter_horn</item>
+    </style>
+
     <style name="base_font_bold_26_midnight_express" parent="base_font_bold_26">
         <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <style name="base_font_bold_32_black" parent="base_font_bold_32">
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <!-- set slider in main-->
@@ -132,22 +163,25 @@
         <item name="colorOnPrimary">@color/franch_rose</item>
         <item name="colorOnSurface">@color/pig_pink</item>
     </style>
+
     <style name="Widget.App.Tooltip" parent="Widget.Material3.Tooltip">
         <item name="android:textAppearance">@style/TextAppearance.App.Tooltip</item>
         <item name="backgroundTint">@color/white</item>
     </style>
+
     <style name="TextAppearance.App.Tooltip" parent="TextAppearance.Material3.BodySmall">
         <item name="android:textColor">@color/franch_rose</item>
         <item name="fontFamily">@font/notosanskr_light</item>
         <item name="android:fontFamily">@font/notosanskr_light</item>
     </style>
+
     <style name="main_slider" parent="Widget.MaterialComponents.Slider">
         <item name="materialThemeOverlay">@style/slider_color_list</item>
         <item name="labelStyle">@style/Widget.App.Tooltip</item>
     </style>
 
     <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Choice">
-        <item name="chipBackgroundColor" >@color/chip_background</item>
+        <item name="chipBackgroundColor">@color/chip_background</item>
         <item name="chipStrokeColor">@color/chip_stroke</item>
         <item name="android:textColor">@color/chip_text</item>
     </style>

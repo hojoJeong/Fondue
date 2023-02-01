@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/galleryFragment">
+
+
+    <fragment
+        android:id="@+id/galleryFragment"
+        android:name="com.example.arcoresceneform.GalleryFragment"
+        android:label="fragment_gallery"
+        tools:layout="@layout/fragment_gallery" >
+<!--        <argument-->
+<!--            android:name="arg1"-->
+<!--            app:argType="Bitmap"-->
+<!--            app:nullable="false"-->
+<!--            />-->
+        <action
+            android:id="@+id/action_galleryFragment_to_arFragment"
+            app:destination="@id/arFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/arFragment"
+        android:name="com.example.arcoresceneform.ArFragment"
+        android:label="ArFragment" >
+        <action
+            android:id="@+id/action_arFragment_to_captureFragment"
+            app:destination="@id/captureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/captureFragment"
+        android:name="com.example.arcoresceneform.CaptureFragment"
+        android:label="fragment_capture"
+        tools:layout="@layout/fragment_capture">
+                <argument
+                    android:name="arg1"
+                    app:argType="android.graphics.Bitmap"
+                    app:nullable="false"
+                    />
+        <action
+            android:id="@+id/action_captureFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:popUpTo="@id/galleryFragment" />
+    </fragment>
+</navigation>

@@ -27,8 +27,7 @@ class MainCategoryAdapter(private val categoryType: (String) -> Unit) : Recycler
         val view = DataBindingUtil.inflate<ItemMainCategoryBinding>(
             LayoutInflater.from(parent.context),
             R.layout.item_main_category,
-            parent,
-            false
+            parent, false
         )
         return MainCategoryViewHolder(view)
     }

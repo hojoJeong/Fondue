@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
     app:startDestination="@id/mainFragment">
 
@@ -101,6 +100,10 @@
         android:id="@+id/favoriteFragment"
         android:name="com.ssafy.fundyou.ui.favorite.FavoriteFragment"
         android:label="FavoriteFragment" />
+    <fragment
+        android:id="@+id/myFundingFragment"
+        android:name="com.ssafy.fundyou.ui.myfunding.MyFundingFragment"
+        android:label="MyFundingFragment" />
 
 
 </navigation>
