@@ -1,7 +1,12 @@
 package com.ssafy.fundyou.ui.itemdetail
 
+import android.app.ActionBar.LayoutParams
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
@@ -15,11 +20,14 @@ import com.ssafy.fundyou.ui.itemdetail.model.ItemDetailInfoModel
 import com.ssafy.fundyou.ui.itemdetail.model.ItemImgModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
+import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.fragment_item_detail) {
 
     private val relatedAdapter = ItemDetailRelatedAdapter()
+    private var itemImgFullState = false
+    private var itemInfoImgSize = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -30,13 +38,47 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     override fun initView() {
         // 상품 전체 정보 넣기
         binding.productInfo = ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true)
+        itemInfoImgSize = binding.ivItemInfo.layoutParams.height
+
         initItemImgAdapter()
         initItemDetailAdapter()
         initRelatedItemAdapter()
+        initMoreItemInfoButtonEvent()
     }
 
     override fun initViewModels() {
 
+    }
+
+    private fun initMoreItemInfoButtonEvent() {
+        binding.tvMoreItemInfoImg.setOnClickListener {
+            if (itemImgFullState) setItemInfoImgFixSize()
+            else setItemInfoImgWrapContent()
+
+            itemImgFullState = !itemImgFullState
+        }
+    }
+
+    private fun setItemInfoImgWrapContent() {
+
+        binding.ivItemInfo.layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        ).apply {
+            endToEnd = ConstraintSet.PARENT_ID
+            startToStart = ConstraintSet.PARENT_ID
+            topToBottom = R.id.div_item_info_img_base
+        }
+
+        binding.tvMoreItemInfoImg.text = "상품설명 최소화"
+    }
+
+    private fun setItemInfoImgFixSize() {
+        val layoutParams = binding.ivItemInfo.layoutParams
+        layoutParams.height = itemInfoImgSize
+        binding.ivItemInfo.layoutParams = layoutParams
+
+        binding.tvMoreItemInfoImg.text = "상품설명 더보기"
     }
 
     private fun initRelatedItemAdapter() {
@@ -74,14 +116,8 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                 false
             )
         )
-        with(relatedAdapter) {
-            submitList(tempList)
-        }
-
-        with(binding.rvRelatedItemList){
-            adapter = relatedAdapter
-            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0))
-        }
+        relatedAdapter.submitList(tempList)
+        binding.rvRelatedItemList.adapter = relatedAdapter
     }
 
     private fun initItemDetailAdapter() {

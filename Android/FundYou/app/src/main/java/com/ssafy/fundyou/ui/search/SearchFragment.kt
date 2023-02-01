@@ -18,15 +18,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private val viewModels by viewModels<SearchViewModel>()
     private var isExistKeyword = false
-    private val recentDeleteListener : (List<String>, Int) -> Unit = { currentList, index ->
-        viewModels.deleteSearchKeyword(baseList = currentList, keywordIndex = index)
-    }
-
-    private val recentClickListener : (String) -> Unit = { keyword ->
-        navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(keyword))
-    }
-
-    private val recentKeywordAdapter = SearchHistoryKeywordAdapter(recentDeleteListener, recentClickListener)
+    private val recentKeywordAdapter = SearchHistoryKeywordAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -48,6 +40,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun initRecentKeywordList() {
+        with(recentKeywordAdapter) {
+            addItemClickEvent { currentList, index ->
+                viewModels.deleteSearchKeyword(baseList = currentList, keywordIndex = index)
+            }
+
+            addItemDeleteEvent { keyword ->
+                navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(keyword))
+            }
+        }
         binding.rvRecentSearchKeyword.adapter = recentKeywordAdapter
     }
 
