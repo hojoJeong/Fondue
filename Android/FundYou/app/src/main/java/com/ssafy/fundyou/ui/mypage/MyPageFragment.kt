@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMyPageBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.home.MainFragmentDirections
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
@@ -18,6 +19,9 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+
+        binding.ivMypageFavorite.setOnClickListener {
+        }
     }
 
     override fun initView() {

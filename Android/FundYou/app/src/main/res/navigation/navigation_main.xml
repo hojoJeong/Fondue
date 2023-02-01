@@ -80,6 +80,9 @@
         <action
             android:id="@+id/action_myPageFragment_to_privacyFragment"
             app:destination="@id/privacyFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_favoriteFragment"
+            app:destination="@id/favoriteFragment" />
     </fragment>
     <fragment
         android:id="@+id/userInfoFragment"
@@ -94,6 +97,10 @@
         android:name="com.ssafy.fundyou.ui.mypage.PrivacyFragment"
         android:label="fragment_privacy"
         tools:layout="@layout/fragment_privacy" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.ssafy.fundyou.ui.favorite.FavoriteFragment"
+        android:label="FavoriteFragment" />
 
 
 </navigation>

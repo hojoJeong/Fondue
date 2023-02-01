@@ -53,7 +53,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("favoriteVisibility")
-    fun ImageView.setFavoriteVisibility(type : String){
-        if(type == "ITEM_DETAIL") this.visibility = View.INVISIBLE
+    fun ImageView.setFavoriteVisibility(isFavoriteFragment: Boolean){
+        if(isFavoriteFragment) this.visibility = View.GONE
     }
 }

@@ -15,6 +15,7 @@ class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.Prod
     ProductDiffUtil()
 ) {
     private var needRanking = false
+    private var isFavoriteFragment = false
     inner class ProductItemViewHolder(val binding: ItemListProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductItemModel, position: Int) {
@@ -25,6 +26,9 @@ class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.Prod
                     visibility = View.VISIBLE
                     text = "${position + 1}위"
                 }
+            }
+            if(isFavoriteFragment){
+                binding.isFavoriteFragment = true
             }
         }
     }
@@ -43,6 +47,9 @@ class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.Prod
 
     fun checkNeedRanking(value: Boolean){
         needRanking = value
+    }
+    fun setIsFavoriteFragment(value: Boolean){
+        isFavoriteFragment = value
     }
     class ProductDiffUtil : DiffUtil.ItemCallback<ProductItemModel>() {
         /**
