@@ -86,7 +86,7 @@
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:scaleY="3"
+                    android:scaleY="0.5"
                     android:layout_marginHorizontal="@dimen/base_horizontal_margin"
                     android:progressDrawable="@drawable/bg_progress_funding"
                     app:layout_constraintEnd_toEndOf="parent"
