@@ -1,4 +1,4 @@
 package com.example.arcoresceneform
 
-class FileProvider: androidx.core.content.FileProvider(R.xml.filepaths)
+class FileProvider : androidx.core.content.FileProvider(R.xml.filepaths)
 
