@@ -1,12 +1,10 @@
 package com.ssafy.fundyou.ui.search
 
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchBinding
@@ -20,15 +18,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private val viewModels by viewModels<SearchViewModel>()
     private var isExistKeyword = false
-    private val recentDeleteListener : (List<String>, Int) -> Unit = { currentList, index ->
-        viewModels.deleteSearchKeyword(baseList = currentList, keywordIndex = index)
-    }
-
-    private val recentClickListener : (String) -> Unit = { keyword ->
-        navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(keyword))
-    }
-
-    private val recentKeywordAdapter = SearchHistoryKeywordAdapter(recentDeleteListener, recentClickListener)
+    private val recentKeywordAdapter = SearchHistoryKeywordAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,6 +40,15 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     private fun initRecentKeywordList() {
+        with(recentKeywordAdapter) {
+            addItemClickEvent { currentList, index ->
+                viewModels.deleteSearchKeyword(baseList = currentList, keywordIndex = index)
+            }
+
+            addItemDeleteEvent { keyword ->
+                navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(keyword))
+            }
+        }
         binding.rvRecentSearchKeyword.adapter = recentKeywordAdapter
     }
 
