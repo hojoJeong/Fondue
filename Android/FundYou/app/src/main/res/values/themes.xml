@@ -80,6 +80,10 @@
         <item name="android:textColor">@color/raven</item>
     </style>
 
+    <style name="base_font_medium_12_tomato" parent="base_font_medium_12">
+        <item name="android:textColor">@color/tomato</item>
+    </style>
+
     <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
         <item name="android:textColor">@color/midnight_express</item>
     </style>
@@ -119,6 +123,10 @@
     <!-- bold size color -->
     <style name="base_font_bold_14_black" parent="base_font_bold_14">
         <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_bold_14_echo_blue" parent="base_font_bold_14">
+        <item name="android:textColor">@color/echo_blue</item>
     </style>
 
     <style name="base_font_bold_16_black" parent="base_font_bold_16">
