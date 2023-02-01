@@ -33,7 +33,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
-    @Inject lateinit var mainBannerAdapter: MainBannerAdapter
+    @Inject
+    lateinit var mainBannerAdapter: MainBannerAdapter
     private val categoryList = mutableListOf<MainCategoryModel>()
     private val rankingProductList = mutableListOf<ProductItemModel>()
     private val popularSearchList = mutableListOf<String>()
@@ -73,12 +74,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun initBanner() {
-        //TODO("마이페이지 테스트를 위한 임시 연결")
-        binding.tvMainBannerIndicator.setOnClickListener {
-            Log.d(TAG, "initBanner: test")
-            navigate(MainFragmentDirections.actionMainFragmentToMyPageFragment())
-        }
-
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 
@@ -122,7 +117,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun initSearchClickEvent(){
+    private fun initSearchClickEvent() {
         binding.editMainSearch.setOnClickListener {
             navigate(MainFragmentDirections.actionMainFragmentToSearchFragment())
         }
@@ -160,8 +155,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             )
         )
 
-        val categoryAdapter = MainCategoryAdapter{ categoryType ->
-            val actionCategory = MainFragmentDirections.actionMainFragmentToItemListFragment(categoryType)
+        val categoryAdapter = MainCategoryAdapter { categoryType ->
+            val actionCategory =
+                MainFragmentDirections.actionMainFragmentToItemListFragment(categoryType)
             navigate(actionCategory)
         }
 
@@ -187,7 +183,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             val checkedChip = group.getChildAt(0) as Chip
             val checkedChip2 = group.findViewById<Chip>(group.checkedChipId) as Chip
             Log.d(TAG, "initRankCategory: ${checkedChip2.text}")
-            //칩 선택 변경 시 서버통신 추가
+            //TODO(칩 선택 변경 시 서버통신 추가)
         }
     }
 
@@ -287,8 +283,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val rankingItemAdapter = ProductItemAdapter()
         rankingItemAdapter.checkNeedRanking(true)
         rankingItemAdapter.submitList(rankingProductList)
-        with(binding.rvMainRank){
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        with(binding.rvMainRank) {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
         }
 
@@ -303,7 +300,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = randomAdapter
-            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
+            addItemDecoration(RecyclerViewItemDecorator(0, 0, 30, 0, spanCount))
         }
     }
 
@@ -330,7 +327,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
             adapter = popularSearchAdapter
-            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,spanCount))
+            addItemDecoration(RecyclerViewItemDecorator(0, 0, 30, 0, spanCount))
         }
     }
 

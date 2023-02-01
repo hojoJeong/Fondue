@@ -16,6 +16,7 @@ class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.Prod
 ) {
     private var needRanking = false
     private var checkFavoriteFragment = false
+
     inner class ProductItemViewHolder(val binding: ItemListProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductItemModel, position: Int) {

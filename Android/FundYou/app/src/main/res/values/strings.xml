@@ -67,4 +67,17 @@
     <string name="title_notisetting_funding">펀딩 알림</string>
     <string name="title_notisetting_funding_close">펀딩 마감 알림</string>
     <string name="title_notisetting_funding_close_deadline">펀딩 마감 임박 알림</string>
+
+    <!-- 초대 받은 퐁듀 -->
+    <string name="content_invited_fondue_name">from.%1$s</string>
+    <string name="content_invited_fondue_period">%1$s ~ %2$s</string>
+    <string name="content_invited_fondue_join">참여</string>
+    <string name="content_invited_fondue_ongoing">진행중</string>
+    <string name="content_invited_fondue_done">종료</string>
+    <string name="content_invited_fondue_non_join">미참여</string>
+    <string name="content_invited_fondue_category_ongoing">진행 중인 펀딩</string>
+    <string name="content_invited_fondue_category_done">종료된 펀딩</string>
+    <string name="content_invited_fondue_category_non_join">미참여한 펀딩</string>
+    <string name="content_invited_fondue_category_join">참여한 펀딩</string>
+    <string name="content_invited_fondue_pay">%1$d원 펀딩</string>
 </resources>

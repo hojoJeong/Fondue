@@ -94,8 +94,7 @@
     <fragment
         android:id="@+id/privacyFragment"
         android:name="com.ssafy.fundyou.ui.mypage.PrivacyFragment"
-        android:label="fragment_privacy"
-        tools:layout="@layout/fragment_privacy" />
+        android:label="fragment_privacy"/>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.ssafy.fundyou.ui.favorite.FavoriteFragment"
