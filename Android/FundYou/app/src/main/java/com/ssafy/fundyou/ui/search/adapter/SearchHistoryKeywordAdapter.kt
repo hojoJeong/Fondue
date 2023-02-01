@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemRecentKeywordListBinding
 
-class SearchHistoryKeywordAdapter(private val deleteEvent : (List<String>, Int) -> Unit, private val clickEvent : (String) -> Unit) :
+class SearchHistoryKeywordAdapter() :
     RecyclerView.Adapter<SearchHistoryKeywordAdapter.SearchHistoryKeywordViewHolder>() {
 
     private val keywordList = mutableListOf<String>()
+    private lateinit var deleteEvent: (List<String>, Int) -> Unit
+    private lateinit var clickEvent: (String) -> Unit
 
     inner class SearchHistoryKeywordViewHolder(private val binding: ItemRecentKeywordListBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -18,6 +20,9 @@ class SearchHistoryKeywordAdapter(private val deleteEvent : (List<String>, Int) 
             binding.keyword = keyword
             binding.ivDelete.setOnClickListener {
                 deleteEvent.invoke(keywordList, adapterPosition)
+            }
+            binding.root.setOnClickListener {
+                clickEvent.invoke(keyword)
             }
         }
     }
@@ -44,5 +49,13 @@ class SearchHistoryKeywordAdapter(private val deleteEvent : (List<String>, Int) 
     fun addKeywordList(list : List<String>){
         keywordList.clear()
         keywordList.addAll(list)
+    }
+
+    fun addItemDeleteEvent(event :(String) -> Unit){
+        clickEvent = event
+    }
+
+    fun addItemClickEvent(event: (List<String>, Int) -> Unit) {
+        deleteEvent = event
     }
 }

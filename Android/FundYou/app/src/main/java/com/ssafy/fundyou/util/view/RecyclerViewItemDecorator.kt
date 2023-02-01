@@ -10,7 +10,7 @@ class RecyclerViewItemDecorator(
     private val bottom: Int,
     private val left: Int,
     private val right: Int,
-    private val spanCount: Int
+    private val spanCount: Int = 1
 ) : RecyclerView.ItemDecoration() {
     override fun getItemOffsets(
         outRect: Rect,
