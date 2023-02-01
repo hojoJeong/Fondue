@@ -28,12 +28,13 @@ class GalleryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val galleryAdapter = GalleryAdapter(requireContext(), listOf(1,2,3,4,5))
+        val galleryAdapter = GalleryAdapter(listOf(1, 2, 3, 4, 5))
         binding.apply {
             rcvGallery.adapter = galleryAdapter
-            galleryAdapter.itemClickListener = object: GalleryAdapter.ItemClickListener{
+            galleryAdapter.itemClickListener = object : GalleryAdapter.ItemClickListener {
                 override fun onItemClicked() {
-                    NavHostFragment.findNavController(this@GalleryFragment).navigate(R.id.action_galleryFragment_to_arFragment)
+                    NavHostFragment.findNavController(this@GalleryFragment)
+                        .navigate(R.id.action_galleryFragment_to_arFragment)
 
                 }
 

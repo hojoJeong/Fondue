@@ -43,7 +43,6 @@ class ArFragment : Fragment() {
     private lateinit var btnCapture: Button
     private lateinit var renderable: ModelRenderable
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         if (!checkIsSupportedDeviceOrFinish(requireActivity())) {
             return
@@ -53,23 +52,27 @@ class ArFragment : Fragment() {
         initFirebase()
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view = inflater.inflate(R.layout.fragment_ar, container, false)
+        return inflater.inflate(R.layout.fragment_ar, container, false)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         arFragment = childFragmentManager.findFragmentById(/* id = */ R.id.arFragment) as ArFragment
 
-        btnCapture = view.findViewById<Button>(R.id.btn_capture)
-        btnCapture.setOnClickListener {
-            it.visibility = View.INVISIBLE
-            getBitmapFromView(view.findViewById(R.id.arFragment)) {
-                convertBMPtoPNG(it)
+        btnCapture = view.findViewById<Button>(R.id.btn_capture).apply {
+            setOnClickListener {
+                it.visibility = View.INVISIBLE
+                getBitmapFromView(view.findViewById(R.id.arFragment)) {
+                    convertBMPtoPNG(it)
+                }
             }
         }
-        return view
     }
 
     /** Firebase Storage에서 가져올 데이터 초기화 */
@@ -215,7 +218,8 @@ class ArFragment : Fragment() {
             /* bitmap -> png */
             bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
-            NavHostFragment.findNavController(this).navigate(ArFragmentDirections.actionArFragmentToCaptureFragment(bitmap!!))
+            NavHostFragment.findNavController(this)
+                .navigate(ArFragmentDirections.actionArFragmentToCaptureFragment(bitmap!!))
             /* cache/images/image.png */
 //            val newFile = File(cachePath, "image.png")
 //            val contentUri =

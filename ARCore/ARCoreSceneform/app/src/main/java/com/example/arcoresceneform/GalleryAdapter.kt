@@ -11,12 +11,13 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arcoresceneform.databinding.GalleryItemBinding
 
-class GalleryAdapter(val context: Context, val items: List<Int>) :
+class GalleryAdapter(val items: List<Int>) :
     RecyclerView.Adapter<GalleryAdapter.ViewHolder>() {
     private lateinit var binding: GalleryItemBinding
     private lateinit var holder: ViewHolder
     lateinit var itemClickListener: ItemClickListener
-    interface ItemClickListener{
+
+    interface ItemClickListener {
         fun onItemClicked()
     }
 
