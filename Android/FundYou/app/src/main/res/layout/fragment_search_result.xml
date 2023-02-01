@@ -31,7 +31,7 @@
             android:layout_marginHorizontal="@dimen/base_horizontal_margin"
             android:layout_marginTop="22dp"
             android:background="@drawable/bg_rect_midnight_express_transparent_radius10_stroke1"
-            android:drawableStart="@drawable/ic_search"
+            android:drawableStart="@drawable/ic_search_unselected"
             android:drawablePadding="8dp"
             android:hint="@string/content_search_input_hint"
             android:imeOptions="actionSearch"

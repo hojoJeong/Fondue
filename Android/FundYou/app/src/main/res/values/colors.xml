@@ -23,4 +23,9 @@
     <color name="solitude">#F0F1F4</color>
     <color name="arapawa">#2F4858</color>
     <color name="raven_trans_40">#80646A7E</color>
+    <color name="tomato">#FF5B4B</color>
+    <color name="tomato_trans_20">#33FF5B4B</color>
+    <color name="echo_blue">#AFB4C1</color>
+    <color name="matter_horn">#4F4F4F</color>
+    <color name="matter_horn_trans_20">#334F4F4F</color>
 </resources>
