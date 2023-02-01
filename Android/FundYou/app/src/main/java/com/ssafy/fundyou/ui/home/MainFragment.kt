@@ -286,8 +286,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
 
         val rankingItemAdapter = ProductItemAdapter()
-        rankingItemAdapter.submitList(rankingProductList)
         rankingItemAdapter.checkNeedRanking(true)
+        rankingItemAdapter.submitList(rankingProductList)
         with(binding.rvMainRank){
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter

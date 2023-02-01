@@ -19,9 +19,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-
-        binding.ivMypageFavorite.setOnClickListener {
-        }
     }
 
     override fun initView() {
@@ -37,8 +34,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         privacyCickListener()
         termsOfServiceClickListener()
         logoutCickListener()
+        initFavoriteClickListener()
+    }
 
-
+    private fun initFavoriteClickListener(){
+        binding.ivMypageFavorite.setOnClickListener {
+            navigate(MyPageFragmentDirections.actionMyPageFragmentToFavoriteFragment())
+        }
     }
 
     private fun userInfoClickListener(){

@@ -15,20 +15,17 @@ class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.Prod
     ProductDiffUtil()
 ) {
     private var needRanking = false
-    private var isFavoriteFragment = false
+    private var checkFavoriteFragment = false
     inner class ProductItemViewHolder(val binding: ItemListProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductItemModel, position: Int) {
-            binding.product = item
-
-            if(needRanking){
-                with(binding.tvItemListProductRanking){
-                    visibility = View.VISIBLE
-                    text = "${position + 1}위"
-                }
+            with(binding) {
+                product = item
+                isFavoriteFragment = checkFavoriteFragment
             }
-            if(isFavoriteFragment){
-                binding.isFavoriteFragment = true
+            if(needRanking){
+                binding.tvItemListProductRanking.visibility = View.VISIBLE
+                binding.tvItemListProductRanking.text = "${position+1}위"
             }
         }
     }
@@ -48,9 +45,10 @@ class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.Prod
     fun checkNeedRanking(value: Boolean){
         needRanking = value
     }
-    fun setIsFavoriteFragment(value: Boolean){
-        isFavoriteFragment = value
+    fun checkIsFavoriteFragment(value: Boolean){
+        checkFavoriteFragment = value
     }
+
     class ProductDiffUtil : DiffUtil.ItemCallback<ProductItemModel>() {
         /**
          * 두 아이템의 내부 데이터가 동일한지 확인

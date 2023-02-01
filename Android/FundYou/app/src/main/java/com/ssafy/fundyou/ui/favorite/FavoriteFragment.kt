@@ -1,10 +1,8 @@
 package com.ssafy.fundyou.ui.favorite
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
@@ -18,6 +16,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
         initView()
     }
     override fun initView() {
+        initItemList()
     }
 
     override fun initViewModels() {
@@ -48,8 +47,12 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
 
         val itemListAdapter = ProductItemAdapter()
         itemListAdapter.submitList(itemList)
-        itemListAdapter.setIsFavoriteFragment(true)
-        binding.rvFavorite.adapter = itemListAdapter
+        itemListAdapter.checkIsFavoriteFragment(true)
+
+        with(binding.rvFavorite){
+            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            adapter = itemListAdapter
+        }
     }
 
 }

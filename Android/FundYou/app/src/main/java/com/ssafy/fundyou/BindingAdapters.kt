@@ -4,6 +4,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatButton
 import androidx.databinding.BindingAdapter
 import com.ssafy.fundyou.util.addComma
 
@@ -43,17 +44,11 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("favoriteImage")
-    fun ImageView.setImageByFavorite(isFavorite : Boolean){
+    fun ImageView.checkFavoriteFragment(isFavorite : Boolean){
         if(isFavorite) {
             this.setImageResource(R.drawable.ic_favorite)
         } else {
             this.setImageResource(R.drawable.ic_favorite_line)
         }
-    }
-
-    @JvmStatic
-    @BindingAdapter("favoriteVisibility")
-    fun ImageView.setFavoriteVisibility(isFavoriteFragment: Boolean){
-        if(isFavoriteFragment) this.visibility = View.GONE
     }
 }
