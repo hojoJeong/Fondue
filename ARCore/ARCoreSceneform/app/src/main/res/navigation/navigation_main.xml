@@ -25,7 +25,22 @@
         android:name="com.example.arcoresceneform.ArFragment"
         android:label="ArFragment" >
         <action
-            android:id="@+id/action_arFragment_to_galleryFragment"
-            app:destination="@id/galleryFragment" />
+            android:id="@+id/action_arFragment_to_captureFragment"
+            app:destination="@id/captureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/captureFragment"
+        android:name="com.example.arcoresceneform.CaptureFragment"
+        android:label="fragment_capture"
+        tools:layout="@layout/fragment_capture">
+                <argument
+                    android:name="arg1"
+                    app:argType="android.graphics.Bitmap"
+                    app:nullable="false"
+                    />
+        <action
+            android:id="@+id/action_captureFragment_to_galleryFragment"
+            app:destination="@id/galleryFragment"
+            app:popUpTo="@id/galleryFragment" />
     </fragment>
 </navigation>

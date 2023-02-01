@@ -18,6 +18,8 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
+import androidx.navigation.fragment.NavHostFragment
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
@@ -213,18 +215,18 @@ class ArFragment : Fragment() {
             /* bitmap -> png */
             bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
-
+            NavHostFragment.findNavController(this).navigate(ArFragmentDirections.actionArFragmentToCaptureFragment(bitmap!!))
             /* cache/images/image.png */
-            val newFile = File(cachePath, "image.png")
-            val contentUri =
-                FileProvider.getUriForFile(requireContext(), "com.example.arcoresceneform", newFile)
-
-            val sharingIntent = Intent(Intent.ACTION_SEND)
-            sharingIntent.apply {
-                type = "image/png"
-                putExtra(Intent.EXTRA_STREAM, contentUri)
-            }
-            startActivity(Intent.createChooser(sharingIntent, "share image"))
+//            val newFile = File(cachePath, "image.png")
+//            val contentUri =
+//                FileProvider.getUriForFile(requireContext(), "com.example.arcoresceneform", newFile)
+//
+//            val sharingIntent = Intent(Intent.ACTION_SEND)
+//            sharingIntent.apply {
+//                type = "image/png"
+//                putExtra(Intent.EXTRA_STREAM, contentUri)
+//            }
+//            startActivity(Intent.createChooser(sharingIntent, "share image"))
         } catch (e: IOException) {
             Log.d("suyong", "faild to sharing")
             e.printStackTrace()

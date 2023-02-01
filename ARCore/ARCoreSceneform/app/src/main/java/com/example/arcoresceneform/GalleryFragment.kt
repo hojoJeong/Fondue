@@ -34,6 +34,7 @@ class GalleryFragment : Fragment() {
             galleryAdapter.itemClickListener = object: GalleryAdapter.ItemClickListener{
                 override fun onItemClicked() {
                     NavHostFragment.findNavController(this@GalleryFragment).navigate(R.id.action_galleryFragment_to_arFragment)
+
                 }
 
             }
