@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Base -->
-    <dimen name="base_horizontal_margin">18dp</dimen>
-    <dimen name="base_vertical_margin">18dp</dimen>
+    <dimen name="base_horizontal_margin">28dp</dimen>
+    <dimen name="base_vertical_margin">28dp</dimen>
 
     <!-- Login Banner Size -->
     <dimen name="login_banner_size">400dp</dimen>
 
     <!-- margin for main UI -->
-    <dimen name="margin_main">20dp</dimen>
     <dimen name="margin_main_between_content">40dp</dimen>
     <dimen name="margin_item_between_tv">2dp</dimen>
 </resources>

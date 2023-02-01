@@ -7,7 +7,7 @@
             type="com.ssafy.fundyou.ui.home.MainFragment" />
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.ProductItemlModel" />
+            type="com.ssafy.fundyou.domain.model.ProductItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -33,8 +33,8 @@
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_margin="6dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/bg_favorite_line"
+            android:scaleType="centerInside"
+            app:favoriteImage="@{product.favorite}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product" />
 
@@ -43,10 +43,11 @@
             style="@style/base_font_bold_16_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_brand"
             app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
             tools:text="1위"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:textColor="@color/black"/>
 
         <TextView
@@ -55,9 +56,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
-            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+            app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
             android:text="@{product.name}"
+            android:layout_marginStart="20dp"
+
             android:textColor="@color/link_water"
             tools:text="삼성" />
 
@@ -81,7 +84,7 @@
             android:layout_marginTop="@dimen/margin_item_between_tv"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
-            android:text="@{product.price}"
+            app:addCommaText="@{product.price}"
             android:textColor="@color/black"
             tools:text="2,890,000원" />
 
@@ -90,10 +93,11 @@
             style="@style/base_font_medium"
             android:layout_width="50dp"
             android:layout_height="26dp"
-            android:background="@drawable/bg_rect_gradient_white_roud10_stroke1"
+            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
             android:text="@string/title_AR_btn"
             android:textColor="@color/franch_rose"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:arVisibility="@{product.ar}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

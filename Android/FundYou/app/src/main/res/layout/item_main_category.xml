@@ -8,7 +8,9 @@
             name="category"
             type="com.ssafy.fundyou.ui.home.model.MainCategoryModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstl_item_main_category"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="100dp"
@@ -22,7 +24,7 @@
             android:scaleType="fitEnd"
             app:layout_constraintBottom_toTopOf="@+id/tv_main_item_category"
             app:layout_constraintStart_toStartOf="parent"
-            app:bindImage = "@{category.categoryImg}"
+            app:srcByDrawable = "@{category.categoryImg}"
             tools:src="@drawable/bg_banner_ssafylogo3" />
 
         <TextView
