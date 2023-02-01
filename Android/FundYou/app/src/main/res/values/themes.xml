@@ -127,4 +127,6 @@
         <item name="android:textColor">@color/chip_text</item>
     </style>
 
+    <!-- switch -->
+
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
     app:startDestination="@id/mainFragment">
 
@@ -14,6 +15,9 @@
         <action
             android:id="@+id/action_mainFragment_to_itemListFragment"
             app:destination="@id/itemListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment" />
     </fragment>
 
     <fragment
@@ -43,5 +47,32 @@
             app:nullable="false"
             app:argType="string"/>
     </fragment>
+    <fragment
+        android:id="@+id/myPageFragment"
+        android:name="com.ssafy.fundyou.ui.mypage.MyPageFragment"
+        android:label="MyPageFragment" >
+        <action
+            android:id="@+id/action_myPageFragment_to_userInfoFragment"
+            app:destination="@id/userInfoFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_notiSettingFragment"
+            app:destination="@id/notiSettingFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_privacyFragment"
+            app:destination="@id/privacyFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/userInfoFragment"
+        android:name="com.ssafy.fundyou.ui.mypage.UserInfoFragment"
+        android:label="UserInfoFragment" />
+    <fragment
+        android:id="@+id/notiSettingFragment"
+        android:name="com.ssafy.fundyou.ui.mypage.NotiSettingFragment"
+        android:label="NotiSettingFragment" />
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.ssafy.fundyou.ui.mypage.PrivacyFragment"
+        android:label="fragment_privacy"
+        tools:layout="@layout/fragment_privacy" />
 
 </navigation>

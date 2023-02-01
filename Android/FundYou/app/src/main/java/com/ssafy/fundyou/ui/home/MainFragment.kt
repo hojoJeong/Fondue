@@ -74,6 +74,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun initBanner() {
+        //TODO("마이페이지 테스트를 위한 임시 연결")
+        binding.tvMainBannerIndicator.setOnClickListener {
+            Log.d(TAG, "initBanner: test")
+            navigate(MainFragmentDirections.actionMainFragmentToMyPageFragment())
+        }
+
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 

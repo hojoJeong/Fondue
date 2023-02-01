@@ -51,7 +51,7 @@
                 app:layout_constraintEnd_toStartOf="@+id/btn_layout_pay_add"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_layout_pay_logo"
                 android:layout_marginEnd="8dp"
-                tools:text="@string/content_fondue_pay_balance"
+                tools:text="잔액 : 100,000원"
                 style="@style/base_font_medium_12"
                 android:textColor="@color/black" />
 

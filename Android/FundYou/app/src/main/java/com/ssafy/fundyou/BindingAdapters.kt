@@ -45,9 +45,9 @@ object BindingAdapters {
     @BindingAdapter("favoriteImage")
     fun ImageView.setImageByFavorite(isFavorite : Boolean){
         if(isFavorite) {
-            this.setImageResource(R.drawable.bg_favorite)
+            this.setImageResource(R.drawable.ic_favorite)
         } else {
-            this.setImageResource(R.drawable.bg_favorite_line)
+            this.setImageResource(R.drawable.ic_favorite_line)
         }
     }
 }
