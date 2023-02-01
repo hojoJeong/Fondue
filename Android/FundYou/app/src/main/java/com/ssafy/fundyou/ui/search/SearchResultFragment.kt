@@ -10,8 +10,11 @@ import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchResultAdapter
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(R.layout.fragment_search_result) {
+@AndroidEntryPoint
+class SearchResultFragment :
+    BaseFragment<FragmentSearchResultBinding>(R.layout.fragment_search_result) {
 
     private val resultAdapter = SearchResultAdapter()
     private val args by navArgs<SearchResultFragmentArgs>()
@@ -47,15 +50,21 @@ class SearchResultFragment : BaseFragment<FragmentSearchResultBinding>(R.layout.
         }
     }
 
-    private fun initSearchResultList(){
+    private fun initSearchResultList() {
+        with(resultAdapter) {
+            initItemClickEvent { itemId ->
+                navigate(SearchResultFragmentDirections.actionSearchResultFragmentToItemDetailFragment(itemId))
+            }
+        }
+
         with(binding.rvSearchItemList) {
             adapter = resultAdapter
-            addItemDecoration(RecyclerViewItemDecorator(0,0,30,0,2))
+            addItemDecoration(RecyclerViewItemDecorator(0, 0, 30, 0, 2))
         }
         resultAdapter.submitList(tempData())
     }
 
-    private fun tempData() : List<ProductItemModel>{
+    private fun tempData(): List<ProductItemModel> {
         val rankingProductList = mutableListOf<ProductItemModel>()
         rankingProductList.add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
         rankingProductList.add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))

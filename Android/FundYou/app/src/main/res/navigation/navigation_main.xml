@@ -13,6 +13,9 @@
             android:id="@+id/action_mainFragment_to_searchFragment"
             app:destination="@id/searchFragment" />
         <action
+            android:id="@+id/action_mainFragment_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
+        <action
             android:id="@+id/action_mainFragment_to_itemListFragment"
             app:destination="@id/itemListFragment" />
         <action
@@ -37,6 +40,23 @@
             android:name="keyword"
             app:nullable="false"
             app:argType="string"/>
+        <action
+            android:id="@+id/action_searchResultFragment_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemDetailFragment"
+        android:name="com.ssafy.fundyou.ui.itemdetail.ItemDetailFragment"
+        android:label="ItemDetailFragment" >
+        <argument
+            android:name="itemId"
+            app:argType="integer"
+            app:nullable="false"/>
+        <action
+            android:id="@+id/action_itemDetailFragment_self2"
+            app:destination="@id/itemDetailFragment"
+            app:popUpTo="@id/itemDetailFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -74,5 +94,6 @@
         android:name="com.ssafy.fundyou.ui.mypage.PrivacyFragment"
         android:label="fragment_privacy"
         tools:layout="@layout/fragment_privacy" />
+
 
 </navigation>
