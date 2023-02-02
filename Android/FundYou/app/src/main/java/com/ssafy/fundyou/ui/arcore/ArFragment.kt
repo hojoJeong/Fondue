@@ -32,39 +32,34 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.databinding.FragmentArBinding
+import com.ssafy.fundyou.ui.base.BaseFragment
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
 private const val MIN_OPENGL_VERSION = 3.0
 
-class ArFragment : Fragment() {
+class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
 
     private var arFragment: ArFragment? = null
     private lateinit var btnCapture: Button
     private lateinit var renderable: ModelRenderable
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (!checkIsSupportedDeviceOrFinish(requireActivity())) {
-            return
-        }
         super.onCreate(savedInstanceState)
-
         initFirebase()
     }
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-
-        return inflater.inflate(R.layout.fragment_ar, container, false)
+    override fun initView() {
+        arFragment = childFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
     }
+
+    override fun initViewModels() {}
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arFragment = childFragmentManager.findFragmentById(/* id = */ R.id.arFragment) as ArFragment
+        initView()
 
         btnCapture = view.findViewById<Button>(R.id.btn_capture).apply {
             setOnClickListener {
@@ -93,7 +88,9 @@ class ArFragment : Fragment() {
         modelRef.getFile(file)
             .addOnSuccessListener { // 다운로드 성공
                 buildModel(file)
+                Log.d("suyong", "writeFileFromFirebase: ")
             }.addOnFailureListener { // 다운로드 실패
+                Log.d("suyong", "writeFileFromFirebase: fail")
                 Toast.makeText(context, "Failed to download", Toast.LENGTH_SHORT).show()
             }
     }
@@ -219,8 +216,7 @@ class ArFragment : Fragment() {
             /* bitmap -> png */
             bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
-            NavHostFragment.findNavController(this)
-                .navigate(ArFragmentDirections.actionArFragmentToArCaptureFragment(bitmap!!))
+            navigate(ArFragmentDirections.actionArFragmentToArCaptureFragment(bitmap!!))
             /* cache/images/image.png */
 //            val newFile = File(cachePath, "image.png")
 //            val contentUri =
@@ -237,5 +233,7 @@ class ArFragment : Fragment() {
             e.printStackTrace()
         }
     }
+
+
 
 }

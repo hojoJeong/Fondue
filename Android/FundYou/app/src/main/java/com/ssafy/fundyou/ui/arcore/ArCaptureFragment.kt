@@ -1,47 +1,40 @@
 package com.ssafy.fundyou.ui.arcore
 
-import android.os.Build
+import android.graphics.Bitmap
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
+import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArCaptureBinding
+import com.ssafy.fundyou.ui.base.BaseFragment
 
 
-class ArCaptureFragment : Fragment() {
-    private lateinit var binding: FragmentArCaptureBinding
+class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragment_ar_capture) {
+    private lateinit var bitmap: Bitmap
 
-    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun initView() {
+        bitmap = getBitmapFromArgs()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentArCaptureBinding.inflate(layoutInflater, container, false)
-        return binding.root
-    }
+    override fun initViewModels() {}
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args: ArCaptureFragmentArgs by navArgs()
-        val bitmap = args.arg1
+
+        initView()
         binding.apply {
             ivCapture.setImageBitmap(bitmap)
             btnSave.setOnClickListener {
                 Toast.makeText(requireContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show()
-                NavHostFragment.findNavController(this@ArCaptureFragment)
-                    .navigate(ArCaptureFragmentDirections.actionArCaptureFragmentToArGalleryFragment())
+                navigate(ArCaptureFragmentDirections.actionArCaptureFragmentToArGalleryFragment())
             }
         }
+    }
 
+    private fun getBitmapFromArgs(): Bitmap {
+        val args: ArCaptureFragmentArgs by navArgs()
+        return args.arg1
     }
 }
