@@ -186,6 +186,9 @@
         <item name="android:textColor">@color/chip_text</item>
     </style>
 
-    <!-- switch -->
+    <style name="custom_dropdown_menu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="background">@drawable/bg_rect_gradient_white_round10_stroke1</item>
+        <item name="color">@style/base_font_medium_14</item>
+    </style>
 
 </resources>

@@ -86,7 +86,11 @@
     <fragment
         android:id="@+id/userInfoFragment"
         android:name="com.ssafy.fundyou.ui.mypage.UserInfoFragment"
-        android:label="UserInfoFragment" />
+        android:label="UserInfoFragment" >
+        <action
+            android:id="@+id/action_userInfoFragment_to_cancelMenbershipFragment"
+            app:destination="@id/cancelMenbershipFragment" />
+    </fragment>
     <fragment
         android:id="@+id/notiSettingFragment"
         android:name="com.ssafy.fundyou.ui.mypage.NotiSettingFragment"
@@ -103,6 +107,23 @@
         android:id="@+id/myFundingFragment"
         android:name="com.ssafy.fundyou.ui.myfunding.MyFundingFragment"
         android:label="MyFundingFragment" />
+    <fragment
+        android:id="@+id/cancelMenbershipFragment"
+        android:name="com.ssafy.fundyou.ui.mypage.MembershipWithdrawalFragment"
+        android:label="CancelMenbershipFragment" >
+        <argument
+            android:name="user_info"
+            app:nullable="false"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_cancelMenbershipFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"/>
+        <action
+            android:id="@+id/action_cancelMenbershipFragment_to_notiSettingFragment"
+            app:destination="@id/notiSettingFragment"
+            app:popUpTo="@id/mainFragment"/>
+    </fragment>
 
 
 </navigation>

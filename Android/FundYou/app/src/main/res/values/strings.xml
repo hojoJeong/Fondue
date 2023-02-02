@@ -80,4 +80,30 @@
     <string name="content_invited_fondue_category_non_join">미참여한 펀딩</string>
     <string name="content_invited_fondue_category_join">참여한 펀딩</string>
     <string name="content_invited_fondue_pay">%1$d원 펀딩</string>
+    
+    <!-- 탈퇴하기 -->
+    <string name="content_cancel_membership_username">%1$s님,</string>
+    <string name="content_cancel_membership_top_message">만족스러운 서비스를 제공해드리지 못해 대단히 죄송합니다. 퐁듀를 떠나시려는 이유를 알려주세요😥</string>
+    <string name="title_cancel_membership_reason_menu">탈퇴 사유를 선택해주세요</string>
+    <string name="category_cancel_membership_reason_cancel_1">기록 삭제 목적</string>
+    <string name="category_cancel_membership_reason_cancel_2">이용이 불편하고 오류가 많아서</string>
+    <string name="category_cancel_membership_reason_cancel_3">사고싶은 상품이 없어서</string>
+    <string name="category_cancel_membership_reason_cancel_4">알림이 너무 자주 울려서</string>
+    <string name="category_cancel_membership_reason_cancel_5">기타</string>
+    <string name="content_cancel_membership_solution_3_title">퐁듀가 알아서 상품을 추천해드릴게요!</string>
+    <string name="content_cancel_membership_solution_3_content">검색 빈도와 랜덤으로 다양하고 신뢰성 있는 상품을 추천 받아보세요.</string>
+    <string name="content_cancel_membership_solution_btn"><u>%1$s 바로가기</u></string>
+    <string name="content_cancel_membership_solution_4_title">서비스별로 알림을 설정해보세요!</string>
+    <string name="content_cancel_membership_solution_4_content">알림 설정을 통해 받고싶은 알림만 받아보세요.</string>
+    <string name="content_cancel_membership_final_message_title">탈퇴하기 버튼을 누르면 복구가 불가능합니다.</string>
+    <string name="content_cancel_membership_final_message_content">탈퇴 즉시 모든 개인정보가 삭제되며 퐁듀 서비스 및 혜택을 받으실 수 없습니다.</string>
+    <string name="title_cancel_membership_btn_back">돌아가기</string>
+    <string name="title_cancel_membership_btn_withdraw">탈퇴하기</string>
+    <string-array name="menu_withdrawal_membership_reason">
+        <item>@string/category_cancel_membership_reason_cancel_1</item>
+        <item>@string/category_cancel_membership_reason_cancel_2</item>
+        <item>@string/category_cancel_membership_reason_cancel_3</item>
+        <item>@string/category_cancel_membership_reason_cancel_4</item>
+        <item>@string/category_cancel_membership_reason_cancel_5</item>
+    </string-array>
 </resources>
