@@ -1,7 +1,7 @@
 package com.ssafy.fundyou.ui.adapter.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.ssafy.fundyou.ui.my_funding.model.FundingItemModel
+import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 
 object FundingItemModelDiffUtil : DiffUtil.ItemCallback<FundingItemModel>(){
     override fun areItemsTheSame(

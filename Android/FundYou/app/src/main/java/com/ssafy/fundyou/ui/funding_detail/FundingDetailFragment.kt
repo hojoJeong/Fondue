@@ -12,10 +12,11 @@ import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.funding_detail.adapter.FundingDetailStateAdapter
 import com.ssafy.fundyou.ui.funding_detail.adapter.FundingRankingAdapter
 import com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel
-import com.ssafy.fundyou.ui.my_funding.model.FundingItemModel
+import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 import com.ssafy.fundyou.util.extension.getColorNoTheme
 
-class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail){
+class FundingDetailFragment :
+    BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail) {
 
     private val fundingRankingAdapter = FundingRankingAdapter()
     private val fundingDetailStateAdapter = FundingDetailStateAdapter()
@@ -36,15 +37,29 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
     }
 
-    private fun initFundingRankingList(){
-        val tempList = listOf(FundingUserModel(1, "유승우", R.drawable.ic_launcher_background, 100000, listOf("냉장고", "전자레인지")),
-        FundingUserModel(2, "정수용", R.drawable.ic_launcher_background, 10000, listOf("냉장고")),
-        FundingUserModel(3, "정호조", R.drawable.ic_launcher_background, 300000, listOf("냉장고", "전자레인지", "가스레인지")))
+    private fun initFundingRankingList() {
+        val tempList = listOf(
+            FundingUserModel(
+                1,
+                "유승우",
+                R.drawable.ic_launcher_background,
+                100000,
+                listOf("냉장고", "전자레인지")
+            ),
+            FundingUserModel(2, "정수용", R.drawable.ic_launcher_background, 10000, listOf("냉장고")),
+            FundingUserModel(
+                3,
+                "정호조",
+                R.drawable.ic_launcher_background,
+                300000,
+                listOf("냉장고", "전자레인지", "가스레인지")
+            )
+        )
         fundingRankingAdapter.submitList(tempList)
         binding.rvFundingRanking.adapter = fundingRankingAdapter
     }
 
-    private fun initFundingStateList(){
+    private fun initFundingStateList() {
         val tempList = listOf(
             FundingItemModel(
                 id = 0,
@@ -74,13 +89,13 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         binding.rvFundingItemDetail.adapter = fundingDetailStateAdapter
     }
 
-    private fun initFundingPieChart(){
+    private fun initFundingPieChart() {
         // 파이차트에 들어갈 자료들
         val pieEntries = arrayListOf<PieEntry>()
 
         // 파이차트의 자료(Key, Value)
         val tempMap = mapOf(
-            ("test1" to 10),("test3" to 30), ("test2" to 20), ("last" to 40)
+            ("test1" to 10), ("test3" to 30), ("test2" to 20), ("last" to 40)
         )
 
         // 파이차트에 표현할 색상, Map의 순서와 동일하게 적용
@@ -92,7 +107,7 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         )
 
         // 데이터 추가
-        for(value in tempMap.keys){
+        for (value in tempMap.keys) {
             pieEntries.add(PieEntry(tempMap[value]?.toFloat()!!, value))
         }
 
@@ -108,7 +123,7 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
         }
 
         // 파이차트에 적용
-        with(binding.chartFunding){
+        with(binding.chartFunding) {
             data = pieData
 
             // label 지정
@@ -118,13 +133,14 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
             description.isEnabled = false
 
             // 차트 가운데 텍스트
-            setCenterTextColor(R.color.black)
             centerText = "총 금액 10000"
+            setCenterTextColor(requireContext().getColorNoTheme(R.color.black))
+            setCenterTextSize(20f)
 
             // 차트 하단 요약 해제
             legend.isEnabled = false
-
-            invalidate()
         }
+
+        binding.chartFunding.invalidate()
     }
 }

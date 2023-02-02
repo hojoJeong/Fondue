@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemMyFundingStateListBinding
 import com.ssafy.fundyou.ui.adapter.diffutil.FundingItemModelDiffUtil
-import com.ssafy.fundyou.ui.my_funding.model.FundingItemModel
+import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 
 class FundingDetailStateAdapter :
     ListAdapter<FundingItemModel, FundingDetailStateAdapter.FundingDetailStateHolder>(

@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/myFundingFragment"
-        android:name="com.ssafy.fundyou.ui.my_funding.MyFundingFragment"
+        android:name="com.ssafy.fundyou.ui.funding_my.MyFundingFragment"
         android:label="MyFundingFragment" >
         <action
             android:id="@+id/action_myFundingFragment_to_fundingDetailFragment"

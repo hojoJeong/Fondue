@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.my_funding.model
+package com.ssafy.fundyou.ui.funding_my.model
 
 import com.ssafy.fundyou.domain.model.ProductItemModel
 import kotlin.math.roundToInt
