@@ -29,15 +29,16 @@ public class Funding {
     @Column(name = "start_date")
     private LocalDateTime startDate; // due : 펀딩 시작 날짜
 
-    @Column(name = "last_date")
-    private LocalDateTime lastDate; // due : 펀딩 마감 날짜
+    @Column(name = "end_date")
+    private LocalDateTime endDate; // due : 펀딩 마감 날짜
 
 
     /**
      * orderStatus: 펀딩 상태(펀딩 진행중, 펀딩 마감 )
      */
     @Enumerated(EnumType.STRING)
-    private FundingStatus status;
+    @Column(name = "funding_status")
+    private FundingStatus fundingStatus;
 
     @JsonIgnore
     @OneToMany(mappedBy = "funding",cascade = CascadeType.ALL)
