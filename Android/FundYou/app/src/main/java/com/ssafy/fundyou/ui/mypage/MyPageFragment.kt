@@ -58,13 +58,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun privacyCickListener(){
         binding.tvMypagePrivacy.setOnClickListener {
-            navigate(MyPageFragmentDirections.actionMyPageFragmentToPrivacyFragment())
+            navigate(MyPageFragmentDirections.actionMyPageFragmentToPrivacyFragment("privacy"))
         }
     }
 
     private fun termsOfServiceClickListener(){
         binding.tvMypageTermsOfService.setOnClickListener {
-
+            navigate(MyPageFragmentDirections.actionMyPageFragmentToPrivacyFragment("service"))
         }
     }
 

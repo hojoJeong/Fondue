@@ -97,8 +97,13 @@
         android:label="NotiSettingFragment" />
     <fragment
         android:id="@+id/privacyFragment"
-        android:name="com.ssafy.fundyou.ui.mypage.PrivacyFragment"
-        android:label="fragment_privacy"/>
+        android:name="com.ssafy.fundyou.ui.mypage.ContainerPolicyFragment"
+        android:label="fragment_privacy">
+        <argument
+            android:name="content"
+            app:nullable="false"
+            app:argType="string"/>
+    </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.ssafy.fundyou.ui.favorite.FavoriteFragment"
