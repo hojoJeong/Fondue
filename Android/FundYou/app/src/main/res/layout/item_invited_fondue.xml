@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="funding_item"
+            type="com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -29,7 +33,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_invited_fondue_profile"
-            android:text="@string/content_invited_fondue_name"
+            android:transitionName='@{"from."+funding_item.userName+"님"}'
+            tools:text="from.김싸피"
             app:layout_constraintBottom_toTopOf="@+id/tv_invited_fondue_period"
             style="@style/base_font_bold_16_black"
             android:textColor="@color/black"
@@ -43,25 +48,38 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_invited_fondue_name"
             app:layout_constraintBottom_toTopOf="@+id/btn_invited_fondue_join_or_not"
-            android:text="@string/content_invited_fondue_period"
+            android:transitionName='@{funding_item.userName}'
+            tools:text="2023.01.01 ~ 2023.02.01"
             style="@style/base_font_medium_16"
-            android:textSize="36sp"/>
+            android:textSize="20sp"/>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <com.google.android.material.chip.Chip
             android:id="@+id/btn_invited_fondue_join_or_not"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            tools:text="참여"
+            style="@style/base_font_bold_16"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            tools:backgroundTint="@color/cornflower_blue"
+            app:layout_constraintBottom_toTopOf="@+id/tv_invited_fondue_pay"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btn_invited_fondue_ongoing_or_done"
-            app:layout_constraintTop_toBottomOf="@id/tv_invited_fondue_period"
-            app:layout_constraintBottom_toTopOf="@+id/tv_invited_fondue_pay"/>
-        <androidx.appcompat.widget.AppCompatButton
+            app:layout_constraintTop_toBottomOf="@+id/tv_invited_fondue_period"
+            app:layout_constraintEnd_toStartOf="@+id/btn_invited_fondue_ongoing_or_done"/>
+        <com.google.android.material.chip.Chip
             android:id="@+id/btn_invited_fondue_ongoing_or_done"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="60dp"
+            android:textColor="@color/white"
+            style="@style/base_font_bold_16"
+            android:textAlignment="center"
+            android:textSize="20sp"
+            tools:backgroundTint="@color/heliotrope"
             app:layout_constraintStart_toEndOf="@+id/btn_invited_fondue_join_or_not"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_invited_fondue_join_or_not"/>
+            app:layout_constraintTop_toTopOf="@+id/btn_invited_fondue_join_or_not"
+            tools:text="진행중"/>
 
         <TextView
             android:id="@+id/tv_invited_fondue_pay"
@@ -69,6 +87,10 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:text="@string/content_invited_fondue_pay"/>
+            android:transitionName='@{funding_item.fundingPrice+"원 펀딩"}'
+            style="@style/base_font_bold_16"
+            tools:text="20,000원 펀딩"
+            android:textColor="@color/black"
+            android:textSize="20sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

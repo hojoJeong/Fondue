@@ -82,6 +82,9 @@
         <action
             android:id="@+id/action_myPageFragment_to_favoriteFragment"
             app:destination="@id/favoriteFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_invitedFondueFragment"
+            app:destination="@id/invitedFondueFragment" />
     </fragment>
     <fragment
         android:id="@+id/userInfoFragment"
@@ -129,6 +132,10 @@
             app:destination="@id/notiSettingFragment"
             app:popUpTo="@id/mainFragment"/>
     </fragment>
+    <fragment
+        android:id="@+id/invitedFondueFragment"
+        android:name="com.ssafy.fundyou.ui.funding_participate.InvitedFondueFragment"
+        android:label="InvitedFondueFragment" />
 
 
 </navigation>

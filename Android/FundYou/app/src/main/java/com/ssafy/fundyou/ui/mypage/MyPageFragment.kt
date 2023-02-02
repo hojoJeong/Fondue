@@ -1,17 +1,10 @@
 package com.ssafy.fundyou.ui.mypage
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMyPageBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.home.MainFragmentDirections
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
 
@@ -34,10 +27,17 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         privacyCickListener()
         termsOfServiceClickListener()
         logoutCickListener()
-        initFavoriteClickListener()
+        invitedFondueClickListener()
+        favoriteClickListener()
     }
 
-    private fun initFavoriteClickListener(){
+    private fun invitedFondueClickListener(){
+        binding.ivMypageInvitedFondue.setOnClickListener {
+            navigate(MyPageFragmentDirections.actionMyPageFragmentToInvitedFondueFragment())
+        }
+    }
+
+    private fun favoriteClickListener(){
         binding.ivMypageFavorite.setOnClickListener {
             navigate(MyPageFragmentDirections.actionMyPageFragmentToFavoriteFragment())
         }

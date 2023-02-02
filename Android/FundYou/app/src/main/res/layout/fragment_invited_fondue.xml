@@ -1,14 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+    </data>
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.mypage.InvitedFondueFragment">
+    tools:context=".ui.funding_participate.InvitedFondueFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <HorizontalScrollView
+        android:id="@+id/hscv_invited_fondue"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="@dimen/base_vertical_margin"
+        android:scrollbars="none">
 
-</FrameLayout>
+        <com.google.android.material.chip.ChipGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleSelection="true"
+            app:singleLine="true"
+            android:layout_gravity="end"
+            >
+            <com.google.android.material.chip.Chip
+                android:id="@+id/btn_invited_fondue_category_ongoing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/custom_chip"
+                app:chipStrokeWidth="1dp"
+                android:checked="true"
+                android:text="@string/content_invited_fondue_category_ongoing"
+                android:layout_marginStart="@dimen/base_vertical_item_list"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/btn_invited_fondue_category_done"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/custom_chip"
+                app:chipStrokeWidth="1dp"
+                android:text="@string/content_invited_fondue_category_done"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/btn_invited_fondue_category_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/custom_chip"
+                app:chipStrokeWidth="1dp"
+                android:text="@string/content_invited_fondue_category_join"/>
+            <com.google.android.material.chip.Chip
+                android:id="@+id/btn_invited_fondue_category_non_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/custom_chip"
+                app:chipStrokeWidth="1dp"
+                android:text="@string/content_invited_fondue_category_non_join"
+                android:layout_marginEnd="@dimen/base_vertical_item_list"/>
+
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_invited_fondue_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hscv_invited_fondue"
+        android:layout_marginTop="@dimen/base_vertical_margin"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
