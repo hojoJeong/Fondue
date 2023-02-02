@@ -28,12 +28,19 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         termsOfServiceClickListener()
         logoutCickListener()
         invitedFondueClickListener()
+        myFondueClickListener()
         favoriteClickListener()
     }
 
     private fun invitedFondueClickListener(){
         binding.ivMypageInvitedFondue.setOnClickListener {
             navigate(MyPageFragmentDirections.actionMyPageFragmentToInvitedFondueFragment())
+        }
+    }
+
+    private fun myFondueClickListener(){
+        binding.ivMypageMyfondue.setOnClickListener {
+            navigate(MyPageFragmentDirections.actionMyPageFragmentToMyFundingFragment())
         }
     }
 

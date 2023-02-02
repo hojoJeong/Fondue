@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_myPageFragment_to_invitedFondueFragment"
             app:destination="@id/invitedFondueFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_myFundingFragment"
+            app:destination="@id/myFundingFragment" />
     </fragment>
     <fragment
         android:id="@+id/userInfoFragment"
