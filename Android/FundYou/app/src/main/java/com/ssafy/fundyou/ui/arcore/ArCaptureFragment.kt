@@ -16,6 +16,13 @@ class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragme
 
     override fun initView() {
         bitmap = getBitmapFromArgs()
+        binding.apply {
+            ivCapture.setImageBitmap(bitmap)
+            btnSave.setOnClickListener {
+                Toast.makeText(requireContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show()
+                navigate(ArCaptureFragmentDirections.actionArCaptureFragmentToArGalleryFragment())
+            }
+        }
     }
 
     override fun initViewModels() {}
@@ -24,13 +31,6 @@ class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
 
         initView()
-        binding.apply {
-            ivCapture.setImageBitmap(bitmap)
-            btnSave.setOnClickListener {
-                Toast.makeText(requireContext(), "저장되었습니다!", Toast.LENGTH_SHORT).show()
-                navigate(ArCaptureFragmentDirections.actionArCaptureFragmentToArGalleryFragment())
-            }
-        }
     }
 
     private fun getBitmapFromArgs(): Bitmap {

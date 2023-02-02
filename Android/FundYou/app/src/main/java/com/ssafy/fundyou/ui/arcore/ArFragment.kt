@@ -43,15 +43,22 @@ private const val MIN_OPENGL_VERSION = 3.0
 class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
 
     private var arFragment: ArFragment? = null
-    private lateinit var btnCapture: Button
     private lateinit var renderable: ModelRenderable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         initFirebase()
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         arFragment = childFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
+        binding.btnCapture.setOnClickListener {
+            it.visibility = View.INVISIBLE
+            getBitmapFromView(requireView().findViewById(R.id.arFragment)) {
+                convertBMPtoPNG(it)
+            }
+        }
     }
 
     override fun initViewModels() {}
@@ -60,15 +67,6 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-
-        btnCapture = view.findViewById<Button>(R.id.btn_capture).apply {
-            setOnClickListener {
-                it.visibility = View.INVISIBLE
-                getBitmapFromView(view.findViewById(R.id.arFragment)) {
-                    convertBMPtoPNG(it)
-                }
-            }
-        }
     }
 
     /** Firebase Storage에서 가져올 데이터 초기화 */
@@ -191,7 +189,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
                 { copyResult -> // PixelCopy.OnPixelCopyFinishedListener
                     if (copyResult == PixelCopy.SUCCESS) {
                         callback.invoke(bitmap)
-                        btnCapture.visibility = View.VISIBLE
+                        binding.btnCapture.visibility = View.VISIBLE
                     } else callback.invoke(null)
                 }, Handler(Looper.getMainLooper())
             )
@@ -233,7 +231,6 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             e.printStackTrace()
         }
     }
-
 
 
 }

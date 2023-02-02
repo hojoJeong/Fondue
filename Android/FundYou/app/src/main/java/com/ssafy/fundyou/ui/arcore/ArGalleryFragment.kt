@@ -17,13 +17,6 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
     private lateinit var galleryAdapter: ArGalleryAdapter
     override fun initView() {
         galleryAdapter = ArGalleryAdapter(listOf(1, 2, 3, 4, 5))
-    }
-
-    override fun initViewModels() {}
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        initView()
         binding.apply {
             rcvGallery.adapter = galleryAdapter
             galleryAdapter.itemClickListener = object : ArGalleryAdapter.ItemClickListener {
@@ -32,5 +25,12 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
                 }
             }
         }
+    }
+
+    override fun initViewModels() {}
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        initView()
     }
 }
