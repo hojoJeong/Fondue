@@ -1,12 +1,20 @@
 package com.ssafy.fundyou
 
+import android.annotation.SuppressLint
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.google.android.material.chip.Chip
 import com.ssafy.fundyou.util.addComma
+import java.text.DecimalFormat
 
 object BindingAdapters {
 
@@ -80,5 +88,40 @@ object BindingAdapters {
             this.text = "펀딩 중단"
             this.setBackgroundResource(R.drawable.bg_transparent_franch_rose_radius8_stroke0)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("checkFundingParticipate")
+    fun Chip.setFundingParticipateButtonType(state : Boolean){
+        if(state){
+            this.text = "참여"
+            this.setChipBackgroundColorResource(R.color.cornflower_blue)
+        } else{
+            this.text = "미참여"
+            this.setChipBackgroundColorResource(R.color.arapawa)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("checkFundingEnd")
+    fun Chip.setFundingEndButtonType(state : Boolean){
+        if(state){
+            this.text = "진행중"
+            this.setChipBackgroundColorResource(R.color.heliotrope)
+        } else{
+            this.text = "종료"
+            this.setChipBackgroundColorResource(R.color.nobel)
+        }
+    }
+
+    @JvmStatic
+    @BindingAdapter("setPrice")
+    fun TextView.setFundingPrice(price : Int){
+        val decimalFormat = DecimalFormat("#,##0")
+        val content = "${decimalFormat.format(price)}원 펀딩"
+        val builder = SpannableStringBuilder(content)
+        val normalSpan = StyleSpan(Typeface.BOLD)
+        builder.setSpan(normalSpan, 0, decimalFormat.format(price).length+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        this.text = builder
     }
 }

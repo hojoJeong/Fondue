@@ -14,7 +14,7 @@ import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel
 
 class InvitedFondueFragment : BaseFragment<FragmentInvitedFondueBinding>(R.layout.fragment_invited_fondue) {
     private val itemList = mutableListOf<InvitedFundingModel>()
-
+    private val currentCategory = ""
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -34,11 +34,29 @@ class InvitedFondueFragment : BaseFragment<FragmentInvitedFondueBinding>(R.layou
     private fun initInvitedFondueList(){
         //TODO(임시 데이터 추가)
         with(itemList){
-            add(InvitedFundingModel(0, "김싸피", true,0 ,1000))
+            clear()
+            add(InvitedFundingModel(0, "김싸피", true, false, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", false, false, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", true, true, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", false, true, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", true, false, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", false, false, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", true, true, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", false, true, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", true, false, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", false, false, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", true, true, "2023.01.01 ~ 2023.02.01",1000))
+            add(InvitedFundingModel(0, "김싸피", false, true, "2023.01.01 ~ 2023.02.01",1000))
+
         }
+
         val invitedFondueAdapter = InvitedFondueItemAdapter()
-        invitedFondueAdapter.submitList()
-        binding.rvInvitedFondueItem.layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+        invitedFondueAdapter.submitList(itemList)
+        with(binding.rvInvitedFondueItem){
+            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
+            adapter = invitedFondueAdapter
+        }
 
     }
+
 }

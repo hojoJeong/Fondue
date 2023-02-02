@@ -6,6 +6,7 @@ data class InvitedFundingModel(
     val id: Long,
     val userName: String,
     val participate: Boolean,
-    val date: Date,
+    val end: Boolean,
+    val date: String,
     val fundingPrice: Int
 )

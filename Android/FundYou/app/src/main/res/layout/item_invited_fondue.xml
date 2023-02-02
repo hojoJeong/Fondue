@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
-        <import type="android.view.View"/>
         <variable
             name="funding_item"
             type="com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp"
-        android:background="@drawable/bg_rect_black_white_round8_stroke1">
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        android:elevation="8dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_rect_black_white_round8_stroke1"
+            android:padding="10dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_invited_fondue_profile"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -33,12 +40,11 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_invited_fondue_profile"
-            android:transitionName='@{"from."+funding_item.userName+"님"}'
+            android:text='@{"from."+funding_item.userName+"님"}'
             tools:text="from.김싸피"
             app:layout_constraintBottom_toTopOf="@+id/tv_invited_fondue_period"
             style="@style/base_font_bold_16_black"
-            android:textColor="@color/black"
-            android:textSize="40sp"/>
+            android:textColor="@color/black"/>
 
         <TextView
             android:id="@+id/tv_invited_fondue_period"
@@ -48,34 +54,41 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_invited_fondue_name"
             app:layout_constraintBottom_toTopOf="@+id/btn_invited_fondue_join_or_not"
-            android:transitionName='@{funding_item.userName}'
+            android:text='@{funding_item.date}'
+            android:textSize="10sp"
+            android:textColor="@color/nobel"
+            android:singleLine="true"
             tools:text="2023.01.01 ~ 2023.02.01"
-            style="@style/base_font_medium_16"
-            android:textSize="20sp"/>
+            style="@style/base_font_medium_16"/>
 
         <com.google.android.material.chip.Chip
             android:id="@+id/btn_invited_fondue_join_or_not"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            tools:text="참여"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
             style="@style/base_font_bold_16"
+            tools:text="참여"
+            android:textSize="12sp"
             android:textAlignment="center"
-            android:textSize="20sp"
             android:textColor="@color/white"
             tools:backgroundTint="@color/cornflower_blue"
+            android:layout_marginEnd="10sp"
+            app:checkFundingParticipate="@{funding_item.participate}"
+            app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintBottom_toTopOf="@+id/tv_invited_fondue_pay"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_invited_fondue_period"
             app:layout_constraintEnd_toStartOf="@+id/btn_invited_fondue_ongoing_or_done"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/btn_invited_fondue_ongoing_or_done"
-            android:layout_width="80dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+
             android:textColor="@color/white"
             style="@style/base_font_bold_16"
+            android:textSize="12sp"
             android:textAlignment="center"
-            android:textSize="20sp"
             tools:backgroundTint="@color/heliotrope"
+            app:checkFundingEnd="@{funding_item.end}"
             app:layout_constraintStart_toEndOf="@+id/btn_invited_fondue_join_or_not"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_invited_fondue_join_or_not"
@@ -87,10 +100,11 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:transitionName='@{funding_item.fundingPrice+"원 펀딩"}'
-            style="@style/base_font_bold_16"
+            app:layout_constraintTop_toBottomOf="@+id/btn_invited_fondue_ongoing_or_done"
+            app:setPrice="@{funding_item.fundingPrice}"
+            style="@style/base_font_medium_16"
             tools:text="20,000원 펀딩"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textColor="@color/black"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

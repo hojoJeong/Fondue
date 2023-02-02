@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.ui.funding_participate
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -13,7 +14,7 @@ import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel
 import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
 
 class InvitedFondueItemAdapter : ListAdapter<InvitedFundingModel, InvitedFondueItemAdapter.InvitedFondueItemHolder>(InvitedFundingDiffUtil){
-    class InvitedFondueItemHolder(private val binding: ItemInvitedFondueBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class InvitedFondueItemHolder(private val binding: ItemInvitedFondueBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: InvitedFundingModel){
             binding.fundingItem = item
         }
