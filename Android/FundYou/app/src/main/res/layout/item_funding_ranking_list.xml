@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_funding_category"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back_arrow_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_name_who_funding"
+            style="@style/base_font_medium_18_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            app:layout_constraintBottom_toTopOf="@id/tv_funding_item"
+            app:layout_constraintStart_toEndOf="@id/iv_funding_category"
+            app:layout_constraintTop_toTopOf="@id/iv_funding_category"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="펀딩 해준 사람" />
+
+        <TextView
+            android:id="@+id/tv_funding_item"
+            style="@style/base_font_medium_12_hawkes_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginBottom="12dp"
+            app:layout_constraintBottom_toBottomOf="@id/iv_funding_category"
+            app:layout_constraintStart_toEndOf="@id/iv_funding_category"
+            app:layout_constraintTop_toBottomOf="@id/tv_name_who_funding"
+            tools:text="펀딩 물건" />
+
+        <TextView
+            android:id="@+id/tv_funding_price"
+            style="@style/base_font_bold_14_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/iv_funding_category"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/iv_funding_category"
+            tools:text="300,000원"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

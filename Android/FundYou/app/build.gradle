@@ -62,6 +62,7 @@ dependencies {
     implementation libs.shawnlin013.numberpicker
     implementation libs.skydoves.balloon
     implementation libs.circleindicator
+    implementation libs.mp.android.chart
 
     implementation libs.kakao.sdk.user
 

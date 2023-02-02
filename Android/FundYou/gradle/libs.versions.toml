@@ -34,6 +34,7 @@ circleindicator = "2.1.6"
 ybq-spinkit_version = "1.4.0"
 shawnlin013_number_picker_version = "2.4.13"
 skydoves_balloon_version = "1.4.6"
+mp_android_chart_version = "3.1.0"
 
 # google
 google_auth_version = "20.4.1"
@@ -75,6 +76,7 @@ shawnlin013-numberpicker = { module = "io.github.ShawnLin013:number-picker", ver
 skydoves-balloon = { module = "com.github.skydoves:balloon", version.ref = "skydoves_balloon_version" }
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson_version" }
 google_auth = { module = "com.google.android.gms:play-services-auth", version.ref = "google_auth_version" }
+mp_android_chart = {module = "com.github.PhilJay:MPAndroidChart", version.ref = "mp_android_chart_version"}
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",
