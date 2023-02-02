@@ -8,7 +8,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.favorite.FavoriteFragment"
-    android:paddingVertical="@dimen/base_vertical_margin"
+    android:paddingTop="@dimen/base_vertical_margin"
     android:paddingHorizontal="@dimen/base_vertical_item_list"
     >
 
