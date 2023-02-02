@@ -1,13 +1,12 @@
 package com.ssafy.fundyou
 
 import android.graphics.drawable.Drawable
-import android.text.BoringLayout
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.databinding.BindingAdapter
-import com.ssafy.fundyou.util.addComma
+import com.ssafy.fundyou.util.extension.addComma
 
 object BindingAdapters {
 
@@ -81,5 +80,12 @@ object BindingAdapters {
             this.text = "펀딩 중단"
             this.setBackgroundResource(R.drawable.bg_transparent_franch_rose_radius8_stroke0)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("fundingItems")
+    fun TextView.setFundingItemsText(fundingList : List<String>){
+        text = if(fundingList.size > 1) "${fundingList[0]} 외 ${fundingList.size - 1}건"
+        else fundingList[0]
     }
 }

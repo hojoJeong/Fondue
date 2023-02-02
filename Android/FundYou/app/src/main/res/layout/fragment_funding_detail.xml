@@ -16,8 +16,10 @@
 
             <com.github.mikephil.charting.charts.PieChart
                 android:id="@+id/chart_funding"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+                android:layout_marginTop="@dimen/base_vertical_margin"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -57,7 +59,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/base_horizontal_margin"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="@dimen/base_vertical_margin"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"

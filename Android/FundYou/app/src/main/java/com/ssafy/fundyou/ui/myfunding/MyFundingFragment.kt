@@ -24,10 +24,17 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
 
     override fun initView() {
         initRecyclerView()
+        addMyFundingDetailEvent()
     }
 
     override fun initViewModels() {
 
+    }
+
+    private fun addMyFundingDetailEvent(){
+        binding.tvFundingDetail.setOnClickListener {
+            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToFundingDetailFragment())
+        }
     }
 
     private fun initRecyclerView(){
