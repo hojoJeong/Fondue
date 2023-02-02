@@ -1,15 +1,14 @@
-package com.ssafy.fundyou.ui.itemdetail.adapter
+package com.ssafy.fundyou.ui.item_detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemItemDetailInfoListBinding
 import com.ssafy.fundyou.ui.adapter.diffutil.ItemDetailInfoDiffUtil
-import com.ssafy.fundyou.ui.itemdetail.model.ItemDetailInfoModel
+import com.ssafy.fundyou.ui.item_detail.model.ItemDetailInfoModel
 
 class ItemDetailInfoAdapter : ListAdapter<ItemDetailInfoModel, ItemDetailInfoAdapter.ItemDetailInfoHolder>(
     ItemDetailInfoDiffUtil

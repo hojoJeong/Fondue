@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.fundingdetail.adapter
+package com.ssafy.fundyou.ui.funding_detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,9 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemFundingRankingListBinding
-import com.ssafy.fundyou.ui.adapter.diffutil.FundingItemModelDiffUtil
-import com.ssafy.fundyou.ui.fundingdetail.model.FundingUserModel
-import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
+import com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel
 
 class FundingRankingAdapter :
     ListAdapter<FundingUserModel, FundingRankingAdapter.FundingRankingHolder>(FundingUserDiffUtil) {

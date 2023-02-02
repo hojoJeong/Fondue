@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemDetailFragment"
-        android:name="com.ssafy.fundyou.ui.itemdetail.ItemDetailFragment"
+        android:name="com.ssafy.fundyou.ui.item_detail.ItemDetailFragment"
         android:label="ItemDetailFragment" >
         <argument
             android:name="itemId"
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
-        android:name="com.ssafy.fundyou.ui.itemlist.ItemListFragment"
+        android:name="com.ssafy.fundyou.ui.item_list.ItemListFragment"
         android:label="ItemListFragment">
         <argument
             android:name="category_type"
@@ -65,7 +65,7 @@
     </fragment>
     <fragment
         android:id="@+id/myFundingFragment"
-        android:name="com.ssafy.fundyou.ui.myfunding.MyFundingFragment"
+        android:name="com.ssafy.fundyou.ui.my_funding.MyFundingFragment"
         android:label="MyFundingFragment" >
         <action
             android:id="@+id/action_myFundingFragment_to_fundingDetailFragment"
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/fundingDetailFragment"
-        android:name="com.ssafy.fundyou.ui.fundingdetail.FundingDetailFragment"
+        android:name="com.ssafy.fundyou.ui.funding_detail.FundingDetailFragment"
         android:label="FundingDetailFragment" />
 
 

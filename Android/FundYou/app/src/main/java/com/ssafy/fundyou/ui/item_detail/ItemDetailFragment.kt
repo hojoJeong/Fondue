@@ -1,26 +1,20 @@
-package com.ssafy.fundyou.ui.itemdetail
+package com.ssafy.fundyou.ui.item_detail
 
-import android.app.ActionBar.LayoutParams
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.databinding.adapters.ViewBindingAdapter.setPadding
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
-import com.ssafy.fundyou.ui.search.adapter.SearchResultAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.itemdetail.adapter.ItemDetailImgAdapter
-import com.ssafy.fundyou.ui.itemdetail.adapter.ItemDetailInfoAdapter
-import com.ssafy.fundyou.ui.itemdetail.adapter.ItemDetailRelatedAdapter
-import com.ssafy.fundyou.ui.itemdetail.model.ItemDetailInfoModel
-import com.ssafy.fundyou.ui.itemdetail.model.ItemImgModel
-import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
+import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
+import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailInfoAdapter
+import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
+import com.ssafy.fundyou.ui.item_detail.model.ItemDetailInfoModel
+import com.ssafy.fundyou.ui.item_detail.model.ItemImgModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.properties.Delegates
 
 @AndroidEntryPoint
 class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.fragment_item_detail) {

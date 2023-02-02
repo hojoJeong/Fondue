@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.myfunding
+package com.ssafy.fundyou.ui.my_funding
 
 import android.os.Bundle
 import android.view.View
@@ -6,9 +6,9 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMyFundingBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.myfunding.adapter.MyFundingEndListAdapter
-import com.ssafy.fundyou.ui.myfunding.adapter.MyFundingProcessingListAdapter
-import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
+import com.ssafy.fundyou.ui.my_funding.adapter.MyFundingEndListAdapter
+import com.ssafy.fundyou.ui.my_funding.adapter.MyFundingProcessingListAdapter
+import com.ssafy.fundyou.ui.my_funding.model.FundingItemModel
 
 class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragment_my_funding) {
 

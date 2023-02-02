@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.ssafy.fundyou.ui.myfunding.model.FundingItemModel" />
+            type="com.ssafy.fundyou.ui.my_funding.model.FundingItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

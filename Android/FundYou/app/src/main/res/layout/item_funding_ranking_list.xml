@@ -7,7 +7,7 @@
 
         <variable
             name="fundingUserData"
-            type="com.ssafy.fundyou.ui.fundingdetail.model.FundingUserModel" />
+            type="com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

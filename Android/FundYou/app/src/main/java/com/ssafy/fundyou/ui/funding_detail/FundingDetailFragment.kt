@@ -1,25 +1,18 @@
-package com.ssafy.fundyou.ui.fundingdetail
+package com.ssafy.fundyou.ui.funding_detail
 
-import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import androidx.constraintlayout.motion.utils.Easing
-import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.PieData
 import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
-import com.github.mikephil.charting.formatter.PercentFormatter
-import com.github.mikephil.charting.highlight.Highlight
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFundingDetailBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.fundingdetail.adapter.FundingDetailStateAdapter
-import com.ssafy.fundyou.ui.fundingdetail.adapter.FundingRankingAdapter
-import com.ssafy.fundyou.ui.fundingdetail.model.FundingUserModel
-import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
+import com.ssafy.fundyou.ui.funding_detail.adapter.FundingDetailStateAdapter
+import com.ssafy.fundyou.ui.funding_detail.adapter.FundingRankingAdapter
+import com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel
+import com.ssafy.fundyou.ui.my_funding.model.FundingItemModel
 import com.ssafy.fundyou.util.extension.getColorNoTheme
 
 class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail){
