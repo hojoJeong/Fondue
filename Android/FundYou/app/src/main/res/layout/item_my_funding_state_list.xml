@@ -4,18 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="fundingItem"
+            type="com.ssafy.fundyou.ui.myfunding.model.FundingItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
+        android:layout_marginBottom="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_total_funding_price"
+        app:layout_constraintStart_toEndOf="@+id/tv_total_funding_price">
 
         <ImageView
             android:id="@+id/iv_item_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
             android:src="@drawable/ic_launcher_background"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:text="@{fundingItem.product.brand}"
             app:layout_constraintStart_toEndOf="@id/iv_item_img"
             app:layout_constraintTop_toTopOf="@id/iv_item_img"
             tools:text="브랜드" />
@@ -38,6 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
+            android:text="@{fundingItem.product.name}"
             app:layout_constraintStart_toStartOf="@id/tv_brand"
             app:layout_constraintTop_toBottomOf="@id/tv_brand"
             tools:text="상품 이름" />
@@ -47,11 +53,12 @@
             style="@style/base_font_bold_16_midnight_express"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="27dp"
+            app:addCommaText="@{fundingItem.currentFundingPrice}"
+            app:fundingSuccess="@{fundingItem.currentFundingPrice == fundingItem.product.price}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_img"
             app:layout_constraintStart_toStartOf="@id/tv_brand"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.5"
             tools:text="63,000" />
 
         <TextView
@@ -71,6 +78,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
+            app:addCommaText="@{fundingItem.product.price}"
             app:layout_constraintBottom_toBottomOf="@id/tv_current_funding_price"
             app:layout_constraintStart_toEndOf="@id/tv_div_funding_price"
             app:layout_constraintTop_toTopOf="@id/tv_current_funding_price"

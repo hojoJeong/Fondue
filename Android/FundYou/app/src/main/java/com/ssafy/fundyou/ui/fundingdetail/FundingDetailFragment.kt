@@ -14,14 +14,18 @@ import com.github.mikephil.charting.highlight.Highlight
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFundingDetailBinding
+import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.fundingdetail.adapter.FundingDetailStateAdapter
 import com.ssafy.fundyou.ui.fundingdetail.adapter.FundingRankingAdapter
 import com.ssafy.fundyou.ui.fundingdetail.model.FundingUserModel
+import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
 import com.ssafy.fundyou.util.extension.getColorNoTheme
 
 class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail){
 
     private val fundingRankingAdapter = FundingRankingAdapter()
+    private val fundingDetailStateAdapter = FundingDetailStateAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,19 +35,50 @@ class FundingDetailFragment : BaseFragment<FragmentFundingDetailBinding>(R.layou
 
     override fun initView() {
         initFundingPieChart()
-        initFundingRankingAdapter()
+        initFundingRankingList()
+        initFundingStateList()
     }
 
     override fun initViewModels() {
 
     }
 
-    private fun initFundingRankingAdapter(){
+    private fun initFundingRankingList(){
         val tempList = listOf(FundingUserModel(1, "유승우", R.drawable.ic_launcher_background, 100000, listOf("냉장고", "전자레인지")),
         FundingUserModel(2, "정수용", R.drawable.ic_launcher_background, 10000, listOf("냉장고")),
         FundingUserModel(3, "정호조", R.drawable.ic_launcher_background, 300000, listOf("냉장고", "전자레인지", "가스레인지")))
         fundingRankingAdapter.submitList(tempList)
         binding.rvFundingRanking.adapter = fundingRankingAdapter
+    }
+
+    private fun initFundingStateList(){
+        val tempList = listOf(
+            FundingItemModel(
+                id = 0,
+                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
+                tempProductImg = R.drawable.ic_launcher_background,
+                currentFundingPrice = 1000,
+                fundingParticipate = 3,
+            ), FundingItemModel(
+                id = 1,
+                ProductItemModel(id = 2, price = 30000, "img", "상품이름2", false, "브랜드3", true),
+                tempProductImg = R.drawable.ic_launcher_background,
+                currentFundingPrice = 30000,
+                fundingParticipate = 5,
+            ),
+            FundingItemModel(
+                id = 2,
+                ProductItemModel(id = 2, price = 30000, "img", "상품이름2", false, "브랜드3", true),
+                tempProductImg = R.drawable.ic_launcher_background,
+                currentFundingPrice = 30000,
+                fundingParticipate = 5,
+            )
+        )
+        fundingDetailStateAdapter.submitList(tempList)
+        fundingDetailStateAdapter.addParticipateButtonEvent {
+
+        }
+        binding.rvFundingItemDetail.adapter = fundingDetailStateAdapter
     }
 
     private fun initFundingPieChart(){

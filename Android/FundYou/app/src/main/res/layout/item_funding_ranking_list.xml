@@ -39,9 +39,8 @@
 
             <TextView
                 android:id="@+id/tv_name_who_funding"
-                style="@style/base_font_medium_18_midnight_express"
+                style="@style/base_font_medium_14_black"
                 android:layout_width="wrap_content"
-
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:text="@{fundingUserData.userName}"
