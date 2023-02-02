@@ -16,8 +16,8 @@ android {
 
     defaultConfig {
         applicationId "com.ssafy.fundyou"
-        minSdk 21
-        targetSdk 32
+        minSdk 24
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -50,6 +50,9 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
+    implementation libs.ar.core
+    implementation libs.ar.sceneform
+    implementation libs.ar.sceneform.ux
     implementation libs.bundles.navigation
     implementation libs.bundles.androidx
     implementation libs.android.material
