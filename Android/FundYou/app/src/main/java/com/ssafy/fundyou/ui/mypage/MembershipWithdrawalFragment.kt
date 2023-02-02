@@ -24,6 +24,7 @@ class MembershipWithdrawalFragment :
         binding.tvCancelMembershipName.text =
             getString(R.string.content_cancel_membership_username, userInfo.userInfo)
         initWithDrawalMenu()
+        backBtnClickListener()
     }
 
     override fun initViewModels() {
@@ -101,5 +102,11 @@ class MembershipWithdrawalFragment :
             }
         }
         binding.tvCancelMembershipSolutionBtn.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+    }
+
+    private fun backBtnClickListener(){
+        binding.btnCancelMembershipBack.setOnClickListener {
+            popBackStack()
+        }
     }
 }
