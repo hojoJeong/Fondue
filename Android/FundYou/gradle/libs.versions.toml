@@ -39,7 +39,7 @@ skydoves_balloon_version = "1.4.6"
 google_auth_version = "20.4.1"
 google_service_version = "4.3.15"
 firebase_version = "31.2.0"
-
+firebase_cloud_storage_version = "20.1.0"
 # ar
 ar_core_version = "1.35.0"
 ar_sceneform_version = "1.15.0"
@@ -48,10 +48,12 @@ ar_sceneform_version = "1.15.0"
 [libraries]
 google_firebase = { module = "com.google.firebase:firebase-bom", version.ref = "firebase_version" }
 google_firebase_analytics = { module = "com.google.firebase:firebase-analytics-ktx" }
-google_firebase_storage = { module = "com.google.firebase:firebase-storage-ktx" }
+google_firebase_storage = { module = "com.google.firebase:firebase-storage-ktx", version.ref = "firebase_cloud_storage_version"}
+
 ar_core = { module = "com.google.ar:core", version.ref = "ar_core_version"}
 ar_sceneform = { module = "com.google.ar.sceneform:core", version.ref = "ar_sceneform_version"}
 ar_sceneform_ux = { module = "com.google.ar.sceneform.ux:sceneform-ux", version.ref = "ar_sceneform_version"}
+ar_sceneform_assets = {module = "com.google.ar.sceneform:assets", version.ref = "ar_sceneform_version"}
 androidx_core = { module = "androidx.core:core-ktx", version.ref = "androidx-core" }
 androidx_appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
 android_material = { module = "com.google.android.material:material", version.ref = "android-material" }
@@ -98,3 +100,4 @@ android_application = { id = "com.android.application", version.ref = "android-a
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 navigation_safe_args_plugin = { id = "androidx.navigation.safeargs", version.ref = "navigation_safe_args_version" }
 google_service = { id = "com.google.gms.google-services", version.ref = "google_service_version" }
+ar_sceneform = { id = "com.google.ar.sceneform", version.ref = "ar_sceneform_version"}

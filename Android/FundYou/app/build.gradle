@@ -71,6 +71,10 @@ dependencies {
     implementation libs.google.auth
     implementation platform (libs.google.firebase)
     implementation libs.google.firebase.analytics
+    implementation libs.google.firebase.storage
+    implementation libs.ar.sceneform.assets
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation libs.junit
 
