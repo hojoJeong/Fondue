@@ -21,16 +21,16 @@ class FundingDetailStateAdapter :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FundingItemModel) {
             binding.fundingItem = item
+            binding.btnParticipate.setOnClickListener{
+                clickParticipateButtonEvent.invoke(item.id)
+            }
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FundingDetailStateHolder(
-        DataBindingUtil.inflate(
-            LayoutInflater.from(parent.context), R.layout.item_my_funding_state_list, parent, false
-        )
-    )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
+        FundingDetailStateHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_my_funding_state_list, parent, false))
 
-    override fun onBindViewHolder(holder: FundingDetailStateHolder, position: Int) {
+    override fun onBindViewHolder(holder: FundingDetailStateAdapter.FundingDetailStateHolder, position: Int) {
         holder.bind(currentList[position])
     }
 
