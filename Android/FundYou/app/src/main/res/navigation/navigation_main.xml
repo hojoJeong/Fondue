@@ -132,7 +132,7 @@
     </fragment>
     <fragment
         android:id="@+id/fundingParticipationFragment"
-        android:name="com.ssafy.fundyou.ui.funding_participation.FundingParticipationFragment"
+        android:name="com.ssafy.fundyou.ui.funding_my.FundingParticipationFragment"
         android:label="FundingParticipationFragment">
         <argument
             android:name="funding_id"
@@ -166,7 +166,15 @@
     <fragment
         android:id="@+id/invitedFondueFragment"
         android:name="com.ssafy.fundyou.ui.funding_participate.InvitedFondueFragment"
-        android:label="InvitedFondueFragment" />
+        android:label="InvitedFondueFragment" >
+        <action
+            android:id="@+id/action_invitedFondueFragment_to_payFragment"
+            app:destination="@id/payFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/payFragment"
+        android:name="com.ssafy.fundyou.ui.pay.PayFragment"
+        android:label="PayFragment" />
 
 
 </navigation>
