@@ -35,6 +35,7 @@ ybq-spinkit_version = "1.4.0"
 shawnlin013_number_picker_version = "2.4.13"
 skydoves_balloon_version = "1.4.6"
 mp_android_chart_version = "3.1.0"
+circle_image_view_version = "3.1.0"
 
 # google
 google_auth_version = "20.4.1"
@@ -87,6 +88,7 @@ skydoves-balloon = { module = "com.github.skydoves:balloon", version.ref = "skyd
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson_version" }
 google_auth = { module = "com.google.android.gms:play-services-auth", version.ref = "google_auth_version" }
 mp_android_chart = {module = "com.github.PhilJay:MPAndroidChart", version.ref = "mp_android_chart_version"}
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circle_image_view_version" }
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",
