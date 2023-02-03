@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.auth.controller;
 import com.ssafy.fundyou1.auth.controller.dto.request.LoginRequest;
 
 import com.ssafy.fundyou1.auth.controller.dto.request.ReissueRequest;
+import com.ssafy.fundyou1.auth.domain.KakaoSocialLoginResponse;
 import com.ssafy.fundyou1.auth.service.AuthService;
 import com.sun.net.httpserver.HttpsServer;
 import io.swagger.annotations.Api;
@@ -37,6 +38,16 @@ public class AuthRestController {
     public ResponseEntity<Map<String,Object>> login(@RequestBody LoginRequest request, HttpServletResponse response) {
         Map token = authService.login(request, response);
         return ResponseEntity.ok().body(token);
+    }
+
+
+    @PostMapping("members/social/kakao")
+    @ApiOperation(value = "카카오 소셜 로그인", notes = "로그인 API")
+    public ResponseEntity<KakaoSocialLoginResponse> kakaoLogin(@RequestBody String accessToken){
+        // 카카오 로그인 서비스 호출. 카카오 API response return.
+        KakaoSocialLoginResponse rEntity = authService.kakaoLoginService(accessToken);
+        // response의 body에 회원정보가 있다.
+        return ResponseEntity.ok().body(rEntity);
     }
 
     @PostMapping("/members/reissue")
