@@ -1,0 +1,71 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: local
+
+  management:
+    cloudfoundry:
+      enabled: false
+
+  main:
+    allow-bean-definition-overriding: true
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+
+  jpa:
+    open-in-view: false
+    show_sql: true
+    hibernate:
+      ddl-auto: create-drop
+      auto_quote_keyword: true
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+
+  logging:
+    level:
+      org.hibernate.SQL: debug
+      org.hibernate.type: trace
+
+
+
+social:
+  kakao:
+    client-id: 0833f8e8bee8ba89bedfcf9d83140b7e
+    client-secret: tYdDUAWKejO174gloEV64uQlSw7ISz9g
+    redirect-uri: http://localhost:8080/api/members/login/kakao/callback
+    client-authentication-method: POST
+    authorization-grant-type: authorization_code
+    scope: profile_nickname, profile_image, account_email
+    client-name: Kakao
+
+  google:
+    client-id: 388397679688-ig5q41eh8nrglnplh9dojm79a24ia8h3.apps.googleusercontent.com
+    client-secret: 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
+    redirect-uri: http://localhost:8080/api/members/login/google/callback
+    token-url: https://accounts.google.com/o/oauth2/token
+    authorization-grant-type: authorization_code
+    scope: email,profile
+
+
+jwt:
+  token:
+    header-type: JWT
+    header: Authorization
+    secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+    access-time: 1800000 # 30분
+    refresh-time: 604800016 # 7일
+    issuer: fongyou
+
+
+
+
+
+

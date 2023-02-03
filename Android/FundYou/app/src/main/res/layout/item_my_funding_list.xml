@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.ssafy.fundyou.ui.myfunding.model.FundingItemModel" />
+            type="com.ssafy.fundyou.ui.funding_my.model.FundingItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -143,7 +143,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
             app:addCommaText="@{item.currentFundingPrice}"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_funding_progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
             tools:text="60,000" />

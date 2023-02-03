@@ -16,8 +16,8 @@ android {
 
     defaultConfig {
         applicationId "com.ssafy.fundyou"
-        minSdk 21
-        targetSdk 32
+        minSdk 24
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -50,6 +50,9 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":data"))
 
+    implementation libs.ar.core
+    implementation libs.ar.sceneform
+    implementation libs.ar.sceneform.ux
     implementation libs.bundles.navigation
     implementation libs.bundles.androidx
     implementation libs.android.material
@@ -62,12 +65,17 @@ dependencies {
     implementation libs.shawnlin013.numberpicker
     implementation libs.skydoves.balloon
     implementation libs.circleindicator
+    implementation libs.mp.android.chart
 
     implementation libs.kakao.sdk.user
 
     implementation libs.google.auth
     implementation platform (libs.google.firebase)
     implementation libs.google.firebase.analytics
+    implementation libs.google.firebase.storage
+    implementation libs.ar.sceneform.assets
+    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     testImplementation libs.junit
 

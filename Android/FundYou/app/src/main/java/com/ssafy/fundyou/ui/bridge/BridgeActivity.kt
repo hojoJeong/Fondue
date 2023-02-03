@@ -5,8 +5,9 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.databinding.ActivityBridgeBinding
+import com.ssafy.fundyou.ui.arcore.ArActivity
 import com.ssafy.fundyou.ui.bridge.adapter.BridgeAdapter
-import com.ssafy.fundyou.ui.keyhash.KeyHashActivity
+import com.ssafy.fundyou.ui.hash_key.KeyHashActivity
 import com.ssafy.fundyou.ui.splash.SplashActivity
 import com.ssafy.fundyou.ui.token.DeleteTokenActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,8 @@ class BridgeActivity : AppCompatActivity() {
         val layoutList = arrayListOf<Class<out Activity>>(
             SplashActivity::class.java,
             DeleteTokenActivity::class.java,
-            KeyHashActivity::class.java
+            KeyHashActivity::class.java,
+            ArActivity::class.java
         )
         adapter.addItems(layoutList)
         binding.rvBridge.apply {

@@ -1,7 +1,5 @@
 package com.ssafy.fundyou
 
-import android.annotation.SuppressLint
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -10,8 +8,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.ssafy.fundyou.util.extension.addComma
+import com.ssafy.fundyou.util.extension.getColorNoTheme
 import com.google.android.material.chip.Chip
 import com.ssafy.fundyou.util.addComma
 import java.text.DecimalFormat
@@ -33,21 +34,16 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("addCommaText")
     fun TextView.addCommaText(num: Int) {
-        try {
-            this.text = addComma(num)
-        } catch (e: NumberFormatException) {
-            this.text = "error"
-        }
+        this.text = addComma(num)
     }
 
     @JvmStatic
     @BindingAdapter("arVisibility")
-    fun TextView.setVisibilityByAr(isAr : Boolean){
-        if(isAr) {
+    fun TextView.setVisibilityByAr(isAr: Boolean) {
+        if (isAr) {
             this.visibility = View.VISIBLE
             this.text = "AR"
-        }
-        else this.visibility = View.INVISIBLE
+        } else this.visibility = View.INVISIBLE
     }
 
     @JvmStatic
@@ -88,6 +84,20 @@ object BindingAdapters {
             this.text = "펀딩 중단"
             this.setBackgroundResource(R.drawable.bg_transparent_franch_rose_radius8_stroke0)
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter("fundingItems")
+    fun TextView.setFundingItemsText(fundingList: List<String>) {
+        text = if (fundingList.size > 1) "${fundingList[0]} 외 ${fundingList.size - 1}건"
+        else fundingList[0]
+    }
+
+    @JvmStatic
+    @BindingAdapter("fundingSuccess")
+    fun TextView.setFundingSuccess(success : Boolean){
+        if(success) setTextColor(context.getColorNoTheme(R.color.franch_rose))
+        else setTextColor(context.getColorNoTheme(R.color.raven))
     }
 
     @JvmStatic

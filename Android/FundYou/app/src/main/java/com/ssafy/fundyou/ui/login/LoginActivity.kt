@@ -24,7 +24,6 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityLoginBinding
 import com.ssafy.fundyou.ui.login.banner.adapter.LoginBannerAdapter
 import com.ssafy.fundyou.ui.login.banner.model.LoginBannerModel
-import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
