@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemImg"
-            type="com.ssafy.fundyou.ui.itemdetail.model.ItemImgModel" />
+            type="com.ssafy.fundyou.ui.item_detail.model.ItemImgModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

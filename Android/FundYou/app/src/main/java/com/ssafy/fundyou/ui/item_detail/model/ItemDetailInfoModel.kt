@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.itemdetail.model
+package com.ssafy.fundyou.ui.item_detail.model
 
 data class ItemDetailInfoModel(
     val id : Int,

@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.itemdetail.adapter
+package com.ssafy.fundyou.ui.item_detail.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemRelatedItemListBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.diffutil.ItemDetailInfoDiffUtil
 import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
 
 class ItemDetailRelatedAdapter : ListAdapter<ProductItemModel, ItemDetailRelatedAdapter.ItemDetailRelatedHolder>(ProductListDiffUtil){

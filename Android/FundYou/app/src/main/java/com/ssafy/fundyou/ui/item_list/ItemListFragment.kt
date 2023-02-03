@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.itemlist
+package com.ssafy.fundyou.ui.item_list
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
