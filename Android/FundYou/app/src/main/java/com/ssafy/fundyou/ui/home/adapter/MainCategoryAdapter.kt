@@ -11,13 +11,12 @@ import com.ssafy.fundyou.ui.home.MainFragment
 
 class MainCategoryAdapter(private val categoryType: (String) -> Unit) : RecyclerView.Adapter<MainCategoryAdapter.MainCategoryViewHolder>() {
     private var categoryItemList = mutableListOf<MainCategoryModel>()
-    private lateinit var activity: MainFragment
+
 
     inner class MainCategoryViewHolder(val binding: ItemMainCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MainCategoryModel) {
             binding.category = item
-            binding.activity = activity
             binding.cstlItemMainCategory.setOnClickListener {
                 categoryType.invoke(binding.tvMainItemCategory.text.toString())
             }
@@ -39,9 +38,8 @@ class MainCategoryAdapter(private val categoryType: (String) -> Unit) : Recycler
 
     override fun getItemCount(): Int = categoryItemList.size
 
-    fun initCategoryItem(list: MutableList<MainCategoryModel>, context: MainFragment){
+    fun initCategoryItem(list: MutableList<MainCategoryModel>){
         categoryItemList.clear()
         categoryItemList.addAll(list)
-        activity = context
     }
 }

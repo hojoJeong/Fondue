@@ -1,17 +1,17 @@
 package com.ssafy.fundyou1.auth.controller;
 
 import com.ssafy.fundyou1.auth.controller.dto.request.LoginRequest;
-
 import com.ssafy.fundyou1.auth.controller.dto.request.ReissueRequest;
 import com.ssafy.fundyou1.auth.service.AuthService;
-import com.sun.net.httpserver.HttpsServer;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
