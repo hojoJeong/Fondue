@@ -2,6 +2,7 @@ package com.ssafy.fundyou.ui.arcore
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.navigation.fragment.NavHostFragment
@@ -26,16 +27,14 @@ class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragme
         binding.apply {
             ivCapture.setImageBitmap(bitmap)
             btnSave.setOnClickListener {
-                initFirebase()
-                navigate(ArCaptureFragmentDirections.actionArCaptureFragmentToArGalleryFragment())
-
+                uploadFirebase()
             }
         }
     }
 
     override fun initViewModels() {}
 
-    private fun initFirebase() {
+    private fun uploadFirebase() {
         FirebaseApp.initializeApp(requireContext())
         val storage = Firebase.storage
 
@@ -57,12 +56,19 @@ class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragme
         val data = baos.toByteArray()
 
         var uploadTask = sofaRef.putBytes(data)
-        uploadTask.addOnFailureListener {
+        uploadTask
+        .addOnFailureListener {
             it.printStackTrace()
         }.addOnSuccessListener { taskSnapshot ->
             Toast.makeText(requireContext(), "Image upload Success!!!", Toast.LENGTH_SHORT).show()
-        }
-
+            navigate(ArCaptureFragmentDirections.actionArCaptureFragmentToArGalleryFragment())
+        }.addOnProgressListener {
+                binding.pgUpload.apply {
+                    this.visibility = View.VISIBLE
+                }
+            }.addOnPausedListener {
+                Log.d("suyong", "uploadFirebase: Paused")
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
