@@ -10,7 +10,6 @@ import com.ssafy.fundyou1.global.domain.BaseEntity;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.like.entity.Like;
-import com.ssafy.fundyou1.member.repository.MemberStatus;
 import lombok.*;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -35,8 +34,7 @@ public class Member extends BaseEntity {
     private String loginId;
 
 
-    @Enumerated(EnumType.STRING)
-    private MemberStatus status;
+    private Boolean status;
 
 
     @Column(name="point",columnDefinition = "int default 100000")
@@ -65,9 +63,8 @@ public class Member extends BaseEntity {
     protected Member() {
     }
 
-
     @Builder
-    public Member(String loginId, String password,int point, Authority authority, MemberStatus status) {
+    public Member(String loginId, String password,int point, Authority authority, boolean status) {
         this.loginId = loginId;
         this.password = password;
         this.point = point;
@@ -80,14 +77,24 @@ public class Member extends BaseEntity {
         return Member.builder()
                 .loginId(loginId)
                 .password(password)
+                .point(100000)
                 .authority(Authority.ROLE_MEMBER)
-                .status(MemberStatus.TRUE)
+                .status(true)
+                .build();
+    }
+
+    public static Member deleteMember(String loginId) {
+        return Member.builder()
+                .loginId(loginId)
+                .authority(Authority.ROLE_MEMBER)
+                .status(false)
                 .build();
     }
 
 
-    public void changeStatus(MemberStatus memberStatus) {
-            this.status = memberStatus;
+    public void changeStatus(String loginId) {
+        this.loginId= loginId;
+        this.status = false;
     }
 
 

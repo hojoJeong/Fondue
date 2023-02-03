@@ -4,6 +4,7 @@ package com.ssafy.fundyou1.member.service;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.member.dto.request.CheckDuplicateRequest;
+import com.ssafy.fundyou1.member.dto.request.MemberDeleteRequest;
 import com.ssafy.fundyou1.member.dto.request.MemberSaveRequest;
 import com.ssafy.fundyou1.member.dto.response.CheckDuplicateResponse;
 import com.ssafy.fundyou1.member.entity.Member;
@@ -23,6 +24,13 @@ public class MemberService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Transactional(readOnly = true)
+    public Member findByLoginId(String loginId) {
+        return memberRepository.findByLoginId(loginId)
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_LOGIN_ID));
+    }
+
+
 
     @Transactional(readOnly = true)
     public Member findByLoginIdAndDeletedAtNull(String loginId) {
@@ -37,6 +45,11 @@ public class MemberService {
         member.encodePassword(passwordEncoder);
         return memberRepository.save(member).getId();
     }
+
+
+
+
+
 
     public void checkDuplicateLoginId(String loginId) {
         if (memberRepository.existsByLoginId(loginId)) {
