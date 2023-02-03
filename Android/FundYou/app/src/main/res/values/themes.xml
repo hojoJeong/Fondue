@@ -26,6 +26,10 @@
     </style>
 
     <!-- bold size -->
+    <style name="base_font_bold_12" parent="base_font_bold">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="base_font_bold_14" parent="base_font_bold">
         <item name="android:textSize">14sp</item>
     </style>
@@ -129,6 +133,10 @@
     </style>
 
     <!-- bold size color -->
+    <style name="base_font_bold_12_raven" parent="base_font_bold_12">
+        <item name="android:textColor">@color/raven</item>
+    </style>
+
     <style name="base_font_bold_14_black" parent="base_font_bold_14">
         <item name="android:textColor">@color/black</item>
     </style>
