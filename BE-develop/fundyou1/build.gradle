@@ -1,10 +1,19 @@
-plugins {
-	id 'java'
-	id 'org.springframework.boot' version '2.7.7'
-	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+buildscript {
+	ext {
+		queryDslVersion = "5.0.0"
+	}
 }
 
-group = 'jpahook'
+
+plugins {
+	id 'org.springframework.boot' version '2.7.7'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
+
+	id "com.ewerk.gradle.plugins.querydsl" version "1.0.10"
+}
+
+group = 'fundyou1'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'
 
@@ -17,6 +26,10 @@ configurations {
 repositories {
 	mavenCentral()
 }
+repositories {
+	mavenCentral()
+}
+
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
@@ -49,6 +62,10 @@ dependencies {
 	implementation 'com.querydsl:querydsl-jpa'
 	implementation 'com.querydsl:querydsl-apt'
 
+	//querydsl 추가
+	implementation "com.querydsl:querydsl-jpa:${queryDslVersion}"
+	annotationProcessor "com.querydsl:querydsl-apt:${queryDslVersion}"
+
 	implementation 'org.springframework.boot:spring-boot-devtools'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.6'
 	compileOnly 'org.projectlombok:lombok'
@@ -61,8 +78,36 @@ dependencies {
 	}
 }
 
+test {
+	useJUnitPlatform()
+}
+
+
+//querydsl 추가 시작
+
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
 
+//querydsl 추가 시작
+def querydslDir = "$buildDir/generated/querydsl"
+
+querydsl {
+	jpa = true
+	querydslSourcesDir = querydslDir
+}
+sourceSets {
+	main.java.srcDir querydslDir
+}
+compileQuerydsl{
+	options.annotationProcessorPath = configurations.querydsl
+}
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+	querydsl.extendsFrom compileClasspath
+}
+//querydsl 추가 끝
