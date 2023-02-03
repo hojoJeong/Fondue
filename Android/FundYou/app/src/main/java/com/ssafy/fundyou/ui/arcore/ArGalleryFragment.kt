@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.GridLayout
 import androidx.navigation.fragment.NavHostFragment
+import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArGalleryBinding
 import com.ssafy.fundyou.ui.arcore.adapter.ArGalleryAdapter
@@ -18,7 +20,10 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
     override fun initView() {
         galleryAdapter = ArGalleryAdapter(listOf(1, 2, 3, 4, 5))
         binding.apply {
-            rcvGallery.adapter = galleryAdapter
+            rcvGallery.apply {
+                adapter = galleryAdapter
+                layoutManager = GridLayoutManager(requireContext(), 2)
+            }
             galleryAdapter.itemClickListener = object : ArGalleryAdapter.ItemClickListener {
                 override fun onItemClicked() {
                     navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToArFragment())
