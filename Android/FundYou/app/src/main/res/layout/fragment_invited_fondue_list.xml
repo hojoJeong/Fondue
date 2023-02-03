@@ -11,7 +11,7 @@
     tools:context=".ui.funding_participate.InvitedFondueListFragment">
 
     <HorizontalScrollView
-        android:id="@+id/hscv_invited_fondue"
+        android:id="@+id/hscv_invited_fondue_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +28,7 @@
             android:layout_gravity="end"
             >
             <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_ongoing"
+                android:id="@+id/btn_invited_fondue_category_ongoing_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/custom_chip"
@@ -37,21 +37,21 @@
                 android:text="@string/content_invited_fondue_category_ongoing"
                 android:layout_marginStart="@dimen/base_vertical_item_list"/>
             <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_done"
+                android:id="@+id/btn_invited_fondue_category_done_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/custom_chip"
                 app:chipStrokeWidth="1dp"
                 android:text="@string/content_invited_fondue_category_done"/>
             <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_join"
+                android:id="@+id/btn_invited_fondue_category_join_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/custom_chip"
                 app:chipStrokeWidth="1dp"
                 android:text="@string/content_invited_fondue_category_join"/>
             <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_non_join"
+                android:id="@+id/btn_invited_fondue_category_non_join_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/custom_chip"
@@ -63,13 +63,13 @@
     </HorizontalScrollView>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_invited_fondue_item"
+        android:id="@+id/rv_invited_fondue_item_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:paddingHorizontal="@dimen/base_vertical_item_list"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hscv_invited_fondue"
+        app:layout_constraintTop_toBottomOf="@+id/hscv_invited_fondue_list"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginTop="@dimen/base_vertical_margin"/>
 

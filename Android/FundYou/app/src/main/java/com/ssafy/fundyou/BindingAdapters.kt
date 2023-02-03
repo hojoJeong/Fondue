@@ -1,5 +1,6 @@
 package com.ssafy.fundyou
 
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -14,7 +15,6 @@ import androidx.databinding.BindingAdapter
 import com.ssafy.fundyou.util.extension.addComma
 import com.ssafy.fundyou.util.extension.getColorNoTheme
 import com.google.android.material.chip.Chip
-import com.ssafy.fundyou.util.addComma
 import java.text.DecimalFormat
 
 object BindingAdapters {
@@ -134,4 +134,11 @@ object BindingAdapters {
         builder.setSpan(normalSpan, 0, decimalFormat.format(price).length+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
         this.text = builder
     }
+
+    @JvmStatic
+    @BindingAdapter("setArVisibility")
+    fun AppCompatButton.setArIconVisibility(isAr : Boolean){
+        this.visibility = if(isAr) View.VISIBLE else View.GONE
+    }
+
 }

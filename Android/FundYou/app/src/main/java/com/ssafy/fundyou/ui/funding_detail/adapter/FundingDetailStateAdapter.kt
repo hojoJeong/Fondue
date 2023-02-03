@@ -22,6 +22,7 @@ class FundingDetailStateAdapter :
         fun bind(item: FundingItemModel) {
             binding.fundingItem = item
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = FundingDetailStateHolder(
@@ -33,8 +34,8 @@ class FundingDetailStateAdapter :
     override fun onBindViewHolder(holder: FundingDetailStateHolder, position: Int) {
         holder.bind(currentList[position])
     }
-
     fun addParticipateButtonEvent(event: (Int) -> Unit) {
-        clickParticipateButtonEvent = event
+
     }
+
 }

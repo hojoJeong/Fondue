@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="funding"
+            type="com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel" />
 
         <variable
             name="state"
@@ -37,6 +40,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/div_item"
             app:srcByResId="@{item.tempProductImg}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/iv_funding_ar"
+            android:layout_width="40dp"
+            android:layout_height="20dp"
+            app:layout_constraintEnd_toEndOf="@+id/iv_funding_img"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_funding_img"
+            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+            android:text="@string/title_AR_btn"
+            style="@style/base_font_medium_14"
+            android:textAlignment="center"
+            android:textColor="@color/razzmatazz"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:setArVisibility="@{funding.fundingItemModel.product.ar}"/>
 
         <TextView
             android:id="@+id/tv_brand"

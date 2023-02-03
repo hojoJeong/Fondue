@@ -8,10 +8,6 @@
         <variable
             name="item"
             type="com.ssafy.fundyou.ui.funding_my.model.FundingItemModel" />
-
-        <variable
-            name="fundingState"
-            type="" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

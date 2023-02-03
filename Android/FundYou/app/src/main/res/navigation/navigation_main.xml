@@ -125,9 +125,7 @@
     <fragment
         android:id="@+id/fundingDetailFragment"
         android:name="com.ssafy.fundyou.ui.funding_detail.FundingDetailFragment"
-        android:label="FundingDetailFragment" />
-        android:name="com.ssafy.fundyou.ui.myfunding.MyFundingFragment"
-        android:label="MyFundingFragment" />
+        android:label="FundingDetailFragment"/>
     <fragment
         android:id="@+id/cancelMenbershipFragment"
         android:name="com.ssafy.fundyou.ui.mypage.MembershipWithdrawalFragment"
@@ -148,7 +146,11 @@
     <fragment
         android:id="@+id/invitedFondueListFragment"
         android:name="com.ssafy.fundyou.ui.funding_participate.InvitedFondueListFragment"
-        android:label="InvitedFondueFragment" />
+        android:label="InvitedFondueFragment" >
+        <action
+            android:id="@+id/action_invitedFondueListFragment_to_invitedFondueFragment"
+            app:destination="@id/invitedFondueFragment" />
+    </fragment>
     <fragment
         android:id="@+id/invitedFondueFragment"
         android:name="com.ssafy.fundyou.ui.funding_participate.InvitedFondueFragment"
