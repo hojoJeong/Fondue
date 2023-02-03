@@ -25,7 +25,7 @@ class ArGalleryAdapter() : ListAdapter<String, ArGalleryAdapter.ViewHolder>(Item
     private lateinit var itemDownloadEvent : (String, ItemArGalleryListBinding) -> Unit
 
     interface ItemClickListener {
-        fun onItemClicked()
+        fun onItemClicked(addMode: Boolean, url: String)
     }
 
     fun addItemDownLoadEvent(event : (String, ItemArGalleryListBinding) -> Unit) {
@@ -46,15 +46,15 @@ class ArGalleryAdapter() : ListAdapter<String, ArGalleryAdapter.ViewHolder>(Item
     inner class ViewHolder(private val binding: ItemArGalleryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: String) {
-            if(item == "0") {
-                binding.image.apply {
-                    setImageResource(R.drawable.ic_outline_add_a_photo_24)
-                    setOnClickListener {
-                        itemClickListener.onItemClicked()
-                    }
+            binding.image.apply {
+                if (layoutPosition == 0) {
+                        setImageResource(R.drawable.ic_outline_add_a_photo_24)
+                } else {
+                    itemDownloadEvent.invoke(item, binding)
                 }
-            }else{
-                itemDownloadEvent.invoke(item, binding)
+                setOnClickListener {
+                    itemClickListener.onItemClicked(layoutPosition == 0, item)
+                }
             }
         }
     }

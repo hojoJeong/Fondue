@@ -21,8 +21,12 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
     private val galleryAdapter: ArGalleryAdapter = ArGalleryAdapter().apply {
         addItemDownLoadEvent { url, binding -> test(url, binding) }
         addItemClickListener(object : ArGalleryAdapter.ItemClickListener{
-            override fun onItemClicked() {
-                navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToArFragment())
+            override fun onItemClicked(addMode: Boolean, url: String) {
+                if(addMode){
+                    navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToArFragment())
+                }else{
+                    navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToGalleryDetailFragment(url))
+                }
             }
         })
     }
@@ -33,8 +37,6 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
         }.addOnFailureListener {
             Log.d("suyong", "test: download failed!")
         }
-        return
-        binding.rcvGallery.adapter = galleryAdapter
     }
 
     override fun initView() {
@@ -44,7 +46,8 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
                 layoutManager = GridLayoutManager(requireContext(), 2)
             }
         }
-        galleryAdapter.submitList(listOf("0","sofa.jpg","sofa.jpg","sofa.jpg"))
+        // 서버에서 파일 경로를 받아올 예정
+        galleryAdapter.submitList(listOf("20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg"))
     }
 
     override fun initViewModels() {}
