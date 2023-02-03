@@ -42,6 +42,7 @@
             app:layout_constraintTop_toBottomOf="@+id/iv_invited_fondue_profile"
             android:text='@{"from."+funding_item.userName+"님"}'
             tools:text="from.김싸피"
+            android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_invited_fondue_period"
             style="@style/base_font_bold_16_black"
             android:textColor="@color/black"/>
@@ -104,6 +105,7 @@
             app:setPrice="@{funding_item.fundingPrice}"
             style="@style/base_font_medium_16"
             tools:text="20,000원 펀딩"
+            android:textSize="14sp"
             android:textColor="@color/black"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
