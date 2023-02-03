@@ -1,16 +1,17 @@
 package com.ssafy.fundyou1.item.service;
 
 import com.ssafy.fundyou1.category.entity.Category;
+import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.item.dto.ItemDto;
 import com.ssafy.fundyou1.item.dto.ItemForm;
 import com.ssafy.fundyou1.item.entity.Item;
-import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,10 +66,10 @@ public class ItemService {
                 .collect(Collectors.toList());
     }
 
-    public List<ItemDto> getTopItemList(Long categoryId, Long minPrice, Long maxPrice) {
-        return itemRepository.findTopItem(categoryId, minPrice, maxPrice)
-                .stream()
-                .map(item -> ItemDto.createItemDto(item))
-                .collect(Collectors.toList());
+    public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
+        List<Item> list = itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+        System.out.println("testinfo : " + list);
+
+        return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
     }
 }

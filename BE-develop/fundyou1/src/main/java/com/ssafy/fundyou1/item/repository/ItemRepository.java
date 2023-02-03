@@ -21,7 +21,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(value =
             "SELECT * " +
             "FROM item " +
-            "WHERE category_id = :categoryId",
+            "WHERE item.category_id = :categoryId",
             nativeQuery = true)
     List<Item> findAllByCategoryId(@Param("categoryId") Long categoryId);
 
@@ -35,9 +35,10 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(value =
             "SELECT * " +
                     "FROM item " +
-                    "WHERE category_id = :categoryId " +
-            "AND price BETWEEN :minPrice AND :maxPrice" +
-            "ORDER BY selling_count LIMIT 5",
+                    "WHERE item.category_id = :categoryId " +
+                    "AND item.price BETWEEN :minPrice AND :maxPrice " +
+                    "ORDER BY item.selling_count DESC LIMIT 5",
             nativeQuery = true)
-    List<Item> findTopItem(Long categoryId, Long minPrice, Long maxPrice);
+    List<Item> findTopItem(@Param("categoryId") Long categoryId, @Param("minPrice") Long minimumPrice,@Param("maxPrice") Long maxPrice);
+
 }

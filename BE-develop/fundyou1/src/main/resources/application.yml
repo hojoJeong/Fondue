@@ -15,14 +15,15 @@ spring:
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:tcp://localhost/~/test;
+
     username: sa
     password:
 
   jpa:
-    open-in-view: false
-    show-sql: true
+    open-in-view: true
+    show_sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       auto_quote_keyword: true
     defer-datasource-initialization: true
   h2:
@@ -34,14 +35,6 @@ spring:
       org.hibernate.SQL: debug
       org.hibernate.type: trace
 
-
-jwt:
-  token:
-    header-type: JWT
-    issuer: fundyou
-    secret: b3JpX3RveV9wcm9qZWN0X3JlYWxfd29ybGRfamF2YV9zcHJpbmdfYm9vdF9zZWNyZXRfand0X3NhdWx0X2tleQo=
-    access-time: 604800000 # 7일
-    refresh-time: 2628000000 # 한달
 
 
 social:
@@ -61,6 +54,16 @@ social:
     token-url: https://accounts.google.com/o/oauth2/token
     authorization-grant-type: authorization_code
     scope: email,profile
+
+
+jwt:
+  token:
+    header-type: JWT
+    header: Authorization
+    secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
+    access-time: 1800000 # 30분
+    refresh-time: 604800016 # 7일
+    issuer: fongyou
 
 
 
