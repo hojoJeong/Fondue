@@ -67,10 +67,11 @@ public class ItemService {
         }
     }
 
-    // 희주 아이템 저장 JSON > 저장
+    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
     @Transactional
-    public String saveDescriptionList(Long id, List<DescriptionData> description ) throws JsonProcessingException {
-        Item item = itemRepository.findById(id);
+    public String saveDescriptionList(String title, List<DescriptionData> description ) throws JsonProcessingException {
+        Item item = itemRepository.findByTitle(title);
+
         ObjectMapper mapper = new ObjectMapper();
         item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
         return item.getTitle();

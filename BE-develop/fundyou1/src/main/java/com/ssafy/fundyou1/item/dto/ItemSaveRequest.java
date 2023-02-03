@@ -9,8 +9,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+
 
 @Getter
 public class ItemSaveRequest {
@@ -37,7 +36,7 @@ public class ItemSaveRequest {
     @JsonProperty("is_ar")
     private String isAr;
 
-    @ApiModelProperty(position = 6, notes = "상품 부가 설명", example = "['{size : 100}']")
+    @ApiModelProperty(position = 6, notes = "상품 부가 설명", example = "[{\"type\":\"크기\",\"value\":\"10\"},{\"type\":\"색깔\",\"value\":\"red\"}]")
     @JsonProperty("description")
     private List<DescriptionData> description;
 

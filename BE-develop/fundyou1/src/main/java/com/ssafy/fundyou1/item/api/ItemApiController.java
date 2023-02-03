@@ -57,10 +57,10 @@ public class ItemApiController {
             @ApiResponse(code = 409, message = "CONFLICT\n 상품 이름.브랜드 중복(I01)\n")
     })
     public ResponseEntity<Map<String,Object>> saveItem(@RequestBody @Valid ItemSaveRequest request) throws JsonProcessingException {
-        Long id = itemService.saveItem(request);
+        itemService.saveItem(request);
         List<DescriptionData> descriptionData = request.getDescription();
 
-        String title = itemService.saveDescriptionList(id,descriptionData);
+        String title = itemService.saveDescriptionList(request.getTitle(), descriptionData);
 
         Map<String,Object> result = new HashMap<>();
         result.put("save",title );

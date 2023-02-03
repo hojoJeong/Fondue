@@ -42,7 +42,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findTopItem(Long categoryId, Long minPrice, Long maxPrice);
 
 
-    List<Item> findOne(Long id);
+    Item findByTitle(String title);
 
 
     boolean existsByTitleAndBrand(String title, String brand);
