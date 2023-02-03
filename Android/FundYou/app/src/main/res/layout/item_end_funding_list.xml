@@ -4,14 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-            name="state"
-            type="String" />
-
         <variable
             name="item"
-            type="com.ssafy.fundyou.ui.myfunding.model.FundingItemModel" />
+            type="com.ssafy.fundyou.ui.funding_my.model.FundingItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fundingUserData"
+            type="com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_marginBottom="12dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_funding_category"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_back_arrow_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcByResId="@{fundingUserData.tempUserImg}" />
+
+
+
+        <LinearLayout
+            android:id="@+id/ly_funding_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            app:layout_constraintStart_toEndOf="@id/iv_funding_category"
+            app:layout_constraintTop_toTopOf="@id/iv_funding_category"
+            app:layout_constraintBottom_toBottomOf="@id/iv_funding_category"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_name_who_funding"
+                style="@style/base_font_medium_14_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:text="@{fundingUserData.userName}"
+                tools:text="펀딩 해준 사람" />
+
+            <TextView
+                android:id="@+id/tv_funding_item"
+                style="@style/base_font_medium_12_raven"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                app:fundingItems="@{fundingUserData.fundingItem}"
+                tools:text="펀딩 물건" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_funding_price"
+            style="@style/base_font_bold_14_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:addCommaText="@{fundingUserData.fundingTotalPrice}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_funding_category"
+            app:layout_constraintEnd_toStartOf="@id/tv_won"
+            app:layout_constraintTop_toTopOf="@id/iv_funding_category" />
+
+        <TextView
+            android:id="@+id/tv_won"
+            style="@style/base_font_bold_14_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="원"
+            app:layout_constraintBottom_toBottomOf="@id/tv_funding_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_funding_price" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

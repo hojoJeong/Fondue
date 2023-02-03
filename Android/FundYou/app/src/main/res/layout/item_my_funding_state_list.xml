@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="fundingItem"
+            type="com.ssafy.fundyou.ui.funding_my.model.FundingItemModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintEnd_toEndOf="@+id/tv_total_funding_price"
+        app:layout_constraintStart_toEndOf="@+id/tv_total_funding_price">
+
+        <ImageView
+            android:id="@+id/iv_item_img"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
+            android:src="@drawable/ic_launcher_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_brand"
+            style="@style/base_font_medium_12_hawkes_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@{fundingItem.product.brand}"
+            app:layout_constraintStart_toEndOf="@id/iv_item_img"
+            app:layout_constraintTop_toTopOf="@id/iv_item_img"
+            tools:text="브랜드" />
+
+        <TextView
+            android:id="@+id/tv_item_name"
+            style="@style/base_font_medium_14_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@{fundingItem.product.name}"
+            app:layout_constraintStart_toStartOf="@id/tv_brand"
+            app:layout_constraintTop_toBottomOf="@id/tv_brand"
+            tools:text="상품 이름" />
+
+        <TextView
+            android:id="@+id/tv_current_funding_price"
+            style="@style/base_font_bold_16_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:addCommaText="@{fundingItem.currentFundingPrice}"
+            app:fundingSuccess="@{fundingItem.currentFundingPrice == fundingItem.product.price}"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_img"
+            app:layout_constraintStart_toStartOf="@id/tv_brand"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+            app:layout_constraintVertical_bias="0.5"
+            tools:text="63,000" />
+
+        <TextView
+            android:id="@+id/tv_div_funding_price"
+            style="@style/base_font_bold_16_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:text="/"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_current_funding_price"
+            app:layout_constraintStart_toEndOf="@id/tv_current_funding_price"
+            app:layout_constraintTop_toTopOf="@id/tv_current_funding_price" />
+
+        <TextView
+            android:id="@+id/tv_total_funding_price"
+            style="@style/base_font_bold_16_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            app:addCommaText="@{fundingItem.product.price}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_current_funding_price"
+            app:layout_constraintStart_toEndOf="@id/tv_div_funding_price"
+            app:layout_constraintTop_toTopOf="@id/tv_current_funding_price"
+            tools:text="123" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_participate"
+            style="@style/base_font_medium_12_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rect_hawkes_blue_tranparent_radius4_stroke1"
+            android:minWidth="0dp"
+            android:minHeight="0dp"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="6dp"
+            android:text="참여자 보기"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
