@@ -80,7 +80,8 @@
     <string name="content_invited_fondue_category_non_join">미참여한 펀딩</string>
     <string name="content_invited_fondue_category_join">참여한 펀딩</string>
     <string name="content_invited_fondue_pay">%1$d원 펀딩</string>
-    
+    <string name="title_invited_fondue_appbar">선물 리스트</string>
+
     <!-- 탈퇴하기 -->
     <string name="content_cancel_membership_username">%1$s님,</string>
     <string name="content_cancel_membership_top_message">만족스러운 서비스를 제공해드리지 못해 대단히 죄송합니다. 퐁듀를 떠나시려는 이유를 알려주세요😥</string>
@@ -106,4 +107,5 @@
         <item>@string/category_cancel_membership_reason_cancel_4</item>
         <item>@string/category_cancel_membership_reason_cancel_5</item>
     </string-array>
+
 </resources>

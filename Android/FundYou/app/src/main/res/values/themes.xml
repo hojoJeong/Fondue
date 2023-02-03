@@ -194,4 +194,14 @@
         <item name="chipStrokeWidth">1dp</item>
     </style>
 
+    <!-- Collapsing Toolbar -->
+    <style name="CollapsingToolbar.Expanded.Title" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <style name="CollapsingToolbar.Collapsed.Title" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">24sp</item>
+    </style>
 </resources>
