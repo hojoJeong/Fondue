@@ -1,16 +1,14 @@
-package com.ssafy.fundyou.ui.myfunding.adapter
+package com.ssafy.fundyou.ui.funding_my.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemEndFundingListBinding
-import com.ssafy.fundyou.databinding.ItemMyFundingListBinding
 import com.ssafy.fundyou.ui.adapter.diffutil.FundingItemModelDiffUtil
-import com.ssafy.fundyou.ui.myfunding.model.FundingItemModel
+import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 
 class MyFundingEndListAdapter :
     ListAdapter<FundingItemModel, MyFundingEndListAdapter.MyFundingEndListHolder>(

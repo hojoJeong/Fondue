@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.databinding.ActivityBridgeBinding
 import com.ssafy.fundyou.ui.arcore.ArActivity
 import com.ssafy.fundyou.ui.bridge.adapter.BridgeAdapter
-import com.ssafy.fundyou.ui.keyhash.KeyHashActivity
+import com.ssafy.fundyou.ui.hash_key.KeyHashActivity
 import com.ssafy.fundyou.ui.splash.SplashActivity
 import com.ssafy.fundyou.ui.token.DeleteTokenActivity
 import dagger.hilt.android.AndroidEntryPoint

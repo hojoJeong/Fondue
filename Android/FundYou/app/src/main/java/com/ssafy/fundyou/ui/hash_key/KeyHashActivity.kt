@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.keyhash
+package com.ssafy.fundyou.ui.hash_key
 
 import android.content.pm.PackageManager
 import android.os.Build
