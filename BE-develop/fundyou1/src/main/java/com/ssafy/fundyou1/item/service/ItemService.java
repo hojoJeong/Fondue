@@ -1,42 +1,75 @@
 package com.ssafy.fundyou1.item.service;
 
 import com.ssafy.fundyou1.category.entity.Category;
+import com.ssafy.fundyou1.category.repository.CategoryRepository;
+import com.ssafy.fundyou1.item.dto.ItemDto;
+import com.ssafy.fundyou1.item.dto.ItemForm;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
-@Transactional(readOnly = true)
-@RequiredArgsConstructor
+@Slf4j
 public class ItemService {
-    private final ItemRepository itemRepository;
+    @Autowired
+    private ItemRepository itemRepository;
 
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    // 상품 데이터 추가
     @Transactional
-    public void saveItem(Item item) {
-        itemRepository.save(item);
+    public ItemDto create(Long categoryId, ItemForm dto) {
+        Category category = categoryRepository.findById(dto.getCategory().getId())
+                .orElseThrow(() -> new IllegalArgumentException("상품 생성 실패! 대상 카테고리가 없습니다"));
+
+        Item item = Item.createItem(dto, category);
+
+        Item created = itemRepository.save(item);
+
+        return ItemDto.createItemDto(created);
+
     }
 
+    // 카테고리별 아이템 불러오기
+    public List<ItemDto> getCategoryItemList(Long categoryId){
 
-    @Transactional
-    public void updateItem(Long itemId,String title, int price, String image, String descriptionImg, String isAr, String description, String brand, Category category ) {
-        Item findItem = itemRepository.findOne(itemId);
-        findItem.setTitle(title);
-        findItem.setPrice(price);
-        findItem.setDescription(description);
-        findItem.setBrand(brand);
-        findItem.setDescriptionImg(descriptionImg);
-        findItem.setCategory(category);
-        findItem.setIsAr(isAr);
+        return itemRepository.findAllByCategoryId(categoryId)
+                .stream()
+                .map(item -> ItemDto.createItemDto(item))
+                .collect(Collectors.toList());
     }
 
-    public List<Item> findItems() {
+    // 상품 디테일
+    public Item itemDetail(Long id) {
+        return itemRepository.findById(id).orElse(null);
+    }
+    
+    // 전체 상품 조회
+    public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
 
-    public Item findOne(Long itemId) {
-        return itemRepository.findOne(itemId);
+    // 랜덤 5개 상품 추출
+    public List<ItemDto> getRandomItemList(){
+
+        return itemRepository.findRandomItemById()
+                .stream()
+                .map(item -> ItemDto.createItemDto(item))
+                .collect(Collectors.toList());
+    }
+
+    public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
+        List<Item> list = itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+        System.out.println("testinfo : " + list);
+
+        return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
     }
 }
