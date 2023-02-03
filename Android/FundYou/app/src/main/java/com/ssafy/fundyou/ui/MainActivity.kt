@@ -44,44 +44,68 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.TEXT, "검색")
                     setBottomNavigationVisibility(View.VISIBLE)
                 }
+                R.id.itemListFragment -> {
+                    setToolbarType(ToolbarType.BACK_TITLE_WISH, "상품 목록")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.itemDetailFragment -> {
+                    setToolbarType(ToolbarType.BACK_TITLE_WISH, "상품 상세")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.myFundingFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "나의 펀딩")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.fundingDetailFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "펀딩 통계")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.fundingParticipationFragment -> {
+                    setToolbarType(ToolbarType.TEXT_CANCEL, "주문 상세")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.searchResultFragment -> {
+                    setToolbarType(ToolbarType.NO)
+                }
             }
         }
         binding.bnvMain.setupWithNavController(navController)
     }
 
-    private fun setBottomNavigationVisibility(visibility: Int){
+    private fun setBottomNavigationVisibility(visibility: Int) {
         binding.bnvMain.visibility = visibility
     }
 
-    private fun setToolbarType(type : ToolbarType, title : String = ""){
-        when(type){
+    private fun setToolbarType(type: ToolbarType, title: String = "") {
+        toolbarClear()
+        setToolbarTitle(title)
+        when (type) {
             ToolbarType.LOGO_WISH -> {
                 setToolbarLeft(ToolbarLeftImg.LOGO)
                 setToolbarRight(ToolbarRightImg.WISH)
             }
             ToolbarType.BACK_TITLE_WISH -> {
-                setToolbarTitle(title)
                 setToolbarLeft(ToolbarLeftImg.BACK)
                 setToolbarRight(ToolbarRightImg.WISH)
             }
-            ToolbarType.TEXT -> {
-                setToolbarTitle(title)
-            }
             ToolbarType.TEXT_CANCEL -> {
-                setToolbarTitle(title)
                 setToolbarRight(ToolbarRightImg.CANCEL)
             }
             ToolbarType.BACK_TEXT -> {
                 setToolbarLeft(ToolbarLeftImg.BACK)
-                setToolbarTitle(title)
             }
+            ToolbarType.NO -> {
+                binding.lyToolbar.root.visibility = View.GONE
+            }
+            // 실행 내용 없음
+            ToolbarType.TEXT -> {}
         }
     }
 
-    private fun setToolbarLeft(type : ToolbarLeftImg){
-        when(type){
+    private fun setToolbarLeft(type: ToolbarLeftImg) {
+        when (type) {
             ToolbarLeftImg.BACK -> {
-                with(binding.lyToolbar.ivLeftImg){
+                with(binding.lyToolbar.ivLeftImg) {
                     setOnClickListener {
                         navController.popBackStack()
                     }
@@ -94,10 +118,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setToolbarRight(type : ToolbarRightImg){
-        when(type){
+    private fun setToolbarRight(type: ToolbarRightImg) {
+        when (type) {
             ToolbarRightImg.WISH -> {
-                with(binding.lyToolbar.ivRightImg){
+                with(binding.lyToolbar.ivRightImg) {
                     setImageResource(R.drawable.ic_wish_list)
                     setOnClickListener {
 
@@ -105,7 +129,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             ToolbarRightImg.CANCEL -> {
-                with(binding.lyToolbar.ivLeftImg){
+                with(binding.lyToolbar.ivLeftImg) {
                     setImageResource(R.drawable.ic_cancel)
                     setOnClickListener {
                         navController.popBackStack()
@@ -115,7 +139,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setToolbarTitle(title : String){
+    private fun toolbarClear(){
+        with(binding.lyToolbar){
+            ivLeftImg.setImageResource(0)
+            tvTitle.text = ""
+            ivRightImg.setImageResource(0)
+        }
+    }
+
+    private fun setToolbarTitle(title: String) {
         binding.lyToolbar.tvTitle.text = title
     }
 
@@ -124,14 +156,14 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-enum class ToolbarType{
-    LOGO_WISH, BACK_TITLE_WISH, TEXT, TEXT_CANCEL, BACK_TEXT
+enum class ToolbarType {
+    LOGO_WISH, BACK_TITLE_WISH, TEXT_CANCEL, BACK_TEXT, NO, TEXT
 }
 
-enum class ToolbarLeftImg{
+enum class ToolbarLeftImg {
     LOGO, BACK
 }
 
-enum class ToolbarRightImg{
+enum class ToolbarRightImg {
     WISH, CANCEL
 }

@@ -14,10 +14,10 @@
         <ImageView
             android:id="@+id/iv_left_img"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_vertical_margin"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher_background"
-            android:visibility="invisible"
+            android:src="@drawable/ic_back_arrow_no_line"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,10 +37,10 @@
         <ImageView
             android:id="@+id/iv_right_img"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_launcher_background"
-            android:visibility="invisible"
+            android:src="@drawable/ic_wish_list"
+            android:layout_marginEnd="@dimen/base_vertical_margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
