@@ -18,6 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -37,14 +39,19 @@ public class AuthService {
     }
 
     @Transactional
-    public String login(LoginRequest request, HttpServletResponse response) {
+    public Map<String, Object> login(LoginRequest request, HttpServletResponse response) {
         Member member = memberService.findByLoginIdAndDeletedAtNull(request.getLoginId());
         member.checkPassword(passwordEncoder, request.getPassword());
 
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getLoginId(),member.getAuthority());
         String refreshToken = saveRefreshToken(member, tokenResponse);
         setTokenToCookie(tokenResponse.getAccessToken(), refreshToken, response);
-        return tokenResponse.getAccessToken();
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("accessToken", tokenResponse.getAccessToken());
+        result.put("refreshToken", refreshToken);
+
+        return result;
     }
 
     @Transactional

@@ -1,34 +1,49 @@
 package com.ssafy.fundyou1.item.repository;
 
 import com.ssafy.fundyou1.item.entity.Item;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import javax.persistence.EntityManager;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-@RequiredArgsConstructor
-public class ItemRepository {
-    private final EntityManager em;
+public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    public void save(Item item) {
-        if (item.getId() == null) {
-            //신규 등록
-            em.persist(item);
 
-        } else {
-            //id값 있으면 합친다.
-            em.merge(item);
-        }
-    }
-    // 아이템 하나 찾는거
-    public Item findOne(Long id) {
-        return em.find(Item.class, id);
-    }
-    // 아이템 전부 조회
-    public List<Item> findAll() {
-        return em.createQuery("select i from Item i", Item.class)
-                .getResultList();
-    }
+    // 아이템 전체 조회
+    @Override
+    ArrayList<Item> findAll();
+
+    // 카테고리별 아이템 불러오기
+    @Query(value =
+            "SELECT * " +
+            "FROM item " +
+            "WHERE category_id = :categoryId",
+            nativeQuery = true)
+    List<Item> findAllByCategoryId(@Param("categoryId") Long categoryId);
+
+
+    // 랜덤 5개 상품 추출
+    @Query(value = "SELECT * FROM item order by RAND() limit 5", nativeQuery = true)
+    List<Item> findRandomItemById();
+
+
+    // 조건에 맞는 상위 5개 상품 추출
+    @Query(value =
+            "SELECT * " +
+                    "FROM item " +
+                    "WHERE category_id = :categoryId " +
+            "AND price BETWEEN :minPrice AND :maxPrice" +
+            "ORDER BY selling_count LIMIT 5",
+            nativeQuery = true)
+    List<Item> findTopItem(Long categoryId, Long minPrice, Long maxPrice);
+
+
+    List<Item> findOne(Long id);
+
+
+    boolean existsByTitleAndBrand(String title, String brand);
 }

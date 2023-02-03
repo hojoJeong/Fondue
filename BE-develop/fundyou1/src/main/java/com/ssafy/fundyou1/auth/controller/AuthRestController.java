@@ -35,10 +35,8 @@ public class AuthRestController {
         @ApiResponse(code = 404, message = "NOT FOUND\n존재하지 않는 로그인 아이디(M01)")
     })
     public ResponseEntity<Map<String,Object>> login(@RequestBody LoginRequest request, HttpServletResponse response) {
-        String accessToken = authService.login(request, response);
-        Map<String,Object> result = new HashMap<>();
-        result.put("accessToken", accessToken);
-        return ResponseEntity.ok().body(result);
+        Map token = authService.login(request, response);
+        return ResponseEntity.ok().body(token);
     }
 
     @PostMapping("/members/reissue")
