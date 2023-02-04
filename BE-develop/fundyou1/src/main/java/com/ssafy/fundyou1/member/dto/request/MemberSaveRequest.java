@@ -16,15 +16,23 @@ public class MemberSaveRequest {
     @JsonProperty("loginId")
     private String loginId;
 
+
+    @JsonProperty("profileImg")
+    private String profileImg;
+    @JsonProperty("username")
+    private String username;
+
     public MemberSaveRequest() {
     }
 
-    public MemberSaveRequest(String loginId,String password) {
+    public MemberSaveRequest(String loginId,String password, String profileImg, String username) {
         this.password = password;
         this.loginId = loginId;
+        this.profileImg = profileImg;
+        this.username = username;
     }
 
     public Member toMember() {
-        return Member.createMember(loginId,password);
+        return Member.createMember(loginId,password, username, profileImg);
     }
 }

@@ -10,6 +10,7 @@ import com.ssafy.fundyou1.auth.infrastructure.JwtTokenProvider;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.member.entity.Member;
+import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -37,14 +38,17 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
+    private final MemberRepository memberRepository;
 
 
     public AuthService(MemberService memberService, PasswordEncoder passwordEncoder,
-        JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository) {
+                       JwtTokenProvider jwtTokenProvider, RefreshTokenRepository refreshTokenRepository,
+                       MemberRepository memberRepository) {
         this.memberService = memberService;
         this.passwordEncoder = passwordEncoder;
         this.jwtTokenProvider = jwtTokenProvider;
         this.refreshTokenRepository = refreshTokenRepository;
+        this.memberRepository = memberRepository;
     }
 
     @Transactional
@@ -91,6 +95,55 @@ public class AuthService {
         );
         return response.getBody();
     }
+
+    @Transactional
+    public  Map<String,Object> saveKaKaoUser(KakaoSocialLoginResponse rEntity,HttpServletResponse response) {
+        Member member = memberRepository.findByLoginId("k_" + rEntity.getId())
+                .orElse(rEntity.toEntity());
+        memberRepository.save(member);
+
+        TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getLoginId(),member.getAuthority());
+        String refreshToken = saveRefreshToken(member, tokenResponse);
+        setTokenToCookie(tokenResponse.getAccessToken(), refreshToken, response);
+
+        Map<String,Object> result = new HashMap<>();
+        result.put("accessToken", tokenResponse.getAccessToken());
+        result.put("refreshToken", refreshToken);
+
+        return result;
+    }
+
+
+//    @Transactional
+//    public SocialMember saveSocial(KakaoSocialLoginResponse response) {
+//        SocialMember social = socialRepository.findByLoginId("k_" + response.getId())
+//                .orElse(response.toEntity());
+//        response.toEntity();
+//        // 저장
+//        socialRepository.save(social);
+//        return social;
+//    }
+//
+//    @Transactional
+//    public Map<String, Object> kakaoJwt(KakaoSocialLoginResponse rEntity) {
+//        SocialMember social = memberService.findByLoginIdAndDeletedAtNull("k_"+rEntity.getId());
+//        social.checkPassword(passwordEncoder,"fundyou"+ rEntity.getId() );
+//
+//        TokenResponse tokenResponse = jwtTokenProvider.createToken(social.getLoginId(),social.getAuthority());
+//        String refreshToken = saveRefreshToken(social, tokenResponse);
+//        setTokenToCookie(tokenResponse.getAccessToken(), refreshToken, response);
+//
+//        Map<String,Object> result = new HashMap<>();
+//        result.put("accessToken", tokenResponse.getAccessToken());
+//        result.put("refreshToken", refreshToken);
+//
+//        return result;
+//    }
+
+
+
+
+
     @Transactional
     public String saveRefreshToken(Member member, TokenResponse tokenResponse) {
         RefreshToken refreshToken = refreshTokenRepository.findBySubject(member.getLoginId())
@@ -138,6 +191,7 @@ public class AuthService {
         setTokenToCookie(tokenResponse.getAccessToken(), refreshToken.getRefreshToken(), response);
         return tokenResponse.getAccessToken();
     }
+
 
     @Transactional
     public void deleteRefreshTokenTable() {

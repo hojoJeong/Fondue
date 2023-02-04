@@ -36,6 +36,10 @@ public class Member extends BaseEntity {
 
     private Boolean status;
 
+    private String username;
+
+    private String profileImg;
+
 
     @Column(name="point",columnDefinition = "int default 100000")
     private int point;
@@ -64,19 +68,24 @@ public class Member extends BaseEntity {
     }
 
     @Builder
-    public Member(String loginId, String password,int point, Authority authority, boolean status) {
+    public Member(String loginId, String password,String username,String profileImg, int point, Authority authority, boolean status) {
         this.loginId = loginId;
         this.password = password;
+        this.username = username;
+        this.profileImg = profileImg;
         this.point = point;
         this.authority = authority;
         this.status = status;
     }
 
 
-    public static Member createMember(String loginId, String password) {
+
+    public static Member createMember(String loginId, String username, String password, String profileImg) {
         return Member.builder()
                 .loginId(loginId)
+                .username(username)
                 .password(password)
+                .profileImg(profileImg)
                 .point(100000)
                 .authority(Authority.ROLE_MEMBER)
                 .status(true)

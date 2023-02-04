@@ -43,11 +43,13 @@ public class AuthRestController {
 
     @PostMapping("members/social/kakao")
     @ApiOperation(value = "카카오 소셜 로그인", notes = "로그인 API")
-    public ResponseEntity<KakaoSocialLoginResponse> kakaoLogin(@RequestBody String accessToken){
+    public ResponseEntity<Map<String,Object>> kakaoLogin(@RequestBody String accessToken, HttpServletResponse response){
         // 카카오 로그인 서비스 호출. 카카오 API response return.
         KakaoSocialLoginResponse rEntity = authService.kakaoLoginService(accessToken);
         // response의 body에 회원정보가 있다.
-        return ResponseEntity.ok().body(rEntity);
+        Map token = authService.saveKaKaoUser(rEntity, response);
+
+        return ResponseEntity.ok().body(token);
     }
 
     @PostMapping("/members/reissue")
