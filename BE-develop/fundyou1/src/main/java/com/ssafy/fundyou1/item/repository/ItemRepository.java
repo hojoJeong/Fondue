@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-
-
     // 아이템 전체 조회
     @Override
     ArrayList<Item> findAll();
@@ -37,7 +35,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
                     "FROM item " +
                     "WHERE item.category_id = :categoryId " +
                     "AND item.price BETWEEN :minPrice AND :maxPrice " +
-                    "ORDER BY item.selling_count DESC LIMIT 5",
+                    "ORDER BY item.selling_count DESC LIMIT 6",
             nativeQuery = true)
     List<Item> findTopItem(@Param("categoryId") Long categoryId, @Param("minPrice") Long minimumPrice,@Param("maxPrice") Long maxPrice);
 

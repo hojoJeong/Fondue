@@ -49,8 +49,8 @@ public class ItemApiController {
 
     // 카테고리별 상품 목록 조회
     @GetMapping("/item/category/{categoryId}")
-    public ResponseEntity<List<ItemDto>> getCategoryItemList(@PathVariable Long categoryId) {
-        List<ItemDto> dtos = itemService.getCategoryItemList(categoryId);
+    public ResponseEntity<List<Item>> getCategoryItemList(@PathVariable Long categoryId) {
+        List<Item> dtos = itemService.getCategoryItemList(categoryId);
 
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
@@ -67,8 +67,8 @@ public class ItemApiController {
 
     // 램덤 5개 조회
     @RequestMapping(value = "/item/random")
-    public ResponseEntity<List<ItemDto>> getRandomItemList(Model model){
-        List<ItemDto> dtos = itemService.getRandomItemList();
+    public ResponseEntity<List<Item>> getRandomItemList(Model model){
+        List<Item> dtos = itemService.getRandomItemList();
 
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }

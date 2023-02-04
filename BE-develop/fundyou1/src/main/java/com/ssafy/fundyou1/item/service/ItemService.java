@@ -39,12 +39,8 @@ public class ItemService {
     }
 
     // 카테고리별 아이템 불러오기
-    public List<ItemDto> getCategoryItemList(Long categoryId){
-
-        return itemRepository.findAllByCategoryId(categoryId)
-                .stream()
-                .map(item -> ItemDto.createItemDto(item))
-                .collect(Collectors.toList());
+    public List<Item> getCategoryItemList(Long categoryId){
+        return itemRepository.findAllByCategoryId(categoryId);
     }
 
     // 상품 디테일
@@ -58,12 +54,9 @@ public class ItemService {
     }
 
     // 랜덤 5개 상품 추출
-    public List<ItemDto> getRandomItemList(){
+    public List<Item> getRandomItemList(){
 
-        return itemRepository.findRandomItemById()
-                .stream()
-                .map(item -> ItemDto.createItemDto(item))
-                .collect(Collectors.toList());
+        return itemRepository.findRandomItemById();
     }
 
     public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
