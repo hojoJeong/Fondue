@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.item.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.fundyou1.category.entity.Category;
+import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.item.dto.DescriptionData;
