@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="funding"
+            type="com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.funding_participate.InvitedFondueFragment">
+
+      <com.google.android.material.appbar.AppBarLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content">
+
+          <com.google.android.material.appbar.CollapsingToolbarLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              app:title='@{funding.userName +"님의 선물 목록"}'
+              app:expandedTitleTextAppearance="@style/expandedBarTextStyle"
+              app:contentScrim="@color/razzmatazz"
+              style="@style/base_font_medium_16"
+              app:collapsedTitleTextColor="@color/white"
+              app:collapsedTitleGravity="start"
+              app:layout_scrollFlags="scroll|exitUntilCollapsed"
+              android:background="@color/white">
+
+              <androidx.constraintlayout.widget.ConstraintLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="180dp"
+                  android:paddingBottom="50dp"
+                  android:background="@color/razzmatazz">
+
+                  <de.hdodenhof.circleimageview.CircleImageView
+                      android:id="@+id/iv_invited_fondue_profile"
+                      android:layout_width="70dp"
+                      android:layout_height="70dp"
+                      app:layout_constraintStart_toStartOf="parent"
+                      app:layout_constraintBottom_toBottomOf="parent"
+                      app:layout_constraintEnd_toStartOf="@+id/tv_invited_fondue_message"
+                      android:src="@drawable/bg_banner_ssafylogo3"
+                      app:layout_constraintHorizontal_chainStyle="packed"
+                      />
+
+                  <TextView
+                      android:id="@+id/tv_invited_fondue_message"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:layout_marginStart="10dp"
+                      app:layout_constraintStart_toEndOf="@+id/iv_invited_fondue_profile"
+                      app:layout_constraintEnd_toEndOf="parent"
+                      app:layout_constraintTop_toTopOf="@+id/iv_invited_fondue_profile"
+                      app:layout_constraintBottom_toBottomOf="@+id/iv_invited_fondue_profile"
+                      android:text='@{funding.userName + "님의 집들이를 축하해주세요!\n센스있는 선물을 기다리고 있습니다"}'
+                      style="@style/base_font_medium_16"
+                      android:textColor="@color/white"
+                      android:textSize="16sp"/>
+
+              </androidx.constraintlayout.widget.ConstraintLayout>
+
+              <androidx.appcompat.widget.Toolbar
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/razzmatazz"
+                  android:minHeight="?attr/actionBarSize">
+                  <androidx.appcompat.widget.AppCompatButton
+                      android:id="@+id/btn_invited_fondue_back"
+                      android:layout_width="10dp"
+                      android:layout_height="20dp"
+                      android:background="@drawable/ic_baseline_arrow_back_ios_24"
+                      android:backgroundTint="@color/white"/>
+              </androidx.appcompat.widget.Toolbar>
+          </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+      </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_invited_fondue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

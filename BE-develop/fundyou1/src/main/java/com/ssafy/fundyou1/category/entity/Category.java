@@ -24,9 +24,8 @@ public class Category {
     @Column(name = "category_name")
     private String categoryName;
 
-
-    @Builder.Default
     @JsonIgnore
+    @Builder.Default
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     private List<Item> items = new ArrayList<>();
 

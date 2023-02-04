@@ -19,10 +19,10 @@ spring:
     password:
 
   jpa:
-    open-in-view: false
-    show-sql: true
+    open-in-view: true
+    show_sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       auto_quote_keyword: true
     defer-datasource-initialization: true
   h2:

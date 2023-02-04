@@ -50,7 +50,7 @@ public class Item {
     private String brand;
 
 
-    @ManyToOne(targetEntity = Category.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Category.class)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -103,12 +103,22 @@ public class Item {
     List<FundingItem> fundingItems = new ArrayList<>();
 
 
-    public void addsellingCount(int quantity) {
-        this.sellingCount += quantity;
+    @Override
+    public String toString() {
+        return "Item{" +
+                "id=" + id +
+                ", price=" + price +
+                ", image='" + image + '\'' +
+                ", descriptionImg='" + descriptionImg + '\'' +
+                ", title='" + title + '\'' +
+                ", isAr='" + isAr + '\'' +
+                ", description='" + description + '\'' +
+                ", sellingCount=" + sellingCount +
+                ", brand='" + brand + '\'' +
+                ", category=" + category +
+                ", likeItems=" + likeItems +
+                ", cartItems=" + cartItems +
+                ", fundingItems=" + fundingItems +
+                '}';
     }
-
-
-
-
-
 }
