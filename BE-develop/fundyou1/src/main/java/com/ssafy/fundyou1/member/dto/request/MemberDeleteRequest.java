@@ -18,9 +18,6 @@ public class MemberDeleteRequest {
         this.loginId = loginId;
     }
 
-//    public Member deleteMember() {
-//        return Member.deleteMember(loginId);
-//    }
-//
+
 
 }

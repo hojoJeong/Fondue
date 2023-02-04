@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.cart.entity.CartItem;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.item.dto.ItemForm;
 import com.ssafy.fundyou1.like.entity.LikeItem;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -41,8 +41,8 @@ public class Item {
     private String isAr;
 
     @Column(name = "description")
-    private String description;
-
+    @ElementCollection
+    private List<String>  description;
     @Column(name = "selling_count",columnDefinition = "integer default 0")
     private int sellingCount;
 
@@ -54,8 +54,8 @@ public class Item {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    public Item(Long id, int price, String image, String descriptionImg, String title, String isAr, String description, int sellingCount, String brand, Category category) {
-        this.id = id;
+    @Builder
+    public Item(int price, String image, String descriptionImg, String title, String isAr, List<String> description, int sellingCount, String brand, Category category) {
         this.price = price;
         this.image = image;
         this.descriptionImg = descriptionImg;
@@ -67,32 +67,26 @@ public class Item {
         this.category = category;
     }
 
-    public static Item createItem(ItemForm dto, Category category) {
-        // 예외 발생
-        if (dto.getId() != null)
-            throw new IllegalStateException("아이템 생성 실패! 아이템의 id가 없어야 합니다");
-        if (dto.getCategory().getId() != category.getId())
-            throw new IllegalStateException("아이템 생성 실패! 아이템의 id가 잘못되었습니다");
-
-        // 엔티티 생성 및 반환
-        return new Item(
-            dto.getId(),
-                dto.getPrice(),
-                dto.getImage(),
-                dto.getDescriptionImg(),
-                dto.getTitle(),
-                dto.getIsAr(),
-                dto.getDescription(),
-                0,
-                dto.getBrand(),
-                dto.getCategory()
-        );
-    }
-
-
-    public void addsellingCount(int quantity) {
-        this.sellingCount += quantity;
-    }
+//    public static Item createItem(ItemForm dto, Category category) {
+//        // 예외 발생
+//        if (dto.getId() != null)
+//            throw new IllegalStateException("아이템 생성 실패! 아이템의 id가 없어야 합니다");
+//        if (dto.getCategory().getId() != category.getId())
+//            throw new IllegalStateException("아이템 생성 실패! 아이템의 id가 잘못되었습니다");
+//
+//        // 엔티티 생성 및 반환
+//        return new Item(
+//                dto.getPrice(),
+//                dto.getImage(),
+//                dto.getDescriptionImg(),
+//                dto.getTitle(),
+//                dto.getIsAr(),
+//                dto.getDescription(),
+//                0,
+//                dto.getBrand(),
+//                dto.getCategory()
+//        );
+//    }
 
 
     @JsonIgnore

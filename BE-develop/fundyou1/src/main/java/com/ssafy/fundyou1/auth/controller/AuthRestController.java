@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.auth.controller;
 
 import com.ssafy.fundyou1.auth.controller.dto.request.LoginRequest;
 import com.ssafy.fundyou1.auth.controller.dto.request.ReissueRequest;
+import com.ssafy.fundyou1.auth.domain.KakaoSocialLoginResponse;
 import com.ssafy.fundyou1.auth.service.AuthService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,10 +36,18 @@ public class AuthRestController {
         @ApiResponse(code = 404, message = "NOT FOUND\n존재하지 않는 로그인 아이디(M01)")
     })
     public ResponseEntity<Map<String,Object>> login(@RequestBody LoginRequest request, HttpServletResponse response) {
-        String accessToken = authService.login(request, response);
-        Map<String,Object> result = new HashMap<>();
-        result.put("accessToken", accessToken);
-        return ResponseEntity.ok().body(result);
+        Map token = authService.login(request, response);
+        return ResponseEntity.ok().body(token);
+    }
+
+
+    @PostMapping("members/social/kakao")
+    @ApiOperation(value = "카카오 소셜 로그인", notes = "로그인 API")
+    public ResponseEntity<KakaoSocialLoginResponse> kakaoLogin(@RequestBody String accessToken){
+        // 카카오 로그인 서비스 호출. 카카오 API response return.
+        KakaoSocialLoginResponse rEntity = authService.kakaoLoginService(accessToken);
+        // response의 body에 회원정보가 있다.
+        return ResponseEntity.ok().body(rEntity);
     }
 
     @PostMapping("/members/reissue")

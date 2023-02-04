@@ -8,6 +8,7 @@
         <variable
             name="item"
             type="com.ssafy.fundyou.ui.funding_my.model.FundingItemModel" />
+
     </data>
 
     <androidx.core.widget.NestedScrollView
