@@ -83,8 +83,8 @@ class FundingDetailFragment :
             )
         )
         fundingDetailStateAdapter.submitList(tempList)
-        fundingDetailStateAdapter.addParticipateButtonEvent {
-
+        fundingDetailStateAdapter.addParticipateButtonEvent { id ->
+            navigate(FundingDetailFragmentDirections.actionFundingDetailFragmentToFundingParticipationFragment(id))
         }
         binding.rvFundingItemDetail.adapter = fundingDetailStateAdapter
     }

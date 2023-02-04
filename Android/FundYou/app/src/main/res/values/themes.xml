@@ -10,7 +10,7 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/razzmatazz</item>
         <!-- Customize your theme here. -->
     </style>
 
@@ -26,6 +26,10 @@
     </style>
 
     <!-- bold size -->
+    <style name="base_font_bold_12" parent="base_font_bold">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="base_font_bold_14" parent="base_font_bold">
         <item name="android:textSize">14sp</item>
     </style>
@@ -129,6 +133,10 @@
     </style>
 
     <!-- bold size color -->
+    <style name="base_font_bold_12_raven" parent="base_font_bold_12">
+        <item name="android:textColor">@color/raven</item>
+    </style>
+
     <style name="base_font_bold_14_black" parent="base_font_bold_14">
         <item name="android:textColor">@color/black</item>
     </style>
@@ -184,10 +192,23 @@
         <item name="labelStyle">@style/Widget.App.Tooltip</item>
     </style>
 
+    <!-- custom chip -->
     <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Choice">
         <item name="chipBackgroundColor">@color/chip_background</item>
         <item name="chipStrokeColor">@color/chip_stroke</item>
         <item name="android:textColor">@color/chip_text</item>
     </style>
 
+    <!-- custom dropdown menu -->
+    <style name="custom_dropdown_menu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="background">@drawable/bg_rect_gradient_white_round10_stroke1</item>
+        <item name="color">@style/base_font_medium_14</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <!-- Collapsing Toolbar -->
+    <style name="expandedBarTextStyle" parent="Theme.FundYou">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">0sp</item>
+    </style>
 </resources>

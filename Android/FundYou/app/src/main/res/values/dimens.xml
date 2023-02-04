@@ -3,6 +3,7 @@
     <!-- Base -->
     <dimen name="base_horizontal_margin">28dp</dimen>
     <dimen name="base_vertical_margin">28dp</dimen>
+    <dimen name="base_vertical_item_list">20dp</dimen>
 
     <!-- Login Banner Size -->
     <dimen name="login_banner_size">400dp</dimen>
@@ -10,4 +11,9 @@
     <!-- margin for main UI -->
     <dimen name="margin_main_between_content">40dp</dimen>
     <dimen name="margin_item_between_tv">2dp</dimen>
+
+    <!-- divider size -->
+    <dimen name="height_divider_thick_6">6dp</dimen>
+    <dimen name="height_divider_thick_4">4dp</dimen>
+
 </resources>

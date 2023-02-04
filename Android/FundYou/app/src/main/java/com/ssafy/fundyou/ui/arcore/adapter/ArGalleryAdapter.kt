@@ -1,41 +1,60 @@
 package com.ssafy.fundyou.ui.arcore.adapter
 
+import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemArGalleryListBinding
 
-class ArGalleryAdapter(val items: List<Int>) :
-    RecyclerView.Adapter<ArGalleryAdapter.ViewHolder>() {
-    private lateinit var binding: ItemArGalleryListBinding
-    private lateinit var holder: ViewHolder
-    lateinit var itemClickListener: ItemClickListener
+object ItemUrlDiffUtil : DiffUtil.ItemCallback<String>(){
+    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+        return oldItem == newItem
+    }
+
+    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        return oldItem == newItem
+    }
+}
+
+class ArGalleryAdapter() : ListAdapter<String, ArGalleryAdapter.ViewHolder>(ItemUrlDiffUtil) {
+    private lateinit var itemClickListener: ItemClickListener
+    private lateinit var itemDownloadEvent : (String, ItemArGalleryListBinding) -> Unit
 
     interface ItemClickListener {
-        fun onItemClicked()
+        fun onItemClicked(addMode: Boolean, url: String)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = ItemArGalleryListBinding.inflate(LayoutInflater.from(parent.context))
-        holder = ViewHolder(binding)
-        return holder
+    fun addItemDownLoadEvent(event : (String, ItemArGalleryListBinding) -> Unit) {
+        this.itemDownloadEvent = event
     }
+
+    fun addItemClickListener(listener: ItemClickListener){
+        this.itemClickListener = listener
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ItemArGalleryListBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(items[position])
-    }
-
-    override fun getItemCount(): Int {
-        return items.size
+        holder.bind(currentList[position])
     }
 
     inner class ViewHolder(private val binding: ItemArGalleryListBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Int) {
-            binding.image.setImageResource(R.drawable.ic_launcher_foreground)
-            binding.image.setOnClickListener {
-                itemClickListener.onItemClicked()
+        fun bind(item: String) {
+            binding.image.apply {
+                if (layoutPosition == 0) {
+                        setImageResource(R.drawable.ic_outline_add_a_photo_24)
+                } else {
+                    itemDownloadEvent.invoke(item, binding)
+                }
+                setOnClickListener {
+                    itemClickListener.onItemClicked(layoutPosition == 0, item)
+                }
             }
         }
     }
