@@ -1,7 +1,7 @@
 package com.ssafy.fundyou.ui.adapter.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.ssafy.fundyou.ui.itemdetail.model.ItemDetailInfoModel
+import com.ssafy.fundyou.ui.item_detail.model.ItemDetailInfoModel
 
 object ItemDetailInfoDiffUtil : DiffUtil.ItemCallback<ItemDetailInfoModel>(){
     override fun areItemsTheSame(

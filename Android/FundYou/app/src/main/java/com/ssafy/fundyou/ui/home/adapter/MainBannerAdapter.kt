@@ -4,8 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.databinding.ItemMainBannerBinding
+import javax.inject.Inject
 
-class MainBannerAdapter : RecyclerView.Adapter<MainBannerAdapter.BannerViewHolder>() {
+class MainBannerAdapter @Inject constructor() : RecyclerView.Adapter<MainBannerAdapter.BannerViewHolder>() {
     private val bannerItems = mutableListOf<Int>()
 
     class BannerViewHolder(private val binding: ItemMainBannerBinding) :

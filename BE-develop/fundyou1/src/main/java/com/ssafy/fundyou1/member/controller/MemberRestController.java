@@ -37,9 +37,9 @@ public class MemberRestController {
     public ResponseEntity<Map<String,Object>> join(@RequestBody MemberSaveRequest request) {
         Long joinMemberId = memberService.saveMember(request);
         URI uri = URI.create("/api/members/" + joinMemberId);
-        ResponseEntity.created(uri);
         Map<String,Object> result = new HashMap<>();
         result.put("joinMemberId",joinMemberId );
+        ResponseEntity.created(uri).build();
         return ResponseEntity.ok().body(result);
     }
 
@@ -50,7 +50,7 @@ public class MemberRestController {
         return ResponseEntity.ok().body(memberService.checkExistLoginId(request));
     }
 
-    @DeleteMapping("/members")
+    @DeleteMapping("/member")
     @ApiOperation(value = "회원 탈퇴", notes = "회원 탈퇴")
     public ResponseEntity<Map<String,Object>> resignMember(@RequestBody MemberDeleteRequest request){
         Long id = memberDeleteService.deleteMember(request);

@@ -4,7 +4,6 @@ package com.ssafy.fundyou1.member.service;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.member.dto.request.CheckDuplicateRequest;
-import com.ssafy.fundyou1.member.dto.request.MemberDeleteRequest;
 import com.ssafy.fundyou1.member.dto.request.MemberSaveRequest;
 import com.ssafy.fundyou1.member.dto.response.CheckDuplicateResponse;
 import com.ssafy.fundyou1.member.entity.Member;

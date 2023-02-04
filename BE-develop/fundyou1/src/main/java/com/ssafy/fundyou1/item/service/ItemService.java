@@ -1,9 +1,14 @@
 package com.ssafy.fundyou1.item.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.fundyou1.category.entity.Category;
-import com.ssafy.fundyou1.category.repository.CategoryRepository;
+import com.ssafy.fundyou1.global.exception.BusinessException;
+import com.ssafy.fundyou1.global.exception.ErrorCode;
+import com.ssafy.fundyou1.item.dto.DescriptionData;
 import com.ssafy.fundyou1.item.dto.ItemDto;
 import com.ssafy.fundyou1.item.dto.ItemForm;
+import com.ssafy.fundyou1.item.dto.ItemSaveRequest;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -12,7 +17,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -25,18 +32,51 @@ public class ItemService {
     private CategoryRepository categoryRepository;
 
     // 상품 데이터 추가
+//    @Transactional
+//    public ItemDto create(Long categoryId, ItemForm dto) {
+//        Category category = categoryRepository.findById(dto.getCategory().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("상품 생성 실패! 대상 카테고리가 없습니다"));
+//
+//        Item item = Item.createItem(dto, category);
+//
+//        Item created = itemRepository.save(item);
+//
+//        return ItemDto.createItemDto(created);
+//
+//    }
+
+    //희주 상품 데이터 추가
+
     @Transactional
-    public ItemDto create(Long categoryId, ItemForm dto) {
-        Category category = categoryRepository.findById(dto.getCategory().getId())
-                .orElseThrow(() -> new IllegalArgumentException("상품 생성 실패! 대상 카테고리가 없습니다"));
+    public Long saveItem(ItemSaveRequest request) {
+        checkDuplicateItemTitle(request.getTitle(), request.getBrand());
 
-        Item item = Item.createItem(dto, category);
+        Category category = categoryRepository.findByCategoryName(request.getCategoryName());
 
-        Item created = itemRepository.save(item);
-
-        return ItemDto.createItemDto(created);
-
+        Item item = request.toItem(category);
+        return itemRepository.save(item).getId();
     }
+
+
+    // 희주 상품 이름 브랜드 중복 검사
+
+    public void checkDuplicateItemTitle(String title, String brand) {
+        if(itemRepository.existsByTitleAndBrand(title, brand)) {
+            throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
+        }
+    }
+
+    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
+    @Transactional
+    public String saveDescriptionList(String title, List<DescriptionData> description ) throws JsonProcessingException {
+        Item item = itemRepository.findByTitle(title);
+
+        ObjectMapper mapper = new ObjectMapper();
+        item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
+        return item.getTitle();
+    }
+
+
 
     // 카테고리별 아이템 불러오기
     public List<Item> getCategoryItemList(Long categoryId){

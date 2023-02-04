@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.auth.service;
 import com.ssafy.fundyou1.auth.controller.dto.request.LoginRequest;
 import com.ssafy.fundyou1.auth.controller.dto.request.ReissueRequest;
 import com.ssafy.fundyou1.auth.controller.dto.response.TokenResponse;
+import com.ssafy.fundyou1.auth.domain.KakaoSocialLoginResponse;
 import com.ssafy.fundyou1.auth.domain.RefreshToken;
 import com.ssafy.fundyou1.auth.domain.RefreshTokenRepository;
 import com.ssafy.fundyou1.auth.infrastructure.JwtTokenProvider;
@@ -10,14 +11,24 @@ import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.service.MemberService;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -37,16 +48,49 @@ public class AuthService {
     }
 
     @Transactional
-    public String login(LoginRequest request, HttpServletResponse response) {
+    public Map<String, Object> login(LoginRequest request, HttpServletResponse response) {
         Member member = memberService.findByLoginIdAndDeletedAtNull(request.getLoginId());
         member.checkPassword(passwordEncoder, request.getPassword());
 
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getLoginId(),member.getAuthority());
         String refreshToken = saveRefreshToken(member, tokenResponse);
         setTokenToCookie(tokenResponse.getAccessToken(), refreshToken, response);
-        return tokenResponse.getAccessToken();
-    }
 
+        Map<String,Object> result = new HashMap<>();
+        result.put("accessToken", tokenResponse.getAccessToken());
+        result.put("refreshToken", refreshToken);
+
+        return result;
+    }
+    public KakaoSocialLoginResponse kakaoLoginService(String accessToken) {
+
+        // body에 들어갈 parameter 생성. 하지만 넣을 값은 없다.
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+
+        // header에 들어갈 키, 값 생성
+        HttpHeaders headers = new HttpHeaders();
+
+        // 키: Authorization. 값: Bearer {accessToken}
+        headers.add("Authorization", "Bearer " + accessToken);
+
+        // spring에서 rest통신을 지원하는 RestTemplate
+        RestTemplate rt = new RestTemplate();
+
+        // setRequestFactory가 없으면 body에 아무런 값이 들어있지 않을때 500에러 발생. non-body err
+        rt.setRequestFactory(new HttpComponentsClientHttpRequestFactory());
+
+        // header + body를 하나로 묶어 entity 생성
+        HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(params, headers);
+
+        // rest 통신 시작
+        ResponseEntity<KakaoSocialLoginResponse> response = rt.exchange(
+                "https://kapi.kakao.com/v2/user/me", // 요청할 서버 주소
+                HttpMethod.POST, // 요청할 방식
+                entity, // 요청할 때 보낼 데이터
+                KakaoSocialLoginResponse.class // 반환타입
+        );
+        return response.getBody();
+    }
     @Transactional
     public String saveRefreshToken(Member member, TokenResponse tokenResponse) {
         RefreshToken refreshToken = refreshTokenRepository.findBySubject(member.getLoginId())
