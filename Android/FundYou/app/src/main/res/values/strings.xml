@@ -123,4 +123,6 @@
     <string name="title_pay_payment_option">결제 수단</string>
     <string name="title_pay_fondue_pay">퐁듀Pay 머니</string>
     <string name="title_pay_funding">%1$d원 펀딩하기</string>
+    <string name="title_pay_success">%1$s님의 퐁듀를\n완료하였습니다.</string>
+
 </resources>

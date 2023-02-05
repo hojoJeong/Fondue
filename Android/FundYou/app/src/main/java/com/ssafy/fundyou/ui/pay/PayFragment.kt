@@ -8,7 +8,9 @@ import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentPayBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.pay.model.FundingPayModel
@@ -26,6 +28,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
         initFundingItemView()
         countMessageLength()
         setFundingPrice()
+        initFundingBtnListener()
     }
 
     override fun initViewModels() {
@@ -35,7 +38,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
     private fun initFundingItemView() {
         //TODO(임시 데이터 추가)
         payItem =
-            FundingPayModel(R.drawable.bg_banner_ssafylogo2, "삼성", "비스포크 냉장고", 100000, 60000, 20000)
+            FundingPayModel("이수용", R.drawable.bg_banner_ssafylogo2, "삼성", "비스포크 냉장고", 100000, 60000, 80, 20000, 10000)
 
         binding.item = payItem
         val content = "남은 금액 전부 펀딩"
@@ -79,13 +82,11 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
                         fundingPrice = payItem.balance
                         setTextFundingEditTextAndBtn(fundingPrice)
                     }
-
                 } else {
                     fundingPrice = 0
                     fundingBtn.text = "펀딩하기"
                 }
             }
-
             override fun afterTextChanged(s: Editable?) {}
         })
 
@@ -107,5 +108,18 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
     private fun setTextFundingEditTextAndBtn(fundingPrice: Int){
         binding.btnPayFunding.text = "${DecimalFormat("#,##0").format(fundingPrice)}원 펀딩하기"
         binding.editPayFundingPrice.setText(fundingPrice.toString())
+    }
+
+    private fun initFundingBtnListener(){
+        //TODO(임시 state 코드)
+        val result = "fail"
+        val payResult = ViewState.Success(result)
+        binding.btnPayFunding.setOnClickListener {
+            if(binding.editPayFundingPrice.text.isEmpty() || binding.editPayInputInfoSender.text.isEmpty()){
+                Snackbar.make(requireView(), "필수 항목 입력을 확인해주세요", Snackbar.LENGTH_SHORT).show()
+            } else {
+                navigate(PayFragmentDirections.actionPayFragmentToPayResultFragment(payResult.value!!, payItem))
+            }
+        }
     }
 }
