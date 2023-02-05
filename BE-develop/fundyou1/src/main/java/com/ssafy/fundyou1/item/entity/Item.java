@@ -65,6 +65,7 @@ public class Item {
         this.sellingCount = sellingCount;
         this.brand = brand;
         this.category = category;
+
     }
 
 //    public static Item createItem(ItemForm dto, Category category) {

@@ -28,13 +28,28 @@ public class FundingItem {
     @JoinColumn(name = "funding_id")
     private Funding funding;
 
-    private int fundingPrice;
+    private int itemTotalPrice;
 
     private int count;
 
-    private LocalDateTime regTime;
+    // 현재 펀딩된 가격
+    // 펀딩 참여자 DB 다 돌아서 sum 해준 값
 
-    private LocalDateTime updateTime;
+    private boolean fundingItemStatus;
+
+    // 참여자 수
+    // 펀딩 참여자 DB 갯수 카운트 - @Query문 쓰면 되려나
+
+    public static FundingItem createFundingItem(Funding funding, Item item, int count){
+        FundingItem fundingItem = new FundingItem();
+        fundingItem.setItem(item);
+        fundingItem.setFunding(funding);
+        // 아이템 total price
+        fundingItem.setCount(count);
+        fundingItem.setFundingItemStatus(Boolean.parseBoolean("True"));
+
+        return fundingItem;
+    }
 
 
 }

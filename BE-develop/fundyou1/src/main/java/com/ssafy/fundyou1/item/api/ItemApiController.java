@@ -48,22 +48,22 @@ public class ItemApiController {
 
     // 희주 - 상품 등록
 
-    @PostMapping("/item")
-    @ApiOperation(value = "상품등록", notes = "상품등록")
-    @ApiResponses({
-            @ApiResponse(code = 409, message = "CONFLICT\n 상품 이름.브랜드 중복(I01)\n")
-    })
-    public ResponseEntity<Map<String,Object>> saveItem(@RequestBody @Valid ItemSaveRequest request) throws JsonProcessingException {
-        itemService.saveItem(request);
-        List<DescriptionData> descriptionData = request.getDescription();
-
-        String title = itemService.saveDescriptionList(request.getTitle(), descriptionData);
-
-        Map<String,Object> result = new HashMap<>();
-        result.put("save",title );
-
-        return ResponseEntity.ok().body(result);
-    }
+//    @PostMapping("/item")
+//    @ApiOperation(value = "상품등록", notes = "상품등록")
+//    @ApiResponses({
+//            @ApiResponse(code = 409, message = "CONFLICT\n 상품 이름.브랜드 중복(I01)\n")
+//    })
+//    public ResponseEntity<Map<String,Object>> saveItem(@RequestBody @Valid ItemSaveRequest request) throws JsonProcessingException {
+//        itemService.saveItem(request);
+//        List<DescriptionData> descriptionData = request.getDescription();
+//
+//        String title = itemService.saveDescriptionList(request.getTitle(), descriptionData);
+//
+//        Map<String,Object> result = new HashMap<>();
+//        result.put("save",title );
+//
+//        return ResponseEntity.ok().body(result);
+//    }
 
 
     // 전체 상품 목록 조회

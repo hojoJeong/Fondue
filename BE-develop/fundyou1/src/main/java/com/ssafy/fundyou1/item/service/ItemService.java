@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.item.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.fundyou1.category.entity.Category;
+import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.item.dto.DescriptionData;
@@ -31,50 +32,36 @@ public class ItemService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // 상품 데이터 추가
-//    @Transactional
-//    public ItemDto create(Long categoryId, ItemForm dto) {
-//        Category category = categoryRepository.findById(dto.getCategory().getId())
-//                .orElseThrow(() -> new IllegalArgumentException("상품 생성 실패! 대상 카테고리가 없습니다"));
-//
-//        Item item = Item.createItem(dto, category);
-//
-//        Item created = itemRepository.save(item);
-//
-//        return ItemDto.createItemDto(created);
-//
-//    }
-
     //희주 상품 데이터 추가
 
-    @Transactional
-    public Long saveItem(ItemSaveRequest request) {
-        checkDuplicateItemTitle(request.getTitle(), request.getBrand());
+//    @Transactional
+//    public Long saveItem(ItemSaveRequest request) {
+//        checkDuplicateItemTitle(request.getTitle(), request.getBrand());
+//
+//        Category category = categoryRepository.findByCategoryName(request.getCategoryName());
+//
+//        Item item = request.toItem(category);
+//        return itemRepository.save(item).getId();
+//    }
 
-        Category category = categoryRepository.findByCategoryName(request.getCategoryName());
-
-        Item item = request.toItem(category);
-        return itemRepository.save(item).getId();
-    }
-
-
-    // 희주 상품 이름 브랜드 중복 검사
-
-    public void checkDuplicateItemTitle(String title, String brand) {
-        if(itemRepository.existsByTitleAndBrand(title, brand)) {
-            throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
-        }
-    }
-
-    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
-    @Transactional
-    public String saveDescriptionList(String title, List<DescriptionData> description ) throws JsonProcessingException {
-        Item item = itemRepository.findByTitle(title);
-
-        ObjectMapper mapper = new ObjectMapper();
-        item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
-        return item.getTitle();
-    }
+//
+//    // 희주 상품 이름 브랜드 중복 검사
+//
+//    public void checkDuplicateItemTitle(String title, String brand) {
+//        if(itemRepository.existsByTitleAndBrand(title, brand)) {
+//            throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
+//        }
+//    }
+//
+//    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
+//    @Transactional
+//    public String saveDescriptionList(String title, List<DescriptionData> description ) throws JsonProcessingException {
+//        Item item = itemRepository.findByTitle(title);
+//
+//        ObjectMapper mapper = new ObjectMapper();
+//        item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
+//        return item.getTitle();
+//    }
 
 
 
