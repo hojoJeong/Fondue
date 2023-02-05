@@ -3,9 +3,10 @@ package com.ssafy.fundyou.util
 import android.content.Context
 import android.view.View
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
-import java.util.Date
+import java.util.*
 
 fun Context.showToast(message : String){
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

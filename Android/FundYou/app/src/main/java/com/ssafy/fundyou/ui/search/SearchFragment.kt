@@ -10,7 +10,7 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchHistoryKeywordAdapter
-import com.ssafy.fundyou.util.extension.showToast
+import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

@@ -109,4 +109,10 @@
         <item>@string/category_cancel_membership_reason_cancel_5</item>
     </string-array>
 
+    <!-- 위시리스트 -->
+    <string name="title_wishlist_funding_info">펀딩 생성 정보</string>
+    <string name="title_wishlist_item_price">상품 총액</string>
+    <string name="title_wishlist_item_count">수량</string>
+    <string name="title_wishlist_funding_period">펀딩 기간</string>
+
 </resources>
