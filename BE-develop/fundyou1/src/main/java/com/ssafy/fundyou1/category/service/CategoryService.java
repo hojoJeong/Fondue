@@ -5,7 +5,6 @@ import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
-import com.ssafy.fundyou1.member.dto.request.MemberSaveRequest;
 import com.ssafy.fundyou1.member.entity.Member;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

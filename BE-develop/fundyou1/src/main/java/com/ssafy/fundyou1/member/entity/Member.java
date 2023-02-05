@@ -32,19 +32,26 @@ public class Member extends BaseEntity {
 
     @Column(name = "login_id", length = 32, nullable = false)
     private String loginId;
+    @Column(name = "password")
+    private String password;
 
-
-    private Boolean status;
-
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "member_status")
+    private Boolean status;
+
+    @Column(name = "profileImg")
     private String profileImg;
 
 
     @Column(name="point",columnDefinition = "int default 100000")
     private int point;
 
-    private String password;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "authority")
+    private Authority authority;
+
 
 
     @OneToOne(mappedBy = "member",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -59,9 +66,6 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Funding> fundings = new ArrayList<>();
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "authority")
-    private Authority authority;
 
 
     protected Member() {
@@ -80,14 +84,14 @@ public class Member extends BaseEntity {
 
 
 
-    public static Member createMember(String loginId, String username, String password, String profileImg) {
+    public static Member createMember(String loginId,  String password,String username, String profileImg) {
         return Member.builder()
                 .loginId(loginId)
-                .username(username)
                 .password(password)
+                .username(username)
                 .profileImg(profileImg)
                 .point(100000)
-                .authority(Authority.ROLE_MEMBER)
+                .authority(Authority.ROLE_USER)
                 .status(true)
                 .build();
     }
@@ -95,7 +99,7 @@ public class Member extends BaseEntity {
     public static Member deleteMember(String loginId) {
         return Member.builder()
                 .loginId(loginId)
-                .authority(Authority.ROLE_MEMBER)
+                .authority(Authority.ROLE_USER)
                 .status(false)
                 .build();
     }
