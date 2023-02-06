@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.cart.api;
 
+import com.ssafy.fundyou1.cart.dto.CartDeleteReqestDto;
 import com.ssafy.fundyou1.cart.dto.CartItemResponseDto;
 import com.ssafy.fundyou1.cart.dto.CartRequestDto;
 import com.ssafy.fundyou1.cart.entity.Cart;
@@ -78,7 +79,7 @@ public class CartRestController {
 
     @DeleteMapping("/cartItem/{cartItemId}")
     @ApiOperation(value = "장바구니 아이템 삭제", notes = "<strong>장바구니 목록 id를 받아</strong> 장바구니 목록에서 아이템을 삭제한다.")
-    public ResponseEntity deleteList(Long cartItemId){
+    public ResponseEntity deleteList(CartDeleteReqestDto cartDeleteReqestDto){
 
         MemberResponseDto meDto = memberService.getMyInfo();
 
@@ -87,7 +88,7 @@ public class CartRestController {
         Long memberId = member.getId();
 
         try{
-            String messege = cartService.deleteByCartItemId(cartItemId);
+            String messege = cartService.deleteByCartItemId(cartDeleteReqestDto);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",messege ));
         }catch (Exception e){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "fail", null));

@@ -95,7 +95,8 @@ public class CartService {
     }
 
     // 사용자의 장바구니 아이템 삭제
-    public String deleteByCartItemId(Long cartItemId) {
+    public String deleteByCartItemId(CartDeleteReqestDto cartDeleteReqestDto) {
+        Long cartItemId = cartDeleteReqestDto.getCartItemId();
         cartItemRepository.deleteById(cartItemId);
 
         return "sucess";
