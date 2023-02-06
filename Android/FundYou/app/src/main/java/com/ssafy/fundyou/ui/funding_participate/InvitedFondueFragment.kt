@@ -1,7 +1,6 @@
 package com.ssafy.fundyou.ui.funding_participate
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -100,6 +99,9 @@ class InvitedFondueFragment : BaseFragment<FragmentInvitedFondueBinding>(R.layou
     private fun initFundingItemAdapter(){
         val fundingItemAdapter = InvitedFondueItemAdapter()
         fundingItemAdapter.submitList(fundingItemList)
+        fundingItemAdapter.itemClickListener { value ->
+            navigate(InvitedFondueFragmentDirections.actionInvitedFondueFragmentToPayFragment())
+        }
         with(binding.rvInvitedFondue){
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = fundingItemAdapter
