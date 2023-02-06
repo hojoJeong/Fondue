@@ -2,7 +2,7 @@ package com.ssafy.fundyou.data.remote.datasource.auth.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class KakaoAuthResponseDto(
+data class AuthResponseDto(
     @SerializedName("accessToken")
     var accessToken : String?,
     @SerializedName("accessTokenExpiresIn")

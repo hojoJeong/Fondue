@@ -6,3 +6,8 @@ object Constant {
     const val SP_ERROR = 500
     const val SUCCESS = 200
 }
+
+object ErrorMessage{
+    const val NO_TOKEN = "NO_TOKEN"
+    const val AUTHORIZATION_ERROR = "AUTHORIZATION_ERROR"
+}

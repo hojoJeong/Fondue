@@ -1,11 +1,15 @@
 package com.ssafy.fundyou.data.remote.datasource.auth
 
-import com.ssafy.fundyou.data.remote.datasource.auth.dto.KakaoAuthResponseDto
-import com.ssafy.fundyou.domain.model.auth.JWTAuthModel
+import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthRequestDto
+import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthResponseDto
 
 
 interface AuthRemoteDataSource {
     suspend fun getJWTByKakao(
-        accessToken : String
-    ) : KakaoAuthResponseDto
+        accessToken: String
+    ): AuthResponseDto
+
+    suspend fun getJWTByRefreshToken(
+        authRequestDto : AuthRequestDto
+    ): AuthResponseDto
 }
