@@ -78,6 +78,7 @@ dependencies {
     //glide
     implementation (libs.glide)
     annotationProcessor (libs.glide.compiler)
+    implementation 'com.google.ar.sceneform:rendering:1.17.1'
     testImplementation libs.junit
 
     androidTestImplementation libs.android.test.junit

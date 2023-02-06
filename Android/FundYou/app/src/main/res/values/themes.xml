@@ -211,4 +211,12 @@
         <item name="android:textColor">@android:color/transparent</item>
         <item name="android:textSize">0sp</item>
     </style>
+
+    <!-- Callendar -->
+    <style name="custom_calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/pig_pink</item>
+        <item name="colorOnPrimary">@color/razzmatazz</item>
+        <item name="colorContainer">@color/pig_pink</item>
+        <!-- 상단 컨테이너 색상 -->
+    </style>
 </resources>

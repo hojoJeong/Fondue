@@ -1,20 +1,15 @@
 package com.ssafy.fundyou.ui
 
-import android.opengl.Visibility
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.fundyou.R
-import com.ssafy.fundyou.databinding.ActivityBridgeBinding
 import com.ssafy.fundyou.databinding.ActivityMainBinding
-import com.ssafy.fundyou.ui.home.MainFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -124,7 +119,7 @@ class MainActivity : AppCompatActivity() {
                 with(binding.lyToolbar.ivRightImg) {
                     setImageResource(R.drawable.ic_wish_list)
                     setOnClickListener {
-
+                        navController.navigate(R.id.wishListFragment)
                     }
                 }
             }

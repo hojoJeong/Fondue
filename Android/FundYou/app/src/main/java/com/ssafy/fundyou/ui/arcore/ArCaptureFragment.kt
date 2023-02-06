@@ -12,7 +12,7 @@ import com.google.firebase.storage.ktx.storage
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArCaptureBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.util.extension.getFormattedCurrentTime
+import com.ssafy.fundyou.util.getFormattedCurrentTime
 import java.io.ByteArrayOutputStream
 
 
