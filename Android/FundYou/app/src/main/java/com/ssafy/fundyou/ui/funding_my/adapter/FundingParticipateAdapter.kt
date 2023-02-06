@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.funding_participation.adapter
+package com.ssafy.fundyou.ui.funding_my.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemFundingMessageBinding
-import com.ssafy.fundyou.ui.funding_participation.model.FundingParticipateModel
+import com.ssafy.fundyou.ui.funding_my.model.FundingParticipateModel
 
 
 class FundingParticipateAdapter :
