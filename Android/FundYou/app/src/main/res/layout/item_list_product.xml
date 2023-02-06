@@ -6,7 +6,7 @@
             name="product"
             type="com.ssafy.fundyou.domain.model.ProductItemModel" />
         <variable
-            name="is_favorite_fragment"
+            name="favorite_visibility"
             type="Boolean" />
     </data>
 
@@ -35,7 +35,7 @@
             android:layout_margin="6dp"
             android:scaleType="centerInside"
             app:favoriteImage="@{product.favorite}"
-            android:visibility="@{is_favorite_fragment ? View.GONE : View.VISIBLE, default = visible}"
+            android:visibility="@{favorite_visibility ? View.VISIBLE : View.GONE, default = visible}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product"
             tools:src="@drawable/ic_favorite" />
@@ -106,7 +106,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:background="@drawable/ic_cancel"
-            android:visibility="@{is_favorite_fragment ? View.VISIBLE : View.GONE, default=gone}"
+            android:visibility="@{favorite_visibility ? View.GONE : View.VISIBLE, default=visible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_item_list_product_ranking"
             tools:visibility="visible" />
