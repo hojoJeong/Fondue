@@ -153,21 +153,6 @@ object BindingAdapters {
         setImageResource(img)
     }
 
-//    @JvmStatic
-//    @BindingAdapter("setRemainPoint")
-//    fun TextView.setRemainPoint() {
-//        val content = "남은 금액 전부 펀딩"
-//        val builder = SpannableStringBuilder(content)
-//        builder.setSpan(
-//            ForegroundColorSpan(ContextCompat.getColor(context, R.color.franch_rose)),
-//            content.length - 5,
-//            content.length,
-//            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-//        )
-//
-//        this.text = builder
-//    }
-
     @JvmStatic
     @BindingAdapter("setBalanceFundingPrice")
     fun TextView.setBalanceFundingPrice(price: Int) {
