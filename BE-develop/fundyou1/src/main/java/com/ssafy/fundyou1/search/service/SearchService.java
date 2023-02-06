@@ -27,7 +27,7 @@ public class SearchService {
     }
 
     public List<Search> getItemBySearchRank() {
-        return searchRepository.findBySearchRank();
+        return searchRepository.findSearchKeywordRankTop5();
     }
 
     @Transactional

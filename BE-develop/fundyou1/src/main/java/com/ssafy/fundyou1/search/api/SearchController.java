@@ -32,7 +32,8 @@ public class SearchController {
         return ResponseEntity.status(HttpStatus.OK).body(searchService.getItemBySearch(searchKeyWord));
     }
 
-    @GetMapping("/rank")
+    @GetMapping("/keyword/rank")
+    @ApiOperation(value = "인기 검색어", notes = "가장 많이 검색한 키워드 5개를 반환합니다.")
     public ResponseEntity<List<Search>> getItemBySearchRank(){
         return ResponseEntity.status(HttpStatus.OK).body(searchService.getItemBySearchRank());
     }
