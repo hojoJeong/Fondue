@@ -4,7 +4,9 @@ import com.ssafy.fundyou1.cart.dto.CartDetailDto;
 import com.ssafy.fundyou1.cart.dto.CartItemAddRequestDto;
 import com.ssafy.fundyou1.cart.dto.CartItemAddResponseDto;
 import com.ssafy.fundyou1.cart.dto.CartItemDto;
+import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.entity.CartItem;
+import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.cart.service.CartService;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.item.dto.ItemDto;
@@ -44,6 +46,7 @@ public class CartRestController {
 
     private final ItemService itemService;
     private final MemberRepository memberRepository;
+    private final CartRepository cartRepository;
 
 
     @PostMapping(value = "/cart")
@@ -54,8 +57,8 @@ public class CartRestController {
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
 
-
         String username = responseDto.getUsername();
+
         Long cartItemId;
 
         try {
@@ -67,18 +70,27 @@ public class CartRestController {
         return new ResponseEntity<Long>(cartItemId, HttpStatus.OK); // 장바구니에 상품이 잘 담기면 200
     }
 
-    @GetMapping(value = "/cart")
-    public ResponseEntity<List<CartItem>> cartHist(){
-
-        MemberResponseDto responseDto= memberRepository.findById(SecurityUtil.getCurrentMemberId())
-                .map(MemberResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-
-
-        String username = responseDto.getUsername();
-        List<CartItem> cartDetailList = cartService.getCartList(username);
-        return ResponseEntity.status(HttpStatus.OK).body(cartDetailList);
-    }
+//    @GetMapping(value = "/cart")
+//    public ResponseEntity<List<Item>> cartHist(){
+//
+//        MemberResponseDto responseDto= memberRepository.findById(SecurityUtil.getCurrentMemberId())
+//                .map(MemberResponseDto::of)
+//                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
+//
+//        Long memberId = responseDto.getId();
+//
+//        Cart cart = cartRepository.findByMemberId(memberId);
+//
+//        Long cartId = cart.getId();
+//
+//        try {
+//            cartService.getCartList(cartId); //dto -> entity
+//        } catch(Exception e){
+//            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST); // 장바구니에 잘 안담겼으면 404
+//        }
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(cartDetailList);
+//    }
 
 
 //    @DeleteMapping(value = "/cartItem/{cartItemId}")

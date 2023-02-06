@@ -68,24 +68,21 @@ public class CartService {
 
 
     // username을 이용하여 카트 리스트를 조회합니다.
-    @Transactional(readOnly = true)
-    public List<CartItem> getCartList(String username){
-
-        List<CartItem> cartDetailDtoList = new ArrayList<>();
-
-        Member member = memberRepository.findByUsername(username);
-        Cart cart = cartRepository.findByMemberId(member.getId());
-
-        if(cart == null){ // 위에서 유저 카트 조회해서, 없으면은 그냥 반환하고
-            return cartDetailDtoList;
-        }
-
-        cartDetailDtoList = cartItemRepository.findCartDetailDtoList(cart.getId());
-        return cartDetailDtoList; // 카트 있으면은 cartItemRepository 의 JPQL 쿼리로 걸러진 아이템들을 담영서 반환
-    }
-
-
-
+//    @Transactional(readOnly = true)
+//    public List<Item> getCartList(Long cartId){
+//
+//        List<Item> emptyCartDetailDtoList = new ArrayList<>();
+//
+////        CartItem cartItem = cartRepository.findByCartId(cartId);
+//
+//
+////        if(cart == null){ // 위에서 유저 카트 조회해서, 없으면은 그냥 반환하고
+////            return emptyCartDetailDtoList;
+////        }
+//
+////        List<Item> cartDetailDtoList = cartItemRepository.findCartDetailDtoList(cart.getId());
+//        return cartDetailDtoList; // 카트 있으면은 cartItemRepository 의 JPQL 쿼리로 걸러진 아이템들을 담영서 반환
+//    }
 
 
 

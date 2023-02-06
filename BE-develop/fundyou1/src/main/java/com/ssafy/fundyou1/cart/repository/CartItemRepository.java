@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.cart.repository;
 
 import com.ssafy.fundyou1.cart.dto.CartDetailDto;
 import com.ssafy.fundyou1.cart.entity.CartItem;
+import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,11 +26,8 @@ public interface CartItemRepository extends JpaRepository<CartItem, Long> {
 //            nativeQuery = true)
 
     @Query(value =
-            "SELECT * " +
-            "FROM cart_item ci, item i " +
-            "WHERE ci.item_id = i.id " +
-            "AND ci.cart_id = :cartId",
+            "SELECT * FROM item WHERE item.id in (SELECT cart_item.item_id FROM cart_item ci WHERE ci.cart_id = :cartId)",
             nativeQuery = true)
-    List<CartItem> findCartDetailDtoList(@Param("cartId") Long cartId);
+    List<Item> findCartDetailDtoList(@Param("cartId") Long cartId);
 
 }
