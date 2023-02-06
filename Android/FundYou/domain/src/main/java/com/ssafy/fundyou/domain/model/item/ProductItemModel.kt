@@ -4,8 +4,8 @@ data class ProductItemModel(
     val id: Long,
     val price: Int,
     val img: String,
-    val name: String,
+    val descriptionImg: String,
+    val title: String,
     val isAr: Boolean,
-    val brand: String,
-    val isFavorite: Boolean
+    val description: MutableList<ProductDescriptionModel>
 )

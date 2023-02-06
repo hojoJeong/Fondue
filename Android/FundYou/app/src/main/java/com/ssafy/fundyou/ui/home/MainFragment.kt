@@ -13,13 +13,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
-import com.ssafy.fundyou.*
+import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.home.adapter.*
+import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
+import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
+import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
@@ -213,7 +215,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ProductItemModel(
                 0,
                 100000,
-                "",
+                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
                 "BESPOKE 냉장고",
                 false,
                 "삼성",
@@ -224,7 +226,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ProductItemModel(
                 1,
                 100000,
-                "",
+                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
                 "BESPOKE 냉장고",
                 true,
                 "삼성",
@@ -235,7 +237,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ProductItemModel(
                 2,
                 100000,
-                "",
+                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
                 "BESPOKE 냉장고",
                 false,
                 "삼성",
@@ -246,7 +248,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ProductItemModel(
                 3,
                 100000,
-                "",
+                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
                 "BESPOKE 냉장고",
                 true,
                 "삼성",
@@ -257,7 +259,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ProductItemModel(
                 4,
                 100000,
-                "",
+                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
                 "BESPOKE 냉장고",
                 false,
                 "삼성",
@@ -268,7 +270,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             ProductItemModel(
                 5,
                 100000,
-                "",
+                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
                 "BESPOKE 냉장고",
                 true,
                 "삼성",

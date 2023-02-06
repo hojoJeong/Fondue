@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.di
 
 import com.ssafy.fundyou.data.remote.service.AuthApiService
+import com.ssafy.fundyou.data.remote.service.ItemApiService
 import com.ssafy.fundyou.util.network.NoAuthInterceptorClient
 import dagger.Module
 import dagger.Provides
@@ -19,4 +20,13 @@ object ServiceModule {
     ): AuthApiService {
         return retrofit.create(AuthApiService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideItemService(
+        @NoAuthInterceptorClient retrofit: Retrofit
+    ): ItemApiService {
+        return retrofit.create(ItemApiService::class.java)
+    }
+
 }

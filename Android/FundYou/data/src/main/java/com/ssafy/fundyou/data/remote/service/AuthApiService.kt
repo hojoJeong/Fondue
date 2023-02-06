@@ -2,7 +2,6 @@ package com.ssafy.fundyou.data.remote.service
 
 import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthRequestDto
 import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthResponseDto
-import com.ssafy.fundyou.domain.model.auth.JWTAuthModel
 import retrofit2.http.Body
 import retrofit2.http.POST
 
