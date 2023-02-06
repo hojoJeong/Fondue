@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.funding_participation.model
+package com.ssafy.fundyou.ui.funding_my.model
 
 data class FundingParticipateModel(
     val id : Int,
