@@ -1,23 +1,24 @@
 package com.ssafy.fundyou1.member.controller;
 
-import com.ssafy.fundyou1.member.dto.request.MemberSaveRequest;
-import com.ssafy.fundyou1.member.dto.response.MemberInfoResponse;
-import com.ssafy.fundyou1.member.entity.Member;
+
+import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.service.MemberService;
 import com.ssafy.fundyou1.member.service.ProfileService;
 import io.swagger.annotations.*;
+
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
+import org.springframework.web.bind.annotation.*;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
+
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
+@Slf4j
 @Api(tags = {"프로필"})
 public class ProfileRestController {
 
@@ -30,14 +31,22 @@ public class ProfileRestController {
         this.memberService = memberService;
     }
 
-    @GetMapping("/auth/members")
-    @ApiOperation(value = "회원 정보 조회", notes = "(로그인 필요) 회원 정보 조회")
-    @ApiResponses({
-            @ApiResponse(code = 404, message = "NOT FOUND\n존재하지 않는 로그인 아이디(M01)")
-    })
-    public ResponseEntity<MemberInfoResponse> showMemberInfo(@AuthenticationPrincipal String loginId) {
-        return ResponseEntity.ok().body(profileService.showMemberInfo(loginId));
+    // 내 프로필
+
+    @GetMapping("members/me")
+    public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
+        return ResponseEntity.ok(memberService.getMyInfo());
+    }
+
+    // 로그인 아이디로 찾기
+    @GetMapping("members/{loginId}")
+    public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable String loginId) {
+        return ResponseEntity.ok(memberService.getMemberInfo(loginId));
     }
 
 
+    private String getUsername(Authentication authentication) {
+        String name = authentication.getName();
+        return name;
+    }
 }
