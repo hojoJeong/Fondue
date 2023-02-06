@@ -28,6 +28,7 @@ public class Funding {
     private Long id; // PK
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
+    @JsonIgnore
     private Member member; // FK
 
     @CreatedDate
@@ -64,6 +65,7 @@ public class Funding {
         fundingItem.setFunding(this);
     }
 
+    @JsonIgnore
     @Builder
     public Funding(Long id, Member member, LocalDateTime startDate, boolean fundingStatus) {
         this.id = id;
@@ -80,7 +82,6 @@ public class Funding {
                 .fundingStatus(fundingStatus)
                 .build();
     }
-
 
     public static Funding createFunding(Member member){
         Funding funding = new Funding();

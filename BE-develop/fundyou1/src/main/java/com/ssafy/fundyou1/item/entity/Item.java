@@ -42,6 +42,7 @@ public class Item {
 
     @Column(name = "description")
     @ElementCollection
+    @JsonIgnore
     private List<String>  description;
     @Column(name = "selling_count",columnDefinition = "integer default 0")
     private int sellingCount;
@@ -55,6 +56,7 @@ public class Item {
     private Category category;
 
     @Builder
+    @JsonIgnore
     public Item(int price, String image, String descriptionImg, String title, String isAr, List<String> description, int sellingCount, String brand, Category category) {
         this.price = price;
         this.image = image;

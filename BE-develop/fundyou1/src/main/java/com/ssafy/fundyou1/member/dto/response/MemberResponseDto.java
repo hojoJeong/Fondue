@@ -35,12 +35,5 @@ public class MemberResponseDto {
         );
     }
 
-    public MemberResponseDto(Long id, String loginId, String username, Boolean status, String profileImg, int point) {
-        this.id = id;
-        this.loginId = loginId;
-        this.username = username;
-        this.status = status;
-        this.profileImg = profileImg;
-        this.point = point;
-    }
+
 }

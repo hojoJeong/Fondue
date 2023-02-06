@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.fund.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.item.entity.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +34,7 @@ public class FundingItem {
     // 현재 펀딩된 가격
     // 펀딩 참여자 DB 다 돌아서 sum 해준 값
 
+    @JsonIgnore
     private boolean fundingItemStatus;
 
     // 참여자 수

@@ -12,6 +12,10 @@ import java.util.Optional;
 
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
+    // 특정 아이템 불러오기
+    @Query(value = "SELECT * FROM item WHERE item.item_id = :id", nativeQuery = true)
+    Item findItemById(@Param("id") Long id);
+
     // 아이템 전체 조회
     @Override
     ArrayList<Item> findAll();

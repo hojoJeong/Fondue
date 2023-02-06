@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.fund.api;
 
+import com.ssafy.fundyou1.fund.dto.FundingItemDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
@@ -30,12 +31,13 @@ public class FundingApiController {
 
     // 펀딩 시작
     @PostMapping("/create")
-    public List<FundingItem> createFunding() {
+    public String createFunding() {
+//    public List<FundingItemDto> createFunding() {
 
         // 펀딩 만들기
-        List<FundingItem> createdFundingList = fundingService.createFunding();
+        List<FundingItemDto> createdFundingDtoList = fundingService.createFunding();
 
-        return createdFundingList;
+        return "성공";
 
     }
 
