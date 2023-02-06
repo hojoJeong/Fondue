@@ -125,4 +125,12 @@
     <string name="title_pay_funding">%1$d원 펀딩하기</string>
     <string name="title_pay_success">%1$s님의 퐁듀를\n완료하였습니다.</string>
 
+    <!-- 위시리스트 -->
+    <string name="title_wishlist_funding_info">펀딩 생성 정보</string>
+    <string name="title_wishlist_item_price">상품 총액</string>
+    <string name="title_wishlist_item_count">수량</string>
+    <string name="title_wishlist_funding_period">펀딩 기간</string>
+    <string name="content_wishlist_balloon">친구들과 펀딩 정보를\n공유할 수 있어요</string>
+    <string name="title_wishlist_callendar">펀딩 기간을 설정해주세요</string>
+    <string name="content_wishlist_funding_period">%1$s ~ %2$s</string>
 </resources>

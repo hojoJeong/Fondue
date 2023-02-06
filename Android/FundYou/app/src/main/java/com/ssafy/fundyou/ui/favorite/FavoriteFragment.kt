@@ -47,7 +47,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
 
         val itemListAdapter = ProductItemAdapter()
         itemListAdapter.submitList(itemList)
-        itemListAdapter.checkIsFavoriteFragment(true)
+        itemListAdapter.setFavoriteVisibility(false)
 
         with(binding.rvFavorite){
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
