@@ -4,7 +4,7 @@
         <import type="android.view.View" />
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.ProductItemModel" />
+            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
         <variable
             name="is_favorite_fragment"
             type="Boolean" />

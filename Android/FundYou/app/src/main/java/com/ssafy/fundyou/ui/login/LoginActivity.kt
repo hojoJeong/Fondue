@@ -1,17 +1,11 @@
 package com.ssafy.fundyou.ui.login
 
-import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.model.ClientError
 import com.kakao.sdk.common.model.ClientErrorCause
@@ -22,6 +16,7 @@ import com.skydoves.balloon.showAlignTop
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityLoginBinding
+import com.ssafy.fundyou.ui.MainActivity
 import com.ssafy.fundyou.ui.login.banner.adapter.LoginBannerAdapter
 import com.ssafy.fundyou.ui.login.banner.model.LoginBannerModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         if (error != null) {
             Log.e(TAG, "카카오계정으로 로그인 실패", error)
         } else if (token != null) {
-            Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
+            loginViewModel.getJWTByKakao(token.accessToken)
         }
     }
 
@@ -50,19 +45,28 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initLoginViewModel() {
-        loginViewModel.googleAuthToken.observe(this) { response ->
-            when(response){
+        loginViewModel.jwt.observe(this) { response ->
+            when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initLoginViewModel: get token...")
                 }
                 is ViewState.Success -> {
-                    Log.d(TAG, "initLoginViewModel: ${response.value?.accessToken ?: "Token Empty"}")
+                    Log.d(TAG, "initLoginViewModel: success ${response.value}")
+                    startMainActivity()
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initLoginViewModel: token error ${response.message}")
                 }
             }
         }
+    }
+
+    private fun startMainActivity() {
+        // CLEAR_TASK or NEW_TASK로 스택에 있는 액티비티 전부 제거
+        val intent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+        startActivity(intent)
     }
 
     private fun initLoginBanner() {

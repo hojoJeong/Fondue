@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
 

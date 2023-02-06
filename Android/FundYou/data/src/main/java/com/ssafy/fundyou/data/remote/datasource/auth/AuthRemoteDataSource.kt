@@ -1,12 +1,11 @@
 package com.ssafy.fundyou.data.remote.datasource.auth
 
-import com.ssafy.fundyou.data.remote.datasource.auth.dto.GoogleAuthResponseDto
-import com.ssafy.fundyou.domain.model.GoogleAuthModel
+import com.ssafy.fundyou.data.remote.datasource.auth.dto.KakaoAuthResponseDto
+import com.ssafy.fundyou.domain.model.auth.JWTAuthModel
+
 
 interface AuthRemoteDataSource {
-    suspend fun postAuthTokenWithGoogle(
-        authCode : String,
-        clientId : String,
-        clientSecretId : String
-    ) : GoogleAuthResponseDto
+    suspend fun getJWTByKakao(
+        accessToken : String
+    ) : KakaoAuthResponseDto
 }

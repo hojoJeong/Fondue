@@ -3,6 +3,7 @@ package com.ssafy.fundyou.di
 import android.content.Context
 import com.ssafy.fundyou.common.Constant.BASE_URL
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
+import com.ssafy.fundyou.util.network.AuthInterceptor
 import com.ssafy.fundyou.util.network.AuthInterceptorClient
 import com.ssafy.fundyou.util.network.NoAuthInterceptorClient
 import dagger.Module

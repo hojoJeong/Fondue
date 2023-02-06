@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentSearchResultBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchResultAdapter
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator

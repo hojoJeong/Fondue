@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentInvitedFondueBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel

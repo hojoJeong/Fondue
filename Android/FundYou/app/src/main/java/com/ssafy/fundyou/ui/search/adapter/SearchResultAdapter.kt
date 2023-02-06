@@ -3,12 +3,11 @@ package com.ssafy.fundyou.ui.search.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemSearchResultListBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
 
 class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.SearchResultHolder>(ProductListDiffUtil) {
