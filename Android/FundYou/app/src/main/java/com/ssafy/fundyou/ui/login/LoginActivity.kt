@@ -138,19 +138,19 @@ class LoginActivity : AppCompatActivity() {
         val list = mutableListOf<LoginBannerModel>()
         list.add(
             LoginBannerModel(
-                R.drawable.ic_launcher_background,
+                R.drawable.bg_onboarding_1,
                 getString(R.string.content_login_banner_1)
             )
         )
         list.add(
             LoginBannerModel(
-                R.drawable.ic_launcher_background,
+                R.drawable.bg_onboarding_2,
                 getString(R.string.content_login_banner_2)
             )
         )
         list.add(
             LoginBannerModel(
-                R.drawable.ic_launcher_background,
+                R.drawable.bg_onboarding_3,
                 getString(R.string.content_login_banner_3)
             )
         )
