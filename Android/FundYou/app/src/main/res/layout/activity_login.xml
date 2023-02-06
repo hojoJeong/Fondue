@@ -9,12 +9,12 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/midnight_express">
+        android:background="@color/white">
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/vp_login_banner"
             android:layout_width="match_parent"
-            android:layout_height="600dp"
+            android:layout_height="540dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:ci_animator="@animator/ani_ci"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="30dp"
+            app:ci_drawable="@drawable/ic_indicator_selected"
             app:layout_constraintBottom_toBottomOf="@id/vp_login_banner"
             app:ci_drawable_unselected="@drawable/ic_indicator_unselected"
             app:layout_constraintEnd_toEndOf="parent"
@@ -38,7 +39,7 @@
             android:layout_marginHorizontal="@dimen/base_horizontal_margin"
             android:background="@drawable/bg_rect_transparent_golden_yellow_radius10_stroke0"
             android:text="@string/content_kakao_login"
-            app:layout_constraintVertical_bias="0.7"
+            app:layout_constraintVertical_bias="0.75"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

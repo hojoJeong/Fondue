@@ -56,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initLoginViewModel: token error ${response.message}")
+                    startMainActivity()
                 }
             }
         }
@@ -118,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
             .setIconHeight(20)
             .setMarginBottom(6)
             .setIconWidth(20)
-            .setIconDrawableResource(R.drawable.ic_launcher_background)
+            .setIconDrawableResource(R.drawable.ic_app_logo)
             .setArrowSize(12)
             .setArrowPosition(0.5f)
             .setPaddingTop(6)
@@ -138,19 +139,19 @@ class LoginActivity : AppCompatActivity() {
         val list = mutableListOf<LoginBannerModel>()
         list.add(
             LoginBannerModel(
-                R.drawable.ic_launcher_background,
+                R.drawable.bg_onboarding_1,
                 getString(R.string.content_login_banner_1)
             )
         )
         list.add(
             LoginBannerModel(
-                R.drawable.ic_launcher_background,
+                R.drawable.bg_onboarding_2,
                 getString(R.string.content_login_banner_2)
             )
         )
         list.add(
             LoginBannerModel(
-                R.drawable.ic_launcher_background,
+                R.drawable.bg_onboarding_3,
                 getString(R.string.content_login_banner_3)
             )
         )
