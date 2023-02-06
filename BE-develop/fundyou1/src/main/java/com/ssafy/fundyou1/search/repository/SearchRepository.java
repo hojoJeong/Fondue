@@ -1,19 +1,20 @@
 package com.ssafy.fundyou1.search.repository;
 
 import com.ssafy.fundyou1.item.entity.Item;
+import com.ssafy.fundyou1.search.entity.Search;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface SearchRepository extends JpaRepository<Item, Long> {
-    @Query(value =
-            "SELECT * " +
-                    "FROM item " +
-                    "WHERE item.title LIKE %:keyword% " +
-                    "AND item.price " +
-                    "BETWEEN :minPrice AND :maxPrice",
-            nativeQuery = true)
-    List<Item> findBySearch(@Param("keyword")String keyword, @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice);
+@Repository
+public interface SearchRepository extends JpaRepository<Search, Long> {
+
+    @Query(value = "SELECT * " +
+            "FROM search " +
+            "ORDER BY search.search_count " +
+            "DESC LIMIT 5", nativeQuery = true)
+    List<Item> findBySearchRank();
 }

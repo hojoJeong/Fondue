@@ -11,7 +11,6 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 public class Search {
     @Id
@@ -21,4 +20,7 @@ public class Search {
 
     @Column(name = "keyword")
     private String keyword;
+
+    @Column(name = "search_count")
+    private long search_count;
 }
