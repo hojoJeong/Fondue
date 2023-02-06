@@ -93,7 +93,7 @@
     <string name="category_cancel_membership_reason_cancel_4">알림이 너무 자주 울려서</string>
     <string name="category_cancel_membership_reason_cancel_5">기타</string>
     <string name="content_cancel_membership_solution_3_title">퐁듀가 알아서 상품을 추천해드릴게요!</string>
-    <string name="content_cancel_membership_solution_3_content">검색 빈도와 랜덤으로 다양하고 신뢰성 있는 상품을 추천 받아보세요.</string>
+    <string name="content_cancel_membership_solution_3_content">랜덤과 검색 순위로 다양하고 인기있는 있는 상품을 추천 받아보세요.</string>
     <string name="content_cancel_membership_solution_btn"><u>%1$s 바로가기</u></string>
     <string name="content_cancel_membership_solution_4_title">서비스별로 알림을 설정해보세요!</string>
     <string name="content_cancel_membership_solution_4_content">알림 설정을 통해 받고싶은 알림만 받아보세요.</string>
@@ -108,6 +108,22 @@
         <item>@string/category_cancel_membership_reason_cancel_4</item>
         <item>@string/category_cancel_membership_reason_cancel_5</item>
     </string-array>
+
+    <!-- 결제하기 -->
+    <string name="title_pay_gift_item">선물 항목</string>
+    <string name="content_pay_remain">남았어요!</string>
+    <string name="content_pay_input_funding_price">펀딩할 금액 입력</string>\
+    <string name="title_pay_btn_all">퐁듀하기</string>
+    <string name="title_pay_btn_10000">+ 10,000</string>
+    <string name="title_pay_btn_50000">+ 50,000</string>
+    <string name="title_pay_btn_all_describtion">남은 금액 전부 펀딩</string>
+    <string name="title_pay_input_info">정보 입력</string>
+    <string name="title_pay_sender">보내는 사람</string>
+    <string name="title_pay_message">메시지</string>
+    <string name="title_pay_payment_option">결제 수단</string>
+    <string name="title_pay_fondue_pay">퐁듀Pay 머니</string>
+    <string name="title_pay_funding">%1$d원 펀딩하기</string>
+    <string name="title_pay_success">%1$s님의 퐁듀를\n완료하였습니다.</string>
 
     <!-- 위시리스트 -->
     <string name="title_wishlist_funding_info">펀딩 생성 정보</string>
