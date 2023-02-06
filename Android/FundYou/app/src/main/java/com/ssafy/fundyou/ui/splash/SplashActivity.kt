@@ -29,8 +29,8 @@ class SplashActivity : AppCompatActivity() {
         val handler = Handler(mainLooper)
         // 현재 2초뒤 로그인 화면으로 넘어감, 토큰 검증 API 나오면 수정
         handler.postDelayed({
-            startLoginActivity()  //테스트로 인한 임시 변경
-//            startMainActivity()
+//            startLoginActivity()  //테스트로 인한 임시 변경
+            startMainActivity()
         }, 1000)
     }
 
