@@ -1,55 +1,55 @@
 package com.ssafy.fundyou1.global.security;
 
-import com.ssafy.fundyou1.auth.infrastructure.JwtTokenProvider;
-import org.apache.logging.log4j.util.Strings;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.filter.OncePerRequestFilter;
+import static org.springframework.http.HttpHeaders.AUTHORIZATION;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.regex.Pattern;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.Optional;
-import java.util.regex.Pattern;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
+import com.ssafy.fundyou1.auth.infrastructure.TokenProvider;
+import lombok.RequiredArgsConstructor;
+import org.apache.logging.log4j.util.Strings;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.StringUtils;
+import org.springframework.web.filter.OncePerRequestFilter;
 
+@RequiredArgsConstructor
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static final Pattern BEARER_SCHEMA = Pattern.compile("^Bearer$", Pattern.CASE_INSENSITIVE);
+    public static final String AUTHORIZATION_HEADER = "Authorization";
+    public static final String BEARER_PREFIX = "Bearer ";
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final TokenProvider tokenProvider;
 
-    public JwtFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-
+    // 실제 필터링 로직은 doFilterInternal 에 들어감
+    // JWT 토큰의 인증 정보를 현재 쓰레드의 SecurityContext 에 저장하는 역할 수행
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-        throws ServletException, IOException {
-        resolveHeader(request).ifPresent(this::saveAuthentication);
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws IOException, ServletException {
+
+        // 1. Request Header 에서 토큰을 꺼냄
+        String jwt = resolveToken(request);
+
+        // 2. validateToken 으로 토큰 유효성 검사
+        // 정상 토큰이면 해당 토큰으로 Authentication 을 가져와서 SecurityContext 에 저장
+        if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
+            Authentication authentication = tokenProvider.getAuthentication(jwt);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        }
+
         filterChain.doFilter(request, response);
     }
 
-    private Optional<String> resolveHeader(HttpServletRequest request) {
-        String tokenInfo = request.getHeader(AUTHORIZATION);
-        if (Strings.isEmpty(tokenInfo)) {
-            return Optional.empty();
+    // Request Header 에서 토큰 정보를 꺼내오기
+    private String resolveToken(HttpServletRequest request) {
+        String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
+            return bearerToken.substring(7);
         }
-        return getToken(tokenInfo.split(" "));
-    }
-
-    private Optional<String> getToken(String[] tokenInfo) {
-        if (tokenInfo.length == 2 && BEARER_SCHEMA.matcher(tokenInfo[0]).matches()) {
-            return Optional.of(tokenInfo[1]);
-        }
-        return Optional.empty();
-    }
-
-    private void saveAuthentication(String token) {
-        Authentication authentication = jwtTokenProvider.resolveAccessToken(token);
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return null;
     }
 }
