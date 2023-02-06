@@ -13,7 +13,7 @@ import com.ssafy.fundyou.ui.funding_detail.adapter.FundingDetailStateAdapter
 import com.ssafy.fundyou.ui.funding_detail.adapter.FundingRankingAdapter
 import com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel
 import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
-import com.ssafy.fundyou.util.extension.getColorNoTheme
+import com.ssafy.fundyou.util.getColorNoTheme
 
 class FundingDetailFragment :
     BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail) {
