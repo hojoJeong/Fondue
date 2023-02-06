@@ -1,13 +1,11 @@
 package com.ssafy.fundyou1.fund.entity;
 
-import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.item.entity.Item;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter

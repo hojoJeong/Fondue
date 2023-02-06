@@ -32,42 +32,64 @@ public class ItemService {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    // 상품 데이터 추가
+//    @Transactional
+//    public ItemDto create(Long categoryId, ItemForm dto) {
+//        Category category = categoryRepository.findById(dto.getCategory().getId())
+//                .orElseThrow(() -> new IllegalArgumentException("상품 생성 실패! 대상 카테고리가 없습니다"));
+//
+//        Item item = Item.createItem(dto, category);
+//
+//        Item created = itemRepository.save(item);
+//
+//        return ItemDto.createItemDto(created);
+//
+//    }
+
     //희주 상품 데이터 추가
 
-//    @Transactional
-//    public Long saveItem(ItemSaveRequest request) {
-//        checkDuplicateItemTitle(request.getTitle(), request.getBrand());
-//
-//        Category category = categoryRepository.findByCategoryName(request.getCategoryName());
-//
-//        Item item = request.toItem(category);
-//        return itemRepository.save(item).getId();
-//    }
+    @Transactional
+    public Long saveItem(ItemSaveRequest request) {
+        checkDuplicateItemTitle(request.getTitle(), request.getBrand());
 
-//
-//    // 희주 상품 이름 브랜드 중복 검사
-//
-//    public void checkDuplicateItemTitle(String title, String brand) {
-//        if(itemRepository.existsByTitleAndBrand(title, brand)) {
-//            throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
-//        }
-//    }
-//
-//    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
-//    @Transactional
-//    public String saveDescriptionList(String title, List<DescriptionData> description ) throws JsonProcessingException {
-//        Item item = itemRepository.findByTitle(title);
-//
-//        ObjectMapper mapper = new ObjectMapper();
-//        item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
-//        return item.getTitle();
-//    }
+        Category category = categoryRepository.findByCategoryName(request.getCategoryName());
+
+        Item item = request.toItem(category);
+        return itemRepository.save(item).getId();
+    }
+
+
+    // 희주 상품 이름 브랜드 중복 검사
+
+    public void checkDuplicateItemTitle(String title, String brand) {
+        if(itemRepository.existsByTitleAndBrand(title, brand)) {
+            throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
+        }
+    }
+    // 특정 상품 조회
+    public Item itemView(Long id){
+        return itemRepository.findById(id).get();
+    }
+
+    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
+    @Transactional
+    public String saveDescriptionList(String title, List<DescriptionData> description ) throws JsonProcessingException {
+        Item item = itemRepository.findByTitle(title);
+
+        ObjectMapper mapper = new ObjectMapper();
+        item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
+        return item.getTitle();
+    }
 
 
 
     // 카테고리별 아이템 불러오기
-    public List<Item> getCategoryItemList(Long categoryId){
-        return itemRepository.findAllByCategoryId(categoryId);
+    public List<ItemDto> getCategoryItemList(Long categoryId){
+
+        return itemRepository.findAllByCategoryId(categoryId)
+                .stream()
+                .map(item -> ItemDto.createItemDto(item))
+                .collect(Collectors.toList());
     }
 
     // 상품 디테일
@@ -81,9 +103,12 @@ public class ItemService {
     }
 
     // 랜덤 5개 상품 추출
-    public List<Item> getRandomItemList(){
+    public List<ItemDto> getRandomItemList(){
 
-        return itemRepository.findRandomItemById();
+        return itemRepository.findRandomItemById()
+                .stream()
+                .map(item -> ItemDto.createItemDto(item))
+                .collect(Collectors.toList());
     }
 
     public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {

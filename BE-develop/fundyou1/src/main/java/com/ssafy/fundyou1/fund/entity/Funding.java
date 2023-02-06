@@ -26,7 +26,7 @@ public class Funding {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="funding_id")
     private Long id; // PK
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member member; // FK
 
@@ -64,13 +64,23 @@ public class Funding {
         fundingItem.setFunding(this);
     }
 
-
     @Builder
-    public Funding(Long id, Member member, boolean fundingStatus) {
+    public Funding(Long id, Member member, LocalDateTime startDate, boolean fundingStatus) {
         this.id = id;
         this.member = member;
+        this.startDate = startDate;
         this.fundingStatus = fundingStatus;
     }
+
+    public Funding toEntity() {
+        return Funding.builder()
+                .id(id)
+                .member(member)
+                .startDate(startDate)
+                .fundingStatus(fundingStatus)
+                .build();
+    }
+
 
     public static Funding createFunding(Member member){
         Funding funding = new Funding();

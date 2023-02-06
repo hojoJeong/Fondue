@@ -2,7 +2,6 @@ package com.ssafy.fundyou1.category.controller;
 
 import com.ssafy.fundyou1.category.dto.CategorySaveRequest;
 import com.ssafy.fundyou1.category.service.CategoryService;
-import com.ssafy.fundyou1.member.dto.request.MemberSaveRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/item")
 @Api(tags = {"카테고리"})
 public class CategoryApiController {
 

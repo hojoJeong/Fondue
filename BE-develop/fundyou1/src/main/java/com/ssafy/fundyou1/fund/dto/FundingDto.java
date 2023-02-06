@@ -20,14 +20,13 @@ public class FundingDto {
 //    private LocalDateTime endDate;
     private boolean fundingStatus;
 
-    public Funding toEntity() {
-        Funding build = Funding.builder()
-                .id(id)
-                .member(member)
-                .fundingStatus(fundingStatus)
-                .build();
-        return build;
-    }
+//    public Funding toEntity() {
+//        Funding build = Funding.builder()
+//                .id(id)
+//                .member(member)
+//                .build();
+//        return build;
+//    }
 
     @Builder
     public FundingDto(Long id, Member member, LocalDateTime startDate) {
