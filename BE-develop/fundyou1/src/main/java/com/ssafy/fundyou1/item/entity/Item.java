@@ -23,7 +23,7 @@ public class Item {
 
     @Id
     @GeneratedValue
-    @Column(name = "item_id")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "price")
