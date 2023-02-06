@@ -18,11 +18,12 @@ import java.text.SimpleDateFormat
 
 class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment_wish_list) {
     private val wishLIstItemList = mutableListOf<ProductItemModel>()
-    private lateinit var calendar:  MaterialDatePicker<Pair<Long, Long>>
+    private lateinit var calendar: MaterialDatePicker<Pair<Long, Long>>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
+
     override fun initView() {
         binding.btnWishlistStartFunding.showAlignTop(makeBalloon())
         initWishListItem()
@@ -35,7 +36,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     override fun initViewModels() {
     }
 
-    private fun initWishListItem(){
+    private fun initWishListItem() {
         with(wishLIstItemList) {
             add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
             add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
@@ -47,11 +48,12 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
 
         val rvWishList = binding.rvWishlistItem
         val wishListItemAdapter = ProductItemAdapter()
-        with(wishListItemAdapter){
+        with(wishListItemAdapter) {
             setFavoriteVisibility(false)
             checkNeedRanking(false)
             submitList(wishLIstItemList)
-            rvWishList.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            rvWishList.layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             rvWishList.adapter = wishListItemAdapter
         }
     }
@@ -79,12 +81,17 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         return popUpMessage.build()
     }
 
-    private fun initCalendar(){
+    private fun initCalendar() {
         calendar = MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText(R.string.title_wishlist_callendar)
             .setPositiveButtonText("확인")
             .setNegativeButtonText("취소")
-            .setSelection(Pair(MaterialDatePicker.todayInUtcMilliseconds(), MaterialDatePicker.todayInUtcMilliseconds()))
+            .setSelection(
+                Pair(
+                    MaterialDatePicker.todayInUtcMilliseconds(),
+                    MaterialDatePicker.todayInUtcMilliseconds()
+                )
+            )
             .setTheme(R.style.custom_calendar)
             .build()
         binding.btnWishlistFundingPeriod.setOnClickListener {
@@ -92,7 +99,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         }
     }
 
-    private fun setFundingPeriod(){
+    private fun setFundingPeriod() {
         calendar.addOnPositiveButtonClickListener {
             val startPick = calendar.selection?.first
             val endPick = calendar.selection?.second
@@ -101,17 +108,18 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
             val startDay = dateFormat.format(startPick)
             val endDay = dateFormat.format(endPick)
 
-            binding.tvWishlistFundingPeriod.text = "$startDay ~ $endDay"
+            binding.tvWishlistFundingPeriod.text =
+                getString(R.string.content_wishlist_funding_period, startDay, endDay)
         }
     }
 
-    private fun startFundingBtnListener(){
+    private fun startFundingBtnListener() {
         binding.btnWishlistStartFunding.setOnClickListener {
             navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment())
         }
     }
 
-    private fun cancelBtnListener(){
+    private fun cancelBtnListener() {
         binding.btnWishlistCancel.setOnClickListener {
             popBackStack()
         }

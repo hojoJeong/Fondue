@@ -132,4 +132,5 @@
     <string name="title_wishlist_funding_period">펀딩 기간</string>
     <string name="content_wishlist_balloon">친구들과 펀딩 정보를\n공유할 수 있어요</string>
     <string name="title_wishlist_callendar">펀딩 기간을 설정해주세요</string>
+    <string name="content_wishlist_funding_period">%1$s ~ %2$s</string>
 </resources>
