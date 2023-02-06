@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.domain.model
+package com.ssafy.fundyou.domain.model.item
 
 data class ProductItemModel(
     val id: Long,

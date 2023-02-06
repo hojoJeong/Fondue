@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemRelatedItemListBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
 
 class ItemDetailRelatedAdapter : ListAdapter<ProductItemModel, ItemDetailRelatedAdapter.ItemDetailRelatedHolder>(ProductListDiffUtil){

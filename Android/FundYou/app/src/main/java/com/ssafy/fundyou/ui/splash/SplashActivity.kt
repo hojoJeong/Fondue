@@ -5,10 +5,16 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.ssafy.fundyou.common.ErrorMessage.AUTHORIZATION_ERROR
+import com.ssafy.fundyou.common.ErrorMessage.NO_TOKEN
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivitySplashBinding
 import com.ssafy.fundyou.ui.MainActivity
 import com.ssafy.fundyou.ui.login.LoginActivity
+import com.ssafy.fundyou.ui.login.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
@@ -16,22 +22,49 @@ import dagger.hilt.android.AndroidEntryPoint
 class SplashActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashBinding
+    private val splashViewModel by viewModels<SplashViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySplashBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        initSplashViewModel()
         tokenValidation()
     }
 
     private fun tokenValidation() {
-        val handler = Handler(mainLooper)
-        // 현재 2초뒤 로그인 화면으로 넘어감, 토큰 검증 API 나오면 수정
-        handler.postDelayed({
-//            startLoginActivity()  //테스트로 인한 임시 변경
-            startMainActivity()
-        }, 1000)
+        splashViewModel.getLocalAccessToken()
+    }
+
+    private fun initSplashViewModel() {
+        splashViewModel.accessToken.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    splashViewModel.getJWTByRefreshToken()
+                }
+                is ViewState.Error -> {
+                    if (response.message == NO_TOKEN) startLoginActivity()
+                }
+            }
+        }
+
+        splashViewModel.refreshJWT.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    startMainActivity()
+                }
+                is ViewState.Error -> {
+                    startLoginActivity()
+                }
+            }
+        }
     }
 
     private fun startMainActivity() {

@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintSet
 import androidx.viewpager2.widget.ViewPager2
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailInfoAdapter

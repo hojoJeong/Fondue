@@ -1,6 +1,6 @@
 package com.ssafy.fundyou.ui.funding_my.model
 
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import kotlin.math.roundToInt
 
 data class FundingItemModel(

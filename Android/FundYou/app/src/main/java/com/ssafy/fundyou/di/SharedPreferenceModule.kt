@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.di
 
 import android.content.Context
+import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
 import com.ssafy.fundyou.domain.repository.SearchRepository
 import dagger.Module
@@ -17,5 +18,11 @@ object SharedPreferenceModule {
     @Singleton
     fun provideSearchPreferences(@ApplicationContext context : Context) : SearchKeywordPreference{
         return SearchKeywordPreference(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAuthSharedPreferences(@ApplicationContext context : Context) : AuthSharePreference{
+        return AuthSharePreference(context)
     }
 }

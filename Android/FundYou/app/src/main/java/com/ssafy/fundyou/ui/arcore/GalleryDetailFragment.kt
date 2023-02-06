@@ -12,9 +12,9 @@ import com.ssafy.fundyou.ui.base.BaseFragment
 
 class GalleryDetailFragment : BaseFragment<FragmentGalleryDetailBinding>(R.layout.fragment_gallery_detail) {
 
-    val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
-    val storageRef = storage.reference
-    val args: GalleryDetailFragmentArgs by navArgs()
+    private val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
+    private val storageRef = storage.reference
+    private val args: GalleryDetailFragmentArgs by navArgs()
 
     override fun initView() {
         val url = (args.arg1)

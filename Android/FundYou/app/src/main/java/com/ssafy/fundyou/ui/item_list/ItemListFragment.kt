@@ -10,7 +10,7 @@ import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemListBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
 
