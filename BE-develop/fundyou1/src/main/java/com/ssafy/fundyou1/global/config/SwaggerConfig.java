@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Pageable;
 import org.springframework.lang.Nullable;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -42,14 +43,13 @@ public class SwaggerConfig implements WebMvcConfigurer {
     @Bean
     public Docket api() {
         return new Docket(DocumentationType.SWAGGER_2)
-            .useDefaultResponseMessages(false)
+            .apiInfo(apiInfo())
+            .directModelSubstitute(Pageable.class, SwaggerPageable.class)
+            .securitySchemes(Arrays.asList(apiKey()))
             .select()
             .apis(RequestHandlerSelectors.any())
             .paths(PathSelectors.any())
-            .build()
-            .apiInfo(apiInfo())
-            .directModelSubstitute(Pageable.class, SwaggerPageable.class)
-            .securitySchemes(Arrays.asList(apiKey()));
+            .build();
     }
 
     private List<SecurityReference> defaultAuth() {

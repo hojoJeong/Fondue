@@ -1,49 +1,33 @@
 package com.ssafy.fundyou1.auth.domain;
 
-import com.ssafy.fundyou1.global.exception.BusinessException;
-import com.ssafy.fundyou1.global.exception.ErrorCode;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
+@Table(name = "refresh_token")
 @Entity
 public class RefreshToken {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "refresh_token_id")
-    private Long id;
+    @Column(name = "rt_key")
+    private String key;
 
-    @Column(name = "refresh_token", length = 512)
-    private String refreshToken;
-
-    @Column(name = "subject", length = 32)
-    private String subject;
-
-    @Column(name = "expired_at")
-    private LocalDateTime expiredAt;
-
-    public RefreshToken() {
-    }
+    @Column(name = "rt_value")
+    private String value;
 
     @Builder
-    public RefreshToken(String refreshToken, String subject, LocalDateTime expiredAt) {
-        this.refreshToken = refreshToken;
-        this.subject = subject;
-        this.expiredAt = expiredAt;
+    public RefreshToken(String key, String value) {
+        this.key = key;
+        this.value = value;
     }
 
-    public void validateValue(String refreshToken) {
-        if (!this.refreshToken.equals(refreshToken)) {
-            throw new BusinessException(ErrorCode.INVALID_NOT_MATCH_BY_REFRESH_TOKEN);
-        }
-    }
-
-    public void updateRefreshToken(String token) {
-        this.refreshToken = token;
-        this.expiredAt = LocalDateTime.now().plusDays(7);
+    public RefreshToken updateValue(String token) {
+        this.value = token;
+        return this;
     }
 }

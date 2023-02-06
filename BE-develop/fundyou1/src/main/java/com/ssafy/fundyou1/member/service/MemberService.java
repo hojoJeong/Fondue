@@ -1,65 +1,50 @@
 package com.ssafy.fundyou1.member.service;
 
 
-import com.ssafy.fundyou1.global.exception.BusinessException;
-import com.ssafy.fundyou1.global.exception.ErrorCode;
-import com.ssafy.fundyou1.member.dto.request.CheckDuplicateRequest;
-import com.ssafy.fundyou1.member.dto.request.MemberSaveRequest;
-import com.ssafy.fundyou1.member.dto.response.CheckDuplicateResponse;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
+
+import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
+
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
+import java.util.Optional;
+
 @Service
+@RequiredArgsConstructor
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private final PasswordEncoder passwordEncoder;
-
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
-        this.memberRepository = memberRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
 
     @Transactional(readOnly = true)
-    public Member findByLoginId(String loginId) {
+    public MemberResponseDto getMemberInfo(String loginId) {
         return memberRepository.findByLoginId(loginId)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_LOGIN_ID));
+                .map(MemberResponseDto::of)
+                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
 
-
-
+    // 현재 SecurityContext 에 있는 유저 정보 가져오기
     @Transactional(readOnly = true)
-    public Member findByLoginIdAndDeletedAtNull(String loginId) {
-        return memberRepository.findByLoginIdAndDeletedAtNull(loginId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_LOGIN_ID));
-    }
-
-    @Transactional
-    public Long saveMember(MemberSaveRequest request) {
-        checkDuplicateLoginId(request.getLoginId());
-        Member member = request.toMember();
-        member.encodePassword(passwordEncoder);
-        return memberRepository.save(member).getId();
+    public MemberResponseDto getMyInfo() {
+        return memberRepository.findById(SecurityUtil.getCurrentMemberId())
+                .map(MemberResponseDto::of)
+                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
 
 
-
-
-
-
-    public void checkDuplicateLoginId(String loginId) {
-        if (memberRepository.existsByLoginId(loginId)) {
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_ID_DUPLICATED);
-        }
-    }
-
-
+    // 탈퇴할때 필요!
     @Transactional(readOnly = true)
-    public CheckDuplicateResponse checkExistLoginId(CheckDuplicateRequest request) {
-        return CheckDuplicateResponse.from(memberRepository.existsByLoginId(request.getValue()));
+    public Member findByLoginIdAndDeletedAtNull(String id) {
+        return memberRepository.findByLoginIdAndDeletedAtNull(id)
+                .orElseThrow(() -> new RuntimeException("탈퇴할 유저 정보를 찾을 수 없습니다"));
     }
+
+
+
 
 }

@@ -1,26 +1,23 @@
 package com.ssafy.fundyou1.global.config;
 
-import com.ssafy.fundyou1.auth.infrastructure.JwtTokenProvider;
+import com.ssafy.fundyou1.auth.infrastructure.TokenProvider;
 import com.ssafy.fundyou1.global.security.JwtExceptionFilter;
 import com.ssafy.fundyou1.global.security.JwtFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+// 직접 만든 TokenProvider 와 JwtFilter 를 SecurityConfig 에 적용할 때 사용
+@RequiredArgsConstructor
 public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
+    private final TokenProvider tokenProvider;
 
-    private final JwtTokenProvider jwtTokenProvider;
-
-    public JwtSecurityConfig(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
-
+    // TokenProvider 를 주입받아서 JwtFilter 를 통해 Security 로직에 필터를 등록
     @Override
     public void configure(HttpSecurity http) {
-        JwtFilter jwtFilter = new JwtFilter(jwtTokenProvider);
-        JwtExceptionFilter jwtExceptionFilter = new JwtExceptionFilter();
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
-            .addFilterBefore(jwtExceptionFilter, JwtFilter.class);
+        JwtFilter customFilter = new JwtFilter(tokenProvider);
+        http.addFilterBefore(customFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

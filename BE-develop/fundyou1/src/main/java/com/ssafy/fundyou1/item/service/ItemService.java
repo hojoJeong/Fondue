@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.item.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.fundyou1.category.entity.Category;
+import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.item.dto.DescriptionData;
@@ -64,6 +65,10 @@ public class ItemService {
         if(itemRepository.existsByTitleAndBrand(title, brand)) {
             throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
         }
+    }
+    // 특정 상품 조회
+    public Item itemView(Long id){
+        return itemRepository.findById(id).get();
     }
 
     // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
