@@ -6,17 +6,20 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
-import com.ssafy.fundyou.databinding.FragmentInvitedFondueBinding
 import com.ssafy.fundyou.databinding.ItemMyFundingListBinding
 import com.ssafy.fundyou.ui.adapter.diffutil.InvitedFundingModelDiffUtil
 import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel
 
 class InvitedFondueItemAdapter : ListAdapter<InvitedFundingModel, InvitedFondueItemAdapter.InvitedFondueItemHolder>(InvitedFundingModelDiffUtil){
 
-    class InvitedFondueItemHolder(private val binding: ItemMyFundingListBinding) : RecyclerView.ViewHolder(binding.root){
+    private lateinit var clickEvent:(Int) -> Unit
+    inner class InvitedFondueItemHolder(private val binding: ItemMyFundingListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : InvitedFundingModel){
             binding.invitedFunding = item
             binding.item = item.fundingItemModel
+            binding.cstlFundingItem.setOnClickListener {
+                clickEvent.invoke(1)
+            }
         }
     }
 
@@ -27,6 +30,10 @@ class InvitedFondueItemAdapter : ListAdapter<InvitedFundingModel, InvitedFondueI
 
     override fun onBindViewHolder(holder: InvitedFondueItemHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    fun itemClickListener(value: (Int) -> Unit){
+        clickEvent = value
     }
 
 }

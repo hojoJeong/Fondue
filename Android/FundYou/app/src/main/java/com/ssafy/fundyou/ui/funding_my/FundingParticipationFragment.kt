@@ -1,15 +1,14 @@
-package com.ssafy.fundyou.ui.funding_participation
+package com.ssafy.fundyou.ui.funding_my
 
 import android.os.Bundle
 import android.view.View
 import com.ssafy.fundyou.R
-
 import com.ssafy.fundyou.databinding.FragmentFundingParticipationBinding
 import com.ssafy.fundyou.domain.model.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.funding_my.adapter.FundingParticipateAdapter
 import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
-import com.ssafy.fundyou.ui.funding_participation.adapter.FundingParticipateAdapter
-import com.ssafy.fundyou.ui.funding_participation.model.FundingParticipateModel
+import com.ssafy.fundyou.ui.funding_my.model.FundingParticipateModel
 
 class FundingParticipationFragment :
     BaseFragment<FragmentFundingParticipationBinding>(R.layout.fragment_funding_participation) {

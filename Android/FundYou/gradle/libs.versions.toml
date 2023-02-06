@@ -7,7 +7,6 @@ androidx-test-espresso = "3.5.0"
 androidx_navigation_version = "2.5.0"
 androidx_fragment_version = "1.5.0"
 androidx_lifecycle_extension_version = "2.2.0"
-
 navigation_safe_args_version = "2.4.2"
 
 # android
@@ -42,9 +41,12 @@ google_auth_version = "20.4.1"
 google_service_version = "4.3.15"
 firebase_version = "31.2.0"
 firebase_cloud_storage_version = "20.1.0"
+
 # ar
 ar_core_version = "1.35.0"
 ar_sceneform_version = "1.15.0"
+
+glide_version = "4.13.0"
 
 
 [libraries]
@@ -88,7 +90,9 @@ skydoves-balloon = { module = "com.github.skydoves:balloon", version.ref = "skyd
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson_version" }
 google_auth = { module = "com.google.android.gms:play-services-auth", version.ref = "google_auth_version" }
 mp_android_chart = {module = "com.github.PhilJay:MPAndroidChart", version.ref = "mp_android_chart_version"}
-circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circle_image_view_version" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circle_image_view_version"}
+glide = {module = "com.github.bumptech.glide:glide", version.ref = "glide_version"}
+glide-compiler = {module = "com.github.bumptech.glide:compiler", version.ref = "glide_version"}
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",

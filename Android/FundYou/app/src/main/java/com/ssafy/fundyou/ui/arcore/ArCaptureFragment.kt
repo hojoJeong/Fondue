@@ -5,21 +5,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.FirebaseApp
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.ktx.storage
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArCaptureBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.util.getFormattedCurrentTime
+import com.ssafy.fundyou.util.extension.getFormattedCurrentTime
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragment_ar_capture) {
