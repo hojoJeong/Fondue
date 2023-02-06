@@ -38,14 +38,6 @@ class LoginActivity : AppCompatActivity() {
             Log.i(TAG, "카카오계정으로 로그인 성공 ${token.accessToken}")
         }
     }
-    private val googleLoginLauncher =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-                Log.d(TAG, "launcher: ${result.data}")
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                handleSignInResult(task)
-            }
-        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +47,6 @@ class LoginActivity : AppCompatActivity() {
         initLoginBanner()
         initLoginViewModel()
         addKakaoLoginEvent()
-        addGoogleLoginEvent()
     }
 
     private fun initLoginViewModel() {
@@ -83,30 +74,6 @@ class LoginActivity : AppCompatActivity() {
             ciLoginBannerIndicator.setViewPager(vpLoginBanner)
             btnLoginKakao.showAlignTop(makeBalloon())
         }
-    }
-
-    private fun addGoogleLoginEvent() {
-        binding.btnLoginGoogle.setOnClickListener {
-            val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.google_client_key))
-                .requestServerAuthCode(getString(R.string.google_client_key))
-                .requestEmail()
-                .build()
-
-            val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-            val intent = mGoogleSignInClient.signInIntent
-            googleLoginLauncher.launch(intent)
-        }
-    }
-
-    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        val getAuthCode = completedTask.getResult(ApiException::class.java)?.serverAuthCode
-        Log.d(TAG, "handleSignInResult: $getAuthCode")
-        loginViewModel.getGoogleAuthToken(
-            authCode = getAuthCode!!,
-            clientId = getString(R.string.google_client_key),
-            clientSecretId = getString(R.string.google_client_secret_key)
-        )
     }
 
     private fun addKakaoLoginEvent() {
