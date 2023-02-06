@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.util
+package com.ssafy.fundyou.util.network
 
 import com.ssafy.fundyou.R
 

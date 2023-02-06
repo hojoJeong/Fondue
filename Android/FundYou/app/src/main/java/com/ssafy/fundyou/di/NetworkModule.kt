@@ -2,12 +2,9 @@ package com.ssafy.fundyou.di
 
 import android.content.Context
 import com.ssafy.fundyou.common.Constant.BASE_URL
-import com.ssafy.fundyou.common.Constant.GOOGLE_BASE_URL
-import com.ssafy.fundyou.common.Constant.KAKAO_BASE_URL
-import com.ssafy.fundyou.util.AuthInterceptorClient
-import com.ssafy.fundyou.util.GoogleInterceptorClient
-import com.ssafy.fundyou.util.KakaoInterceptorClient
-import com.ssafy.fundyou.util.NoAuthInterceptorClient
+import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
+import com.ssafy.fundyou.util.network.AuthInterceptorClient
+import com.ssafy.fundyou.util.network.NoAuthInterceptorClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -41,28 +38,16 @@ object NetworkModule {
     fun provideAuthHttpClient(
         @ApplicationContext context: Context
     ): OkHttpClient {
-//        val authInterceptor = AuthInterceptor(SharedPreferences(context))
+        val authInterceptor = AuthInterceptor(AuthSharePreference(context))
         return OkHttpClient.Builder()
             .readTimeout(10, TimeUnit.SECONDS)
             .connectTimeout(10, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)
             .addInterceptor(getLoggingInterceptor())
-//            .addInterceptor(authInterceptor)
+            .addInterceptor(authInterceptor)
             .build()
     }
 
-
-    @Provides
-    @Singleton
-    @GoogleInterceptorClient
-    fun provideGoogleRetrofit(
-        @NoAuthInterceptorClient okHttpClient: OkHttpClient
-    ): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(GOOGLE_BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
 
     @Provides
     @Singleton
@@ -90,20 +75,6 @@ object NetworkModule {
             .build()
 
 
-    @Provides
-    @Singleton
-    @KakaoInterceptorClient
-    fun provideKakaoRetrofit(
-        @KakaoInterceptorClient okHttpClient: OkHttpClient
-    ): Retrofit =
-        Retrofit.Builder()
-            .baseUrl(KAKAO_BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-
     private fun getLoggingInterceptor(): HttpLoggingInterceptor =
         HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
-
 }

@@ -1,7 +1,7 @@
 package com.ssafy.fundyou.di
 
 import com.ssafy.fundyou.data.remote.service.AuthApiService
-import com.ssafy.fundyou.util.GoogleInterceptorClient
+import com.ssafy.fundyou.util.network.GoogleInterceptorClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
