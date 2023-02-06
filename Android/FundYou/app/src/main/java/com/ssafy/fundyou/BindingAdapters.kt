@@ -9,12 +9,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.ssafy.fundyou.util.extension.addComma
-import com.ssafy.fundyou.util.extension.getColorNoTheme
 import com.google.android.material.chip.Chip
+import com.ssafy.fundyou.util.addComma
+import com.ssafy.fundyou.util.getColorNoTheme
 import java.text.DecimalFormat
 
 object BindingAdapters {
