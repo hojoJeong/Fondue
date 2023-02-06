@@ -33,11 +33,20 @@ public enum ErrorCode {
     MEMBER_USERNAME_DUPLICATED(HttpStatus.CONFLICT, "이미 존재하는 닉네임 입니다.", "M03"),
     MEMBER_LOGIN_ERROR_BY_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않습니다", "M04"),
     MEMBER_USERNAME_DUPLICATED_BECAUSE_OF_YOU(HttpStatus.CONFLICT, "회원님이 이미 사용 중인 닉네임입니다.", "M05"),
-    MEMBER_PHONE_NUMBER_DUPLICATED(HttpStatus.CONFLICT, "이미 인증된 전화번호 입니다.", "M06"),
     MEMBER_NOT_SOCIAL_USER(HttpStatus.CONFLICT, "해당 회원은 소셜 아이디 로그인 회원이 아닙니다.", "M07"),
-    MEMBER_NOT_YOUR_PHONE_NUMBER(HttpStatus.CONFLICT, "회원의 전화번호가 아닙니다.", "M08"),
+
+
+    // category
+    CATEGORY_NOT_FOUND_BY_ID(HttpStatus.CONFLICT, "카테고리가 없습니다.", "C01"),
+    CATEGORY_CATEGORY_NAME_DUPLICATED(HttpStatus.CONFLICT, "카테고리 아이디가 중복 이에요", "C02"),
+
+
+    //item
+    ITEM_TITLE_BRAND_DUPLICATED(HttpStatus.CONFLICT, "아이템 제목이랑 브랜드가 겹쳐요", "I01"),
+
 
     // certify
+
     CERTIFY_NOT_FOUND_MEMBER(HttpStatus.NOT_FOUND, "해당 아이디로 인증 요청을 한 기록이 없습니다.", "I01"),
     CERTIFY_IS_EXPIRED_CODE(HttpStatus.FORBIDDEN, "만료된 코드입니다.", "I02"),
     CERTIFY_NOT_MATCH_CODE(HttpStatus.NOT_FOUND, "일치하지 않는 인증 코드입니다.", "I03"),

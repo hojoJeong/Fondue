@@ -13,14 +13,14 @@ public class MemberInfoResponse {
     private Long id;
 
 
-    @JsonProperty("username")
-    @ApiModelProperty(position = 2, notes = "유저네임", example = "퐁듀")
-    private String username;
+    @JsonProperty("loginId")
+    @ApiModelProperty(position = 2, notes = "유저아이디", example = "퐁듀")
+    private String loginId;
 
 
-    public MemberInfoResponse(Long id,String username) {
+    public MemberInfoResponse(Long id,String loginId) {
         this.id = id;
-        this.username = username;
+        this.loginId = loginId;
     }
 
     public static MemberInfoResponse from(Member member) {

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @AllArgsConstructor
@@ -18,6 +19,7 @@ import java.util.List;
 @Getter
 @ToString
 public class ItemDto {
+
     private Long id;
 
     private int price;
@@ -39,7 +41,7 @@ public class ItemDto {
     @JsonProperty("category_id")
     private Long categoryId;
 
-    public ItemDto(Long id, int price, String image, String descriptionImg, String title, String isAr, String description, int sellingCount, String brand, Long id1, int sellingCount1) {
+    public ItemDto(Long id, int price, String image, String descriptionImg, String title, String isAr, List<Object> description, int sellingCount, String brand, Long id1, int sellingCount1) {
     }
 
     public static ItemDto createItemDto(Item item) {
@@ -50,7 +52,7 @@ public class ItemDto {
                 item.getDescriptionImg(),
                 item.getTitle(),
                 item.getIsAr(),
-                item.getDescription(),
+                Collections.singletonList(item.getDescription()),
                 item.getSellingCount(),
                 item.getBrand(),
                 item.getCategory().getId(),
