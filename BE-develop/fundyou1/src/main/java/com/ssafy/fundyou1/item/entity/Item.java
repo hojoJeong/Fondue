@@ -23,8 +23,8 @@ public class Item {
 
     @Id
     @GeneratedValue
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "item_id")
+    private Long itemId;
 
     @Column(name = "price")
     private int price;
@@ -48,6 +48,10 @@ public class Item {
 
     @Column(name = "brand")
     private String brand;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<CartItem> cartItems;
 
 
     @ManyToOne(targetEntity = Category.class)
@@ -94,9 +98,6 @@ public class Item {
     List<LikeItem> likeItems = new ArrayList<>();
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<CartItem> cartItems = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
@@ -106,7 +107,7 @@ public class Item {
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
+                "itemId=" + itemId +
                 ", price=" + price +
                 ", image='" + image + '\'' +
                 ", descriptionImg='" + descriptionImg + '\'' +

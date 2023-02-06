@@ -55,7 +55,7 @@ public class ItemService {
         Category category = categoryRepository.findByCategoryName(request.getCategoryName());
 
         Item item = request.toItem(category);
-        return itemRepository.save(item).getId();
+        return itemRepository.save(item).getItemId();
     }
 
 

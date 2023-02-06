@@ -46,7 +46,7 @@ public class ItemDto {
 
     public static ItemDto createItemDto(Item item) {
         return new ItemDto(
-                item.getId(),
+                item.getItemId(),
                 item.getPrice(),
                 item.getImage(),
                 item.getDescriptionImg(),
