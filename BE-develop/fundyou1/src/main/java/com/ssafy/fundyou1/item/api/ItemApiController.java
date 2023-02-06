@@ -7,7 +7,6 @@ import com.ssafy.fundyou1.item.dto.ItemDto;
 import com.ssafy.fundyou1.item.dto.ItemSaveRequest;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.service.ItemService;
-import com.ssafy.fundyou1.member.dto.request.MemberSaveRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -28,7 +27,7 @@ import java.util.Map;
 
 @RestController
 @Slf4j
-@RequestMapping("/api")
+@RequestMapping("/item")
 @Api(tags = {"아이템"})
 public class ItemApiController {
     @Autowired
@@ -37,18 +36,8 @@ public class ItemApiController {
     @Autowired
     private CategoryService categoryService;
 
-    // 상품 등록
-//    @PostMapping("/items")
-//    public ResponseEntity<Void> create(@RequestBody ItemForm dto) {
-//        ItemDto created = itemService.create(dto.getCategory().getId(), dto);
-//        return (created != null) ?
-//                ResponseEntity.status(HttpStatus.OK).build():
-//                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-//    }
 
-    // 희주 - 상품 등록
-
-    @PostMapping("/item")
+    @PostMapping("/save")
     @ApiOperation(value = "상품등록", notes = "상품등록")
     @ApiResponses({
             @ApiResponse(code = 409, message = "CONFLICT\n 상품 이름.브랜드 중복(I01)\n")
@@ -67,20 +56,20 @@ public class ItemApiController {
 
 
     // 전체 상품 목록 조회
-    @GetMapping("/items")
+    @GetMapping("/list")
     public List<Item> getAllItems() {
         return itemService.getAllItems();
     }
 
     // 상품 디테일
-    @GetMapping("/item/{id}")
+    @GetMapping("/{id}")
     public Item itemDetail(@PathVariable Long id){
         return itemService.itemDetail(id);
     }
 
 
     // 카테고리별 상품 목록 조회
-    @GetMapping("/item/category/{categoryId}")
+    @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ItemDto>> getCategoryItemList(@PathVariable Long categoryId) {
         List<ItemDto> dtos = itemService.getCategoryItemList(categoryId);
 
@@ -90,7 +79,7 @@ public class ItemApiController {
 
     // 홈화면 조건에 맞는 Top5 아이템 조회
     @ApiOperation(value = "TEST", notes = "TEST API")
-    @GetMapping("/items/category/{categoryId}/{minPrice}/{maxPrice}")
+    @GetMapping("/category/{categoryId}/{minPrice}/{maxPrice}")
     public ResponseEntity<List<Item>> getTopItemList(@RequestHeader("Authorization") String token, @PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
         List<Item> dtos = itemService.getTopItemList(categoryId, minPrice, maxPrice);
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
@@ -98,7 +87,7 @@ public class ItemApiController {
 
 
     // 램덤 5개 조회
-    @RequestMapping(value = "/item/random")
+    @RequestMapping(value = "/random")
     public ResponseEntity<List<ItemDto>> getRandomItemList(Model model){
         List<ItemDto> dtos = itemService.getRandomItemList();
 

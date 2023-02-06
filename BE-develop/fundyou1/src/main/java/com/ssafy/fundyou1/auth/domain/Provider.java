@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum Provider {
 
-    CONTINEW("fundyou", 1),
+    FUDYOU("fundyou", 1),
     GOOGLE("google", 2),
     KAKAO("kakao", 3);
 

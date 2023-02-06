@@ -2,8 +2,8 @@ package com.ssafy.fundyou1.member.service;
 
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
-import com.ssafy.fundyou1.member.dto.response.MemberInfoResponse;
-import com.ssafy.fundyou1.member.entity.Member;
+
+import com.ssafy.fundyou1.member.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,24 +13,23 @@ import java.time.LocalDateTime;
 @Service
 public class ProfileService {
 
-    private final int MAX_REQUEST_COUNT = 3;
-    private final int EXPIRED_TIME = 3;
-    private final int RANDOM_CODE_LENGTH = 6;
-    private final int CHANGE_TOKEN_LENGTH = 12;
-
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
-    public ProfileService(MemberService memberService, PasswordEncoder passwordEncoder) {
+    private final MemberRepository memberRepository;
+
+    public ProfileService(MemberService memberService, PasswordEncoder passwordEncoder, MemberRepository memberRepository) {
         this.memberService = memberService;
         this.passwordEncoder = passwordEncoder;
+        this.memberRepository = memberRepository;
     }
 
-    @Transactional(readOnly = true)
-    public MemberInfoResponse showMemberInfo(String loginId) {
-        Member member = memberService.findByLoginIdAndDeletedAtNull(loginId);
-        return MemberInfoResponse.from(member);
-    }
+//    @Transactional(readOnly = true)
+//    public MemberInfoResponse showMemberInfo(String loginId) {
+//        Member member = memberService.findByLoginIdAndDeletedAtNull(loginId);
+//        return MemberInfoResponse.from(member);
+//    }
+//
 
 
     public void checkExpiredCode(LocalDateTime expireTime) {

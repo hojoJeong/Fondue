@@ -41,4 +41,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             nativeQuery = true)
     List<Item> findTopItem(@Param("categoryId") Long categoryId, @Param("minPrice") Long minimumPrice,@Param("maxPrice") Long maxPrice);
 
+    boolean existsByTitleAndBrand(String title, String brand);
+
+    Item findByTitle(String title);
 }
