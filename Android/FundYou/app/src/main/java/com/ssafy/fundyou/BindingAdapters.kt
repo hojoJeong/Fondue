@@ -94,8 +94,8 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("fundingSuccess")
     fun TextView.setFundingSuccess(success : Boolean){
-        if(success) setTextColor(context.getColorNoTheme(R.color.franch_rose))
-        else setTextColor(context.getColorNoTheme(R.color.raven))
+        if(success) this.setTextColor(context.getColorNoTheme(R.color.franch_rose))
+        else this.setTextColor(context.getColorNoTheme(R.color.raven))
     }
 
     @JvmStatic
