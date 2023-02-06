@@ -1,7 +1,7 @@
 package com.ssafy.fundyou.di
 
 import com.ssafy.fundyou.data.remote.service.AuthApiService
-import com.ssafy.fundyou.util.GoogleInterceptorClient
+import com.ssafy.fundyou.util.network.NoAuthInterceptorClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +15,7 @@ object ServiceModule {
     @Provides
     @Singleton
     fun provideAuthService(
-        @GoogleInterceptorClient retrofit: Retrofit
+        @NoAuthInterceptorClient retrofit: Retrofit
     ): AuthApiService {
         return retrofit.create(AuthApiService::class.java)
     }

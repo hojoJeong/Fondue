@@ -2,7 +2,10 @@ package com.ssafy.fundyou.di
 
 import com.ssafy.fundyou.domain.repository.AuthRepository
 import com.ssafy.fundyou.domain.repository.SearchRepository
-import com.ssafy.fundyou.domain.usecase.auth.GetGoogleAuthUseCase
+import com.ssafy.fundyou.domain.usecase.auth.GetAccessTokenUseCase
+import com.ssafy.fundyou.domain.usecase.auth.GetJWTByRefreshTokenUseCase
+import com.ssafy.fundyou.domain.usecase.auth.GetKakaoAuthUseCase
+import com.ssafy.fundyou.domain.usecase.auth.GetRefreshTokenUseCase
 import com.ssafy.fundyou.domain.usecase.search.AddSearchHistoryKeyword
 import com.ssafy.fundyou.domain.usecase.search.DeleteAllHistoryKeywordUseCase
 import com.ssafy.fundyou.domain.usecase.search.DeleteSearchHistoryKeywordUseCase
@@ -19,8 +22,26 @@ object UseCaseModule {
 
     @Provides
     @Singleton
-    fun provideGetGoogleAuthUseCase(authRepository: AuthRepository): GetGoogleAuthUseCase {
-        return GetGoogleAuthUseCase(authRepository)
+    fun provideGetJWTByRefreshTokenUseCase(authRepository: AuthRepository) : GetJWTByRefreshTokenUseCase{
+        return GetJWTByRefreshTokenUseCase(authRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetRefreshTokenUseCase(authRepository: AuthRepository) : GetRefreshTokenUseCase{
+        return GetRefreshTokenUseCase(authRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetAccessTokenUseCase(authRepository: AuthRepository) : GetAccessTokenUseCase{
+        return GetAccessTokenUseCase(authRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetKakaoAuthUseCase(authRepository: AuthRepository) : GetKakaoAuthUseCase{
+        return GetKakaoAuthUseCase(authRepository)
     }
 
     @Provides

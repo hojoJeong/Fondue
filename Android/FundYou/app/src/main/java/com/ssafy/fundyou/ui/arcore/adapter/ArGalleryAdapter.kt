@@ -10,17 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemArGalleryListBinding
 
-object ItemUrlDiffUtil : DiffUtil.ItemCallback<String>(){
-    override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
-    }
-
-    override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
-        return oldItem == newItem
-    }
-}
-
-class ArGalleryAdapter() : ListAdapter<String, ArGalleryAdapter.ViewHolder>(ItemUrlDiffUtil) {
+class ArGalleryAdapter : ListAdapter<String, ArGalleryAdapter.ViewHolder>(ItemUrlDiffUtil) {
     private lateinit var itemClickListener: ItemClickListener
     private lateinit var itemDownloadEvent : (String, ItemArGalleryListBinding) -> Unit
 
@@ -56,6 +46,16 @@ class ArGalleryAdapter() : ListAdapter<String, ArGalleryAdapter.ViewHolder>(Item
                     itemClickListener.onItemClicked(layoutPosition == 0, item)
                 }
             }
+        }
+    }
+
+    object ItemUrlDiffUtil : DiffUtil.ItemCallback<String>(){
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
+        }
+
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.di
 
+import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.repository.AuthRepositoryImpl
@@ -19,9 +20,10 @@ object RepositoryModule {
     @Provides
     @Singleton
     fun provideAuthRepository(
-        authRemoteDataSourceImpl: AuthRemoteDataSourceImpl
+        authRemoteDataSourceImpl: AuthRemoteDataSourceImpl,
+        authSharePreference: AuthSharePreference
     ): AuthRepository{
-        return AuthRepositoryImpl(authRemoteDataSourceImpl)
+        return AuthRepositoryImpl(authRemoteDataSourceImpl, authSharePreference)
     }
 
     @Provides
