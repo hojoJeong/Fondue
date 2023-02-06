@@ -56,6 +56,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initLoginViewModel: token error ${response.message}")
+                    startMainActivity()
                 }
             }
         }
@@ -118,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
             .setIconHeight(20)
             .setMarginBottom(6)
             .setIconWidth(20)
-            .setIconDrawableResource(R.drawable.ic_launcher_background)
+            .setIconDrawableResource(R.drawable.ic_app_logo)
             .setArrowSize(12)
             .setArrowPosition(0.5f)
             .setPaddingTop(6)

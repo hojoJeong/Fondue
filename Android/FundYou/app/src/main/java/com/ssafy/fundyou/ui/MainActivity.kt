@@ -108,7 +108,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             ToolbarLeftImg.LOGO -> {
-                binding.lyToolbar.ivLeftImg.setImageResource(R.drawable.ic_launcher_background)
+                binding.lyToolbar.ivLeftImg.setImageResource(R.drawable.ic_app_logo)
             }
         }
     }
