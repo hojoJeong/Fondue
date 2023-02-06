@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.search.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -23,4 +24,10 @@ public class Search {
 
     @Column(name = "search_count")
     private long search_count;
+
+    @Builder
+    public Search(String keyword, long search_count) {
+        this.keyword = keyword;
+        this.search_count = search_count;
+    }
 }
