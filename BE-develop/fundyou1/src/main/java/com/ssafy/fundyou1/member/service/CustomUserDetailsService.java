@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.member.service;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -18,7 +19,8 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private final MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Override
     @Transactional

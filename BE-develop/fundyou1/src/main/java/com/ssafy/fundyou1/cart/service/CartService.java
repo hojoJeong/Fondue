@@ -1,70 +1,107 @@
 package com.ssafy.fundyou1.cart.service;
 
-import com.fasterxml.classmate.util.ClassStack;
-import com.ssafy.fundyou1.cart.dto.CartItemAddRequestDto;
-import com.ssafy.fundyou1.cart.dto.CartItemAddResponseDto;
-import com.ssafy.fundyou1.cart.dto.CartItemDto;
+import com.ssafy.fundyou1.cart.dto.*;
 import com.ssafy.fundyou1.cart.entity.Cart;
-import com.ssafy.fundyou1.cart.entity.CartItem;
-import com.ssafy.fundyou1.cart.repository.CartItemRepository;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
+import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
 public class CartService {
+    @Autowired
+    ItemRepository itemRepository;
+    @Autowired
+    MemberRepository memberRepository;
+    @Autowired
+    MemberService memberService;
 
-    private final ItemRepository itemRepository;
-    private final CartRepository cartRepository;
-    private final MemberRepository memberRepository;
-    private final CartItemRepository cartItemRepository;
-
-    private final MemberService memberService;
-    //장바구니 생성
+    @Autowired
+    CartRepository cartRepository;
 
 
-    // 장바구니 아이템 추가
-
-    // 카트에 물품 추가
     // 장바구니에 상품을 담는 로직
-    public Long addCart(CartItemDto cartItemDto, String username){
+    public Long addCart(CartRequestDto cartRequestDto, String username) {
 
-        Item item = itemRepository.findById(cartItemDto.getItemId()) //장바구니에 담을 상품 엔티티 조회
-                .orElseThrow(EntityNotFoundException::new);
+        Optional<Item> item = itemRepository.findById(cartRequestDto.getItemId()); //장바구니에 담을 상품 엔티티 조회
+
         Member member = memberRepository.findByUsername(username); // 현재 로그인한 회원 엔티티 조회
 
-        Cart cart = cartRepository.findByMemberId(member.getId()); // 현재 로그인한 회원의 장바구니 엔티티 조회
-
-        if(cart == null){ // 회원에게 장바구니가 없으면, 만들어줌
-            cart = Cart.createCart(member);
-            cartRepository.save(cart);
-        }
-
-        // 상품이 장바구니에 들어가있는지 아닌지 조회
-        CartItem savedCartItem = cartItemRepository.findByCartIdAndItemId(cart.getId(), item.getId());
-
-        // 만약 상품이 이미 있으면은 개수를 +
-        if(savedCartItem != null){
-            savedCartItem.addCount(cartItemDto.getCount());
-            return savedCartItem.getId();
-        } else { // 아니면은 CartItem 에 상품 저장
-            CartItem cartItem = CartItem.createCartItem(cart, item, cartItemDto.getCount());
-            cartItemRepository.save(cartItem);
-            return cartItem.getId();
-        }
+      // 아니면은 CartItem 에 상품 저장
+        Cart createCart = Cart.createCart(member, item.get(), cartRequestDto.getCount());
+        cartRepository.save(createCart);
+        return createCart.getId();
     }
 
 
+    //멤버 id를 이용하여 카트 리스트를 조회합니다.
+    @Transactional(readOnly = true)
+    public List<CartItemResponseDto> findCartItemsByCartId(Long memberId) {
+        List<Cart> findCartItems = cartRepository.findAllByMember_Id(memberId);
 
+        if ( findCartItems.size() != 0) {
+            List<CartItemResponseDto> cartItemResponse = new ArrayList<>();
+            for (Cart cart : findCartItems) {
+                cartItemResponse.add(new CartItemResponseDto(cart.getItem(), cart.getMember(), cart.getCount()));
+            }
+            return cartItemResponse;
+        }
+        return null;
+
+    }
+
+
+    // 사용자의 장바구니 아이템 삭제
+    @Transactional
+    public List<CartItemResponseDto> deleteByCartItemId(Long id) {
+        MemberResponseDto memberDto = memberService.getMyInfo();
+        Long memberId = memberDto.getId();
+        cartRepository.deleteCartItem(memberId, id);
+        List<CartItemResponseDto> cartItemResponseDtos= findCartItemsByCartId(memberId);
+        return cartItemResponseDtos;
+    }
+
+    // 사용자의 장바구니 아이템 추가
+    @Transactional
+    public int updateAddCartItem(CartRequestDto cartRequestDto, Long memberId) {
+        System.out.println("===== 수량 변경=========");
+        Long id = cartRequestDto.getItemId();
+        int count = cartRequestDto.getCount();
+
+        cartRepository.updateAddCartItem(count,id, memberId);
+
+        return count;
+    }
+
+
+    @Transactional
+    public Cart findOneCartItem(Long memberId, Long Id){
+        Cart cart = cartRepository.findCartItem(Id, memberId);
+        return cart;
+    }
+
+    // 멤버별 전체 리스트
+
+    public List<Cart> findMemberCartAll(Long memberId){
+        List<Cart> carts = cartRepository.findAllByMember_Id(memberId);
+        System.out.print("testinfo "+carts.toString());
+        return carts;
+    }
 
 
 }
+
+

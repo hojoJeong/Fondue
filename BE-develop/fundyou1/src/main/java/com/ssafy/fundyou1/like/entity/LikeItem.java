@@ -26,9 +26,5 @@ public class LikeItem {
     @JoinColumn(name = "likes_id")
     private Like like;
 
-//    @Column
-//    private int productCnt;
-
-
 
 }
