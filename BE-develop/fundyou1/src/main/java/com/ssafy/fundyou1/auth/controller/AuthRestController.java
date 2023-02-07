@@ -14,6 +14,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -30,7 +32,7 @@ import java.util.Map;
 @RequestMapping("/auth")
 @Api(tags = {"로그인"})
 public class AuthRestController {
-
+    Logger logger = LoggerFactory.getLogger(getClass());
     private final AuthService authService;
 
     public AuthRestController(AuthService authService) {
@@ -68,12 +70,13 @@ public class AuthRestController {
                 .profileImg(rEntity.getKakao_account().getProfile_image_url())
                 .password("fundyou"+String.valueOf(rEntity.getId()))
                 .build());
+        logger.debug("여기는 signup (Controller)");
         //로그인 하고 토큰 발급받기
         MemberLoginRequestDto memberLoginRequestDto = MemberLoginRequestDto.builder()
                         .loginId(kakaoId)
                         .password(passwerd)
                         .build();
-
+        logger.debug("여기는 토큰발급받기 직전 (Controller)");
         return ResponseEntity.ok(authService.login(memberLoginRequestDto));
     }
 
