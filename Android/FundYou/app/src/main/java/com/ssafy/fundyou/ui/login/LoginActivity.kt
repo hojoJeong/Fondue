@@ -56,7 +56,6 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initLoginViewModel: token error ${response.message}")
-                    startMainActivity()
                 }
             }
         }
