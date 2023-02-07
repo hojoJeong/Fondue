@@ -40,7 +40,7 @@ public class Item {
     @Column(name = "is_ar")
     private Boolean isAr;
 
-    @Column(name = "is_favorite",columnDefinition = "boolean default false")
+    @Column(name = "is_favorite")
     private Boolean isFavorite;
 
     @Column(name = "description")
@@ -76,9 +76,9 @@ public class Item {
     }
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<Like> likes = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
+//    List<Like> likes = new ArrayList<>();
 
 
 

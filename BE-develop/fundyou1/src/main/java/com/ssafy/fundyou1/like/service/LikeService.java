@@ -39,11 +39,12 @@ public class LikeService {
     // 찜목록에 상품을 담는 로직
     public Long addLike(LikeRequestDto likeRequestDto, Long memberId) {
 
-        Optional<Item> item = itemRepository.findById(likeRequestDto.getItemId()); // 찜 목록에 담을 상품 엔티티 조회
+//        Optional<Item> item = itemRepository.findById(likeRequestDto.getItemId()); // 찜 목록에 담을 상품 엔티티 조회
 
+        Long itemId = likeRequestDto.getItemId();
         Optional<Member> member = memberRepository.findById(memberId); // 찜 목록에 담을 회원 엔티티 조회
 
-        Like createLike = Like.createLike(member.get(), item.get());
+        Like createLike = Like.createLike(member.get(), itemId);
 
         likeRepository.save(createLike);
 
@@ -64,7 +65,7 @@ public class LikeService {
         if ( findLikeItems.size() != 0) {
             List<LikeItemResponseDto> likeItemResponse = new ArrayList<>();
             for (Like like : findLikeItems) {
-                likeItemResponse.add(new LikeItemResponseDto(like.getItem(), like.getMember()));
+                likeItemResponse.add(new LikeItemResponseDto( like.getItem_id(), like.getMember()));
             }
             return likeItemResponse;
         }
@@ -83,9 +84,15 @@ public class LikeService {
         return likeItemResponse;
     }
 
-
-
-
-
+    @Transactional
+    public List<LikeItemResponseDto> updateIsFavorited(Long itemId, boolean b, Long memberId) {
+        if (b) {
+            likeRepository.updateItemIsFavorite(itemId, b);
+        } else {
+            likeRepository.updateItemIsFavorite(itemId, b);
+        }
+        List<LikeItemResponseDto> likeItemResponse= findLikeByMemberId(memberId);
+        return likeItemResponse;
+    }
 
 }

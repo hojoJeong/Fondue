@@ -31,22 +31,24 @@ public class Like {
     private Member member; // FK
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id")
-    private Item item; // FK
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "item_id")
+//    private Item item; // FK
+
+    private Long item_id;
 
 
     @Builder
-    public Like(Member member, Item item) {
+    public Like(Member member, Long item_id) {
         this.member = member;
-        this.item = item;
+        this.item_id = item_id;
     }
 
     // 찜 목록에 에 유저 할당하여 넣는다.
-    public static Like createLike(Member member, Item item) {
+    public static Like createLike(Member member, Long item_id) {
         Like like = new Like();
         like.setMember(member);
-        like.setItem(item);
+        like.setItem_id(item_id);
         return like;
     }
 

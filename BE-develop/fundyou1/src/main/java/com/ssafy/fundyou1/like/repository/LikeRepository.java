@@ -14,7 +14,7 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
 
     List<Like> findAllByMember_Id(Long memberId);
 
-    boolean existsByItem_Id(Long itemId);
+//    boolean existsByItemId(Long itemId);
 
 
     @Modifying
@@ -29,6 +29,14 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
             "WHERE li.item_id = :id " +
             "AND li.member_id = :memberId", nativeQuery = true)
     Like findLikeItem(@Param("id") Long id, @Param("memberId") Long memberId);
+
+    @Modifying
+    @Query(value="UPDATE Item i " +
+            "SET i.is_favorite = :b " +
+            "WHERE i.item_id = :id"
+            , nativeQuery = true)
+    void updateItemIsFavorite( @Param("id") Long id, @Param("b") boolean b);
+
 
 
 }
