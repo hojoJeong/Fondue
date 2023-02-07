@@ -16,8 +16,8 @@ public interface SearchRepository extends JpaRepository<Search, Long> {
     @Query(value = "SELECT * " +
             "FROM search " +
             "ORDER BY search.search_count " +
-            "DESC LIMIT 5", nativeQuery = true)
-    List<Search> findSearchKeywordRankTop5();
+            "DESC LIMIT 10", nativeQuery = true)
+    List<Search> findSearchKeywordRankTop10();
 
     boolean existsByKeyword(String keyword);
 
