@@ -2,7 +2,7 @@ package com.ssafy.fundyou.data.remote.datasource.search.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class SearchPopularKeywordResponseDto(
+internal data class SearchPopularKeywordResponseDto(
     @SerializedName("id")
     val id : Int,
     @SerializedName("keyword")

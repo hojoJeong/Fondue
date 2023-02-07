@@ -4,7 +4,7 @@ import com.ssafy.fundyou.data.remote.datasource.search.dto.SearchPopularKeywordR
 import com.ssafy.fundyou.data.remote.service.SearchApiService
 import javax.inject.Inject
 
-class SearchRemoteDataSourceImpl @Inject constructor(
+internal class SearchRemoteDataSourceImpl @Inject constructor(
     private val searchApiService: SearchApiService
 ) : SearchRemoteDataSource{
     override suspend fun getPopularKeywordList(): List<SearchPopularKeywordResponseDto> {

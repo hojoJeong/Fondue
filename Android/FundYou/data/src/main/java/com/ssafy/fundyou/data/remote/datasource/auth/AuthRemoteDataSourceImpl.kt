@@ -5,7 +5,7 @@ import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthResponseDto
 import com.ssafy.fundyou.data.remote.service.AuthApiService
 import javax.inject.Inject
 
-class AuthRemoteDataSourceImpl @Inject constructor(
+internal class AuthRemoteDataSourceImpl @Inject constructor(
     private val authApiService: AuthApiService
 ) : AuthRemoteDataSource {
     override suspend fun getJWTByKakao(accessToken: String): AuthResponseDto {

@@ -11,7 +11,7 @@ import com.ssafy.fundyou.domain.model.search.PopularKeywordEntity
 import com.ssafy.fundyou.domain.repository.SearchRepository
 import javax.inject.Inject
 
-class SearchRepositoryImpl @Inject constructor(
+internal class SearchRepositoryImpl @Inject constructor(
     private val searchKeywordPreference: SearchKeywordPreference,
     private val searchRemoteDataSource: SearchRemoteDataSource
 ) : SearchRepository {

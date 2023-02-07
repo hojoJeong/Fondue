@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchBinding
-import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
+import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchHistoryKeywordAdapter
 import com.ssafy.fundyou.util.showToast
@@ -20,7 +20,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private val viewModels by viewModels<SearchViewModel>()
     private var isExistKeyword = false
     private val recentKeywordAdapter = SearchHistoryKeywordAdapter()
-    private val popularKeywordAdapter = MainPopularSearchAdapter()
+    private val popularKeywordAdapter = PopularSearchKeywordAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

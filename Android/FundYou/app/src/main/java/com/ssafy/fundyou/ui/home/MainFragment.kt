@@ -17,14 +17,13 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
+import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
 import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
-import com.ssafy.fundyou.ui.search.SearchFragment
 import com.ssafy.fundyou.ui.search.SearchViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,7 +45,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private lateinit var job: Job
 
     private val searchViewModel by viewModels<SearchViewModel>()
-    private val popularSearchAdapter = MainPopularSearchAdapter().apply {
+    private val popularSearchAdapter = PopularSearchKeywordAdapter().apply {
         addItemClickEvent { MainFragmentDirections.actionMainFragmentToItemDetailFragment(it) }
     }
 

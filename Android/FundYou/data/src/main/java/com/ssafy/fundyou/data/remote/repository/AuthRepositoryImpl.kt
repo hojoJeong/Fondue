@@ -9,7 +9,7 @@ import com.ssafy.fundyou.domain.model.auth.JWTAuthModel
 import com.ssafy.fundyou.domain.repository.AuthRepository
 import javax.inject.Inject
 
-class AuthRepositoryImpl @Inject constructor(
+internal class AuthRepositoryImpl @Inject constructor(
     private val authRemoteDataSource: AuthRemoteDataSource,
     private val authSharePreference: AuthSharePreference
 ) : AuthRepository{

@@ -5,12 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.ssafy.fundyou.databinding.ItemMainPopularSearchBinding
 import com.ssafy.fundyou.databinding.ItemPopularKeywordListBinding
 import com.ssafy.fundyou.domain.model.search.PopularKeywordEntity
 
-class MainPopularSearchAdapter :
-    ListAdapter<PopularKeywordEntity, MainPopularSearchAdapter.MainPopularSearchViewHolder>(
+class PopularSearchKeywordAdapter :
+    ListAdapter<PopularKeywordEntity, PopularSearchKeywordAdapter.MainPopularSearchViewHolder>(
         SearchPopularKeywordDiffUtil
     ) {
 
