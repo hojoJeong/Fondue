@@ -9,6 +9,7 @@ import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +18,8 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
     @Transactional(readOnly = true)
     public MemberResponseDto getMemberInfo(String loginId) {

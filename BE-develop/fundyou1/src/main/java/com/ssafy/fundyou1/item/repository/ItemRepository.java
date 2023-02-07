@@ -44,4 +44,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     boolean existsByTitleAndBrand(String title, String brand);
 
     Item findByTitle(String title);
+
+    Optional<Item> findById(Long itemId);
+
+
 }

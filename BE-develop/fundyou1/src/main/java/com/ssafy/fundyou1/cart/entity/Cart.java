@@ -1,15 +1,15 @@
 package com.ssafy.fundyou1.cart.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Cart {
@@ -20,27 +20,39 @@ public class Cart {
     private Long id; // PK
 
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member; // FK
 
-//    @JsonIgnore
-//    @OneToMany(fetch = FetchType.LAZY, mappedBy = "cart", cascade = CascadeType.ALL)
-//    private List<CartItem> cartItems = new ArrayList<>(); // funding_cart_item table의 fundingCart 의해 mapping
-//
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item; // FK
+
+    @Column(name = "count")
+    private int count;
+
 
     @Builder
-    public Cart(Member member){
+    public Cart(Member member, Item item, int count) {
         this.member = member;
+        this.item = item;
+        this.count = count;
     }
-
 
     // 카트에 유저 할당하여 넣어줌
     // 회원 한명당 장바구니를 하나씩 갖기 때문에 할당해주는거임
-    public static Cart createCart(Member member){
+    public static Cart createCart(Member member, Item item, int count) {
         Cart cart = new Cart();
         cart.setMember(member);
+        cart.setItem(item);
+        cart.setCount(count);
         return cart;
+    }
+
+
+    public void updateCount(int count) {
+        this.count = count;
     }
 
 

@@ -55,7 +55,7 @@ public class ItemService {
         Category category = categoryRepository.findByCategoryName(request.getCategoryName());
 
         Item item = request.toItem(category);
-        return itemRepository.save(item).getItemId();
+        return itemRepository.save(item).getId();
     }
 
 
@@ -66,10 +66,7 @@ public class ItemService {
             throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
         }
     }
-    // 특정 상품 조회
-    public Item itemView(Long id){
-        return itemRepository.findById(id).get();
-    }
+
 
     // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
     @Transactional

@@ -1,6 +1,7 @@
 package com.ssafy.fundyou1.cart.dto;
 
 import com.ssafy.fundyou1.item.entity.Item;
+import com.ssafy.fundyou1.member.entity.Member;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,8 +14,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class CartItemResponseDto {
 
-    @ApiModelProperty(name = "장바구니 목록 아이디", example = "1,2")
-    Long cartItemId;
+    @ApiModelProperty(name = "장바구니 회원 아이디 ", example = "1,2")
+    Long memberId;
     @ApiModelProperty(name = "아이템 아이디", example = "1,2")
     Long itemId;
     @ApiModelProperty(name = "아이템 가격", example = "10000")
@@ -26,14 +27,13 @@ public class CartItemResponseDto {
     @ApiModelProperty(name = "AR가능여부", example = "N / Y")
     String isAr;
 
-
-    @ApiModelProperty(name = "아이템 개수", example = "1,2,3")
+    @ApiModelProperty(name = "장바구니 아이템 개수", example = "1,2,3")
     int count;
 
 
-    public CartItemResponseDto(Item item, Long cartItemId, int count){
-        this.cartItemId = cartItemId;
-        this.itemId  = item.getItemId();
+    public CartItemResponseDto(Item item, Member member, int count){
+        this.memberId = member.getId();
+        this.itemId  = item.getId();
         this.price = item.getPrice();
         this.image = item.getImage();
         this.title = item.getTitle();

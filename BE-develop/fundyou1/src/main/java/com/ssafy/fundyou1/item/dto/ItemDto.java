@@ -1,7 +1,7 @@
 package com.ssafy.fundyou1.item.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ssafy.fundyou1.cart.entity.CartItem;
+import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.like.entity.LikeItem;
@@ -46,7 +46,7 @@ public class ItemDto {
 
     public static ItemDto createItemDto(Item item) {
         return new ItemDto(
-                item.getItemId(),
+                item.getId(),
                 item.getPrice(),
                 item.getImage(),
                 item.getDescriptionImg(),
@@ -67,7 +67,7 @@ public class ItemDto {
 
     List<LikeItem> likeItems = new ArrayList<>();
 
-    List<CartItem> cartItems = new ArrayList<>();
+    List<Cart> carts = new ArrayList<>();
 
     List<FundingItem> fundingItems = new ArrayList<>();
 }
