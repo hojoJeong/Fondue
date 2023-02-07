@@ -286,6 +286,7 @@
                     android:id="@+id/rv_main_popular_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:layout_constraintVertical_bias="0.0"
                     android:layout_marginBottom="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/rv_main_category"
