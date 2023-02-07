@@ -5,11 +5,15 @@ import com.ssafy.fundyou.common.Constant
 import com.ssafy.fundyou.common.Constant.SP_ERROR
 import com.ssafy.fundyou.common.Constant.SUCCESS
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
+import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
+import com.ssafy.fundyou.data.remote.mappers.toDomainModel
+import com.ssafy.fundyou.domain.model.search.PopularKeywordEntity
 import com.ssafy.fundyou.domain.repository.SearchRepository
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(
-    private val searchKeywordPreference: SearchKeywordPreference
+    private val searchKeywordPreference: SearchKeywordPreference,
+    private val searchRemoteDataSource: SearchRemoteDataSource
 ) : SearchRepository {
     override suspend fun getHistoryKeyword(): List<String> {
         val response = searchKeywordPreference.getKeywordList()
@@ -34,5 +38,9 @@ class SearchRepositoryImpl @Inject constructor(
         searchKeywordPreference.addKeyword(keyword)
         val checkList = getHistoryKeyword()
         return if (checkList[0] == keyword) SUCCESS else SP_ERROR
+    }
+
+    override suspend fun getPopularKeywordList(): List<PopularKeywordEntity> {
+        return searchRemoteDataSource.getPopularKeywordList().map { it.toDomainModel() }
     }
 }

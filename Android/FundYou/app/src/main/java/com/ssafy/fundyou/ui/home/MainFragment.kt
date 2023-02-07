@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
@@ -22,6 +24,8 @@ import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
 import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
+import com.ssafy.fundyou.ui.search.SearchFragment
+import com.ssafy.fundyou.ui.search.SearchViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -32,6 +36,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val bannerImageList = mutableListOf<Int>()
+
     @Inject
     lateinit var mainBannerAdapter: MainBannerAdapter
     private val categoryList = mutableListOf<MainCategoryModel>()
@@ -39,6 +44,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
+
+    private val searchViewModel by viewModels<SearchViewModel>()
+    private val popularSearchAdapter = MainPopularSearchAdapter().apply {
+        addItemClickEvent { MainFragmentDirections.actionMainFragmentToItemDetailFragment(it) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +64,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
 
     override fun initView() {
@@ -70,6 +81,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     override fun initViewModels() {
+        initSearchViewModel()
     }
 
     private fun initBanner() {
@@ -309,15 +321,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun initPopularSearch() {
-        //임시 데이터 추가
-        popularSearchList.clear()
-        for (i in 0 until 10) {
-            popularSearchList.add("검색어")
-        }
         val spanCount = 2
-        val popularSearchAdapter = MainPopularSearchAdapter()
-        popularSearchAdapter.submitList(popularSearchList)
-
+        searchViewModel.getPopularKeywordList()
         with(binding.rvMainPopularSearch) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
@@ -347,6 +352,24 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
+    private fun initSearchViewModel() {
+        searchViewModel.popularKeywordList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initGetPopularKeywordListObserve: Loading...")
+                }
+                is ViewState.Success -> {
+                    popularSearchAdapter.submitList(response.value)
+                }
+                is ViewState.Error -> {
+                    Log.d(
+                        TAG, "initGetPopularKeywordListObserve: Error... ${response.message}"
+                    )
+                }
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         setJobForBanner()
@@ -355,5 +378,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun onPause() {
         super.onPause()
         job.cancel()
+    }
+
+    companion object {
+        private const val TAG = "MainFragment..."
     }
 }

@@ -7,19 +7,32 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.databinding.ItemMainPopularSearchBinding
 import com.ssafy.fundyou.databinding.ItemPopularKeywordListBinding
+import com.ssafy.fundyou.domain.model.search.PopularKeywordEntity
 
-class MainPopularSearchAdapter: ListAdapter<String, MainPopularSearchAdapter.MainPopularSearchViewHolder>(
-    ProductDiffUtil()
-) {
+class MainPopularSearchAdapter :
+    ListAdapter<PopularKeywordEntity, MainPopularSearchAdapter.MainPopularSearchViewHolder>(
+        SearchPopularKeywordDiffUtil
+    ) {
 
-    class MainPopularSearchViewHolder(val binding: ItemPopularKeywordListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(term: String, position: Int){
+    private lateinit var clickEvent : (Int) -> Unit
+
+    inner class MainPopularSearchViewHolder(val binding: ItemPopularKeywordListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: PopularKeywordEntity, position: Int) {
             binding.tvRank.text = "${position + 1}"
-            binding.tvPopularKeyword.text = term
+            binding.tvPopularKeyword.text = item.keyword
+            binding.root.setOnClickListener {
+                clickEvent.invoke(item.id)
+            }
         }
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainPopularSearchViewHolder {
-        val view = ItemPopularKeywordListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val view = ItemPopularKeywordListBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
         return MainPopularSearchViewHolder(view)
     }
 
@@ -27,13 +40,23 @@ class MainPopularSearchAdapter: ListAdapter<String, MainPopularSearchAdapter.Mai
         holder.bind(getItem(position), position)
     }
 
-    class ProductDiffUtil : DiffUtil.ItemCallback<String>(){
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+    object SearchPopularKeywordDiffUtil : DiffUtil.ItemCallback<PopularKeywordEntity>() {
+        override fun areItemsTheSame(
+            oldItem: PopularKeywordEntity,
+            newItem: PopularKeywordEntity
+        ): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(
+            oldItem: PopularKeywordEntity,
+            newItem: PopularKeywordEntity
+        ): Boolean {
             return oldItem == newItem
         }
+    }
+
+    fun addItemClickEvent(event : (Int) -> Unit) {
+        this.clickEvent = event
     }
 }
