@@ -12,6 +12,8 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-
+    Logger logger = LoggerFactory.getLogger(getClass());
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -107,7 +109,8 @@ public class AuthService {
     @Transactional
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
         if (memberRepository.existsByLoginId(memberRequestDto.getLoginId())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            logger.debug("이미 가입된 회원입니다.");
+            return MemberResponseDto.of(memberRepository.findByLoginId(memberRequestDto.getLoginId()).get());
         }
 
         Member member = memberRequestDto.toMember(passwordEncoder);
