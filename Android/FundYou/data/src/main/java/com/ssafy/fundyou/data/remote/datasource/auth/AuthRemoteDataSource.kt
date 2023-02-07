@@ -4,7 +4,7 @@ import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthRequestDto
 import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthResponseDto
 
 
-interface AuthRemoteDataSource {
+internal interface AuthRemoteDataSource {
     suspend fun getJWTByKakao(
         accessToken: String
     ): AuthResponseDto

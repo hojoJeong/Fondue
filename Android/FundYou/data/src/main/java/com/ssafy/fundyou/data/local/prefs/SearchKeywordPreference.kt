@@ -4,7 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import org.json.JSONArray
 
-class SearchKeywordPreference(context: Context) {
+internal class SearchKeywordPreference(context: Context) {
 
     private val prefs = context.getSharedPreferences(KEY, Context.MODE_PRIVATE)
 
@@ -27,10 +27,10 @@ class SearchKeywordPreference(context: Context) {
     }
 
 
-    fun removeKeyword(baseList: List<String>, index : Int) {
+    fun removeKeyword(baseList: List<String>, index: Int) {
         val jsonArray = JSONArray()
         baseList.forEachIndexed { listIndex, keyword ->
-            if(listIndex != index) jsonArray.put(keyword)
+            if (listIndex != index) jsonArray.put(keyword)
         }
         prefs.edit().putString(KEY, jsonArray.toString()).apply()
     }

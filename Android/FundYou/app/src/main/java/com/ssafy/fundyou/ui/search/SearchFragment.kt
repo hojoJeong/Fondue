@@ -8,7 +8,7 @@ import androidx.fragment.app.viewModels
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchBinding
-import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
+import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchHistoryKeywordAdapter
 import com.ssafy.fundyou.util.showToast
@@ -20,7 +20,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private val viewModels by viewModels<SearchViewModel>()
     private var isExistKeyword = false
     private val recentKeywordAdapter = SearchHistoryKeywordAdapter()
-    private val popularKeywordAdapter = MainPopularSearchAdapter()
+    private val popularKeywordAdapter = PopularSearchKeywordAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,7 +29,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     }
 
     override fun initView() {
-        viewModels.getSearchKeywordList()
         initInputTextEvent()
         initRecentKeywordList()
         initDeleteAllRecentKeyword()
@@ -40,9 +39,27 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         initGetSearchKeywordObserve()
         initDeleteSearchKeywordStateObserve()
         initAddSearchKeywordStateObserve()
+        initGetPopularKeywordListObserve()
+    }
+
+    private fun initGetPopularKeywordListObserve() {
+        viewModels.popularKeywordList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initGetPopularKeywordListObserve: Loading...")
+                }
+                is ViewState.Success -> {
+                    popularKeywordAdapter.submitList(response.value)
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initGetPopularKeywordListObserve: Error... ${response.message}")
+                }
+            }
+        }
     }
 
     private fun initRecentKeywordList() {
+        viewModels.getSearchKeywordList()
         with(recentKeywordAdapter) {
             addItemClickEvent { currentList, index ->
                 viewModels.deleteSearchKeyword(baseList = currentList, keywordIndex = index)
@@ -73,8 +90,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         }
     }
 
-    private fun initPopularKeywordList(){
-        popularKeywordAdapter.submitList(listOf("123","342512","123412342134","123","342512","123412342134","123","342512","123412342134","123","342512","123412342134","123","342512","123412342134",))
+    private fun initPopularKeywordList() {
+        viewModels.getPopularKeywordList()
+        popularKeywordAdapter.addItemClickEvent { itemId ->
+            navigate(SearchFragmentDirections.actionSearchFragmentToItemDetailFragment(itemId))
+        }
         binding.rvPopularKeyword.adapter = popularKeywordAdapter
     }
 

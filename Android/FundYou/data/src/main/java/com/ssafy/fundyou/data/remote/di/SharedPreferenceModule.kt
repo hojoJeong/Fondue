@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.di
+package com.ssafy.fundyou.data.remote.di
 
 import android.content.Context
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object SharedPreferenceModule {
+internal object SharedPreferenceModule {
     @Provides
     @Singleton
     fun provideSearchPreferences(@ApplicationContext context : Context) : SearchKeywordPreference{
