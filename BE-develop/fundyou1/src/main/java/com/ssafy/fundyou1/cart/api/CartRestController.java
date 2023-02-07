@@ -56,13 +56,13 @@ public class CartRestController {
         Long itemId = cartRequestDto.getItemId();
 
         Cart cart = cartService.findOneCartItem(memberId, itemId);
-
+        // 카트에 동일한 아이템이 있으면 아이템개수만 업데이트
         if (cart != null) {
             int addcount = cartService.updateAddCartItem(cartRequestDto, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", addcount ));
         } else {
             Long cartId = cartService.addCart(cartRequestDto, username);
-            return new ResponseEntity<Long>(cartId, HttpStatus.OK); // 장바구니에 상품이 잘 담기면 200
+            return new ResponseEntity<Long>(cartId, HttpStatus.OK);
 
         }
 
@@ -71,18 +71,8 @@ public class CartRestController {
     @GetMapping("/cart/list")
     @ApiOperation(value = "장바구니 아이템 조회", notes = "회원의 장바구니 목록을 반환한다.")
     public ResponseEntity<List<CartItemResponseDto>> getAllCartItems() {
-//        Logger logger = LoggerFactory.getLogger(getClass());
 
-        MemberResponseDto responseDto= memberRepository.findById(SecurityUtil.getCurrentMemberId())
-                .map(MemberResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-
-        Long memberId = responseDto.getId();
-
-        List<CartItemResponseDto> cartList = cartService.findCartItemsByCartId(memberId);
-//        logger.error("null test: " + cartList);
-
-
+        List<CartItemResponseDto> cartList = cartService.findCartItemsByCartId(SecurityUtil.getCurrentMemberId());
 
         return ResponseEntity.status(HttpStatus.OK).body(cartList);
     }
