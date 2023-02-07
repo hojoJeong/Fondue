@@ -53,4 +53,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
                     "BETWEEN :minPrice AND :maxPrice",
             nativeQuery = true)
     List<Item> findBySearch(@Param("keyword")String keyword, @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice);
+
+    Optional<Item> findById(Long itemId);
+
+
 }

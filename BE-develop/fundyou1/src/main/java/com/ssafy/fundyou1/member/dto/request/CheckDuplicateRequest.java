@@ -10,11 +10,4 @@ public class CheckDuplicateRequest {
     @ApiModelProperty(name = "값")
     @JsonProperty("value")
     private String value;
-
-    public CheckDuplicateRequest() {
-    }
-
-    public CheckDuplicateRequest(String value) {
-        this.value = value;
-    }
 }

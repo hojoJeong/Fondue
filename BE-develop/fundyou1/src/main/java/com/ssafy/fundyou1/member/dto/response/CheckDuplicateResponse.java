@@ -15,7 +15,5 @@ public class CheckDuplicateResponse {
         this.result = result;
     }
 
-    public static CheckDuplicateResponse from(Boolean result) {
-        return new CheckDuplicateResponse(result);
-    }
+
 }
