@@ -6,7 +6,7 @@ import com.ssafy.fundyou.domain.model.auth.JWTAuthModel
 import retrofit2.http.Body
 import retrofit2.http.POST
 
-interface AuthApiService {
+internal interface AuthApiService {
     @POST("/auth/members/social/kakao")
     suspend fun getJWTByKakao(
         @Body accessToken: String

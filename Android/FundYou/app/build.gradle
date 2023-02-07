@@ -67,7 +67,7 @@ dependencies {
     implementation libs.circleindicator
     implementation libs.mp.android.chart
 
-    implementation libs.kakao.sdk.user
+    implementation libs.kakao.sdk
 
     implementation libs.google.auth
     implementation platform (libs.google.firebase)
