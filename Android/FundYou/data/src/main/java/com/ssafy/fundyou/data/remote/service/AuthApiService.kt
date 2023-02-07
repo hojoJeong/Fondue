@@ -16,4 +16,3 @@ interface AuthApiService {
         @Body authRequestDto : AuthRequestDto
     ) : AuthResponseDto
 }
-

@@ -5,5 +5,8 @@ import retrofit2.http.GET
 
 interface ItemApiService {
     @GET("/item/list")
-    suspend fun getItemList() : MutableList<ItemResponseDto>
+    suspend fun getProductItemList() : List<ItemResponseDto>
+
+    @GET("/item/random")
+    suspend fun getRandomItemList() : List<ItemResponseDto>
 }

@@ -84,7 +84,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
                     } else {
                         isExistKeyword = true
                     }
-
                     with(recentKeywordAdapter) {
                         addKeywordList(result)
                         refreshAdapter()

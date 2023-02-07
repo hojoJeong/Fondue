@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
@@ -27,15 +29,13 @@ import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
+    private val mainViewModel by viewModels<MainViewModel>()
+
     private val bannerImageList = mutableListOf<Int>()
-    @Inject
-    lateinit var mainBannerAdapter: MainBannerAdapter
     private val categoryList = mutableListOf<MainCategoryModel>()
-    private val rankingProductList = mutableListOf<ProductItemModel>()
     private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
@@ -54,6 +54,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
 
     override fun initView() {
@@ -61,21 +62,24 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initCategory()
         initRankCategory()
         initTitlePriceRange()
-        initRankingItem()
         initShowMoreBtnListener()
         initFloatingBtn()
-        initRandomItemList()
         initPopularSearch()
         initSearchClickEvent()
+        mainViewModel.getRankingItemList()
+        mainViewModel.getRandomItemList()
     }
 
     override fun initViewModels() {
+        initRankingItemObserve()
+        initRandomItemObserve()
     }
 
     private fun initBanner() {
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 
+        val mainBannerAdapter = MainBannerAdapter()
         mainBannerAdapter.addAllItems(bannerImageList)
 
         binding.tvMainBannerIndicator.text = getString(
@@ -113,6 +117,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     }
                 }
             })
+        }
+    }
+
+    private fun setJobForBanner() {
+        job = lifecycleScope.launchWhenResumed {
+            delay(3000)
+            binding.vpMainBanner.setCurrentItem(++currentBannerPosition, true)
         }
     }
 
@@ -169,13 +180,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun setJobForBanner() {
-        job = lifecycleScope.launchWhenResumed {
-            delay(3000)
-            binding.vpMainBanner.setCurrentItem(++currentBannerPosition, true)
-        }
-    }
-
     private fun initRankCategory() {
         binding.chipgMainRankCategory.setOnCheckedStateChangeListener { group, checkedId ->
 
@@ -208,92 +212,54 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun initRankingItem() {
-        //임시 데이터 추가
-        rankingProductList.clear()
-        rankingProductList.add(
-            ProductItemModel(
-                0,
-                100000,
-                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                true
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                1,
-                100000,
-                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
-                "BESPOKE 냉장고",
-                true,
-                "삼성",
-                false
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                2,
-                100000,
-                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                false
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                3,
-                100000,
-                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
-                "BESPOKE 냉장고",
-                true,
-                "삼성",
-                true
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                4,
-                100000,
-                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                true
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                5,
-                100000,
-                "https://static.skmagic.com/image/goods/G000063444/G000063444_1_350x350.png",
-                "BESPOKE 냉장고",
-                true,
-                "삼성",
-                false
-            )
-        )
+    private fun initRankingItemObserve() {
+        mainViewModel.rankingItemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initRankingItemObserve: Ranking Item Loading...")
+                }
+                is ViewState.Success -> {
+                    initRankingItemAdapter(response.value ?: emptyList())
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initRankingItemObserve: Ranking Item Load Error")
+                }
+            }
+        }
+    }
 
+    private fun initRandomItemObserve() {
+        mainViewModel.randomItemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initRandomItemObserve: Random Item Loading...")
 
+                }
+                is ViewState.Success -> {
+                    initRandomItemAdapter(response.value ?: emptyList())
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initRandomItemObserve: Random Item Load Error...")
+                }
+            }
+        }
+    }
+
+    private fun initRankingItemAdapter(rankingItemList: List<ProductItemModel>) {
         val rankingItemAdapter = ProductItemAdapter()
         rankingItemAdapter.checkNeedRanking(true)
-        rankingItemAdapter.submitList(rankingProductList)
+        rankingItemAdapter.submitList(rankingItemList)
         with(binding.rvMainRank) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
         }
-
     }
 
-    private fun initRandomItemList() {
+    private fun initRandomItemAdapter(randomItemList: List<ProductItemModel>) {
         val randomAdapter = MainRandomItemAdapter()
         val spanCount = 3
-        randomAdapter.submitList(rankingProductList)
+        randomAdapter.submitList(randomItemList)
 
         with(binding.rvMainRandom) {
             layoutManager =

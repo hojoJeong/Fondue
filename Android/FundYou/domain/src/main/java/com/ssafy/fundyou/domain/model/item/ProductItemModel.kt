@@ -7,5 +7,9 @@ data class ProductItemModel(
     val descriptionImg: String,
     val title: String,
     val isAr: Boolean,
-    val description: MutableList<ProductDescriptionModel>
+    val isFavorite: Boolean,
+    val description: MutableList<ProductDescriptionModel>,
+    val sellingCount: Int,
+    val brand: String,
+    val category: String
 )

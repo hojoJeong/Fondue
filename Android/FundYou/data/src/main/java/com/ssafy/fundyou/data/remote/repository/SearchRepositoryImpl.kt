@@ -1,7 +1,5 @@
 package com.ssafy.fundyou.data.remote.repository
 
-import android.os.Build.VERSION_CODES.S
-import com.ssafy.fundyou.common.Constant
 import com.ssafy.fundyou.common.Constant.SP_ERROR
 import com.ssafy.fundyou.common.Constant.SUCCESS
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference

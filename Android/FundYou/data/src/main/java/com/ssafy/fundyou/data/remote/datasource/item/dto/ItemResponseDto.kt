@@ -16,6 +16,8 @@ data class ItemResponseDto(
     val title: String,
     @SerializedName("isAr")
     val isAr: Boolean,
+    @SerializedName("isFavorite")
+    val isFavorite: Boolean,
     @SerializedName("description")
     val description: MutableList<ProductDescriptionModel>,
     @SerializedName("sellingCount")
