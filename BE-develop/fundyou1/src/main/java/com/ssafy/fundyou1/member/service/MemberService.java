@@ -36,15 +36,4 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
 
-
-    // 탈퇴할때 필요!
-    @Transactional(readOnly = true)
-    public Member findByLoginIdAndDeletedAtNull(String id) {
-        return memberRepository.findByLoginIdAndDeletedAtNull(id)
-                .orElseThrow(() -> new RuntimeException("탈퇴할 유저 정보를 찾을 수 없습니다"));
-    }
-
-
-
-
 }
