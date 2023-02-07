@@ -1,9 +1,13 @@
 package com.ssafy.fundyou1.auth.controller.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ReissueRequest {
 
     @JsonProperty("access_token")
@@ -12,11 +16,4 @@ public class ReissueRequest {
     @JsonProperty("refresh_token")
     private String refreshToken;
 
-    public ReissueRequest() {
-    }
-
-    public ReissueRequest(String accessToken, String refreshToken) {
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
-    }
 }

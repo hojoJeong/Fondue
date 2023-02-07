@@ -32,20 +32,6 @@ public class ItemService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // 상품 데이터 추가
-//    @Transactional
-//    public ItemDto create(Long categoryId, ItemForm dto) {
-//        Category category = categoryRepository.findById(dto.getCategory().getId())
-//                .orElseThrow(() -> new IllegalArgumentException("상품 생성 실패! 대상 카테고리가 없습니다"));
-//
-//        Item item = Item.createItem(dto, category);
-//
-//        Item created = itemRepository.save(item);
-//
-//        return ItemDto.createItemDto(created);
-//
-//    }
-
     //희주 상품 데이터 추가
 
     @Transactional
@@ -66,10 +52,7 @@ public class ItemService {
             throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
         }
     }
-    // 특정 상품 조회
-    public Item itemView(Long id){
-        return itemRepository.findById(id).get();
-    }
+
 
     // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
     @Transactional
