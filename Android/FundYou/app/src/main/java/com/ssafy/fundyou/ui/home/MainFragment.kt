@@ -16,20 +16,20 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
+import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.home.adapter.MainRankingItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
+import com.ssafy.fundyou.ui.home.model.RandomItemModel
+import com.ssafy.fundyou.ui.home.model.RankingItemModel
 import com.ssafy.fundyou.ui.search.SearchViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -248,9 +248,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun initRankingItemAdapter(rankingItemList: List<ProductItemModel>) {
-        val rankingItemAdapter = ProductItemAdapter()
-        rankingItemAdapter.checkNeedRanking(true)
+    private fun initRankingItemAdapter(rankingItemList: List<RankingItemModel>) {
+        val rankingItemAdapter = MainRankingItemAdapter()
         rankingItemAdapter.submitList(rankingItemList)
         with(binding.rvMainRank) {
             layoutManager =
@@ -259,7 +258,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun initRandomItemAdapter(randomItemList: List<ProductItemModel>) {
+    private fun initRandomItemAdapter(randomItemList: List<RandomItemModel>) {
         val randomAdapter = MainRandomItemAdapter()
         val spanCount = 3
         randomAdapter.submitList(randomItemList)

@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
+            type="com.ssafy.fundyou.ui.home.model.RandomItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
