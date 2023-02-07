@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.ui.home
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -13,19 +12,22 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
-import com.ssafy.fundyou.*
+import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.home.adapter.*
+import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
+import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
+import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -127,7 +129,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             MainCategoryModel(
                 ContextCompat.getDrawable(
                     requireContext(), R.drawable.bg_category_living
-                )!!, "리빙/인테리어"
+                )!!, "인테리어"
             )
         )
         categoryList.add(
@@ -160,11 +162,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         categoryAdapter.initCategoryItem(categoryList)
 
-        binding.rvMainCategory.apply {
-            layoutManager =
-                GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false)
-            adapter = categoryAdapter
-        }
+        binding.rvMainCategory.adapter = categoryAdapter
     }
 
     private fun setJobForBanner() {
@@ -179,7 +177,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
             val checkedChip = group.getChildAt(0) as Chip
             val checkedChip2 = group.findViewById<Chip>(group.checkedChipId) as Chip
-            Log.d(TAG, "initRankCategory: ${checkedChip2.text}")
+            Log.d("TAG", "initRankCategory: ${checkedChip2.text}")
             //TODO(칩 선택 변경 시 서버통신 추가)
         }
     }

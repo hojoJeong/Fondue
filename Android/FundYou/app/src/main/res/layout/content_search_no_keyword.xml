@@ -6,9 +6,9 @@
 
     <ImageView
         android:id="@+id/iv_no_keyword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_launcher_background"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_app_logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -16,7 +16,7 @@
 
     <TextView
         android:id="@+id/tv_no_keyword"
-        style="@style/base_font_medium_12_hawkes_blue"
+        style="@style/base_font_medium_12_matter_horn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="18dp"

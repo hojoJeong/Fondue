@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchBinding
+import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchHistoryKeywordAdapter
 import com.ssafy.fundyou.util.showToast
@@ -19,6 +20,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
     private val viewModels by viewModels<SearchViewModel>()
     private var isExistKeyword = false
     private val recentKeywordAdapter = SearchHistoryKeywordAdapter()
+    private val popularKeywordAdapter = MainPopularSearchAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,6 +33,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
         initInputTextEvent()
         initRecentKeywordList()
         initDeleteAllRecentKeyword()
+        initPopularKeywordList()
     }
 
     override fun initViewModels() {
@@ -68,6 +71,11 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
             }
             true
         }
+    }
+
+    private fun initPopularKeywordList(){
+        popularKeywordAdapter.submitList(listOf("123","342512","123412342134","123","342512","123412342134","123","342512","123412342134","123","342512","123412342134","123","342512","123412342134",))
+        binding.rvPopularKeyword.adapter = popularKeywordAdapter
     }
 
     private fun initGetSearchKeywordObserve() {

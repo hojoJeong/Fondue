@@ -22,18 +22,19 @@
 
                 <EditText
                     android:id="@+id/edit_main_search"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:focusable="false"
-                    android:layout_margin="@dimen/base_horizontal_margin"
-                    android:background="@drawable/bg_rect_black_white_round8_stroke1"
-                    android:drawableLeft="@drawable/bg_search"
-                    android:hint="@string/content_searchbar"
-                    android:textColorHint="@color/link_water"
-                    android:drawableTint="@color/link_water"
-                    android:drawablePadding="6dp"
-                    android:paddingStart="6dp"
-                    android:padding="5dp"
+                    style="@style/base_font_medium_15_midnight_express"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="22dp"
+                    android:background="@drawable/bg_rect_midnight_express_transparent_radius10_stroke1"
+                    android:drawableStart="@drawable/ic_search_unselected"
+                    android:drawablePadding="8dp"
+                    android:hint="@string/content_search_input_hint"
+                    android:imeOptions="actionSearch"
+                    android:inputType="text"
+                    android:paddingVertical="14dp"
+                    android:paddingStart="18dp"
                     app:chainUseRtl="true"
                     app:layout_constraintBottom_toTopOf="@+id/vp_main_banner"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +44,8 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_main_banner"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="12dp"
                     android:orientation="horizontal"
                     app:layout_constraintBottom_toTopOf="@id/tv_main_category_title"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -53,9 +55,13 @@
 
                 <TextView
                     android:id="@+id/tv_main_banner_indicator"
+                    style="@style/base_font_medium_14_white"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:background="@drawable/bg_rect_transparent_raven_trans_40_radius10_stroke0"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
                     app:layout_constraintBottom_toBottomOf="@+id/vp_main_banner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -76,11 +82,13 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_main_category"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/base_horizontal_margin"
                     android:layout_marginEnd="@dimen/base_horizontal_margin"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
+                    app:spanCount="4"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                     app:layout_constraintBottom_toTopOf="@+id/tv_main_rank_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -104,13 +112,13 @@
                     android:id="@+id/hscv_item_list_category"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:scrollbars="none"
                     android:layout_marginHorizontal="4dp"
+                    android:descendantFocusability="blocksDescendants"
+                    android:scrollbars="none"
                     app:layout_constraintBottom_toTopOf="@+id/dv_main_on_sld"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_main_rank_title"
-                    android:descendantFocusability="blocksDescendants">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_main_rank_title">
 
                     <com.google.android.material.chip.ChipGroup
                         android:id="@+id/chipg_main_rank_category"
@@ -127,10 +135,10 @@
                             style="@style/custom_chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
                             android:checked="true"
                             android:text="@string/title_category_all"
-                            app:chipStrokeWidth="1dp"
-                            android:layout_marginStart="10dp"/>
+                            app:chipStrokeWidth="1dp" />
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/btn_main_rank_category_living"
@@ -150,11 +158,11 @@
 
                         <com.google.android.material.chip.Chip
                             android:id="@+id/btn_main_rank_category_kitchen"
+                            style="@style/custom_chip"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/title_category_kitchen"
-                            style="@style/custom_chip"
-                            app:chipStrokeWidth="1dp"/>
+                            app:chipStrokeWidth="1dp" />
 
 
                         <com.google.android.material.chip.Chip
@@ -186,9 +194,9 @@
                     android:text="@string/title_rank_price_default"
                     android:textColor="@color/franch_rose"
                     app:layout_constraintBottom_toTopOf="@+id/sld_main_rank"
-                    app:layout_constraintTop_toBottomOf="@+id/dv_main_on_sld"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dv_main_on_sld" />
 
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/sld_main_rank"
@@ -209,9 +217,9 @@
                     android:id="@+id/dv_main_under_sld"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintBottom_toTopOf="@+id/rv_main_rank"
-                    android:layout_marginBottom="@dimen/base_vertical_margin"
                     android:layout_marginHorizontal="10dp"
+                    android:layout_marginBottom="@dimen/base_vertical_margin"
+                    app:layout_constraintBottom_toTopOf="@+id/rv_main_rank"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/sld_main_rank" />
@@ -278,6 +286,7 @@
                     android:id="@+id/rv_main_popular_search"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    app:layout_constraintVertical_bias="0.0"
                     android:layout_marginBottom="50dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/rv_main_category"
