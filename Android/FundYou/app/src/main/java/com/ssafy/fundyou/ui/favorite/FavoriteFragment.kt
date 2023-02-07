@@ -7,7 +7,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_favorite) {
     private val itemList = mutableListOf<ProductItemModel>()

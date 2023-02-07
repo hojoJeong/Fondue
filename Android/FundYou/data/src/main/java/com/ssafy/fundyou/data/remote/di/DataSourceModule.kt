@@ -1,4 +1,5 @@
-package com.ssafy.fundyou.di
+package com.ssafy.fundyou.data.remote.di
+
 
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSourceImpl
@@ -12,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataSourceModule {
+internal object DataSourceModule {
     @Provides
     @Singleton
     fun provideAuthRemoteDataSource(

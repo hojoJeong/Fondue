@@ -1,9 +1,8 @@
-package com.ssafy.fundyou.di
+package com.ssafy.fundyou.data.remote.di
 
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
-import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.repository.AuthRepositoryImpl
 import com.ssafy.fundyou.data.remote.repository.SearchRepositoryImpl
@@ -18,7 +17,7 @@ import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
 @Module
-object RepositoryModule {
+internal object RepositoryModule {
     @Provides
     @Singleton
     fun provideAuthRepository(

@@ -1,11 +1,11 @@
-package com.ssafy.fundyou.di
+package com.ssafy.fundyou.data.remote.di
 
 import android.content.Context
 import com.ssafy.fundyou.common.Constant.BASE_URL
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
-import com.ssafy.fundyou.util.network.AuthInterceptor
-import com.ssafy.fundyou.util.network.AuthInterceptorClient
-import com.ssafy.fundyou.util.network.NoAuthInterceptorClient
+import com.ssafy.fundyou.data.util.AuthInterceptor
+import com.ssafy.fundyou.data.util.AuthInterceptorClient
+import com.ssafy.fundyou.data.util.NoAuthInterceptorClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

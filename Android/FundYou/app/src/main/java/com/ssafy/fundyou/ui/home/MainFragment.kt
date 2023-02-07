@@ -22,7 +22,7 @@ import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
-import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import com.ssafy.fundyou.ui.search.SearchViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
