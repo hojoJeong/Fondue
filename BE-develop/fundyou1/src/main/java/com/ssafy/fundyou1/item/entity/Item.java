@@ -6,10 +6,7 @@ import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.like.entity.LikeItem;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +16,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor // 디폴트 생성자 추가
+@ToString
 public class Item {
 
     @Id
