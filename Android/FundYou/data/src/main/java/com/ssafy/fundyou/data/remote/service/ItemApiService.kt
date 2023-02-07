@@ -8,8 +8,11 @@ internal interface ItemApiService {
     suspend fun getAllProductItemList() : List<ItemResponseDto>
 
     @GET("/item/ranking")
-    suspend fun getRankingItem() : List<ItemResponseDto>
+    suspend fun getRankingItemList() : List<ItemResponseDto>
 
     @GET("/item/random")
     suspend fun getRandomItemList() : List<ItemResponseDto>
+
+    @GET("/item/")
+    suspend fun getFavoriteItemList() : List<ItemResponseDto>
 }

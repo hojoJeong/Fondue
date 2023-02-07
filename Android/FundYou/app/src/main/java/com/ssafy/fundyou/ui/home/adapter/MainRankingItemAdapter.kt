@@ -14,11 +14,12 @@ import com.ssafy.fundyou.ui.home.model.RankingItemModel
 class MainRankingItemAdapter : ListAdapter<RankingItemModel, MainRankingItemAdapter.RankingItemHolder>(RankingDiffUtil()){
 
     class RankingItemHolder(private val binding: ItemListProductBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item: RankingItemModel){
+        fun bind(item: RankingItemModel, position: Int){
             with(binding){
                 rankingItem = item
                 favoriteVisibility = true
                 tvItemListProductRanking.visibility = View.VISIBLE
+                tvItemListProductRanking.text = "${position+1}위"
             }
         }
     }
@@ -30,7 +31,7 @@ class MainRankingItemAdapter : ListAdapter<RankingItemModel, MainRankingItemAdap
     }
 
     override fun onBindViewHolder(holder: RankingItemHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), position)
     }
 
     class RankingDiffUtil : DiffUtil.ItemCallback<RankingItemModel>() {

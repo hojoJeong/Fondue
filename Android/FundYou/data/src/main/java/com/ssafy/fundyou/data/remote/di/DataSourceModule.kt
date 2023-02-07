@@ -6,6 +6,7 @@ import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.service.AuthApiService
+import com.ssafy.fundyou.data.remote.service.ItemApiService
 import com.ssafy.fundyou.data.remote.service.SearchApiService
 import dagger.Module
 import dagger.Provides
@@ -30,5 +31,5 @@ internal object DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideItemRemoteDataSource() : ItemRemoteDataSource = ItemRemoteDataSourceImpl()
+    fun provideItemRemoteDataSource(itemApiService: ItemApiService) : ItemRemoteDataSource = ItemRemoteDataSourceImpl(itemApiService)
 }

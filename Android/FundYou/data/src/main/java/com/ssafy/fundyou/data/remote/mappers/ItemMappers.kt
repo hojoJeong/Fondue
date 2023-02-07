@@ -4,7 +4,7 @@ import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemResponseDto
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 
 //API 문서 확인 후 수정
-internal fun ItemResponseDto.toAllItemModel() = ProductItemModel(
+internal fun ItemResponseDto.toDomainModel() = ProductItemModel(
     id = this.id,
     price = this.price,
     img = this.img,

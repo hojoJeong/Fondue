@@ -1,7 +1,7 @@
 package com.ssafy.fundyou.data.remote.repository
 
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
-import com.ssafy.fundyou.data.remote.mappers.item.toAllItemModel
+import com.ssafy.fundyou.data.remote.mappers.item.toDomainModel
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.domain.repository.ItemRepository
 import javax.inject.Inject
@@ -9,11 +9,13 @@ import javax.inject.Inject
 internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteDataSource: ItemRemoteDataSource) :
     ItemRepository {
     override suspend fun getAllProductItemList() =
-        itemRemoteDataSource.getAllItemList().map { it.toAllItemModel() }
+        itemRemoteDataSource.getAllItemList().map { it.toDomainModel() }
 
-    override suspend fun getRankingItem(): List<ProductItemModel> =
-        itemRemoteDataSource.getRankingItem().map { it.toAllItemModel() }
+    override suspend fun getRankingItemList(): List<ProductItemModel> =
+        itemRemoteDataSource.getRankingItemList().map { it.toDomainModel() }
 
-    override suspend fun getRandomItem(): List<ProductItemModel> =
-        itemRemoteDataSource.getRandomItemList().map { it.toAllItemModel() }
+    override suspend fun getRandomItemList(): List<ProductItemModel> =
+        itemRemoteDataSource.getRandomItemList().map { it.toDomainModel() }
+
+    override suspend fun getFavoriteItemList(): List<ProductItemModel> = itemRemoteDataSource.getFavoriteItemList().map { it.toDomainModel() }
 }

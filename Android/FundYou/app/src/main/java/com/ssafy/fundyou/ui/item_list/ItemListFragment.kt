@@ -37,11 +37,11 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         itemListViewModel.getAllItemList()
         initCategory()
         initTitlePriceRange()
-        initItemList()
+
     }
 
     override fun initViewModels() {
-
+        initItemListObserve()
     }
 
     private fun initCategory() {
@@ -87,7 +87,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         }
     }
 
-    private fun initItemList() {
+    private fun initItemListObserve() {
         itemListViewModel.itemList.observe(viewLifecycleOwner){ response ->
             when(response){
                 is ViewState.Loading -> {
@@ -97,7 +97,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                     initItemListAdapter(response.value ?: emptyList())
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initItemList: ItemList Loading Error...")
+                    Log.d(TAG, "initItemList: ItemList Loading Error...${response.message}")
                 }
             }
         }
