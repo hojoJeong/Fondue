@@ -70,27 +70,6 @@ public class Item {
 
     }
 
-//    public static Item createItem(ItemForm dto, Category category) {
-//        // 예외 발생
-//        if (dto.getId() != null)
-//            throw new IllegalStateException("아이템 생성 실패! 아이템의 id가 없어야 합니다");
-//        if (dto.getCategory().getId() != category.getId())
-//            throw new IllegalStateException("아이템 생성 실패! 아이템의 id가 잘못되었습니다");
-//
-//        // 엔티티 생성 및 반환
-//        return new Item(
-//                dto.getPrice(),
-//                dto.getImage(),
-//                dto.getDescriptionImg(),
-//                dto.getTitle(),
-//                dto.getIsAr(),
-//                dto.getDescription(),
-//                0,
-//                dto.getBrand(),
-//                dto.getCategory()
-//        );
-//    }
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
@@ -106,22 +85,4 @@ public class Item {
     List<FundingItem> fundingItems = new ArrayList<>();
 
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                ", descriptionImg='" + descriptionImg + '\'' +
-                ", title='" + title + '\'' +
-                ", isAr='" + isAr + '\'' +
-                ", description='" + description + '\'' +
-                ", sellingCount=" + sellingCount +
-                ", brand='" + brand + '\'' +
-                ", category=" + category +
-                ", likeItems=" + likeItems +
-                ", cartItems=" + cartItems +
-                ", fundingItems=" + fundingItems +
-                '}';
-    }
 }

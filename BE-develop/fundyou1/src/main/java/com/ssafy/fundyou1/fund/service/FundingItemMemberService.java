@@ -1,9 +1,8 @@
 package com.ssafy.fundyou1.fund.service;
 
-import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
+
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
-import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
@@ -16,41 +15,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
 @Slf4j
 @RequiredArgsConstructor
-public class FundingItemService {
-    private final FundingItemMemberRepository fundingItemMemberRepository;
+public class FundingItemMemberService {
     @Autowired
     private FundingItemRepository fundingItemRepository;
     @Autowired
-    private MemberService memberService;
+    MemberService memberService;
     @Autowired
-    private MemberRepository memberRepository;
+    MemberRepository memberRepository;
+    @Autowired
+    FundingItemMemberRepository fundingItemMemberRepository;
 
-    // 펀딩 참여(돈 보내기)
+    // 펀딩 참여
     @Transactional
-    public FundingItemMember attendFunding(AttendFundingDto attendFundingDto) {
+    public FundingItemMember attendFunding(FundingItem fundingItem) {
         // 사용자 정보
         MemberResponseDto meDto = memberService.getMyInfo();
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
-        // 펀딩하려는 상품 찾기
-        FundingItem fundingItem = fundingItemRepository.getById(attendFundingDto.getFundingItemId());
+//        FundingItem fundingItem = fundingItemRepository.findByFundingItemId(attendFundingDto.getFundingItemId());
 
-
-        // 해당 펀딩에 참여했다는 데이터 기록 (fundingItem_member 테이블)
-        FundingItemMember fundingItemMember = FundingItemMember.builder().fundingItem(fundingItem).member(member).fundingItemPrice(attendFundingDto.getPoint()).message(attendFundingDto.getMessage()).build();
+        // 펀딩 참여
+        FundingItemMember fundingItemMember = FundingItemMember.builder().fundingItem(fundingItem).member(member).build();
         fundingItemMemberRepository.save(fundingItemMember);
 
-        // 펀딩 상품에
-        // 1. 펀딩 금액 추가
-        // 2. 펀딩 참여자 수 + 1
-
-        //
         return fundingItemMember;
-
     }
+
 }

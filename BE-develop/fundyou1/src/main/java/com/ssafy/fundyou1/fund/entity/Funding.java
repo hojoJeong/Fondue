@@ -18,8 +18,8 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class Funding {
 
     @Id
@@ -31,13 +31,11 @@ public class Funding {
     @JsonIgnore
     private Member member; // FK
 
-    @CreatedDate
-    @Column(name = "start_date")
-    private LocalDateTime startDate; // due : 펀딩 시작 날짜
+//    @Column(name = "start_date")
+//    private Long startDate; // due : 펀딩 시작 날짜
 
-//    @Column(name = "end_date")
-//    @JsonFormat(pattern = "yyyy-MM-dd")
-//    private LocalDateTime endDate; // due : 펀딩 마감 날짜
+    @Column(name = "end_date")
+    private Long endDate; // due : 펀딩 마감 날짜
 
 
     /**
@@ -54,42 +52,27 @@ public class Funding {
 
     //==연관 메서드 ==//
 
-    public void setMember(Member member) {
-        this.member = member;
-        member.getFundings().add(this);
-    }
 
-
-    public void addFundingItem(FundingItem fundingItem) {
-        fundingItems.add(fundingItem);
-        fundingItem.setFunding(this);
-    }
-
-    @JsonIgnore
     @Builder
-    public Funding(Long id, Member member, LocalDateTime startDate, boolean fundingStatus) {
+    public Funding(Long id, Member member, Long endDate) {
         this.id = id;
         this.member = member;
-        this.startDate = startDate;
-        this.fundingStatus = fundingStatus;
+//        this.startDate = startDate;
+        this.endDate = endDate;
+        this.fundingStatus = true;
     }
 
-    public Funding toEntity() {
-        return Funding.builder()
-                .id(id)
-                .member(member)
-                .startDate(startDate)
-                .fundingStatus(fundingStatus)
-                .build();
-    }
 
-    public static Funding createFunding(Member member){
+    public static Funding createFunding(Member member, Long endDate){
         Funding funding = new Funding();
         funding.member = member;
+//        funding.startDate = startDate;
+        funding.endDate = endDate;
         funding.fundingStatus = true;
 
         return funding;
     }
+
 
 
 

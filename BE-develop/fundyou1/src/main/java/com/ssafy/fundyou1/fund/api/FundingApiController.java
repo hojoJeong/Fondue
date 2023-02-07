@@ -1,10 +1,15 @@
 package com.ssafy.fundyou1.fund.api;
 
+import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemDto;
+import com.ssafy.fundyou1.fund.dto.InvitedMemberDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
+import com.ssafy.fundyou1.fund.entity.FundingItemMember;
+import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
 import com.ssafy.fundyou1.fund.service.FundingService;
+import com.ssafy.fundyou1.fund.service.InvitedMemberService;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
@@ -12,6 +17,8 @@ import com.ssafy.fundyou1.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,36 +34,29 @@ public class FundingApiController {
     private MemberRepository memberRepository;
     @Autowired
     private FundingService fundingService;
+    @Autowired
+    private InvitedMemberService invitedMemberService;
 
 
-    // 펀딩 시작
+    // 펀딩 개설
     @PostMapping("/create")
-    public String createFunding() {
-//    public List<FundingItemDto> createFunding() {
+    @ResponseBody
+    public Long createFunding(@RequestBody Long endDate) {
 
         // 펀딩 만들기
-        List<FundingItemDto> createdFundingDtoList = fundingService.createFunding();
+        Long createdFundingId = fundingService.createFunding(endDate);
 
-        return "성공";
+        // 새 펀딩 아이디 리턴
+        return createdFundingId;
 
     }
 
-    // 시작한 펀딩에 장바구니 아이템 담기
-//    @GetMapping("/{fundingId}")
-//    public String getFunding(@PathVariable Long fundingId){
-//
-//        Optional<Funding> fundingFlag = fundingRepository.findById(fundingId);
-//        if (fundingFlag == null){
-//            return "해당 펀딩은 존재하지 않습니다.";
-//        }else {
-//            Funding foundFunding = fundingService.findMyFunding(fundingId);
-//            // 장바구니 아이템 펀딩으로 다 넣어주기
-//            List<FundingItem> nowFundingItemList = fundingService.addFundingItems(foundFunding);
-//
-//            return nowFundingItemList.toString();
-//        }
-//
-//    }
+
+    // 초대 받은 펀딩 데이터 베이스에 저장하기
+    @PostMapping("/getInvited")
+    public ResponseEntity<InvitedMember> storeInvitedFunding(@RequestBody InvitedMemberDto invitedMemberDto){
+        return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.storeInvitedFunding(invitedMemberDto));
+    }
 
 
 }

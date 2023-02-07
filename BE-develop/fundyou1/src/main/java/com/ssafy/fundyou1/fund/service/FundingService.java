@@ -15,17 +15,21 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class FundingService {
     private final ItemRepository itemRepository;
     private final MemberRepository memberRepository;
@@ -40,21 +44,9 @@ public class FundingService {
     @Autowired
     private MemberService memberService;
 
-
-    public FundingService(FundingRepository fundingRepository,
-                          FundingItemRepository fundingItemRepository,
-                          CartItemRepository cartItemRepository,
-                          MemberRepository memberRepository,
-                          ItemRepository itemRepository) {
-        this.fundingRepository = fundingRepository;
-        this.fundingItemRepository = fundingItemRepository;
-        this.cartItemRepository = cartItemRepository;
-        this.memberRepository = memberRepository;
-        this.itemRepository = itemRepository;
-    }
-
+    // 펀딩 개설
     @Transactional
-    public List<FundingItemDto> createFunding() {
+    public Long createFunding(Long endDate) {
         // 사용자 정보
         MemberResponseDto meDto = memberService.getMyInfo();
 
@@ -62,10 +54,14 @@ public class FundingService {
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
         // 펀딩 개설
-        Funding created = Funding.createFunding(member);
+        Calendar cal = Calendar.getInstance();
+        Long nowDate = cal.getTimeInMillis();   // Date(long date)
+//        Long nowDate = LocalDateTime.now().getTimeInMills();
+//        Long nowDate = System.currentTimeMillis();
+        Funding createdFunding = Funding.createFunding(member, endDate);
 
         // 새펀딩 저장 및 아이디 값 리턴
-        Funding createdFundingRepo = fundingRepository.save(created);
+        Funding savedFunding = fundingRepository.save(createdFunding);
 
         //---------------------------------------------------------------------------
         // 장바구니 아이템 펀딩 아이템으로 변환
@@ -76,51 +72,29 @@ public class FundingService {
         // 장바구니 상품 가져오기
         List<CartItem> foundCartItemList = cartItemRepository.findAllByCartId(foundCart.getId());
 
-        if (foundCartItemList == null) {
-            List<FundingItemDto> plusFundingItems = new ArrayList<>();
-            return plusFundingItems;
-        }
-
-
         // 펀딩 상품 넣어야 할 펀딩 아이디
-        Long funding_id = createdFundingRepo.getId();
+        Long funding_id = savedFunding.getId();
 
         // funding_item으로 변경하여 저장
         for(CartItem cartItem : foundCartItemList){
             Item item = itemRepository.findItemById(cartItem.getItem().getId());
-            FundingItem createdFundingItem = FundingItem.createFundingItem(createdFundingRepo, cartItem.getItem(), cartItem.getCount());
+            FundingItem createdFundingItem = FundingItem.createFundingItem(savedFunding, cartItem.getItem(), cartItem.getCount());
             fundingItemRepository.save(createdFundingItem);
+            // 장바구니에서 삭제
+            cartItemRepository.delete(cartItem);
 
         }
 
-        return fundingItemRepository.findByFundingId(funding_id)
-                .stream()
-                .map(fundingItem -> FundingItemDto.createFundingItemDto(fundingItem))
-                .collect(Collectors.toList());
+        return funding_id;
 
 
     }
 
-    // 펀딩하는 상품 추가 메서드
-//    @Transactional
-//    public List<FundingItem> addFundingItems(Funding funding) {
-//        // 사용자 정보
-//        MemberResponseDto meDto = memberService.getMyInfo();
-//
-//        // Dto => Entity
-//        Member member = memberRepository.findByUsername(meDto.getUsername());
-//
-//
-//
-//
-//    }
 
     // 내 펀딩 중 특정 펀팅 선택
     public Funding findMyFunding(Long fundingId){
         // 사용자 정보
         MemberResponseDto meDto = memberService.getMyInfo();
-
-        // Dto => Entity
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
         // 펀딩 찾기

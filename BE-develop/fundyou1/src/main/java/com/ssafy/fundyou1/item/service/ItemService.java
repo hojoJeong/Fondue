@@ -32,21 +32,6 @@ public class ItemService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    // 상품 데이터 추가
-//    @Transactional
-//    public ItemDto create(Long categoryId, ItemForm dto) {
-//        Category category = categoryRepository.findById(dto.getCategory().getId())
-//                .orElseThrow(() -> new IllegalArgumentException("상품 생성 실패! 대상 카테고리가 없습니다"));
-//
-//        Item item = Item.createItem(dto, category);
-//
-//        Item created = itemRepository.save(item);
-//
-//        return ItemDto.createItemDto(created);
-//
-//    }
-
-    //희주 상품 데이터 추가
 
     @Transactional
     public Long saveItem(ItemSaveRequest request) {

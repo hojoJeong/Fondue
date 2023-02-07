@@ -19,30 +19,17 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 public class FundingItemDto {
     private Long id;
-
-    // 펀딩 아이템
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="item_id")
     private Item item; // FK
-
-    // 펀딩 아이디
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="funding_id")
     private Funding funding; // FK
-
 
     // 총가격
     private int itemTotalPrice;
-
 
     private int count;
 
     // 현재 펀딩된 가격
     // 펀딩 참여자 DB 다 돌아서 sum 해준 값
-
     private boolean fundingItemStatus;
-
-
     public static FundingItemDto createFundingItemDto(FundingItem fundingItem) {
         return new FundingItemDto(
                 fundingItem.getId(),
