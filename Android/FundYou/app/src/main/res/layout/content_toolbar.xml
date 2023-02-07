@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/iv_left_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_marginStart="@dimen/base_vertical_margin"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_back_arrow_no_line"
@@ -36,8 +36,8 @@
 
         <ImageView
             android:id="@+id/iv_right_img"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_wish_list"
             android:layout_marginEnd="@dimen/base_vertical_margin"

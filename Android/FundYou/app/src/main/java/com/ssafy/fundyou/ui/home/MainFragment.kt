@@ -18,17 +18,19 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.MainPopularSearchAdapter
+import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
-import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
+import com.ssafy.fundyou.ui.search.SearchViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
@@ -39,6 +41,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
+
+    private val searchViewModel by viewModels<SearchViewModel>()
+    private val popularSearchAdapter = PopularSearchKeywordAdapter().apply {
+        addItemClickEvent { MainFragmentDirections.actionMainFragmentToItemDetailFragment(it) }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +80,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun initViewModels() {
         initRankingItemObserve()
         initRandomItemObserve()
+        initSearchViewModel()
     }
 
     private fun initBanner() {
@@ -140,7 +148,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             MainCategoryModel(
                 ContextCompat.getDrawable(
                     requireContext(), R.drawable.bg_category_living
-                )!!, "리빙/인테리어"
+                )!!, "인테리어"
             )
         )
         categoryList.add(
@@ -173,11 +181,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
         categoryAdapter.initCategoryItem(categoryList)
 
-        binding.rvMainCategory.apply {
-            layoutManager =
-                GridLayoutManager(requireContext(), 4, GridLayoutManager.VERTICAL, false)
-            adapter = categoryAdapter
-        }
+        binding.rvMainCategory.adapter = categoryAdapter
     }
 
     private fun initRankCategory() {
@@ -185,7 +189,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
             val checkedChip = group.getChildAt(0) as Chip
             val checkedChip2 = group.findViewById<Chip>(group.checkedChipId) as Chip
-            Log.d(TAG, "initRankCategory: ${checkedChip2.text}")
+            Log.d("TAG", "initRankCategory: ${checkedChip2.text}")
             //TODO(칩 선택 변경 시 서버통신 추가)
         }
     }
@@ -279,15 +283,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     }
 
     private fun initPopularSearch() {
-        //임시 데이터 추가
-        popularSearchList.clear()
-        for (i in 0 until 10) {
-            popularSearchList.add("검색어")
-        }
         val spanCount = 2
-        val popularSearchAdapter = MainPopularSearchAdapter()
-        popularSearchAdapter.submitList(popularSearchList)
-
+        searchViewModel.getPopularKeywordList()
         with(binding.rvMainPopularSearch) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
@@ -317,6 +314,24 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
+    private fun initSearchViewModel() {
+        searchViewModel.popularKeywordList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initGetPopularKeywordListObserve: Loading...")
+                }
+                is ViewState.Success -> {
+                    popularSearchAdapter.submitList(response.value)
+                }
+                is ViewState.Error -> {
+                    Log.d(
+                        TAG, "initGetPopularKeywordListObserve: Error... ${response.message}"
+                    )
+                }
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         setJobForBanner()
@@ -325,5 +340,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     override fun onPause() {
         super.onPause()
         job.cancel()
+    }
+
+    companion object {
+        private const val TAG = "MainFragment..."
     }
 }

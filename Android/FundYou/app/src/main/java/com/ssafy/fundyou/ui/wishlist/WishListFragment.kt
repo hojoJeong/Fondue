@@ -13,7 +13,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentWishListBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.home.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import java.text.SimpleDateFormat
 
 class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment_wish_list) {

@@ -6,10 +6,7 @@ import com.ssafy.fundyou.domain.usecase.auth.GetAccessTokenUseCase
 import com.ssafy.fundyou.domain.usecase.auth.GetJWTByRefreshTokenUseCase
 import com.ssafy.fundyou.domain.usecase.auth.GetKakaoAuthUseCase
 import com.ssafy.fundyou.domain.usecase.auth.GetRefreshTokenUseCase
-import com.ssafy.fundyou.domain.usecase.search.AddSearchHistoryKeyword
-import com.ssafy.fundyou.domain.usecase.search.DeleteAllHistoryKeywordUseCase
-import com.ssafy.fundyou.domain.usecase.search.DeleteSearchHistoryKeywordUseCase
-import com.ssafy.fundyou.domain.usecase.search.GetSearchHistoryListUseCase
+import com.ssafy.fundyou.domain.usecase.search.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -19,6 +16,12 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object UseCaseModule {
+
+    @Provides
+    @Singleton
+    fun provideGetPopularKeywordListUseCase(searchRepository: SearchRepository) : GetPopularKeywordListUseCase {
+        return GetPopularKeywordListUseCase(searchRepository)
+    }
 
     @Provides
     @Singleton

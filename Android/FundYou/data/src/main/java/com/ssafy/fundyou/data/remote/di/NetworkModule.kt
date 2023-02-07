@@ -1,11 +1,11 @@
-package com.ssafy.fundyou.di
+package com.ssafy.fundyou.data.remote.di
 
 import android.content.Context
 import com.ssafy.fundyou.common.Constant.BASE_URL
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
-import com.ssafy.fundyou.util.network.AuthInterceptor
-import com.ssafy.fundyou.util.network.AuthInterceptorClient
-import com.ssafy.fundyou.util.network.NoAuthInterceptorClient
+import com.ssafy.fundyou.data.util.AuthInterceptor
+import com.ssafy.fundyou.data.util.AuthInterceptorClient
+import com.ssafy.fundyou.data.util.NoAuthInterceptorClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,9 +26,9 @@ object NetworkModule {
     @NoAuthInterceptorClient
     fun provideHttpClient(): OkHttpClient {
         return OkHttpClient.Builder()
-            .readTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(getLoggingInterceptor())
             .build()
     }
@@ -41,9 +41,9 @@ object NetworkModule {
     ): OkHttpClient {
         val authInterceptor = AuthInterceptor(AuthSharePreference(context))
         return OkHttpClient.Builder()
-            .readTimeout(10, TimeUnit.SECONDS)
-            .connectTimeout(10, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(5, TimeUnit.SECONDS)
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
             .addInterceptor(getLoggingInterceptor())
             .addInterceptor(authInterceptor)
             .build()

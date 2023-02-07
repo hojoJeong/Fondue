@@ -19,38 +19,36 @@ public class KakaoSocialLoginResponse {
     private Properties properties;
     private KakaoAccount kakao_account;
 
-
-
     @Getter
     @ToString
     public static class KakaoAccount {
-        private String profile_image_url;
+        public boolean profile_nickname_needs_agreement;
+        public boolean profile_image_needs_agreement;
+        public Profile profile;
+        public boolean has_email;
+        public boolean email_needs_agreement;
+        public boolean is_email_valid;
+        public boolean is_email_verified;
+        public String email;
+
+        @Getter
+        @ToString
+        public static class Profile{
+            public String nickname;
+            public String thumbnail_image_url;
+            public String profile_image_url;
+            public boolean is_default_image;
+        }
     }
 
 
     @Getter
     @ToString
     public static class Properties {
-        private String nickname;
+        public String nickname;
+        public String profile_image;
+        public String thumbnail_image;
     }
 
-
-
-//    public Member toEntity(PasswordEncoder passwordEncoder) {
-//        String username = (String) properties.get("nickname");
-//
-//        String profileImg = (String) kakao_account.get("profile_image_url");
-//
-//        return Member.builder()
-//                .loginId(id)
-//                .username(username)
-//                .password("fundyou"+ id)
-//                .profileImg(profileImg)
-//                .point(100000)
-//                .authority(Authority.ROLE_USER)
-//                .status(true)
-//                .build();
-//    }
-//
 
 }

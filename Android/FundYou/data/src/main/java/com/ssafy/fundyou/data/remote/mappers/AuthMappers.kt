@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.data.remote.mappers.auth
+package com.ssafy.fundyou.data.remote.mappers
 
 import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthResponseDto
 import com.ssafy.fundyou.domain.model.auth.JWTAuthModel
