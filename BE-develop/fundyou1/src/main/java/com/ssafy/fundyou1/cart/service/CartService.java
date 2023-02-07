@@ -50,11 +50,11 @@ public class CartService {
     //멤버 id를 이용하여 카트 리스트를 조회합니다.
     @Transactional(readOnly = true)
     public List<CartItemResponseDto> findCartItemsByCartId(Long memberId) {
-        List<Cart> cartItems = cartRepository.findAllByMember_Id(memberId);
+        List<Cart> findCartItems = cartRepository.findAllByMember_Id(memberId);
 
-        if ( cartItems.size() != 0) {
+        if ( findCartItems.size() != 0) {
             List<CartItemResponseDto> cartItemResponse = new ArrayList<>();
-            for (Cart cart : cartItems) {
+            for (Cart cart : findCartItems) {
                 cartItemResponse.add(new CartItemResponseDto(cart.getItem(), cart.getMember(), cart.getCount()));
             }
             return cartItemResponse;

@@ -43,7 +43,7 @@ public class CartRestController {
 
     @PostMapping(value = "/cart")
     public @ResponseBody
-    ResponseEntity cart(@RequestBody @Valid CartRequestDto cartRequestDto){
+    ResponseEntity  addCartItem(@RequestBody @Valid CartRequestDto cartRequestDto){
 
         MemberResponseDto responseDto= memberRepository.findById(SecurityUtil.getCurrentMemberId())
                 .map(MemberResponseDto::of)
@@ -70,7 +70,7 @@ public class CartRestController {
 
     @GetMapping("/cart/list")
     @ApiOperation(value = "장바구니 아이템 조회", notes = "회원의 장바구니 목록을 반환한다.")
-    public ResponseEntity<List<Cart>> getAllCartItems() {
+    public ResponseEntity<List<CartItemResponseDto>> getAllCartItems() {
 //        Logger logger = LoggerFactory.getLogger(getClass());
 
         MemberResponseDto responseDto= memberRepository.findById(SecurityUtil.getCurrentMemberId())
@@ -79,7 +79,7 @@ public class CartRestController {
 
         Long memberId = responseDto.getId();
 
-        List<Cart> cartList = cartService.findMemberCartAll(memberId);
+        List<CartItemResponseDto> cartList = cartService.findCartItemsByCartId(memberId);
 //        logger.error("null test: " + cartList);
 
 
@@ -89,7 +89,7 @@ public class CartRestController {
 
     @DeleteMapping("/cartItem/{itemid}")
     @ApiOperation(value = "장바구니 아이템 삭제", notes = "<strong>장바구니 목록 id를 받아</strong> 장바구니 목록에서 아이템을 삭제한다.")
-    public ResponseEntity deleteList(@PathVariable Long itemid){
+    public ResponseEntity deleteCartItem(@PathVariable Long itemid){
 
         MemberResponseDto meDto = memberService.getMyInfo();
 
@@ -108,7 +108,7 @@ public class CartRestController {
 
     @PutMapping("/cart")
     @ApiOperation(value = "장바구니 아이템 개수 추가", notes = "<strong>장바구니 목록 아이템 id를 받아</strong> 장바구니 목록에서 아이템을 개수 추가한다.")
-    public ResponseEntity updateItem(@RequestBody CartRequestDto cartRequestDto) {
+    public ResponseEntity updateCartItem(@RequestBody CartRequestDto cartRequestDto) {
 
         MemberResponseDto meDto = memberService.getMyInfo();
 
