@@ -19,8 +19,6 @@ public class KakaoSocialLoginResponse {
     private Properties properties;
     private KakaoAccount kakao_account;
 
-
-
     @Getter
     @ToString
     public static class KakaoAccount {
