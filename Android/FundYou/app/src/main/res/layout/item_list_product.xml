@@ -4,7 +4,7 @@
         <import type="android.view.View" />
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
+            type="com.ssafy.fundyou.ui.item_list.Model.ItemListModel" />
         <variable
             name="ranking_item"
             type="com.ssafy.fundyou.ui.home.model.RankingItemModel" />

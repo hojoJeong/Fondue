@@ -4,19 +4,20 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemListBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.item_list.Model.ItemListModel
+import com.ssafy.fundyou.ui.item_list.adapter.ItemListAdapter
 
 class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment_item_list) {
-
-    private var productList = mutableListOf<ProductItemModel>()
+    private val itemListViewModel by viewModels<ItemListViewModel>()
     private val categoryType : ItemListFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,9 +30,11 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initViewModels()
     }
 
     override fun initView() {
+        itemListViewModel.getAllItemList()
         initCategory()
         initTitlePriceRange()
         initItemList()
@@ -85,30 +88,24 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     private fun initItemList() {
-        //임시 데이터 추가
-//        with(productList) {
-//            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-//            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-//            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-//            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-//            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-//            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-//            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-//            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-//            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-//            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-//            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-//            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-//        }
+        itemListViewModel.itemList.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initItemList: ItemList Loading...")
+                }
+                is ViewState.Success -> {
+                    initItemListAdapter(response.value ?: emptyList())
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initItemList: ItemList Loading Error...")
+                }
+            }
+        }
+    }
 
-        val itemListAdapter = ProductItemAdapter()
-        itemListAdapter.submitList(productList)
+    private fun initItemListAdapter(itemList: List<ItemListModel>){
+        val itemListAdapter = ItemListAdapter()
+        itemListAdapter.submitList(itemList)
         binding.rvItemList.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter

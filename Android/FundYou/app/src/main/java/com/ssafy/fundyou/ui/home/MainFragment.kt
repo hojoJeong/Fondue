@@ -225,7 +225,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     initRankingItemAdapter(response.value ?: emptyList())
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initRankingItemObserve: Ranking Item Load Error")
+                    Log.d(TAG, "initRankingItemObserve: Ranking Item Loading Error")
                 }
             }
         }
@@ -236,13 +236,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initRandomItemObserve: Random Item Loading...")
-
                 }
                 is ViewState.Success -> {
                     initRandomItemAdapter(response.value ?: emptyList())
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initRandomItemObserve: Random Item Load Error...")
+                    Log.d(TAG, "initRandomItemObserve: Random Item Loading Error...")
                 }
             }
         }
