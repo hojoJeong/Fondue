@@ -50,11 +50,5 @@ public class Cart {
         return cart;
     }
 
-
-    public void updateCount(int count) {
-        this.count = count;
-    }
-
-
 }
 

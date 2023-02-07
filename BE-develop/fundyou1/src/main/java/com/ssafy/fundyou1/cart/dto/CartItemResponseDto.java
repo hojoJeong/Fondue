@@ -25,7 +25,10 @@ public class CartItemResponseDto {
     @ApiModelProperty(name = "아이템 타이틀", example = "쇼파")
     String title;
     @ApiModelProperty(name = "AR가능여부", example = "N / Y")
-    String isAr;
+    Boolean isAr;
+
+    @ApiModelProperty(name = "AR가능여부", example = "N / Y")
+    Boolean isFavorite;
 
     @ApiModelProperty(name = "장바구니 아이템 개수", example = "1,2,3")
     int count;
@@ -38,6 +41,7 @@ public class CartItemResponseDto {
         this.image = item.getImage();
         this.title = item.getTitle();
         this.isAr = item.getIsAr();
+        this.isFavorite = item.getIsFavorite();
         this.count = count;
     }
 

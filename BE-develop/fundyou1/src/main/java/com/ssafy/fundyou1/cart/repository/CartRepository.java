@@ -18,8 +18,6 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     List<Cart> findAllByMember_Id(Long memberId);
 
-    Cart findByMember_IdAndItem_Id(Long memberId, Long itemId);
-
     Optional<Cart> findById(Long cartId);
 
 
@@ -49,15 +47,5 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
             "WHERE c.item_id = :id " +
             "AND c.member_id = :memberId", nativeQuery = true)
     Cart findCartItem( @Param("id") Long id,@Param("memberId") Long memberId);
-
-
-
-    @Query(value="Select * " +
-            "From Cart c " +
-            "WHERE c.member_id = :memberId"
-            , nativeQuery = true)
-    List<Cart> findMemberCart(@Param("memberId") Long memberId);
-
-
 
 }
