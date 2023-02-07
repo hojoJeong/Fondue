@@ -32,20 +32,24 @@ public class ItemSaveRequest {
     @JsonProperty("title")
     private String title;
 
-    @ApiModelProperty(position = 5, notes = "AR 가능 여부", example = "N or Y")
+    @ApiModelProperty(position = 5, notes = "AR 가능 여부", example = "true or false")
     @JsonProperty("is_ar")
-    private String isAr;
+    private Boolean isAr;
 
-    @ApiModelProperty(position = 6, notes = "상품 부가 설명", example = "[{\"type\":\"크기\",\"value\":\"10\"},{\"type\":\"색깔\",\"value\":\"red\"}]")
+    @ApiModelProperty(position = 6, notes = "찜 여부", example = "true or false")
+    @JsonProperty("is_favorite")
+    private Boolean isFavorite;
+
+    @ApiModelProperty(position = 7, notes = "상품 부가 설명", example = "[{\"type\":\"크기\",\"value\":\"10\"},{\"type\":\"색깔\",\"value\":\"red\"}]")
     @JsonProperty("description")
     private List<DescriptionData> description;
 
 
-    @ApiModelProperty(position = 7, notes = "상품 브랜드", example = "한샘")
+    @ApiModelProperty(position = 8, notes = "상품 브랜드", example = "한샘")
     @JsonProperty("brand")
     private String brand;
 
-    @ApiModelProperty(position = 8, notes = "카테고리명", example = "인테리어")
+    @ApiModelProperty(position = 9, notes = "카테고리명", example = "인테리어")
     @JsonProperty("category_name")
     private String categoryName;
 
@@ -54,12 +58,13 @@ public class ItemSaveRequest {
     }
 
     @Builder
-    public ItemSaveRequest(int price, String image, String descriptionImg, String title, String isAr, List<DescriptionData> description, String brand, String categoryName) {
+    public ItemSaveRequest(int price, String image, String descriptionImg, String title, Boolean isAr, Boolean isFavorite, List<DescriptionData> description, String brand, String categoryName) {
         this.price = price;
         this.image = image;
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
+        this.isFavorite = isFavorite;
         this.description = description;
         this.brand = brand;
         this.categoryName= categoryName;
@@ -72,6 +77,7 @@ public class ItemSaveRequest {
                 .descriptionImg(descriptionImg)
                 .title(title)
                 .isAr(isAr)
+                .isFavorite(isFavorite)
                 .sellingCount(0)
                 .brand(brand)
                 .category(category)
