@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.item.entity.Item;
-import com.ssafy.fundyou1.like.entity.LikeItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -65,7 +64,6 @@ public class ItemDto {
         this.sellingCount += quantity;
     }
 
-    List<LikeItem> likeItems = new ArrayList<>();
 
     List<Cart> carts = new ArrayList<>();
 

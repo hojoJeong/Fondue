@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.like.entity.LikeItem;
+import com.ssafy.fundyou1.like.entity.Like;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,7 +40,7 @@ public class Item {
     @Column(name = "is_ar")
     private Boolean isAr;
 
-    @Column(name = "is_favorite", columnDefinition = "boolean default false")
+    @Column(name = "is_favorite",columnDefinition = "boolean default false")
     private Boolean isFavorite;
 
     @Column(name = "description")
@@ -78,7 +78,7 @@ public class Item {
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<LikeItem> likeItems = new ArrayList<>();
+    List<Like> likes = new ArrayList<>();
 
 
 

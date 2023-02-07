@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Entity
 public class Cart {
 
@@ -41,7 +41,6 @@ public class Cart {
     }
 
     // 카트에 유저 할당하여 넣어줌
-    // 회원 한명당 장바구니를 하나씩 갖기 때문에 할당해주는거임
     public static Cart createCart(Member member, Item item, int count) {
         Cart cart = new Cart();
         cart.setMember(member);

@@ -11,6 +11,7 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -27,13 +28,14 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api")
+@Api(tags = {"장바구니"})
 public class CartRestController {
 
     @Autowired
     CartService cartService;
 
     @Autowired
-    private final MemberService memberService;
+    MemberService memberService;
 
     @Autowired
     MemberRepository memberRepository;

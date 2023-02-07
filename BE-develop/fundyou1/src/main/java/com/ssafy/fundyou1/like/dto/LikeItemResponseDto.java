@@ -1,4 +1,5 @@
-package com.ssafy.fundyou1.cart.dto;
+package com.ssafy.fundyou1.like.dto;
+
 
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.member.entity.Member;
@@ -12,9 +13,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CartItemResponseDto {
-
-    @ApiModelProperty(name = "장바구니 회원 아이디 ", example = "1,2")
+public class LikeItemResponseDto {
+    @ApiModelProperty(name = "찜목록 회원 아이디 ", example = "1,2")
     Long memberId;
     @ApiModelProperty(name = "아이템 아이디", example = "1,2")
     Long itemId;
@@ -27,14 +27,11 @@ public class CartItemResponseDto {
     @ApiModelProperty(name = "AR가능여부", example = "true / false")
     Boolean isAr;
 
-    @ApiModelProperty(name = "AR가능여부", example = "true / false")
+    @ApiModelProperty(name = "좋아요 유무", example = "true / false")
     Boolean isFavorite;
 
-    @ApiModelProperty(name = "장바구니 아이템 개수", example = "1,2,3")
-    int count;
 
-
-    public CartItemResponseDto(Item item, Member member, int count){
+    public LikeItemResponseDto(Item item, Member member){
         this.memberId = member.getId();
         this.itemId  = item.getId();
         this.price = item.getPrice();
@@ -42,7 +39,6 @@ public class CartItemResponseDto {
         this.title = item.getTitle();
         this.isAr = item.getIsAr();
         this.isFavorite = item.getIsFavorite();
-        this.count = count;
     }
 
 }
