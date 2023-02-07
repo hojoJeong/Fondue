@@ -4,17 +4,18 @@ import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.style.ForegroundColorSpan
+import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import com.ssafy.fundyou.util.extension.addComma
-import com.ssafy.fundyou.util.extension.getColorNoTheme
 import com.google.android.material.chip.Chip
+import com.ssafy.fundyou.util.addComma
+import com.ssafy.fundyou.util.getColorNoTheme
 import java.text.DecimalFormat
 
 object BindingAdapters {
@@ -131,14 +132,69 @@ object BindingAdapters {
         val content = "${decimalFormat.format(price)}원 펀딩"
         val builder = SpannableStringBuilder(content)
         val normalSpan = StyleSpan(Typeface.BOLD)
-        builder.setSpan(normalSpan, 0, decimalFormat.format(price).length+1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        builder.setSpan(
+            normalSpan,
+            0,
+            decimalFormat.format(price).length + 1,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
         this.text = builder
     }
 
     @JvmStatic
     @BindingAdapter("setArVisibility")
-    fun AppCompatButton.setArIconVisibility(isAr : Boolean){
-        this.visibility = if(isAr) View.VISIBLE else View.GONE
+    fun AppCompatButton.setArIconVisibility(isAr: Boolean) {
+        this.visibility = if (isAr) View.VISIBLE else View.GONE
+    }
+
+    @JvmStatic
+    @BindingAdapter("setFundingItemImage")
+    fun ImageView.setFundingItemImage(img: Int) {
+        setImageResource(img)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setBalanceFundingPrice")
+    fun TextView.setBalanceFundingPrice(price: Int) {
+        val formatContent = DecimalFormat("#,##0").format(price)
+        val content = "${formatContent}원 남았어요!"
+        val builder = SpannableStringBuilder(content)
+        builder.setSpan(
+            RelativeSizeSpan(0.8f),
+            formatContent.length,
+            formatContent.length + 1,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        builder.setSpan(
+            RelativeSizeSpan(0.7f),
+            content.length - 5,
+            content.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+        builder.setSpan(
+            ForegroundColorSpan(ContextCompat.getColor(context, R.color.green)),
+            content.length - 5,
+            content.length,
+            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+        )
+
+        this.text = builder
+    }
+
+    @JvmStatic
+    @BindingAdapter("setRemainPoint")
+    fun TextView.setRemainPoint(remain: Int) {
+        val formatContent = DecimalFormat("#,##0").format(remain)
+        val content = "잔액 : ${formatContent}원"
+        this.text = content
+    }
+
+    @JvmStatic
+    @BindingAdapter("setFundingItemPrice")
+    fun TextView.setFundingItemPrice(price: Int) {
+        val formatContent = DecimalFormat("#,##0").format(price)
+        val content = "잔액 : ${formatContent}원"
+        this.text = content
     }
 
 }

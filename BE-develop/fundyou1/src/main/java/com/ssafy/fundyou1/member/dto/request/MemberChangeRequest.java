@@ -11,10 +11,4 @@ public class MemberChangeRequest {
     @JsonProperty("loginId")
     private String loginId;
 
-    public MemberChangeRequest() {
-    }
-
-    public MemberChangeRequest(String loginId) {
-        this.loginId = loginId;
-    }
 }

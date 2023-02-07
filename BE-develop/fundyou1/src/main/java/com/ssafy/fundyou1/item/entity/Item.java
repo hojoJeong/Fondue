@@ -38,7 +38,10 @@ public class Item {
     private String title;
 
     @Column(name = "is_ar")
-    private String isAr;
+    private Boolean isAr;
+
+    @Column(name = "is_favorite", columnDefinition = "boolean default false")
+    private Boolean isFavorite;
 
     @Column(name = "description")
     @ElementCollection
@@ -59,12 +62,13 @@ public class Item {
     private Category category;
 
     @Builder
-    public Item(int price, String image, String descriptionImg, String title, String isAr, List<String> description, int sellingCount, String brand, Category category) {
+    public Item(int price, String image, String descriptionImg, String title, Boolean isAr,Boolean isFavorite, List<String> description, int sellingCount, String brand, Category category) {
         this.price = price;
         this.image = image;
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
+        this.isFavorite = isFavorite;
         this.description = description;
         this.sellingCount = sellingCount;
         this.brand = brand;
@@ -82,23 +86,4 @@ public class Item {
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
     List<FundingItem> fundingItems = new ArrayList<>();
 
-
-    @Override
-    public String toString() {
-        return "Item{" +
-                "id=" + id +
-                ", price=" + price +
-                ", image='" + image + '\'' +
-                ", descriptionImg='" + descriptionImg + '\'' +
-                ", title='" + title + '\'' +
-                ", isAr='" + isAr + '\'' +
-                ", description='" + description + '\'' +
-                ", sellingCount=" + sellingCount +
-                ", brand='" + brand + '\'' +
-                ", category=" + category +
-                ", likeItems=" + likeItems +
-                ", carts=" + carts +
-                ", fundingItems=" + fundingItems +
-                '}';
-    }
 }

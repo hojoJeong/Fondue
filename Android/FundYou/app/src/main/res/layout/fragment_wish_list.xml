@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.wishlist.WishListFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scv_wishlist"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_wishlist_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_wishlist_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/base_vertical_margin"
+                    app:layout_constraintBottom_toBottomOf="@+id/dv_wishlist_under_item"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/dv_wishlist_under_item"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_thick_6"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/rv_wishlist_item" />
+
+                <TextView
+                    android:id="@+id/tv_wishlist_info_title"
+                    style="@style/base_font_bold_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/base_vertical_margin"
+                    android:text="@string/title_wishlist_funding_info"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/dv_wishlist_under_item" />
+
+                <TextView
+                    android:id="@+id/tv_wishlist_price_title"
+                    style="@style/base_font_medium_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/title_wishlist_item_price"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@+id/tv_wishlist_info_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_info_title" />
+
+                <TextView
+                    android:id="@+id/tv_wishlist_info_price"
+                    style="@style/base_font_medium_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:textColor="@color/raven"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_wishlist_price_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_wishlist_price_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="12,600원" />
+
+                <TextView
+                    android:id="@+id/tv_wishlist_item_count_title"
+                    style="@style/base_font_medium_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:text="@string/title_wishlist_item_price"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@+id/tv_wishlist_price_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_price_title" />
+
+                <TextView
+                    android:id="@+id/tv_wishlist_item_count"
+                    style="@style/base_font_medium_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:textColor="@color/raven"
+                    app:layout_constraintBaseline_toBaselineOf="@id/tv_wishlist_item_count_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_wishlist_item_count_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="2 개" />
+
+                <TextView
+                    android:id="@+id/tv_wishlist_funding_period_title"
+                    style="@style/base_font_medium_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:layout_marginBottom="@dimen/base_vertical_margin"
+                    android:text="@string/title_wishlist_funding_period"
+                    android:textColor="@color/black"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_wishlist_price_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_item_count_title" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_wishlist_funding_period"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="12dp"
+                    android:background="@drawable/bg_calendar"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_wishlist_funding_period"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_wishlist_funding_period" />
+
+                <TextView
+                    android:id="@+id/tv_wishlist_funding_period"
+                    style="@style/base_font_medium_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:textColor="@color/raven"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_wishlist_funding_period_title"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_wishlist_funding_period_title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    tools:text="2023.01.09 ~ 2023.02.06" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_wishlist_cancel"
+            style="@style/base_font_bold_16"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginEnd="2dp"
+            android:layout_marginBottom="@dimen/base_vertical_margin"
+            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
+            android:text="취소"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_wishlist_start_funding"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_wishlist_start_funding"
+            style="@style/base_font_bold_16"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="2dp"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:layout_marginBottom="@dimen/base_vertical_margin"
+            android:background="@drawable/bg_rect_arapawa_round5_stroke0"
+            android:text="펀딩 시작"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btn_wishlist_cancel" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

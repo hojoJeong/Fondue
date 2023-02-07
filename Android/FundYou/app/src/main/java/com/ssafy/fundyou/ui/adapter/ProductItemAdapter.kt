@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.home.adapter
+package com.ssafy.fundyou.ui.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,20 +9,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemListProductBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 
 class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.ProductItemViewHolder>(
     ProductDiffUtil()
 ) {
     private var needRanking = false
-    private var checkFavoriteFragment = false
+    private var checkFavoriteVisibility = true
 
     inner class ProductItemViewHolder(val binding: ItemListProductBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: ProductItemModel, position: Int) {
             with(binding) {
                 product = item
-                isFavoriteFragment = checkFavoriteFragment
+                favoriteVisibility = checkFavoriteVisibility
             }
             if(needRanking){
                 binding.tvItemListProductRanking.visibility = View.VISIBLE
@@ -46,8 +46,8 @@ class ProductItemAdapter : ListAdapter<ProductItemModel, ProductItemAdapter.Prod
     fun checkNeedRanking(value: Boolean){
         needRanking = value
     }
-    fun checkIsFavoriteFragment(value: Boolean){
-        checkFavoriteFragment = value
+    fun setFavoriteVisibility(value: Boolean){
+        checkFavoriteVisibility = value
     }
 
     class ProductDiffUtil : DiffUtil.ItemCallback<ProductItemModel>() {

@@ -29,6 +29,9 @@
         <action
             android:id="@+id/action_searchFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
     </fragment>
 
     <fragment
@@ -132,7 +135,7 @@
     </fragment>
     <fragment
         android:id="@+id/fundingParticipationFragment"
-        android:name="com.ssafy.fundyou.ui.funding_participation.FundingParticipationFragment"
+        android:name="com.ssafy.fundyou.ui.funding_my.FundingParticipationFragment"
         android:label="FundingParticipationFragment">
         <argument
             android:name="funding_id"
@@ -166,7 +169,45 @@
     <fragment
         android:id="@+id/invitedFondueFragment"
         android:name="com.ssafy.fundyou.ui.funding_participate.InvitedFondueFragment"
-        android:label="InvitedFondueFragment" />
+        android:label="InvitedFondueFragment" >
+        <action
+            android:id="@+id/action_invitedFondueFragment_to_payFragment"
+            app:destination="@id/payFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/payFragment"
+        android:name="com.ssafy.fundyou.ui.pay.PayFragment"
+        android:label="PayFragment" >
+        <action
+            android:id="@+id/action_payFragment_to_payResultFragment"
+            app:destination="@id/payResultFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/payResultFragment"
+        android:name="com.ssafy.fundyou.ui.pay.PayResultFragment"
+        android:label="PayResultFragment" >
+        <argument
+            android:name="state"
+            app:nullable="false"
+            app:argType="string"/>
+        <argument
+            android:name="payinfo"
+            app:nullable="false"
+            app:argType="com.ssafy.fundyou.ui.pay.model.FundingPayModel"/>
+        <action
+            android:id="@+id/action_payResultFragment_to_invitedFondueFragment"
+            app:destination="@id/invitedFondueFragment"
+            app:popUpTo="@id/invitedFondueListFragment"
+            app:popUpToInclusive="false"/>
+    </fragment>
+    <fragment
+        android:id="@+id/wishListFragment"
+        android:name="com.ssafy.fundyou.ui.wishlist.WishListFragment"
+        android:label="WishListFragment" >
+        <action
+            android:id="@+id/action_wishListFragment_to_myFundingFragment"
+            app:destination="@id/myFundingFragment" />
+    </fragment>
 
 
 </navigation>

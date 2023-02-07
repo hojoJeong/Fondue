@@ -21,6 +21,7 @@ import java.util.Objects;
 @Getter
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class Member extends BaseEntity {
 
@@ -48,6 +49,9 @@ public class Member extends BaseEntity {
     @Column(name="point",columnDefinition = "int default 100000")
     private int point;
 
+    @Column(name = "mail")
+    private String mail;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
     private Authority authority;
@@ -65,11 +69,6 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<Funding> fundings = new ArrayList<>();
 
-
-
-    protected Member() {
-    }
-
     @Builder
     public Member(String loginId, String password,String username,String profileImg, int point, Authority authority, boolean status) {
         this.loginId = loginId;
@@ -80,47 +79,5 @@ public class Member extends BaseEntity {
         this.authority = authority;
         this.status = status;
     }
-
-
-
-    public static Member createMember(String loginId,  String password,String username, String profileImg) {
-        return Member.builder()
-                .loginId(loginId)
-                .password(password)
-                .username(username)
-                .profileImg(profileImg)
-                .point(100000)
-                .authority(Authority.ROLE_USER)
-                .status(true)
-                .build();
-    }
-
-    public static Member deleteMember(String loginId) {
-        return Member.builder()
-                .loginId(loginId)
-                .authority(Authority.ROLE_USER)
-                .status(false)
-                .build();
-    }
-
-
-    public void changeStatus(String loginId) {
-        this.loginId= loginId;
-        this.status = false;
-    }
-
-
-
-    public void encodePassword(PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(this.password);
-    }
-
-    public void checkPassword(PasswordEncoder passwordEncoder, String password) {
-        if (!passwordEncoder.matches(password, this.password)) {
-            throw new BusinessException(ErrorCode.MEMBER_LOGIN_ERROR_BY_PASSWORD);
-        }
-    }
-
-
 
 }

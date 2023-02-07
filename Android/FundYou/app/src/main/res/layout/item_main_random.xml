@@ -7,7 +7,7 @@
 
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.ProductItemModel" />
+            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,6 @@
             android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
             android:paddingVertical="4dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/bg_category_digital"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

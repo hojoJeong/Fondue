@@ -7,7 +7,6 @@ androidx-test-espresso = "3.5.0"
 androidx_navigation_version = "2.5.0"
 androidx_fragment_version = "1.5.0"
 androidx_lifecycle_extension_version = "2.2.0"
-
 navigation_safe_args_version = "2.4.2"
 
 # android
@@ -26,6 +25,8 @@ databinding = "7.3.1"
 
 okhttp3 = "4.10.0"
 
+
+
 # gson
 gson_version = "2.9.1"
 
@@ -42,9 +43,12 @@ google_auth_version = "20.4.1"
 google_service_version = "4.3.15"
 firebase_version = "31.2.0"
 firebase_cloud_storage_version = "20.1.0"
+
 # ar
 ar_core_version = "1.35.0"
 ar_sceneform_version = "1.15.0"
+
+glide_version = "4.13.0"
 
 
 [libraries]
@@ -64,7 +68,7 @@ android_test_junit = { module = "androidx.test.ext:junit", version.ref = "androi
 android_test_espresso = { module = "androidx.test.espresso:espresso-core", version.ref = "androidx-test-espresso" }
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt_compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
-kakao-sdk-user = { module = "com.kakao.sdk:v2-user", version.ref = "kakao_sdk_version" }
+kakao-sdk = { module = "com.kakao.sdk:v2-all", version.ref = "kakao_sdk_version" }
 databinding = { module = "androidx.databinding:databinding-runtime", version.ref = "databinding" }
 databinding_compiler = { module = "com.android.databinding:compiler", version.ref = "databinding" }
 androidx-navigation-fragment-ktx = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx_navigation_version" }
@@ -88,7 +92,9 @@ skydoves-balloon = { module = "com.github.skydoves:balloon", version.ref = "skyd
 google-gson = { module = "com.google.code.gson:gson", version.ref = "gson_version" }
 google_auth = { module = "com.google.android.gms:play-services-auth", version.ref = "google_auth_version" }
 mp_android_chart = {module = "com.github.PhilJay:MPAndroidChart", version.ref = "mp_android_chart_version"}
-circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circle_image_view_version" }
+circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circle_image_view_version"}
+glide = {module = "com.github.bumptech.glide:glide", version.ref = "glide_version"}
+glide-compiler = {module = "com.github.bumptech.glide:compiler", version.ref = "glide_version"}
 
 [bundles]
 androidx = ["androidx_core", "androidx_appcompat", "androidx-navigation-fragment-ktx", "androidx-navigation-ui-ktx", "androidx-navigation-common", "androidx-navigation-dynamic-features-fragment", "androidx-navigation-testing",

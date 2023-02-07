@@ -12,6 +12,8 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -32,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
 @Service
 @RequiredArgsConstructor
 public class AuthService {
-
+    Logger logger = LoggerFactory.getLogger(getClass());
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
@@ -73,41 +75,11 @@ public class AuthService {
         return response.getBody();
     }
 
-//    @Transactional
-//    public TokenDto saveKaKaoUser(KakaoSocialLoginResponse rEntity, HttpServletResponse response) {
-//        Member member = memberRepository.findByLoginId(String.valueOf(rEntity.getId()))
-//                .orElse(rEntity.toEntity(passwordEncoder));
-//
-//        memberRepository.save(member);
-//
-//        // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
-//        UsernamePasswordAuthenticationToken authenticationToken = KAKAO.tokakaoAuthentication();
-//
-//        // 2. 실제로 검증 (사용자 비밀번호 체크) 이 이루어지는 부분
-//        //    authenticate 메서드가 실행이 될 때 CustomUserDetailsService 에서 만들었던 loadUserByUsername 메서드가 실행됨
-//        Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-//
-//
-//        TokenDto tokenDto = tokenProvider.generateTokenDto(authentication);
-//
-//        // 4. RefreshToken 저장
-//        RefreshToken refreshToken = RefreshToken.builder()
-//                .key(authentication.getName())
-//                .value(tokenDto.getRefreshToken())
-//                .build();
-//
-//        refreshTokenRepository.save(refreshToken);
-//
-//        // 5. 토큰 발급
-//        return tokenDto;
-//
-//    }
-
-
     @Transactional
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
         if (memberRepository.existsByLoginId(memberRequestDto.getLoginId())) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다");
+            logger.debug("이미 가입된 회원입니다.");
+            return MemberResponseDto.of(memberRepository.findByLoginId(memberRequestDto.getLoginId()).get());
         }
 
         Member member = memberRequestDto.toMember(passwordEncoder);
