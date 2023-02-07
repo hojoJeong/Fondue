@@ -16,6 +16,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,13 +33,8 @@ import java.util.Map;
 @RequestMapping("/auth")
 @Api(tags = {"로그인"})
 public class AuthRestController {
-    Logger logger = LoggerFactory.getLogger(getClass());
-    private final AuthService authService;
-
-    public AuthRestController(AuthService authService) {
-        this.authService = authService;
-    }
-
+    @Autowired
+    AuthService authService;
     @PostMapping("/members/login")
     @ApiOperation(value = "일반 로그인", notes = "일반 로그인 API")
     @ApiResponses({
@@ -57,26 +53,24 @@ public class AuthRestController {
         // 카카오 로그인 서비스 호출. 카카오 API response return.
         KakaoSocialLoginResponse rEntity = authService.kakaoLoginService(accessToken);
         // response의 body에 회원정보가 있다.
-//        authService.saveKaKaoUser(rEntity, response);
 
         String kakaoId = String.valueOf(rEntity.getId());
 
-        String passwerd = "fundyou"+String.valueOf(rEntity.getId());
+        String passwerd = "fundyou" + rEntity.getId();
 
         // 회원가입
         authService.signup(MemberRequestDto.builder()
                 .loginId(String.valueOf(rEntity.getId()))
                 .username(rEntity.getProperties().getNickname())
-                .profileImg(rEntity.getKakao_account().getProfile_image_url())
-                .password("fundyou"+String.valueOf(rEntity.getId()))
+                .profileImg(rEntity.getKakao_account().profile.getProfile_image_url())
+                .password("fundyou" + rEntity.getId())
+                .mail(rEntity.getKakao_account().email)
                 .build());
-        logger.debug("여기는 signup (Controller)");
         //로그인 하고 토큰 발급받기
         MemberLoginRequestDto memberLoginRequestDto = MemberLoginRequestDto.builder()
                         .loginId(kakaoId)
                         .password(passwerd)
                         .build();
-        logger.debug("여기는 토큰발급받기 직전 (Controller)");
         return ResponseEntity.ok(authService.login(memberLoginRequestDto));
     }
 
