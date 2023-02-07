@@ -1,11 +1,10 @@
-package com.ssafy.fundyou.di
+package com.ssafy.fundyou.data.remote.di
 
 import com.ssafy.fundyou.data.remote.service.AuthApiService
+import com.ssafy.fundyou.data.remote.service.ItemApiService
 import com.ssafy.fundyou.data.remote.service.SearchApiService
 import com.ssafy.fundyou.data.util.AuthInterceptorClient
 import com.ssafy.fundyou.data.util.NoAuthInterceptorClient
-import com.ssafy.fundyou.data.remote.service.ItemApiService
-import com.ssafy.fundyou.util.network.NoAuthInterceptorClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

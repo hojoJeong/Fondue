@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.ui.home
 
-import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View

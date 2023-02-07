@@ -2,7 +2,6 @@ package com.ssafy.fundyou.ui.token
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
 import com.ssafy.fundyou.databinding.ActivityDeleteTokenBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -22,8 +21,8 @@ class DeleteTokenActivity : AppCompatActivity() {
     /** 토큰 삭제 */
     private fun deleteToken(){
         binding.btnDeleteToken.setOnClickListener {
-            val sp = AuthSharePreference(this)
-            sp.clearAuthPreference()
+//            val sp = AuthSharePreference(this)
+//            sp.clearAuthPreference()
         }
     }
 }

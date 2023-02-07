@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="6dp"
-            android:text="@{product.name}"
+            android:text="@{product.title}"
             android:textColor="@color/link_water"
             app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"

@@ -4,10 +4,8 @@ import android.os.Bundle
 import android.view.View
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFundingParticipationBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.funding_my.adapter.FundingParticipateAdapter
-import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 import com.ssafy.fundyou.ui.funding_my.model.FundingParticipateModel
 
 class FundingParticipationFragment :
@@ -23,13 +21,13 @@ class FundingParticipationFragment :
 
     override fun initView() {
         initMessageList()
-        binding.item = FundingItemModel(
-            id = 0,
-            ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
-            tempProductImg = R.drawable.ic_launcher_background,
-            currentFundingPrice = 1000,
-            fundingParticipate = 3,
-        )
+//        binding.item = FundingItemModel(
+//            id = 0,
+//            ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
+//            tempProductImg = R.drawable.ic_launcher_background,
+//            currentFundingPrice = 1000,
+//            fundingParticipate = 3,
+//        )
     }
 
     override fun initViewModels() {

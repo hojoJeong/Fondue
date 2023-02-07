@@ -6,8 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.base.BaseFragment
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_favorite) {
     private val itemList = mutableListOf<ProductItemModel>()
@@ -24,26 +24,26 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
     }
 
     private fun initItemList(){
-        with(itemList) {
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-        }
+//        with(itemList) {
+//            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
+//            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
+//            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
+//            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
+//            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
+//            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
+//            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//        }
 
         val itemListAdapter = ProductItemAdapter()
         itemListAdapter.submitList(itemList)
