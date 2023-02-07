@@ -8,6 +8,7 @@ import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
+import com.ssafy.fundyou1.fund.service.FundingItemMemberService;
 import com.ssafy.fundyou1.fund.service.FundingService;
 import com.ssafy.fundyou1.fund.service.InvitedMemberService;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
@@ -36,6 +37,8 @@ public class FundingApiController {
     private FundingService fundingService;
     @Autowired
     private InvitedMemberService invitedMemberService;
+    @Autowired
+    private FundingItemMemberService fundingItemMemberService;
 
 
     // 펀딩 개설
@@ -56,6 +59,20 @@ public class FundingApiController {
     @PostMapping("/getInvited")
     public ResponseEntity<InvitedMember> storeInvitedFunding(@RequestBody InvitedMemberDto invitedMemberDto){
         return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.storeInvitedFunding(invitedMemberDto));
+    }
+
+
+    // 초대 받은 펀딩 리스트 확인
+    @GetMapping("/invitedList")
+    public ResponseEntity<List<InvitedMember>> getInvitedFundingList() {
+        return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingList());
+    }
+
+
+    // 참여한 펀딩 리스트 확인
+    @GetMapping("/attendList")
+    public ResponseEntity<List<FundingItemMember>> getAttendedFundingList() {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemMemberService.getAttendedFundingList());
     }
 
 

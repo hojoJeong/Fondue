@@ -12,8 +12,11 @@ import com.ssafy.fundyou1.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -29,13 +32,15 @@ public class InvitedMemberService {
     @Autowired
     private final InvitedMemberRepository invitedMemberRepository;
 
+
+
     // 초대 받은 펀딩 저장 (== 초대 된 Member 저장)
     @Transactional
     public InvitedMember storeInvitedFunding(InvitedMemberDto invitedMemberDto) {
         // 사용자 정보
         MemberResponseDto meDto = memberService.getMyInfo();
-        // Dto => Entity
         Member member = memberRepository.findByUsername(meDto.getUsername());
+
 
         // 펀딩 찾기
         Funding funding = fundingRepository.getById(invitedMemberDto.getFundingId());
@@ -45,6 +50,20 @@ public class InvitedMemberService {
         invitedMemberRepository.save(invitedMember);
 
         return invitedMember;
+
+    }
+
+
+    @Transactional
+    public List<InvitedMember> getInvitedFundingList() {
+        // 사용자 정보
+        MemberResponseDto meDto = memberService.getMyInfo();
+        Member member = memberRepository.findByUsername(meDto.getUsername());
+
+        // 초대받은 펀딩 리스트 찾기
+        List<InvitedMember> InvitedFundingList = invitedMemberRepository.findAllByMemberId(member.getId());
+
+        return InvitedFundingList;
 
     }
 }

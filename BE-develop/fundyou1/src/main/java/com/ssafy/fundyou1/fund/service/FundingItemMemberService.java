@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.fund.service;
 
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
+import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
@@ -14,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Slf4j
@@ -44,4 +47,15 @@ public class FundingItemMemberService {
         return fundingItemMember;
     }
 
+    // 참여한 펀딩 리스트 불러오기
+    public List<FundingItemMember> getAttendedFundingList() {
+        // 사용자 정보
+        MemberResponseDto meDto = memberService.getMyInfo();
+        Member member = memberRepository.findByUsername(meDto.getUsername());
+
+        // 초대받은 펀딩 리스트 찾기
+        List<FundingItemMember> attendedFundingList = fundingItemMemberRepository.findAllByMemberId(member.getId());
+
+        return attendedFundingList;
+    }
 }
