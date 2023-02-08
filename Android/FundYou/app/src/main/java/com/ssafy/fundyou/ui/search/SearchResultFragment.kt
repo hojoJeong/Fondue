@@ -54,7 +54,17 @@ class SearchResultFragment :
                     Log.d(TAG, "initSearchViewModel: loading...")
                 }
                 is ViewState.Success -> {
-                    resultAdapter.submitList(response.value)
+                    resultAdapter.submitList(emptyList())
+                    if (response.value?.size!! > 0) {
+                        binding.tvMainRankPriceRange.visibility = View.VISIBLE
+                        binding.sldMainRank.visibility = View.VISIBLE
+                        binding.lyNoContent.root.visibility = View.GONE
+                        resultAdapter.submitList(response.value ?: emptyList())
+                    } else {
+                        binding.tvMainRankPriceRange.visibility = View.GONE
+                        binding.sldMainRank.visibility = View.GONE
+                        binding.lyNoContent.root.visibility = View.VISIBLE
+                    }
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initSearchViewModel: error...")
@@ -81,8 +91,8 @@ class SearchResultFragment :
                     val sliderValueList = slider.values
                     searchViewModel.getSearchItemList(
                         keyword = binding.editSearch.text.toString(),
-                        minPrice = sliderValueList[0].toInt(),
-                        maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
+                        minPrice = sliderValueList[0].toInt() * 100000,
+                        maxPrice = sliderValueList[sliderValueList.size - 1].toInt() * 1000000
                     )
                 }
             })
