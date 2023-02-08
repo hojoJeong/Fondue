@@ -17,6 +17,8 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 @RestController
 @RequestMapping("/item")
 @Api(tags = {"카테고리"})
@@ -25,6 +27,7 @@ public class CategoryApiController {
     @Autowired
     CategoryService categoryService;
 
+    // 카테고리 등록
     @PostMapping("/category")
     @ApiOperation(value = "카테고리", notes = "카테고리 생성")
     @ApiResponses({

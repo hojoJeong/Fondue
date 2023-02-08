@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.cart.dto;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,9 +14,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class CartRequestDto {
 
-    @NotNull(message = "아이템 아이디")
+    @ApiModelProperty(name = "아이템 아이디 ", example = "1,2")
+    @NotNull(message = "아이템 아이디를 넣어주세요")
     private Long itemId;
 
+    @ApiModelProperty(name = "장바구니에 담을 아이템 개수 ", example = "1,2")
     @Min(value = 1, message = "최소 1개 이상 담아주세요")
     private int count;
 

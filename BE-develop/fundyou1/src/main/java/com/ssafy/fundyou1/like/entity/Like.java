@@ -1,17 +1,12 @@
 package com.ssafy.fundyou1.like.entity;
 
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ssafy.fundyou1.cart.entity.Cart;
-import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+
+// 찜 엔티티
 @Getter
 @Setter
 @AllArgsConstructor
@@ -38,7 +33,7 @@ public class Like {
         this.item_id = item_id;
     }
 
-    // 찜 목록에 에 유저 할당하여 넣는다.
+    // 찜 목록에 회원을 할당하여 넣는다.
     public static Like createLike(Member member, Long item_id) {
         Like like = new Like();
         like.setMember(member);

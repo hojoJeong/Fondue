@@ -18,27 +18,11 @@ public class LikeItemResponseDto {
     Long memberId;
     @ApiModelProperty(name = "아이템 아이디", example = "1,2")
     Long itemId;
-//    @ApiModelProperty(name = "아이템 가격", example = "10000")
-//    int price;
-//    @ApiModelProperty(name = "아이템 이미지", example = "ssafy/img/thumbnail.jpg")
-//    String image;
-//    @ApiModelProperty(name = "아이템 타이틀", example = "쇼파")
-//    String title;
-//    @ApiModelProperty(name = "AR가능여부", example = "true / false")
-//    Boolean isAr;
-//
-//    @ApiModelProperty(name = "좋아요 유무", example = "true / false")
-//    Boolean isFavorite;
 
 
     public LikeItemResponseDto(Long itemid, Member member){
         this.memberId = member.getId();
         this.itemId  = itemid;
-//        this.price = item.getPrice();
-//        this.image = item.getImage();
-//        this.title = item.getTitle();
-//        this.isAr = item.getIsAr();
-//        this.isFavorite = item.getIsFavorite();
     }
 
 }

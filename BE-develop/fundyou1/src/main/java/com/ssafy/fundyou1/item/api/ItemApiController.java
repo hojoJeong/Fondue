@@ -12,16 +12,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +34,7 @@ public class ItemApiController {
     @Autowired
     private CategoryService categoryService;
 
+    // 상품 등록
 
     @PostMapping("/save")
     @ApiOperation(value = "상품등록", notes = "상품등록")

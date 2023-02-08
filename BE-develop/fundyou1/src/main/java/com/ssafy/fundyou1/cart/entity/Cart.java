@@ -6,7 +6,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
+// 장바구니 엔티티
 @Getter
 @Setter
 @AllArgsConstructor

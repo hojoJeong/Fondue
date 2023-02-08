@@ -59,7 +59,7 @@ public class LikeService {
         return like;
     }
 
-    //사용자 찜목록 - 조인 컬럼 버전
+    //사용자 찜 목록 리스트- 조인 컬럼 버전
 
     @Transactional(readOnly = true)
     public List<LikeItemResponseDto> findLikeByMemberId(Long memberId) {
@@ -75,7 +75,7 @@ public class LikeService {
         return null;
     }
 
-    // 사용자 찜목록 - 조인 컬럼 해제
+    // 사용자 찜 목록 리스트 - 조인 컬럼 해제
 
     public List<Item> findAllItemLike(boolean b) {
         List<Item> likeList = itemRepository.findAllByIsFavorite(true);

@@ -47,7 +47,7 @@ public class CartService {
     }
 
 
-    //멤버 id를 이용하여 카트 리스트를 조회합니다.
+    //회원 id를 이용하여 카트 리스트를 조회하는 로직
     @Transactional(readOnly = true)
     public List<CartItemResponseDto> findCartItemsByCartId(Long memberId) {
         List<Cart> findCartItems = cartRepository.findAllByMember_Id(memberId);
@@ -64,7 +64,7 @@ public class CartService {
     }
 
 
-    // 사용자의 장바구니 아이템 삭제
+    // 회원의 장바구니 아이템 삭제하는 로직
     @Transactional
     public List<CartItemResponseDto> deleteByCartItemId(Long id) {
         MemberResponseDto memberDto = memberService.getMyInfo();
@@ -74,10 +74,9 @@ public class CartService {
         return cartItemResponseDtos;
     }
 
-    // 사용자의 장바구니 아이템 추가
+    // 회원의 장바구니 아이템 추가하는 로직
     @Transactional
     public int updateAddCartItem(CartRequestDto cartRequestDto, Long memberId) {
-        System.out.println("===== 수량 변경=========");
         Long id = cartRequestDto.getItemId();
         int count = cartRequestDto.getCount();
 
@@ -86,19 +85,11 @@ public class CartService {
         return count;
     }
 
-
+    // 장바구니 물건 1개 찾는 로직 (회원아이디와 아이템 아이디)
     @Transactional
     public Cart findOneCartItem(Long memberId, Long Id){
         Cart cart = cartRepository.findCartItem(Id, memberId);
         return cart;
-    }
-
-    // 멤버별 전체 리스트
-
-    public List<Cart> findMemberCartAll(Long memberId){
-        List<Cart> carts = cartRepository.findAllByMember_Id(memberId);
-        System.out.print("testinfo "+carts.toString());
-        return carts;
     }
 
 

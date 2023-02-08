@@ -13,10 +13,12 @@ import java.util.List;
 @Repository
 public interface LikeRepository extends JpaRepository<Like,Long> {
 
+
+    // 사용자가 등록한 like 목록 다 가져오기 ,
     List<Like> findAllByMember_Id(Long memberId);
 
-//    boolean existsByItemId(Long itemId);
 
+    // 찜 목록 아이템 삭제
 
     @Modifying
     @Query(value="DELETE FROM Likes li " +
@@ -24,6 +26,7 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
             "AND li.item_id = :id" ,nativeQuery = true)
     void deleteLikeItem(@Param("memberId") Long memberId, @Param("id") Long id);
 
+    // 찜 아이템 찾기 ( 아이템 아이디, 회원 아이디)
 
     @Query(value="Select * " +
             "From Likes li " +
@@ -31,6 +34,7 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
             "AND li.member_id = :memberId", nativeQuery = true)
     Like findLikeItem(@Param("id") Long id, @Param("memberId") Long memberId);
 
+    // Item의 is_favorite 값 바꾸기
     @Modifying
     @Query(value="UPDATE Item i " +
             "SET i.is_favorite = :b " +

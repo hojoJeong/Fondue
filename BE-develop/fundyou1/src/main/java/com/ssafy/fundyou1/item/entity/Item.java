@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// 아이템 엔티티
 @Entity
 @Getter
 @Setter

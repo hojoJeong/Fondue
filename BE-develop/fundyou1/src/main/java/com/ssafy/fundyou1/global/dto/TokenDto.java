@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.global.dto;
 
 import lombok.*;
 
+// 토큰 발급 DTO
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor

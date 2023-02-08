@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+// 토큰 재발급시
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
