@@ -5,6 +5,7 @@ import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemSearchRequestDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
 internal interface ItemApiService {
     @GET("/item/list")
@@ -20,7 +21,10 @@ internal interface ItemApiService {
     suspend fun getFavoriteItemList() : List<ItemResponseDto>
 
     @GET("/item/category/{categoryId}")
-    suspend fun getCategoryItemList(categoryId: Int) : List<ItemResponseDto>
+    suspend fun getCategoryItemList(@Path("categoryId") categoryId: Int) : List<ItemResponseDto>
+
+    @GET("/item/category/{categoryId}/{minPrice}/{maxPrice}")
+    suspend fun getItemByPrice(@Path("categoryId") categoryId: Int, @Path("minPrice") minPrice: Int, @Path("maxPrice") maxPrice: Int) : List<ItemResponseDto>
 
     @POST("/search")
     suspend fun getKeywordItemList(@Body request : ItemSearchRequestDto) : List<ItemResponseDto>

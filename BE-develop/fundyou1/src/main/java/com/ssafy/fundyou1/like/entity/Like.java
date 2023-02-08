@@ -1,17 +1,15 @@
 package com.ssafy.fundyou1.like.entity;
 
-
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.member.entity.Member;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
+
+// 찜 엔티티
 @Getter
+@Setter
+@AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "likes")
 @Entity
@@ -22,14 +20,26 @@ public class Like {
     @Column(name = "likes_id")
     private Long id;
 
-    @JsonIgnore
-    @OneToMany(mappedBy ="like",cascade = CascadeType.ALL)
-    List<LikeItem> likeItems = new ArrayList<>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member; // FK
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member member;
+    private Long item_id;
+
+    @Builder
+    public Like(Member member, Long item_id) {
+        this.member = member;
+        this.item_id = item_id;
+    }
+
+    // 찜 목록에 회원을 할당하여 넣는다.
+    public static Like createLike(Member member, Long item_id) {
+        Like like = new Like();
+        like.setMember(member);
+        like.setItem_id(item_id);
+        return like;
+    }
 
 
 }

@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.data.remote.mappers.item
+package com.ssafy.fundyou.data.remote.mappers
 
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemResponseDto
 import com.ssafy.fundyou.domain.model.item.ProductCategoryModel

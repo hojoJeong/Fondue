@@ -17,13 +17,13 @@ public class Search {
     @Id
     @GeneratedValue
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "keyword")
     private String keyword;
 
     @Column(name = "search_count")
-    private long search_count;
+    private Long search_count;
 
     @Builder
     public Search(String keyword, long search_count) {

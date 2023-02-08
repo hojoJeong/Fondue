@@ -5,13 +5,13 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.like.entity.LikeItem;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+// 아이템 엔티티
 @Entity
 @Getter
 @Setter
@@ -42,6 +42,7 @@ public class Item {
     private Boolean isFavorite;
 
     @Column(name = "description")
+    @JsonIgnore
     @ElementCollection
     private List<String>  description;
     @Column(name = "selling_count",columnDefinition = "integer default 0")
@@ -66,17 +67,12 @@ public class Item {
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
-        this.isFavorite = isFavorite;
+        this.isFavorite = false;
         this.description = description;
         this.sellingCount = sellingCount;
         this.brand = brand;
         this.category = category;
     }
-
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<LikeItem> likeItems = new ArrayList<>();
 
 
 

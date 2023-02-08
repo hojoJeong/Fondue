@@ -26,6 +26,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+// 토큰 생성
 @Slf4j
 @Component
 public class TokenProvider {

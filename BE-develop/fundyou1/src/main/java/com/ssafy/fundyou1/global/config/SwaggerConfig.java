@@ -58,6 +58,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
         authorizationScopes[0] = authorizationScope;
         return Arrays.asList(new SecurityReference("Authorization", authorizationScopes));
     }
+    // 스웨거 토큰 설정 수정 해야함!
 
     private ApiKey apiKey() {
         return new ApiKey("JWT", "Authorization", "header");

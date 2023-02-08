@@ -18,7 +18,7 @@ internal data class ItemResponseDto(
     @SerializedName("isFavorite")
     val isFavorite: Boolean,
     @SerializedName("description")
-    val description: List<String>,
+    val description: List<String>?,
     @SerializedName("sellingCount")
     val sellingCount: Int,
     @SerializedName("brand")
