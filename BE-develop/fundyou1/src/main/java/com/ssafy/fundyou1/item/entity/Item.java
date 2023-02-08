@@ -2,11 +2,9 @@ package com.ssafy.fundyou1.item.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.ssafy.fundyou1.cart.entity.CartItem;
+import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.like.entity.LikeItem;
 import lombok.*;
 
 import javax.persistence.*;
@@ -43,6 +41,7 @@ public class Item {
     private Boolean isFavorite;
 
     @Column(name = "description")
+    @JsonIgnore
     @ElementCollection
     private List<String>  description;
     @Column(name = "selling_count",columnDefinition = "integer default 0")
@@ -50,6 +49,10 @@ public class Item {
 
     @Column(name = "brand")
     private String brand;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "item")
+    private List<Cart> carts = new ArrayList<>();
 
 
     @ManyToOne(targetEntity = Category.class)
@@ -63,23 +66,14 @@ public class Item {
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
-        this.isFavorite = isFavorite;
+        this.isFavorite = false;
         this.description = description;
         this.sellingCount = sellingCount;
         this.brand = brand;
         this.category = category;
-
     }
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<LikeItem> likeItems = new ArrayList<>();
-
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<CartItem> cartItems = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)

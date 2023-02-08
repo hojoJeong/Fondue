@@ -4,8 +4,12 @@ data class ProductItemModel(
     val id: Long,
     val price: Int,
     val img: String,
-    val name: String,
+    val descriptionImg: String,
+    val title: String,
     val isAr: Boolean,
+    val isFavorite: Boolean,
+    val description: List<String>?,
+    val sellingCount: Int,
     val brand: String,
-    val isFavorite: Boolean
+    val category: ProductCategoryModel
 )

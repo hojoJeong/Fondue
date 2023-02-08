@@ -6,6 +6,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,18 +17,17 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
+
+
 @RestController
 @RequestMapping("/item")
 @Api(tags = {"카테고리"})
 public class CategoryApiController {
 
-    private final CategoryService categoryService;
+    @Autowired
+    CategoryService categoryService;
 
-
-    public CategoryApiController(CategoryService categoryService) {
-        this.categoryService = categoryService;
-    }
-
+    // 카테고리 등록
     @PostMapping("/category")
     @ApiOperation(value = "카테고리", notes = "카테고리 생성")
     @ApiResponses({

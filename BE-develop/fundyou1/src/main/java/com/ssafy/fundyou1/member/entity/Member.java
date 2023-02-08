@@ -7,16 +7,14 @@ import com.ssafy.fundyou1.auth.domain.Authority;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.global.domain.BaseEntity;
-import com.ssafy.fundyou1.global.exception.BusinessException;
-import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.like.entity.Like;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+
+// 회원 엔티티
 @Table(name = "MEMBER")
 @Getter
 @Entity
@@ -62,13 +60,13 @@ public class Member extends BaseEntity {
     @JsonIgnore
     private Like like; //찜 정보
 
-    @OneToOne(mappedBy = "member",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
     @JsonIgnore
-    private Cart cart; //장바구니 정보
+    @OneToMany(mappedBy = "member")
+    private List<Cart> carts; //장바구니 정보
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<Funding> fundings = new ArrayList<>();
 
     @Builder
@@ -80,11 +78,6 @@ public class Member extends BaseEntity {
         this.point = point;
         this.authority = authority;
         this.status = status;
-    }
-
-    // 포인트 차감
-    public void minusPoint(int point){
-        this.point -= point;
     }
 
 }

@@ -10,7 +10,6 @@ spring:
       enabled: false
 
   main:
-
     allow-bean-definition-overriding: true
 
   datasource:
@@ -36,6 +35,7 @@ spring:
       org.hibernate.type: trace
       org.apache.http: debug
       httpclient.wire: debug
+
 
 
 social:

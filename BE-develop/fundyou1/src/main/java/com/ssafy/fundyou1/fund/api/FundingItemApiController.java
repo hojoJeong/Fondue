@@ -31,6 +31,7 @@ public class FundingItemApiController {
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.attendFunding(attendFundingDto));
     }
 
+
     // 펀딩 아이템 한개 찾기
     @PostMapping()
     public ResponseEntity<FundingItemDto> getFundingItem(@RequestBody Long fundingItemId){
@@ -40,10 +41,17 @@ public class FundingItemApiController {
 
 
 
-    // 초대 받은 펀딩 상세페이지 - 특정 펀딩의 펀딩 아이템 리스트 (초대장으로 들어올 경우)
-    @GetMapping("/list")
+    // 특정 펀딩의 펀딩 아이템 리스트 (초대장으로 들어올 경우, 펀딩 통계 화면)
+    @PostMapping("/list")
     public ResponseEntity<List<FundingItem>> getInvitedFundingItemList(@RequestBody Long fundingId){
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getInvitedFundingItemList(fundingId));
+    }
+
+
+    // 해당 펀딩 상품에 참여한 멤버 (선물한 친구)
+    @PostMapping("/memberList")
+    public ResponseEntity<List<FundingItemMember>> getAttendMember(@RequestBody Long fundingItemId){
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getAttendMember(fundingItemId));
     }
 
 

@@ -13,6 +13,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
 import com.ssafy.fundyou.util.addComma
 import com.ssafy.fundyou.util.getColorNoTheme
@@ -196,5 +197,12 @@ object BindingAdapters {
         val content = "잔액 : ${formatContent}원"
         this.text = content
     }
+
+    @JvmStatic
+    @BindingAdapter("setItemImage")
+    fun ImageView.setItemImage(img: String) {
+        Glide.with(context).load(img).into(this)
+    }
+
 
 }

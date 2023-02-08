@@ -1,30 +1,20 @@
 package com.ssafy.fundyou1.fund.api;
 
-import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
-import com.ssafy.fundyou1.fund.dto.FundingItemDto;
-import com.ssafy.fundyou1.fund.dto.InvitedFundingDto;
-import com.ssafy.fundyou1.fund.dto.InvitedMemberDto;
-import com.ssafy.fundyou1.fund.entity.Funding;
-import com.ssafy.fundyou1.fund.entity.FundingItem;
+import com.ssafy.fundyou1.fund.dto.*;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
 import com.ssafy.fundyou1.fund.service.FundingItemMemberService;
 import com.ssafy.fundyou1.fund.service.FundingService;
 import com.ssafy.fundyou1.fund.service.InvitedMemberService;
-import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
-import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
-import com.ssafy.fundyou1.member.service.MemberService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @Slf4j
@@ -75,6 +65,17 @@ public class FundingApiController {
     public ResponseEntity<List<FundingItemMember>> getAttendedFundingList() {
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemMemberService.getAttendedFundingList());
     }
+
+
+    // 펀딩 통계 (참여 멤버)
+    @PostMapping("/statistics")
+    public ResponseEntity<List<FundingResultMemberDto>> fundingResultMemberDtoList(@RequestBody Long fundingId){
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.fundingResultMemberDtoList(fundingId));
+    }
+
+
+    // 내 펀딩 리스트
+
 
 
 }

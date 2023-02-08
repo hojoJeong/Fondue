@@ -85,4 +85,9 @@ public class FundingItemService {
 
         return fundingItemDto;
     }
+
+    public List<FundingItemMember> getAttendMember(Long fundingItemId) {
+        List<FundingItemMember> fundingItemMemberList = fundingItemMemberRepository.findAllByFundingItemId(fundingItemId);
+        return fundingItemMemberList;
+    }
 }

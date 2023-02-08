@@ -4,8 +4,8 @@ import com.ssafy.fundyou1.member.entity.Member;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 
+// 정보 반환해주는 DTO
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

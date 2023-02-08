@@ -4,7 +4,13 @@
         <import type="android.view.View" />
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
+            type="com.ssafy.fundyou.ui.item_list.model.ItemListModel" />
+        <variable
+            name="ranking_item"
+            type="com.ssafy.fundyou.ui.home.model.RankingItemModel" />
+        <variable
+            name="favorite_item"
+            type="com.ssafy.fundyou.ui.favorite.FavoriteItemModel" />
         <variable
             name="favorite_visibility"
             type="Boolean" />
@@ -24,6 +30,7 @@
             android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
             android:padding="4dp"
             android:scaleType="centerCrop"
+            app:setItemImage="@{product.img ?? ranking_item.img ?? favorite_item.img}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +40,7 @@
             android:layout_height="20dp"
             android:layout_margin="6dp"
             android:scaleType="centerInside"
-            app:favoriteImage="@{product.favorite}"
+            app:favoriteImage="@{product.title != null ? product.favorite : ranking_item.favorite}"
             android:visibility="@{favorite_visibility ? View.VISIBLE : View.GONE, default = visible}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product"
@@ -58,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="6dp"
-            android:text="@{product.name}"
+            android:text="@{product.title ?? ranking_item.title ?? favorite_item.title}"
             android:textColor="@color/link_water"
             app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
@@ -70,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item_between_tv"
-            android:text="@{product.brand}"
+            android:text="@{product.brand ?? ranking_item.brand ?? favorite_item.brand}"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
@@ -83,7 +90,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item_between_tv"
             android:textColor="@color/black"
-            app:addCommaText="@{product.price}"
+            app:addCommaText="@{product.title != null ? product.price  : (ranking_item.title != null ? ranking_item.price : favorite_item.price)}"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
             tools:text="2,890,000원" />
@@ -96,7 +103,7 @@
             android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
             android:text="@string/title_AR_btn"
             android:textColor="@color/franch_rose"
-            app:arVisibility="@{product.ar}"
+            app:arVisibility="@{product.title != null ? product.ar : (ranking_item.title != null ? ranking_item.ar : favorite_item.ar)}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

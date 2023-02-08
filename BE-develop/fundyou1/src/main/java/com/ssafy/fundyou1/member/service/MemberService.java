@@ -5,22 +5,22 @@ import com.ssafy.fundyou1.global.security.SecurityUtil;
 
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 
-import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.security.Principal;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class MemberService {
 
-    private final MemberRepository memberRepository;
+    @Autowired
+    MemberRepository memberRepository;
 
+    // 회원 정보 인포를 가져오는 로직 (로그인 아이디)
     @Transactional(readOnly = true)
     public MemberResponseDto getMemberInfo(String loginId) {
         return memberRepository.findByLoginId(loginId)
@@ -28,7 +28,7 @@ public class MemberService {
                 .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
     }
 
-    // 현재 SecurityContext 에 있는 유저 정보 가져오기
+    // 현재 SecurityContext 에 있는 유저 정보 가져오기 - 현재 접속한 회원 프로필
     @Transactional(readOnly = true)
     public MemberResponseDto getMyInfo() {
         return memberRepository.findById(SecurityUtil.getCurrentMemberId())
