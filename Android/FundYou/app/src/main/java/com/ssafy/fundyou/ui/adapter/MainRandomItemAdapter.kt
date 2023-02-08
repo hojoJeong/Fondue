@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemMainRandomBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
+import com.ssafy.fundyou.ui.home.model.RandomItemModel
 
-class MainRandomItemAdapter : ListAdapter<ProductItemModel, MainRandomItemAdapter.MainRandomItemViewHolder>(
-    ProductDiffUtil()
+class MainRandomItemAdapter : ListAdapter<RandomItemModel, MainRandomItemAdapter.MainRandomItemViewHolder>(
+    RandomItemDiffUtil()
 ) {
 
     class MainRandomItemViewHolder(val binding: ItemMainRandomBinding): RecyclerView.ViewHolder(binding.root){
-        fun bind(item: ProductItemModel){
+        fun bind(item: RandomItemModel){
             binding.product = item
         }
     }
@@ -30,12 +30,12 @@ class MainRandomItemAdapter : ListAdapter<ProductItemModel, MainRandomItemAdapte
         holder.bind(getItem(position))
     }
 
-    class ProductDiffUtil : DiffUtil.ItemCallback<ProductItemModel>(){
-        override fun areItemsTheSame(oldItem: ProductItemModel, newItem: ProductItemModel): Boolean {
+    class RandomItemDiffUtil : DiffUtil.ItemCallback<RandomItemModel>(){
+        override fun areItemsTheSame(oldItem: RandomItemModel, newItem: RandomItemModel): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ProductItemModel, newItem: ProductItemModel): Boolean {
+        override fun areContentsTheSame(oldItem: RandomItemModel, newItem: RandomItemModel): Boolean {
             return oldItem == newItem
         }
     }

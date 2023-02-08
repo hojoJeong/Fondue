@@ -7,12 +7,10 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFundingDetailBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.funding_detail.adapter.FundingDetailStateAdapter
 import com.ssafy.fundyou.ui.funding_detail.adapter.FundingRankingAdapter
 import com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel
-import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 import com.ssafy.fundyou.util.getColorNoTheme
 
 class FundingDetailFragment :
@@ -60,33 +58,33 @@ class FundingDetailFragment :
     }
 
     private fun initFundingStateList() {
-        val tempList = listOf(
-            FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            ), FundingItemModel(
-                id = 1,
-                ProductItemModel(id = 2, price = 30000, "img", "상품이름2", false, "브랜드3", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 30000,
-                fundingParticipate = 5,
-            ),
-            FundingItemModel(
-                id = 2,
-                ProductItemModel(id = 2, price = 30000, "img", "상품이름2", false, "브랜드3", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 30000,
-                fundingParticipate = 5,
-            )
-        )
-        fundingDetailStateAdapter.submitList(tempList)
-        fundingDetailStateAdapter.addParticipateButtonEvent { id ->
-            navigate(FundingDetailFragmentDirections.actionFundingDetailFragmentToFundingParticipationFragment(id))
-        }
-        binding.rvFundingItemDetail.adapter = fundingDetailStateAdapter
+//        val tempList = listOf(
+//            FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            ), FundingItemModel(
+//                id = 1,
+//                ProductItemModel(id = 2, price = 30000, "img", "상품이름2", false, "브랜드3", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 30000,
+//                fundingParticipate = 5,
+//            ),
+//            FundingItemModel(
+//                id = 2,
+//                ProductItemModel(id = 2, price = 30000, "img", "상품이름2", false, "브랜드3", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 30000,
+//                fundingParticipate = 5,
+//            )
+//        )
+//        fundingDetailStateAdapter.submitList(tempList)
+//        fundingDetailStateAdapter.addParticipateButtonEvent { id ->
+//            navigate(FundingDetailFragmentDirections.actionFundingDetailFragmentToFundingParticipationFragment(id))
+//        }
+//        binding.rvFundingItemDetail.adapter = fundingDetailStateAdapter
     }
 
     private fun initFundingPieChart() {

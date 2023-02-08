@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
@@ -16,30 +17,27 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
+import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.home.adapter.MainRankingItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
+import com.ssafy.fundyou.ui.home.model.RandomItemModel
+import com.ssafy.fundyou.ui.home.model.RankingItemModel
 import com.ssafy.fundyou.ui.search.SearchViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
-    private val bannerImageList = mutableListOf<Int>()
+    private val mainViewModel by activityViewModels<MainViewModel>()
 
-    @Inject
-    lateinit var mainBannerAdapter: MainBannerAdapter
+    private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
-    private val rankingProductList = mutableListOf<ProductItemModel>()
     private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
@@ -71,15 +69,17 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initCategory()
         initRankCategory()
         initTitlePriceRange()
-        initRankingItem()
         initShowMoreBtnListener()
         initFloatingBtn()
-        initRandomItemList()
         initPopularSearch()
         initSearchClickEvent()
+        mainViewModel.getRankingItemList()
+        mainViewModel.getRandomItemList()
     }
 
     override fun initViewModels() {
+        initRankingItemObserve()
+        initRandomItemObserve()
         initSearchViewModel()
     }
 
@@ -87,6 +87,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val bannerSize = bannerImageList.size
         currentBannerPosition = Int.MAX_VALUE / 2 * bannerSize
 
+        val mainBannerAdapter = MainBannerAdapter()
         mainBannerAdapter.addAllItems(bannerImageList)
 
         binding.tvMainBannerIndicator.text = getString(
@@ -124,6 +125,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     }
                 }
             })
+        }
+    }
+
+    private fun setJobForBanner() {
+        job = lifecycleScope.launchWhenResumed {
+            delay(3000)
+            binding.vpMainBanner.setCurrentItem(++currentBannerPosition, true)
         }
     }
 
@@ -176,13 +184,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         binding.rvMainCategory.adapter = categoryAdapter
     }
 
-    private fun setJobForBanner() {
-        job = lifecycleScope.launchWhenResumed {
-            delay(3000)
-            binding.vpMainBanner.setCurrentItem(++currentBannerPosition, true)
-        }
-    }
-
     private fun initRankCategory() {
         binding.chipgMainRankCategory.setOnCheckedStateChangeListener { group, checkedId ->
 
@@ -215,92 +216,52 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
-    private fun initRankingItem() {
-        //임시 데이터 추가
-        rankingProductList.clear()
-        rankingProductList.add(
-            ProductItemModel(
-                0,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                true
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                1,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                true,
-                "삼성",
-                false
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                2,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                false
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                3,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                true,
-                "삼성",
-                true
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                4,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                true
-            )
-        )
-        rankingProductList.add(
-            ProductItemModel(
-                5,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                true,
-                "삼성",
-                false
-            )
-        )
+    private fun initRankingItemObserve() {
+        mainViewModel.rankingItemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initRankingItemObserve: Ranking Item Loading...")
+                }
+                is ViewState.Success -> {
+                    initRankingItemAdapter(response.value ?: emptyList())
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initRankingItemObserve: Ranking Item Loading Error...${response.message}")
+                }
+            }
+        }
+    }
 
+    private fun initRandomItemObserve() {
+        mainViewModel.randomItemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initRandomItemObserve: Random Item Loading...")
+                }
+                is ViewState.Success -> {
+                    initRandomItemAdapter(response.value ?: emptyList())
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initRandomItemObserve: Random Item Loading Error...${response.message}")
+                }
+            }
+        }
+    }
 
-        val rankingItemAdapter = ProductItemAdapter()
-        rankingItemAdapter.checkNeedRanking(true)
-        rankingItemAdapter.submitList(rankingProductList)
+    private fun initRankingItemAdapter(rankingItemList: List<RankingItemModel>) {
+        val rankingItemAdapter = MainRankingItemAdapter()
+        rankingItemAdapter.submitList(rankingItemList)
         with(binding.rvMainRank) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
         }
-
     }
 
-    private fun initRandomItemList() {
+    private fun initRandomItemAdapter(randomItemList: List<RandomItemModel>) {
         val randomAdapter = MainRandomItemAdapter()
         val spanCount = 3
-        randomAdapter.submitList(rankingProductList)
+        randomAdapter.submitList(randomItemList)
 
         with(binding.rvMainRandom) {
             layoutManager =

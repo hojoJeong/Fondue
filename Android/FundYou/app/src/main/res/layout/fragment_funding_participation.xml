@@ -62,7 +62,7 @@
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginEnd="@dimen/base_horizontal_margin"
-                android:text="@{item.product.name}"
+                android:text="@{item.product.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/iv_funding_img"
                 app:layout_constraintTop_toBottomOf="@id/tv_brand"

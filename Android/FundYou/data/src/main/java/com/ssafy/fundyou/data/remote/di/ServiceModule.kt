@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.data.remote.di
 
 import com.ssafy.fundyou.data.remote.service.AuthApiService
+import com.ssafy.fundyou.data.remote.service.ItemApiService
 import com.ssafy.fundyou.data.remote.service.SearchApiService
 import com.ssafy.fundyou.data.util.AuthInterceptorClient
 import com.ssafy.fundyou.data.util.NoAuthInterceptorClient
@@ -29,4 +30,9 @@ internal object ServiceModule {
     ) : SearchApiService {
         return retrofit.create(SearchApiService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideItemApiService(@NoAuthInterceptorClient retrofit: Retrofit): ItemApiService = retrofit.create(ItemApiService::class.java)
+
 }
