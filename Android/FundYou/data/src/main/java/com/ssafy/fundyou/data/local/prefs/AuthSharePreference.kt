@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.data.local.prefs
 
 import android.content.Context
+import android.util.Log
 
 internal class AuthSharePreference(context: Context) {
 
@@ -8,11 +9,17 @@ internal class AuthSharePreference(context: Context) {
 
     var accessToken: String?
         get() = prefs.getString("accessToken", null)
-        set(value) = prefs.edit().putString("accessToken", value).apply()
+        set(value) {
+            Log.d("SP", "accessToken set: ${value}")
+            prefs.edit().putString("accessToken", value).apply()
+        }
 
     var refreshToken: String?
         get() = prefs.getString("refreshToken", null)
-        set(value) = prefs.edit().putString("refreshToken", value).apply()
+        set(value) {
+            Log.d("SP", "refreshToken set: ${value}")
+            prefs.edit().putString("refreshToken", value).apply()
+        }
 
     fun clearAuthPreference() {
         prefs.edit().clear().apply()

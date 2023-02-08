@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="product"
-            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
+            name="item"
+            type="com.ssafy.fundyou.ui.search.model.SearchItemModel" />
 
     </data>
 
@@ -25,7 +25,8 @@
             android:src="@drawable/ic_back_arrow_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setItemImage="@{item.itemImg}" />
 
         <ImageView
             android:id="@+id/iv_item_like"
@@ -34,6 +35,7 @@
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="10dp"
             android:src="@drawable/ic_item_like"
+            app:favoriteImage="@{item.isFavorite}"
             app:layout_constraintBottom_toBottomOf="@id/iv_item_img"
             app:layout_constraintEnd_toEndOf="@id/iv_item_img" />
 
@@ -43,7 +45,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{product.brand}"
+            android:text="@{item.brand}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_item_img"
             tools:text="브랜드 이름 영역입니다." />
@@ -54,7 +56,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="@{product.title}"
+            android:text="@{item.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_brand"
             tools:text="상품 이름 영역입니다." />
@@ -65,7 +67,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="29dp"
-            app:addCommaText="@{product.price}"
+            app:addCommaText="@{item.price}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name"
             tools:text="100,000" />
@@ -78,7 +80,7 @@
             android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
             android:paddingHorizontal="19dp"
             android:paddingVertical="4dp"
-            app:arVisibility="@{product.isAr}"
+            app:arVisibility="@{item.isAr}"
             app:layout_constraintBottom_toBottomOf="@id/tv_price"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_price"
