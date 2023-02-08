@@ -136,6 +136,7 @@
 
     <!-- 카테고리 -->
     <string-array name="category_num">
+        <item>전체</item>
         <item>인테리어</item>
         <item>디지털/가전</item>
         <item>주방용품</item>
