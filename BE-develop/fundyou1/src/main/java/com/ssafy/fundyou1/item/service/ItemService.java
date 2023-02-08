@@ -103,4 +103,8 @@ public class ItemService {
     public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
         return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
     }
+
+    public List<Item> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
+        return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
+    }
 }

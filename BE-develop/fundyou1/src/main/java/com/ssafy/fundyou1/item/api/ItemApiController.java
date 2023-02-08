@@ -77,7 +77,7 @@ public class ItemApiController {
 
     // 홈화면 조건에 맞는 Top5 아이템 조회
     @ApiOperation(value = "홈화면 Top5", notes = "카테고리, 가격범위에 맞는 아이템 5개 반환")
-    @GetMapping("/category/{categoryId}/{minPrice}/{maxPrice}")
+    @GetMapping("/ranking/{categoryId}/{minPrice}/{maxPrice}")
     public ResponseEntity<List<Item>> getTopItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
         List<Item> dtos = itemService.getTopItemList(categoryId, minPrice, maxPrice);
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
@@ -88,19 +88,12 @@ public class ItemApiController {
     @GetMapping(value = "/random")
     public ResponseEntity<List<RandomItemResponse>> getRandomItemList(){
         List<RandomItemResponse> randomItemResponseList = itemService.getRandomItemList();
-
         return ResponseEntity.status(HttpStatus.OK).body(randomItemResponseList);
     }
 
-
-    // 아이템 전체 조회
-
-    @GetMapping(value = "/list/member")
-    public ResponseEntity<List<ItemResponseDto>> getItemAll() {
-        List<ItemResponseDto> ItemList = itemService.findAllItem(SecurityUtil.getCurrentMemberId());
-
-        return ResponseEntity.status(HttpStatus.OK).body(ItemList);
+    @GetMapping(value = "/category/{categoryId}/{minPrice}/{maxPrice}")
+    public ResponseEntity<List<Item>> getItemListWithFilter(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
+        List<Item> dtos = itemService.getItemListWithFilter(categoryId, minPrice, maxPrice);
+        return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
-
-
 }
