@@ -42,6 +42,7 @@ public class Item {
     private Boolean isFavorite;
 
     @Column(name = "description")
+    @JsonIgnore
     @ElementCollection
     private List<String>  description;
     @Column(name = "selling_count",columnDefinition = "integer default 0")
