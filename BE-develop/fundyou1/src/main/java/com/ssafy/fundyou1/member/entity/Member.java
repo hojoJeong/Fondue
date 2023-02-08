@@ -61,9 +61,9 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "like_id")
     private Like like; //찜 정보
 
-    @OneToOne(mappedBy = "member",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "cart_id")
-    private Cart cart; //장바구니 정보
+    @JsonIgnore
+    @OneToMany(mappedBy = "member")
+    private List<Cart> carts; //장바구니 정보
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")

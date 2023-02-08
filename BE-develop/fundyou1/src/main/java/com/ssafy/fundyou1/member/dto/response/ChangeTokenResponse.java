@@ -13,7 +13,4 @@ public class ChangeTokenResponse {
         this.changeToken = changeToken;
     }
 
-    public static ChangeTokenResponse from (String changeToken){
-        return new ChangeTokenResponse(changeToken);
-    }
 }

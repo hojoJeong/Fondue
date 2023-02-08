@@ -2,11 +2,14 @@ package com.ssafy.fundyou1.item.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.ssafy.fundyou1.cart.entity.CartItem;
+import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.like.entity.LikeItem;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -16,7 +19,6 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor // 디폴트 생성자 추가
-@ToString
 public class Item {
 
     @Id
@@ -50,6 +52,10 @@ public class Item {
     @Column(name = "brand")
     private String brand;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "item")
+    private List<Cart> carts = new ArrayList<>();
+
 
     @ManyToOne(targetEntity = Category.class)
     @JoinColumn(name = "category_id")
@@ -69,14 +75,12 @@ public class Item {
         this.category = category;
     }
 
+
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
     List<LikeItem> likeItems = new ArrayList<>();
 
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<CartItem> cartItems = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
