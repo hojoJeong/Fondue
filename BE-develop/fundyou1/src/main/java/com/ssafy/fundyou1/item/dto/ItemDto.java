@@ -29,9 +29,9 @@ public class ItemDto {
 
     private String title;
 
-    private String isAr;
+    private Boolean isAr;
 
-    private String description;
+    private List<String> description;
 
     private int sellingCount;
 
@@ -40,7 +40,18 @@ public class ItemDto {
     @JsonProperty("category_id")
     private Long categoryId;
 
-    public ItemDto(Long id, int price, String image, String descriptionImg, String title, Boolean isAr, List<Object> description, int sellingCount, String brand, Long id1, int sellingCount1) {
+    public ItemDto(Long id, int price, String image, String descriptionImg, String title, Boolean isAr, List<String> description, int sellingCount, String brand, Long id1) {
+        this.id = id;
+        this.price = price;
+        this.image = image;
+        this.descriptionImg = descriptionImg;
+        this.title = title;
+        this.isAr = isAr;
+        this.description = description;
+        this.sellingCount = sellingCount;
+        this.brand = brand;
+        this.categoryId = id1;
+
     }
 
     public static ItemDto createItemDto(Item item) {
@@ -51,11 +62,10 @@ public class ItemDto {
                 item.getDescriptionImg(),
                 item.getTitle(),
                 item.getIsAr(),
-                Collections.singletonList(item.getDescription()),
+                item.getDescription(),
                 item.getSellingCount(),
                 item.getBrand(),
-                item.getCategory().getId(),
-                item.getSellingCount()
+                item.getCategory().getId()
         );
     }
 

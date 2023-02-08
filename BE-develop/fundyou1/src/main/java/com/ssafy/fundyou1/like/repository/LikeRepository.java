@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.like.repository;
 
+import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.like.entity.Like;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -26,9 +27,9 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
 
     @Query(value="Select * " +
             "From Likes li " +
-            "WHERE li.is_favorite = :b " +
+            "WHERE li.item_id = :id " +
             "AND li.member_id = :memberId", nativeQuery = true)
-    Like findLikeItem(@Param("b") boolean b);
+    Like findLikeItem(@Param("id") Long id, @Param("memberId") Long memberId);
 
     @Modifying
     @Query(value="UPDATE Item i " +
@@ -36,6 +37,7 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
             "WHERE i.item_id = :id"
             , nativeQuery = true)
     void updateItemIsFavorite( @Param("id") Long id, @Param("b") boolean b);
+
 
 
 

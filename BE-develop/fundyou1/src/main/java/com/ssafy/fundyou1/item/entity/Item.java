@@ -5,11 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.like.entity.Like;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +15,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor // 디폴트 생성자 추가
+@ToString
 public class Item {
 
     @Id
@@ -40,7 +37,7 @@ public class Item {
     @Column(name = "is_ar")
     private Boolean isAr;
 
-    @Column(name = "is_favorite")
+    @Column(name = "is_favorite", columnDefinition = "boolean default false")
     private Boolean isFavorite;
 
     @Column(name = "description")
@@ -68,7 +65,7 @@ public class Item {
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
-        this.isFavorite = isFavorite;
+        this.isFavorite = false;
         this.description = description;
         this.sellingCount = sellingCount;
         this.brand = brand;

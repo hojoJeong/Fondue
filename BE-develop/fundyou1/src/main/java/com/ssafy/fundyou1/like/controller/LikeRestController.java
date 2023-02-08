@@ -4,6 +4,8 @@ package com.ssafy.fundyou1.like.controller;
 import com.ssafy.fundyou1.cart.dto.CartItemResponseDto;
 import com.ssafy.fundyou1.global.dto.BaseResponseBody;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
+import com.ssafy.fundyou1.item.entity.Item;
+import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
 import com.ssafy.fundyou1.like.dto.LikeRequestDto;
 import com.ssafy.fundyou1.like.entity.Like;
@@ -35,6 +37,7 @@ public class LikeRestController {
 
     @Autowired
     MemberRepository memberRepository;
+    private final ItemRepository itemRepository;
 
     // 회원 찜 목록에 아이템 아이디로 아이템 추가
     @PostMapping(value = "/like")
@@ -60,11 +63,11 @@ public class LikeRestController {
     // 회원 찜 리스트 전체 조회
     @GetMapping("/like/list")
     @ApiOperation(value = "찜 아이템 조회", notes = "회원의 장바구니 목록을 반환한다.")
-    public ResponseEntity<List<LikeItemResponseDto>> getAllLikeItems() {
+    public ResponseEntity<List<Item>> getAllLikeItems() {
 
-        List<LikeItemResponseDto> likeList = likeService.findLikeByMemberId(SecurityUtil.getCurrentMemberId());
+        List<Item> iikeItemList = likeService.findAllItemLike(true);
 
-        return ResponseEntity.status(HttpStatus.OK).body(likeList);
+        return ResponseEntity.status(HttpStatus.OK).body(iikeItemList);
     }
 
 

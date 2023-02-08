@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.like.service;
 import com.ssafy.fundyou1.cart.dto.CartItemResponseDto;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
+import com.ssafy.fundyou1.item.dto.ItemDto;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
@@ -58,6 +59,8 @@ public class LikeService {
         return like;
     }
 
+    //사용자 찜목록 - 조인 컬럼 버전
+
     @Transactional(readOnly = true)
     public List<LikeItemResponseDto> findLikeByMemberId(Long memberId) {
         List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
@@ -70,6 +73,13 @@ public class LikeService {
             return likeItemResponse;
         }
         return null;
+    }
+
+    // 사용자 찜목록 - 조인 컬럼 해제
+
+    public List<Item> findAllItemLike(boolean b) {
+        List<Item> likeList = itemRepository.findAllByIsFavorite(true);
+        return likeList;
     }
 
 
