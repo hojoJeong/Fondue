@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
@@ -12,7 +11,6 @@ import com.skydoves.balloon.showAlignTop
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentWishListBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import java.text.SimpleDateFormat
 
@@ -37,25 +35,16 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     }
 
     private fun initWishListItem() {
-//        with(wishLIstItemList) {
-//            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-//            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-//            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-//            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-//            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//        val rvWishList = binding.rvWishlistItem
+//        val wishListItemAdapter = ProductItemAdapter()
+//        with(wishListItemAdapter) {
+//            setFavoriteVisibility(false)
+//            checkNeedRanking(false)
+//            submitList(wishLIstItemList)
+//            rvWishList.layoutManager =
+//                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+//            rvWishList.adapter = wishListItemAdapter
 //        }
-
-        val rvWishList = binding.rvWishlistItem
-        val wishListItemAdapter = ProductItemAdapter()
-        with(wishListItemAdapter) {
-            setFavoriteVisibility(false)
-            checkNeedRanking(false)
-            submitList(wishLIstItemList)
-            rvWishList.layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-            rvWishList.adapter = wishListItemAdapter
-        }
     }
 
     private fun makeBalloon(): Balloon {

@@ -18,4 +18,5 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
         itemRemoteDataSource.getRandomItemList().map { it.toDomainModel() }
 
     override suspend fun getFavoriteItemList(): List<ProductItemModel> = itemRemoteDataSource.getFavoriteItemList().map { it.toDomainModel() }
+    override suspend fun getCategoryItemList(categoryId: Int): List<ProductItemModel> = itemRemoteDataSource.getCategoryItemList(categoryId).map { it.toDomainModel() }
 }

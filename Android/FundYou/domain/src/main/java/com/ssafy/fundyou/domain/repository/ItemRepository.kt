@@ -7,4 +7,5 @@ interface ItemRepository {
     suspend fun getRankingItemList() : List<ProductItemModel>
     suspend fun getRandomItemList() : List<ProductItemModel>
     suspend fun getFavoriteItemList() : List<ProductItemModel>
+    suspend fun getCategoryItemList(categoryId: Int) : List<ProductItemModel>
 }

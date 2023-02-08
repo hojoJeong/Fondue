@@ -4,7 +4,7 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
@@ -13,11 +13,11 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemListBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.item_list.Model.ItemListModel
 import com.ssafy.fundyou.ui.item_list.adapter.ItemListAdapter
+import com.ssafy.fundyou.ui.item_list.model.ItemListModel
 
 class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment_item_list) {
-    private val itemListViewModel by viewModels<ItemListViewModel>()
+    private val itemListViewModel by activityViewModels<ItemListViewModel>()
     private val categoryType : ItemListFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,7 +37,6 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         itemListViewModel.getAllItemList()
         initCategory()
         initTitlePriceRange()
-
     }
 
     override fun initViewModels() {
@@ -45,21 +44,28 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     private fun initCategory() {
+        val categoryId = resources.getStringArray(R.array.category_num).indexOf(categoryType.categoryType)
         val categoryGroup = binding.chipgItemListCategory
         val hScrollView = binding.hscvItemListCategory
-        for(chipNum in 0 until categoryGroup.childCount){
-            val category = categoryGroup.getChildAt(chipNum) as Chip
-            Log.d(TAG, "initCategory: ${category.text}")
-            if(category.text.equals(categoryType.categoryType)){
-                category.isChecked = true
-                hScrollView.post{
-                    hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
-                }
-
-                //TODO("상품 목록 초기 진입 시 카테고리에 따른 데이터 호출")
-                break
+        if(resources.getStringArray(R.array.category_num).contains(categoryType.categoryType)){
+            val category = categoryGroup.getChildAt(categoryId) as Chip
+            category.isChecked = true
+            hScrollView.post{
+                hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
             }
+            itemListViewModel.setCategory(categoryId)
         }
+//        for(chipNum in 0 until categoryGroup.childCount){
+//            val category = categoryGroup.getChildAt(chipNum) as Chip
+//            Log.d(TAG, "initCategory: ${category.text}")
+//            if(category.text.equals(categoryType.categoryType)){
+//                category.isChecked = true
+//                hScrollView.post{
+//                    hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
+//                }
+//                break
+//            }
+//        }
         categoryGroup.setOnCheckedStateChangeListener { group, checkedId ->
             //TODO("칩 변경 시 서버통신")
         }
@@ -84,6 +90,12 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                     //TODO("가격 변경 시 서버통신")
                 }
             })
+        }
+    }
+
+    private fun initCategoryObserve(categoryId: Int){
+        itemListViewModel.categoryId.observe(viewLifecycleOwner){
+            itemListViewModel.getCategoryItemList(categoryId)
         }
     }
 

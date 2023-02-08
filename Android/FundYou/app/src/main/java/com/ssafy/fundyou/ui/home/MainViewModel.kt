@@ -11,9 +11,11 @@ import com.ssafy.fundyou.ui.home.model.RandomItemModel
 import com.ssafy.fundyou.ui.home.model.RankingItemModel
 import com.ssafy.fundyou.ui.home.model.toRandomItemModel
 import com.ssafy.fundyou.ui.home.model.toRankingModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class MainViewModel @Inject constructor(
     private val getRankingItemUserCase: GetRankingItemUseCase,
     private val getRandomItemUseCase: GetRandomItemUseCase

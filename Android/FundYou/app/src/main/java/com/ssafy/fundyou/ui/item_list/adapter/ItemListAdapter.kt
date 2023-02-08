@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemListProductBinding
-import com.ssafy.fundyou.ui.item_list.Model.ItemListModel
+import com.ssafy.fundyou.ui.item_list.model.ItemListModel
 
 class ItemListAdapter : ListAdapter<ItemListModel, ItemListAdapter.ItemListViewHolder>(ItemListDiffUtil()){
 

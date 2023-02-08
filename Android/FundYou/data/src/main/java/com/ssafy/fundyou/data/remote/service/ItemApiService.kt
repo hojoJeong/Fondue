@@ -13,6 +13,9 @@ internal interface ItemApiService {
     @GET("/item/random")
     suspend fun getRandomItemList() : List<ItemResponseDto>
 
-    @GET("/item/")
+    @GET("/item/favorite")
     suspend fun getFavoriteItemList() : List<ItemResponseDto>
+
+    @GET("/item/category/{categoryId}")
+    suspend fun getCategoryItemList(categoryId: Int) : List<ItemResponseDto>
 }

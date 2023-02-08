@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.item_list.Model
+package com.ssafy.fundyou.ui.item_list.model
 
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 

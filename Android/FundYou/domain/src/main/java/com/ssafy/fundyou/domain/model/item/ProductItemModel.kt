@@ -8,8 +8,8 @@ data class ProductItemModel(
     val title: String,
     val isAr: Boolean,
     val isFavorite: Boolean,
-    val description: MutableList<ProductDescriptionModel>,
+    val description: List<String>,
     val sellingCount: Int,
     val brand: String,
-    val category: String
+    val category: ProductCategoryModel
 )

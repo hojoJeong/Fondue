@@ -33,6 +33,6 @@ internal object ServiceModule {
 
     @Provides
     @Singleton
-    fun provideItemApiService(retrofit: Retrofit): ItemApiService = retrofit.create(ItemApiService::class.java)
+    fun provideItemApiService(@NoAuthInterceptorClient retrofit: Retrofit): ItemApiService = retrofit.create(ItemApiService::class.java)
 
 }

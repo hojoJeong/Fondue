@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.data.remote.mappers.item
 
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemResponseDto
+import com.ssafy.fundyou.domain.model.item.ProductCategoryModel
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 
 //API 문서 확인 후 수정
@@ -15,5 +16,8 @@ internal fun ItemResponseDto.toDomainModel() = ProductItemModel(
     description = this.description,
     sellingCount = this.sellingCount,
     brand = this.brand,
-    category = this.category
+    category = ProductCategoryModel(
+        id = this.category.id,
+        categoryName = this.category.categoryName
+    )
 )

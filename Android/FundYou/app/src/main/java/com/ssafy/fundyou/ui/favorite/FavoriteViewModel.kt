@@ -6,10 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.domain.usecase.item.GetFavoriteItemUseCase
-import com.ssafy.fundyou.ui.favorite.model.FavoriteModel
-import com.ssafy.fundyou.ui.favorite.model.toFavoriteModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
+@HiltViewModel
 
 class FavoriteViewModel @Inject constructor(private val getFavoriteItemUseCase : GetFavoriteItemUseCase) : ViewModel() {
     private val _favoriteItemList = MutableLiveData<ViewState<List<FavoriteModel>>>()

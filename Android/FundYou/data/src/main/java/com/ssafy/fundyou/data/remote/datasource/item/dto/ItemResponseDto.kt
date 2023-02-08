@@ -1,7 +1,6 @@
 package com.ssafy.fundyou.data.remote.datasource.item.dto
 
 import com.google.gson.annotations.SerializedName
-import com.ssafy.fundyou.domain.model.item.ProductDescriptionModel
 
 internal data class ItemResponseDto(
     @SerializedName("id")
@@ -19,11 +18,11 @@ internal data class ItemResponseDto(
     @SerializedName("isFavorite")
     val isFavorite: Boolean,
     @SerializedName("description")
-    val description: MutableList<ProductDescriptionModel>,
+    val description: List<String>,
     @SerializedName("sellingCount")
     val sellingCount: Int,
     @SerializedName("brand")
     val brand: String,
     @SerializedName("category")
-    val category: String
+    val category: CategoryResponseDto
 )

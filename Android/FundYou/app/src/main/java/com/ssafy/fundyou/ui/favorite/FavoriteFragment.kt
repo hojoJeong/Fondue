@@ -4,7 +4,7 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
@@ -12,7 +12,7 @@ import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_favorite) {
-    private val favoriteViewModel by viewModels<FavoriteViewModel>()
+    private val favoriteViewModel by activityViewModels<FavoriteViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
