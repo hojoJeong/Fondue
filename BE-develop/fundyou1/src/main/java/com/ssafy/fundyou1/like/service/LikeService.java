@@ -73,8 +73,6 @@ public class LikeService {
     }
 
 
-
-
     // 사용자의 찜목록 아이템 삭제
     @Transactional
     public List<LikeItemResponseDto> deleteByLikeItemId(Long id) {

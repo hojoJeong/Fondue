@@ -49,4 +49,6 @@ public class ProfileRestController {
         String name = authentication.getName();
         return name;
     }
+
+
 }

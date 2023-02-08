@@ -30,13 +30,7 @@ public class Like {
     @JoinColumn(name = "member_id")
     private Member member; // FK
 
-
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "item_id")
-//    private Item item; // FK
-
     private Long item_id;
-
 
     @Builder
     public Like(Member member, Long item_id) {

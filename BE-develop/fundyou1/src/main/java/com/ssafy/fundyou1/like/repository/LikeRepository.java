@@ -26,9 +26,9 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
 
     @Query(value="Select * " +
             "From Likes li " +
-            "WHERE li.item_id = :id " +
+            "WHERE li.is_favorite = :b " +
             "AND li.member_id = :memberId", nativeQuery = true)
-    Like findLikeItem(@Param("id") Long id, @Param("memberId") Long memberId);
+    Like findLikeItem(@Param("b") boolean b);
 
     @Modifying
     @Query(value="UPDATE Item i " +

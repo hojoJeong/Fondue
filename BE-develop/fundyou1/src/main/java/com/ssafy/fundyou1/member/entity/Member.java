@@ -30,7 +30,6 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
-
     @Column(name = "login_id", length = 32, nullable = false)
     private String loginId;
     @Column(name = "password")
