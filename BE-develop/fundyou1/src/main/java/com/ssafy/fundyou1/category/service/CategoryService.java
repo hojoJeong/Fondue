@@ -5,18 +5,15 @@ import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
 public class CategoryService {
-
-    private final CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Transactional(readOnly = true)
     public Category findById(Long id) {
@@ -31,11 +28,10 @@ public class CategoryService {
         Category category = request.toCategory();
         return categoryRepository.save(category).getCategoryName();
     }
-
+    @Transactional
     public void checkDuplicateCategoryName(String name) {
         if(categoryRepository.existsByCategoryName(name)) {
             throw new BusinessException(ErrorCode.CATEGORY_CATEGORY_NAME_DUPLICATED);
         }
     }
-
 }

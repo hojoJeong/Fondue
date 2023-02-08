@@ -73,7 +73,7 @@ public class ItemApiController {
     @GetMapping("/category/{categoryId}")
     public ResponseEntity<List<ItemDto>> getCategoryItemList(@PathVariable Long categoryId) {
         List<ItemDto> dtos = itemService.getCategoryItemList(categoryId);
-
+        System.out.println("LAZYERROR");
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
 

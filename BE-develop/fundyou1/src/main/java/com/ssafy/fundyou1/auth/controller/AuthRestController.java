@@ -46,7 +46,6 @@ public class AuthRestController {
     }
 
 
-
     @PostMapping("members/social/kakao")
     @ApiOperation(value = "카카오 소셜 로그인", notes = "소셜 로그인 API")
     public ResponseEntity<TokenDto> kakaoLogin(@RequestBody String accessToken, HttpServletResponse response){

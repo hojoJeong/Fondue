@@ -43,7 +43,7 @@ public class Item {
 
     @Column(name = "description")
     @JsonIgnore
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     private List<String>  description;
     @Column(name = "selling_count",columnDefinition = "integer default 0")
     private int sellingCount;
