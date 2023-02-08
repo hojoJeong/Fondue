@@ -5,6 +5,7 @@ import com.ssafy.fundyou1.category.service.CategoryService;
 import com.ssafy.fundyou1.item.dto.DescriptionData;
 import com.ssafy.fundyou1.item.dto.ItemDto;
 import com.ssafy.fundyou1.item.dto.ItemSaveRequest;
+import com.ssafy.fundyou1.item.dto.RandomItemResponse;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.service.ItemService;
 import io.swagger.annotations.Api;
@@ -78,20 +79,20 @@ public class ItemApiController {
 
 
     // 홈화면 조건에 맞는 Top5 아이템 조회
-    @ApiOperation(value = "TEST", notes = "TEST API")
+    @ApiOperation(value = "홈화면 Top5", notes = "카테고리, 가격범위에 맞는 아이템 5개 반환")
     @GetMapping("/category/{categoryId}/{minPrice}/{maxPrice}")
-    public ResponseEntity<List<Item>> getTopItemList(@RequestHeader("Authorization") String token, @PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
+    public ResponseEntity<List<Item>> getTopItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
         List<Item> dtos = itemService.getTopItemList(categoryId, minPrice, maxPrice);
         return ResponseEntity.status(HttpStatus.OK).body(dtos);
     }
 
 
     // 램덤 5개 조회
-    @RequestMapping(value = "/random")
-    public ResponseEntity<List<ItemDto>> getRandomItemList(Model model){
-        List<ItemDto> dtos = itemService.getRandomItemList();
+    @GetMapping(value = "/random")
+    public ResponseEntity<List<RandomItemResponse>> getRandomItemList(){
+        List<RandomItemResponse> randomItemResponseList = itemService.getRandomItemList();
 
-        return ResponseEntity.status(HttpStatus.OK).body(dtos);
+        return ResponseEntity.status(HttpStatus.OK).body(randomItemResponseList);
     }
 
 
