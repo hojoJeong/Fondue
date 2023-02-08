@@ -15,4 +15,9 @@ internal class ItemRemoteDataSourceImpl @Inject constructor(private var itemApiS
 
     override suspend fun getFavoriteItemList(): List<ItemResponseDto> = itemApiService.getFavoriteItemList()
     override suspend fun getCategoryItemList(categoryId: Int): List<ItemResponseDto> = itemApiService.getCategoryItemList(categoryId)
+    override suspend fun getItemByPrice(
+        categoryId: Int,
+        minPrice: Int,
+        maxPrice: Int
+    ): List<ItemResponseDto> = itemApiService.getItemByPrice(categoryId, minPrice, maxPrice)
 }

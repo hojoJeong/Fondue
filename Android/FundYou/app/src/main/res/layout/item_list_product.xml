@@ -10,7 +10,7 @@
             type="com.ssafy.fundyou.ui.home.model.RankingItemModel" />
         <variable
             name="favorite_item"
-            type="com.ssafy.fundyou.ui.favorite.FavoriteModel" />
+            type="com.ssafy.fundyou.ui.favorite.FavoriteItemModel" />
         <variable
             name="favorite_visibility"
             type="Boolean" />

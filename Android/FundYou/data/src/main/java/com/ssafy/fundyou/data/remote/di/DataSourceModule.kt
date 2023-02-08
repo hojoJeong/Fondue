@@ -1,9 +1,11 @@
 package com.ssafy.fundyou.data.remote.di
 
 
+import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSourceImpl
+import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.service.AuthApiService
 import com.ssafy.fundyou.data.remote.service.ItemApiService
@@ -21,15 +23,16 @@ internal object DataSourceModule {
     @Singleton
     fun provideAuthRemoteDataSource(
         authApiService: AuthApiService
-    ): AuthRemoteDataSourceImpl = AuthRemoteDataSourceImpl(authApiService)
+    ): AuthRemoteDataSource = AuthRemoteDataSourceImpl(authApiService)
 
     @Provides
     @Singleton
     fun provideSearchRemoteDataSource(
         searchApiService: SearchApiService
-    ): SearchRemoteDataSourceImpl = SearchRemoteDataSourceImpl(searchApiService)
+    ): SearchRemoteDataSource = SearchRemoteDataSourceImpl(searchApiService)
 
     @Provides
     @Singleton
-    fun provideItemRemoteDataSource(itemApiService: ItemApiService) : ItemRemoteDataSource = ItemRemoteDataSourceImpl(itemApiService)
+    fun provideItemRemoteDataSource(itemApiService: ItemApiService): ItemRemoteDataSource =
+        ItemRemoteDataSourceImpl(itemApiService)
 }
