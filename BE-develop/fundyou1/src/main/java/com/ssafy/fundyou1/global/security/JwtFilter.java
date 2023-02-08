@@ -1,10 +1,6 @@
 package com.ssafy.fundyou1.global.security;
 
-import static org.springframework.http.HttpHeaders.AUTHORIZATION;
-
 import java.io.IOException;
-import java.util.Optional;
-import java.util.regex.Pattern;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ssafy.fundyou1.auth.infrastructure.TokenProvider;
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.Strings;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;

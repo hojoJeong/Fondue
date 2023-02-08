@@ -1,14 +1,13 @@
 package com.ssafy.fundyou1.member.dto.request;
 
-import com.ssafy.fundyou1.auth.domain.Authority;
-import com.ssafy.fundyou1.member.entity.Member;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 @Getter
 @Builder

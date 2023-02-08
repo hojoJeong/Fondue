@@ -7,16 +7,14 @@ import com.ssafy.fundyou1.auth.domain.Authority;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.global.domain.BaseEntity;
-import com.ssafy.fundyou1.global.exception.BusinessException;
-import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.like.entity.Like;
 import lombok.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+
+// 회원 엔티티
 @Table(name = "MEMBER")
 @Getter
 @Entity
@@ -29,7 +27,6 @@ public class Member extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
-
 
     @Column(name = "login_id", length = 32, nullable = false)
     private String loginId;

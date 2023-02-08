@@ -1,33 +1,26 @@
 package com.ssafy.fundyou1.auth.controller;
 
-import com.ssafy.fundyou1.auth.controller.dto.request.LoginRequest;
-import com.ssafy.fundyou1.auth.controller.dto.request.ReissueRequest;
-import com.ssafy.fundyou1.auth.domain.Authority;
+
 import com.ssafy.fundyou1.auth.domain.KakaoSocialLoginResponse;
 import com.ssafy.fundyou1.auth.service.AuthService;
 import com.ssafy.fundyou1.global.dto.TokenDto;
 import com.ssafy.fundyou1.global.dto.TokenRequestDto;
 import com.ssafy.fundyou1.member.dto.request.MemberLoginRequestDto;
 import com.ssafy.fundyou1.member.dto.request.MemberRequestDto;
-import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -35,6 +28,8 @@ import java.util.Map;
 public class AuthRestController {
     @Autowired
     AuthService authService;
+
+    // 일반 로그인 - 현재 클라이언트에는 카카오 로그인만 존재
     @PostMapping("/members/login")
     @ApiOperation(value = "일반 로그인", notes = "일반 로그인 API")
     @ApiResponses({
@@ -46,7 +41,7 @@ public class AuthRestController {
     }
 
 
-
+    // 카카오 소셜 로그인
     @PostMapping("members/social/kakao")
     @ApiOperation(value = "카카오 소셜 로그인", notes = "소셜 로그인 API")
     public ResponseEntity<TokenDto> kakaoLogin(@RequestBody String accessToken, HttpServletResponse response){
@@ -74,6 +69,7 @@ public class AuthRestController {
         return ResponseEntity.ok(authService.login(memberLoginRequestDto));
     }
 
+    //토큰 재발급
     @PostMapping("/members/reissue")
     @ApiOperation(value = "토큰 재발급", notes = "토큰을 재발급하는 API")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {

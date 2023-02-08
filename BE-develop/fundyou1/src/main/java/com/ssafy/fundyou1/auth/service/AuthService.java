@@ -44,7 +44,7 @@ public class AuthService {
 
     private KakaoSocialLoginResponse kakaoSocialLoginResponse;
 
-
+    // 카카오 API로 정보 가져오는 로직
     public KakaoSocialLoginResponse kakaoLoginService(String accessToken) {
 
         // body에 들어갈 parameter 생성. 하지만 넣을 값은 없다.
@@ -75,6 +75,8 @@ public class AuthService {
         return response.getBody();
     }
 
+    // 회원가입 로직
+
     @Transactional
     public MemberResponseDto signup(MemberRequestDto memberRequestDto) {
         if (memberRepository.existsByLoginId(memberRequestDto.getLoginId())) {
@@ -86,6 +88,7 @@ public class AuthService {
         return MemberResponseDto.of(memberRepository.save(member));
     }
 
+    // 로그인 하는 로직 토큰발급
 
     @Transactional
     public TokenDto login(MemberLoginRequestDto memberLoginRequestDto) {
@@ -110,6 +113,8 @@ public class AuthService {
         // 5. 토큰 발급
         return tokenDto;
     }
+
+    // 토큰 재발급 하는 로직
 
     @Transactional
     public TokenDto reissue(TokenRequestDto tokenRequestDto) {

@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+//카테고리 저장 DTO
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor

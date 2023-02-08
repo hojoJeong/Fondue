@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Builder
+//카테고리 엔티티
 @Entity
 @Getter
 @Setter
@@ -25,10 +25,8 @@ public class Category {
     private String categoryName;
 
     @JsonIgnore
-    @Builder.Default
     @OneToMany(mappedBy = "category")
     private List<Item> items = new ArrayList<>();
-
 
     @Builder
     public Category(String categoryName) {
