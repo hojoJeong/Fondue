@@ -44,8 +44,6 @@ public class LikeService {
     // 찜목록에 상품을 담는 로직
     public Long addLike(LikeRequestDto likeRequestDto, Long memberId) {
 
-//        Optional<Item> item = itemRepository.findById(likeRequestDto.getItemId()); // 찜 목록에 담을 상품 엔티티 조회
-
         Long itemId = likeRequestDto.getItemId();
         Optional<Member> member = memberRepository.findById(memberId); // 찜 목록에 담을 회원 엔티티 조회
 

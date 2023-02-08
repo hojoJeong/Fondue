@@ -51,11 +51,9 @@ public class LikeRestController {
 
         if(like != null) {
             List<LikeItemResponseDto> likeItemResponse = likeService.deleteByLikeItemId(itemId);
-//            likeService.updateIsFavorited(itemId, false, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 취소", likeItemResponse ));
         } else {
             Long likeId = likeService.addLike(likeRequestDto, memberId);
-//            likeService.updateIsFavorited(itemId, true, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 추가", likeId ));
         }
     }
