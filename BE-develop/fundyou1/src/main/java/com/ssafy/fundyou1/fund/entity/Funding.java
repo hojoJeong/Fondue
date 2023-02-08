@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.fund.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -37,13 +38,7 @@ public class Funding {
     @Column(name = "end_date")
     private Long endDate; // due : 펀딩 마감 날짜
 
-
-    /**
-     * orderStatus: 펀딩 상태(펀딩 진행중, 펀딩 마감 )
-     */
-
     @Column(name = "funding_status")
-    @ColumnDefault("True")
     private boolean fundingStatus;
 
     @JsonIgnore

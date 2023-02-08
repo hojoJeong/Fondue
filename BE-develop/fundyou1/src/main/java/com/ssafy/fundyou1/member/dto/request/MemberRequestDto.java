@@ -32,6 +32,7 @@ public class MemberRequestDto {
     @ApiModelProperty(position = 4, notes = "이미지", example = "프로필 이미지 경로")
     private String profileImg;
 
+    private String mail;
 
     public Member toMember(PasswordEncoder passwordEncoder) {
         return Member.builder()
@@ -42,6 +43,7 @@ public class MemberRequestDto {
                 .authority(Authority.ROLE_USER)
                 .point(100000)
                 .status(true)
+                .mail(mail)
                 .build();
     }
 

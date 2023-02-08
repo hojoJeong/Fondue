@@ -17,7 +17,7 @@ public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "funding_cart_id")
-    private Long id; // PK
+    private long id; // PK
 
 
     @OneToOne(fetch = FetchType.LAZY)

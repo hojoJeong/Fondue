@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemMainRandomBinding
-import com.ssafy.fundyou.domain.model.ProductItemModel
+import com.ssafy.fundyou.domain.model.item.ProductItemModel
 
 class MainRandomItemAdapter : ListAdapter<ProductItemModel, MainRandomItemAdapter.MainRandomItemViewHolder>(
     ProductDiffUtil()

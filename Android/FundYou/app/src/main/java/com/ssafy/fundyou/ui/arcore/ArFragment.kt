@@ -38,8 +38,6 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 
-private const val MIN_OPENGL_VERSION = 3.0
-
 class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
 
     private var arFragment: ArFragment? = null
@@ -74,7 +72,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
         FirebaseApp.initializeApp(requireContext())
         val storage = FirebaseStorage.getInstance()
         // 파이어베이스 저장소에서 파일명으로 가져옴
-        val modelRef = storage.reference.child("sofa.glb") as StorageReference
+        val modelRef = storage.reference.child("sofa.glb")
         // sofa.glb라는 빈파일 생성
         val file = File.createTempFile("sofa", "glb")
         // StorageReference에서 file에 파일을 비동기식으로 다운로드.
@@ -145,13 +143,6 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
 
     /** 디바이스의 Sceneform 지원 여부 확인 */
     fun checkIsSupportedDeviceOrFinish(activity: Activity): Boolean {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.N) {
-            Log.e("suyong", "Sceneform requires Android N or later")
-            Toast.makeText(activity, "Sceneform requires Android N or later", Toast.LENGTH_LONG)
-                .show()
-            activity.finish()
-            return false
-        }
         val openGlVersionString =
             (activity.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager)
                 .deviceConfigurationInfo
@@ -215,7 +206,9 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
             navigate(ArFragmentDirections.actionArFragmentToArCaptureFragment(bitmap!!))
-            /* cache/images/image.png */
+
+
+            /* share */
 //            val newFile = File(cachePath, "image.png")
 //            val contentUri =
 //                FileProvider.getUriForFile(requireContext(), "com.example.arcoresceneform", newFile)
@@ -232,5 +225,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
         }
     }
 
-
+    companion object {
+        private const val MIN_OPENGL_VERSION = 3.0
+    }
 }

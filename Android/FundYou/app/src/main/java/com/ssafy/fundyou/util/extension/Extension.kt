@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.util.extension
+package com.ssafy.fundyou.util
 
 import android.content.Context
 import android.view.View

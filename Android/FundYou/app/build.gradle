@@ -67,7 +67,7 @@ dependencies {
     implementation libs.circleindicator
     implementation libs.mp.android.chart
 
-    implementation libs.kakao.sdk.user
+    implementation libs.kakao.sdk
 
     implementation libs.google.auth
     implementation platform (libs.google.firebase)
@@ -78,6 +78,7 @@ dependencies {
     //glide
     implementation (libs.glide)
     annotationProcessor (libs.glide.compiler)
+    implementation 'com.google.ar.sceneform:rendering:1.17.1'
     testImplementation libs.junit
 
     androidTestImplementation libs.android.test.junit

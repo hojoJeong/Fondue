@@ -86,7 +86,7 @@ public class ItemApiController {
     }
 
 
-    // 램덤 5개 조회
+    // 램덤 6개 조회
     @RequestMapping(value = "/random")
     public ResponseEntity<List<ItemDto>> getRandomItemList(Model model){
         List<ItemDto> dtos = itemService.getRandomItemList();

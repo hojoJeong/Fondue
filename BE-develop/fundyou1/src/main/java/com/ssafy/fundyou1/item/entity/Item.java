@@ -2,14 +2,12 @@ package com.ssafy.fundyou1.item.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.ssafy.fundyou1.cart.entity.CartItem;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.like.entity.LikeItem;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,6 +17,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor // 디폴트 생성자 추가
+@ToString
 public class Item {
 
     @Id
@@ -38,11 +37,13 @@ public class Item {
     private String title;
 
     @Column(name = "is_ar")
-    private String isAr;
+    private Boolean isAr;
+
+    @Column(name = "is_favorite", columnDefinition = "boolean default false")
+    private Boolean isFavorite;
 
     @Column(name = "description")
     @ElementCollection
-    @JsonIgnore
     private List<String>  description;
     @Column(name = "selling_count",columnDefinition = "integer default 0")
     private int sellingCount;
@@ -56,13 +57,13 @@ public class Item {
     private Category category;
 
     @Builder
-    @JsonIgnore
-    public Item(int price, String image, String descriptionImg, String title, String isAr, List<String> description, int sellingCount, String brand, Category category) {
+    public Item(int price, String image, String descriptionImg, String title, Boolean isAr,Boolean isFavorite, List<String> description, int sellingCount, String brand, Category category) {
         this.price = price;
         this.image = image;
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
+        this.isFavorite = isFavorite;
         this.description = description;
         this.sellingCount = sellingCount;
         this.brand = brand;
@@ -83,6 +84,5 @@ public class Item {
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
     List<FundingItem> fundingItems = new ArrayList<>();
-
 
 }

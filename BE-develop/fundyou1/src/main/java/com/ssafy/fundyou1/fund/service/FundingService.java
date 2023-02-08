@@ -31,8 +31,10 @@ import java.util.stream.Collectors;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingService {
-    private final ItemRepository itemRepository;
-    private final MemberRepository memberRepository;
+    @Autowired
+    private ItemRepository itemRepository;
+    @Autowired
+    private MemberRepository memberRepository;
     @Autowired
     private CartItemRepository cartItemRepository;
     @Autowired
@@ -77,7 +79,7 @@ public class FundingService {
 
         // funding_item으로 변경하여 저장
         for(CartItem cartItem : foundCartItemList){
-            Item item = itemRepository.findItemById(cartItem.getItem().getId());
+//            Item item = itemRepository.findItemById(cartItem.getItem().getId());
             FundingItem createdFundingItem = FundingItem.createFundingItem(savedFunding, cartItem.getItem(), cartItem.getCount());
             fundingItemRepository.save(createdFundingItem);
             // 장바구니에서 삭제
@@ -102,5 +104,6 @@ public class FundingService {
 
         return funding;
     }
+
 
 }

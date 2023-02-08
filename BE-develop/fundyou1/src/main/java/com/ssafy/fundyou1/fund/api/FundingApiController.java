@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.fund.api;
 
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemDto;
+import com.ssafy.fundyou1.fund.dto.InvitedFundingDto;
 import com.ssafy.fundyou1.fund.dto.InvitedMemberDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
@@ -64,12 +65,12 @@ public class FundingApiController {
 
     // 초대 받은 펀딩 리스트 확인
     @GetMapping("/invitedList")
-    public ResponseEntity<List<InvitedMember>> getInvitedFundingList() {
-        return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingList());
+    public ResponseEntity<List<InvitedFundingDto>> getInvitedFundingDtoList() {
+        return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingDtoList());
     }
 
 
-    // 참여한 펀딩 리스트 확인
+    // 참여한 펀딩 리스트 확인 => 없어도 되는것 같음
     @GetMapping("/attendList")
     public ResponseEntity<List<FundingItemMember>> getAttendedFundingList() {
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemMemberService.getAttendedFundingList());

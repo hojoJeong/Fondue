@@ -30,7 +30,7 @@ public class ItemDto {
 
     private String title;
 
-    private String isAr;
+    private Boolean isAr;
 
     private String description;
 
@@ -41,7 +41,7 @@ public class ItemDto {
     @JsonProperty("category_id")
     private Long categoryId;
 
-    public ItemDto(Long id, int price, String image, String descriptionImg, String title, String isAr, List<Object> description, int sellingCount, String brand, Long id1, int sellingCount1) {
+    public ItemDto(Long id, int price, String image, String descriptionImg, String title, Boolean isAr, List<Object> description, int sellingCount, String brand, Long id1, int sellingCount1) {
     }
 
     public static ItemDto createItemDto(Item item) {

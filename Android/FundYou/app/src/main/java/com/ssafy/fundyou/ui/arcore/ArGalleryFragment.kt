@@ -15,8 +15,8 @@ import com.ssafy.fundyou.ui.base.BaseFragment
 
 
 class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragment_ar_gallery) {
-    val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
-    val storageRef = storage.reference
+    private val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
+    private val storageRef = storage.reference
 
     private val galleryAdapter: ArGalleryAdapter = ArGalleryAdapter().apply {
         addItemDownLoadEvent { url, binding -> test(url, binding) }

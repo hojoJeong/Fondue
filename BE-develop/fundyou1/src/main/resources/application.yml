@@ -38,7 +38,6 @@ spring:
       httpclient.wire: debug
 
 
-
 social:
   kakao:
     client-id: 0833f8e8bee8ba89bedfcf9d83140b7e

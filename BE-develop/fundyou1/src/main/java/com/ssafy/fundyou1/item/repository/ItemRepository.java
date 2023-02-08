@@ -47,4 +47,13 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     boolean existsByTitleAndBrand(String title, String brand);
 
     Item findByTitle(String title);
+
+    @Query(value =
+            "SELECT * " +
+                    "FROM item " +
+                    "WHERE item.title LIKE %:keyword% " +
+                    "AND item.price " +
+                    "BETWEEN :minPrice AND :maxPrice",
+            nativeQuery = true)
+    List<Item> findBySearch(@Param("keyword")String keyword, @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice);
 }

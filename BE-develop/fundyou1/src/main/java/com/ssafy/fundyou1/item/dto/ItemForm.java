@@ -25,7 +25,7 @@ public class ItemForm {
 
     private String title;
 
-    private String isAr;
+    private Boolean isAr;
 
     private String description;
     
@@ -80,11 +80,11 @@ public class ItemForm {
         this.title = title;
     }
 
-    public String getIsAr() {
+    public Boolean getIsAr() {
         return isAr;
     }
 
-    public void setIsAr(String isAr) {
+    public void setIsAr(Boolean isAr) {
         this.isAr = isAr;
     }
 
