@@ -8,4 +8,5 @@ internal interface ItemRemoteDataSource {
     suspend fun getRandomItemList() : List<ItemResponseDto>
     suspend fun getFavoriteItemList() : List<ItemResponseDto>
     suspend fun getCategoryItemList(categoryId: Int) : List<ItemResponseDto>
+    suspend fun getItemByPrice(categoryId: Int, minPrice: Int, maxPrice: Int) : List<ItemResponseDto>
 }

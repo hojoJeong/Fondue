@@ -8,7 +8,7 @@ data class ProductItemModel(
     val title: String,
     val isAr: Boolean,
     val isFavorite: Boolean,
-    val description: List<String>,
+    val description: List<String>?,
     val sellingCount: Int,
     val brand: String,
     val category: ProductCategoryModel
