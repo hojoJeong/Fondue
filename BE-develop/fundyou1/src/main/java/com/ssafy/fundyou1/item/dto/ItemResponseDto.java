@@ -1,16 +1,14 @@
 package com.ssafy.fundyou1.item.dto;
 
 
+import com.ssafy.fundyou1.item.entity.Description;
 import com.ssafy.fundyou1.item.entity.Item;
-import com.ssafy.fundyou1.member.entity.Member;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import java.util.List;
 
 @Getter
@@ -34,11 +32,10 @@ public class ItemResponseDto {
     @ApiModelProperty(name = "AR가능여부", example = "true / false")
     Boolean isAr;
 
-    @Column(name = "description")
-    @ElementCollection
-    private List<String> description;
+    @ApiModelProperty(name = "상세 정보", example = "type, value")
+    private List<Description> description;
 
-    @Column(name = "brand")
+    @ApiModelProperty(name = "브랜드", example = "한샘")
     private String brand;
 
     @ApiModelProperty(name = "좋아요 여부 ", example = "true / false")
@@ -52,7 +49,7 @@ public class ItemResponseDto {
         this.image = item.getImage();
         this.title = item.getTitle();
         this.isAr = item.getIsAr();
-        this.description = item.getDescription();
+        this.description = item.getDescriptions();
         this.brand = item.getBrand();
         this.isFavorite = b;
 

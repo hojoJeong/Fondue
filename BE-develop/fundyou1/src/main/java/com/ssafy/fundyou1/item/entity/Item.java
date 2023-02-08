@@ -41,10 +41,10 @@ public class Item {
     @Column(name = "is_favorite", columnDefinition = "boolean default false")
     private Boolean isFavorite;
 
-    @Column(name = "description")
     @JsonIgnore
-    @ElementCollection
-    private List<String>  description;
+    @OneToMany(mappedBy = "item")
+    private List<Description> descriptions = new ArrayList<>();
+
     @Column(name = "selling_count",columnDefinition = "integer default 0")
     private int sellingCount;
 
@@ -61,14 +61,13 @@ public class Item {
     private Category category;
 
     @Builder
-    public Item(int price, String image, String descriptionImg, String title, Boolean isAr,Boolean isFavorite, List<String> description, int sellingCount, String brand, Category category) {
+    public Item(int price, String image, String descriptionImg, String title, Boolean isAr,Boolean isFavorite, Description description, int sellingCount, String brand, Category category) {
         this.price = price;
         this.image = image;
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
         this.isFavorite = false;
-        this.description = description;
         this.sellingCount = sellingCount;
         this.brand = brand;
         this.category = category;

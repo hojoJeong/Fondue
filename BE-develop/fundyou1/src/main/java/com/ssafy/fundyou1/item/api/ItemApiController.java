@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.item.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.fundyou1.category.service.CategoryService;
+import com.ssafy.fundyou1.global.dto.BaseResponseBody;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.item.dto.*;
 import com.ssafy.fundyou1.item.entity.Item;
@@ -40,16 +41,11 @@ public class ItemApiController {
     @ApiResponses({
             @ApiResponse(code = 409, message = "CONFLICT\n 상품 이름.브랜드 중복(I01)\n")
     })
-    public ResponseEntity<Map<String,Object>> saveItem(@RequestBody @Valid ItemSaveRequest request) throws JsonProcessingException {
-        itemService.saveItem(request);
-        List<DescriptionData> descriptionData = request.getDescription();
+    public ResponseEntity saveItem(@RequestBody @Valid ItemSaveRequest request) throws JsonProcessingException {
+        Long itemId = itemService.saveItem(request);
 
-        String title = itemService.saveDescriptionList(request.getTitle(), descriptionData);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",itemId  ));
 
-        Map<String,Object> result = new HashMap<>();
-        result.put("save",title );
-
-        return ResponseEntity.ok().body(result);
     }
 
 

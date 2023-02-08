@@ -7,7 +7,9 @@ import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.item.dto.*;
+import com.ssafy.fundyou1.item.entity.Description;
 import com.ssafy.fundyou1.item.entity.Item;
+import com.ssafy.fundyou1.item.repository.DescriptionRepository;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
 import com.ssafy.fundyou1.like.entity.Like;
@@ -35,15 +37,29 @@ public class ItemService {
     @Autowired
     LikeRepository likeRepository;
 
-    //희주 상품 데이터 추가
+    @Autowired
+    DescriptionRepository descriptionRepository;
+
+    //상품 데이터 추가
 
     @Transactional
     public Long saveItem(ItemSaveRequest request) {
+        // 브랜드 이름, 중복검사
         checkDuplicateItemTitle(request.getTitle(), request.getBrand());
-
+        // 카테고리찾기
         Category category = categoryRepository.findByCategoryName(request.getCategoryName());
-
+        // 아이템 먼저 저장
         Item item = request.toItem(category);
+        // description 여러개 리스트
+        for(Description description : request.getDescription()) {
+            Description newDescription  = Description.builder()
+                    .item(item) // 위에서 등록한 itemEntity
+                    .type(description .getType())  // 필드 1
+                    .value(description .getValue())  // 필드 2
+                    .build();
+            descriptionRepository.save(newDescription);
+
+        }
         return itemRepository.save(item).getId();
     }
 
@@ -57,15 +73,6 @@ public class ItemService {
     }
 
 
-    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
-    @Transactional
-    public String saveDescriptionList(String title, List<DescriptionData> description) throws JsonProcessingException {
-        Item item = itemRepository.findByTitle(title);
-
-        ObjectMapper mapper = new ObjectMapper();
-        item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
-        return item.getTitle();
-    }
 
 
     // 카테고리별 아이템 불러오기
@@ -124,21 +131,20 @@ public class ItemService {
 
         List<Item> findAllItems = itemRepository.findAll();
 
-        List<ItemResponseDto> ItemResponseDto = new ArrayList<>();
+        List<ItemResponseDto> itemList = new ArrayList<>();
 
         for (Item item : findAllItems) {
             Long ItemId  = item.getId();
             for (Like like : findLikeItems) {
                 if (like.getItem_id() == ItemId) {
-                    ItemResponseDto.add(new ItemResponseDto(item, true));
+                    itemList.add(new ItemResponseDto(item, true));
                     break;
                 } else {
-                    ItemResponseDto.add(new ItemResponseDto(item, false));
+                    itemList.add(new ItemResponseDto(item, false));
                 }
-
             }
         }
-        return ItemResponseDto;
+        return itemList;
     }
 
 }

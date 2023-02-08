@@ -17,7 +17,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // 아이템 전체 조회
     @Override
-    ArrayList<Item> findAll();
+    List<Item> findAll();
 
     // 카테고리별 아이템 불러오기
     @Query(value =

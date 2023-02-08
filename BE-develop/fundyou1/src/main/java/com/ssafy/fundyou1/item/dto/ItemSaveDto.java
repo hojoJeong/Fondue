@@ -6,14 +6,15 @@ import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.item.entity.Description;
 import com.ssafy.fundyou1.item.entity.Item;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
-public class ItemSaveRequest {
+@ToString
+public class ItemSaveDto {
 
     @ApiModelProperty(position = 1, notes = "상품 가격", example = "10000")
     @JsonProperty("price")
@@ -55,22 +56,6 @@ public class ItemSaveRequest {
     private String categoryName;
 
 
-    public ItemSaveRequest() {
-    }
-
-    @Builder
-    public ItemSaveRequest(int price, String image, String descriptionImg, String title, Boolean isAr, Boolean isFavorite, List<Description> description, String brand, String categoryName) {
-        this.price = price;
-        this.image = image;
-        this.descriptionImg = descriptionImg;
-        this.title = title;
-        this.isAr = isAr;
-        this.isFavorite = isFavorite;
-        this.description = description;
-        this.brand = brand;
-        this.categoryName= categoryName;
-    }
-
     public Item toItem(Category category) {
         return Item.builder()
                 .price(price)
@@ -84,7 +69,6 @@ public class ItemSaveRequest {
                 .category(category)
                 .build();
     }
-
 
 
 }
