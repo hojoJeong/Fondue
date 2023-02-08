@@ -9,8 +9,12 @@ import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.item.dto.*;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
+import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
+import com.ssafy.fundyou1.like.entity.Like;
+import com.ssafy.fundyou1.like.repository.LikeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.metadata.ItemMetadata;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,10 +27,13 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ItemService {
     @Autowired
-    private ItemRepository itemRepository;
+    ItemRepository itemRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    CategoryRepository categoryRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
 
     //희주 상품 데이터 추가
 
@@ -41,7 +48,7 @@ public class ItemService {
     }
 
 
-    // 희주 상품 이름 브랜드 중복 검사
+    // 상품 이름 브랜드 중복 검사
 
     public void checkDuplicateItemTitle(String title, String brand) {
         if (itemRepository.existsByTitleAndBrand(title, brand)) {
@@ -109,4 +116,29 @@ public class ItemService {
 
         return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
     }
+
+
+    // 회원별 구분 아이템 전체 리스트
+    public List<ItemResponseDto> findAllItem(Long memberId) {
+        List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
+
+        List<Item> findAllItems = itemRepository.findAll();
+
+        List<ItemResponseDto> ItemResponseDto = new ArrayList<>();
+
+        for (Item item : findAllItems) {
+            Long ItemId  = item.getId();
+            for (Like like : findLikeItems) {
+                if (like.getItem_id() == ItemId) {
+                    ItemResponseDto.add(new ItemResponseDto(item, true));
+                    break;
+                } else {
+                    ItemResponseDto.add(new ItemResponseDto(item, false));
+                }
+
+            }
+        }
+        return ItemResponseDto;
+    }
+
 }
