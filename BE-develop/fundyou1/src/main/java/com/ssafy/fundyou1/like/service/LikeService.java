@@ -6,6 +6,7 @@ import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.item.dto.ItemDto;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
+import com.ssafy.fundyou1.item.service.ItemService;
 import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
 import com.ssafy.fundyou1.like.dto.LikeRequestDto;
 import com.ssafy.fundyou1.like.entity.Like;
@@ -35,6 +36,9 @@ public class LikeService {
     MemberService memberService;
 
     @Autowired
+    ItemService itemService;
+
+    @Autowired
     LikeRepository likeRepository;
 
     // 찜목록에 상품을 담는 로직
@@ -59,16 +63,21 @@ public class LikeService {
         return like;
     }
 
-    //사용자 찜 목록 리스트- 조인 컬럼 버전
+    //사용자 찜 목록 리스트
 
     @Transactional(readOnly = true)
     public List<LikeItemResponseDto> findLikeByMemberId(Long memberId) {
         List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
 
+        List<Item> findAllItems = itemRepository.findAll();
+
         if ( findLikeItems.size() != 0) {
             List<LikeItemResponseDto> likeItemResponse = new ArrayList<>();
             for (Like like : findLikeItems) {
-                likeItemResponse.add(new LikeItemResponseDto( like.getItem_id(), like.getMember()));
+                Long likeItemId  = like.getItem_id();
+                Optional<Item> likeItem = itemRepository.findById(likeItemId);
+                Item likeItemOne = likeItem.get();
+                likeItemResponse.add(new LikeItemResponseDto( like.getMember(), true, likeItemOne));
             }
             return likeItemResponse;
         }
@@ -92,15 +101,15 @@ public class LikeService {
         return likeItemResponse;
     }
 
-    @Transactional
-    public List<LikeItemResponseDto> updateIsFavorited(Long itemId, boolean b, Long memberId) {
-        if (b) {
-            likeRepository.updateItemIsFavorite(itemId, b);
-        } else {
-            likeRepository.updateItemIsFavorite(itemId, b);
-        }
-        List<LikeItemResponseDto> likeItemResponse= findLikeByMemberId(memberId);
-        return likeItemResponse;
-    }
+//    @Transactional
+//    public List<LikeItemResponseDto> updateIsFavorited(Long itemId, boolean b, Long memberId) {
+//        if (b) {
+//            likeRepository.updateItemIsFavorite(itemId, b);
+//        } else {
+//            likeRepository.updateItemIsFavorite(itemId, b);
+//        }
+//        List<LikeItemResponseDto> likeItemResponse= findLikeByMemberId(memberId);
+//        return likeItemResponse;
+//    }
 
 }

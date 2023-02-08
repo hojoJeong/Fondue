@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.cart.service;
 import com.ssafy.fundyou1.cart.dto.*;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
@@ -34,14 +35,14 @@ public class CartService {
 
 
     // 장바구니에 상품을 담는 로직
-    public Long addCart(CartRequestDto cartRequestDto, String username) {
+    public Long addCart(CartRequestDto cartRequestDto) {
 
         Optional<Item> item = itemRepository.findById(cartRequestDto.getItemId()); //장바구니에 담을 상품 엔티티 조회
 
-        Member member = memberRepository.findByUsername(username); // 현재 로그인한 회원 엔티티 조회
+        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
       // 아니면은 CartItem 에 상품 저장
-        Cart createCart = Cart.createCart(member, item.get(), cartRequestDto.getCount());
+        Cart createCart = Cart.createCart( member.get(), item.get(), cartRequestDto.getCount());
         cartRepository.save(createCart);
         return createCart.getId();
     }

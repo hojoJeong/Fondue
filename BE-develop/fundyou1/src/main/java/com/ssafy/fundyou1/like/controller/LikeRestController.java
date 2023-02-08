@@ -51,11 +51,11 @@ public class LikeRestController {
 
         if(like != null) {
             List<LikeItemResponseDto> likeItemResponse = likeService.deleteByLikeItemId(itemId);
-            likeService.updateIsFavorited(itemId, false, memberId);
+//            likeService.updateIsFavorited(itemId, false, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 취소", likeItemResponse ));
         } else {
             Long likeId = likeService.addLike(likeRequestDto, memberId);
-            likeService.updateIsFavorited(itemId, true, memberId);
+//            likeService.updateIsFavorited(itemId, true, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 추가", likeId ));
         }
     }
@@ -63,11 +63,11 @@ public class LikeRestController {
     // 회원 찜 리스트 전체 조회
     @GetMapping("/like/list")
     @ApiOperation(value = "찜 아이템 조회", notes = "회원의 장바구니 목록을 반환한다.")
-    public ResponseEntity<List<Item>> getAllLikeItems() {
+    public ResponseEntity<List<LikeItemResponseDto>> getAllLikeItems() {
 
-        List<Item> iikeItemList = likeService.findAllItemLike(true);
+        List<LikeItemResponseDto> likeItemList = likeService.findLikeByMemberId(SecurityUtil.getCurrentMemberId());
 
-        return ResponseEntity.status(HttpStatus.OK).body(iikeItemList);
+        return ResponseEntity.status(HttpStatus.OK).body(likeItemList);
     }
 
 

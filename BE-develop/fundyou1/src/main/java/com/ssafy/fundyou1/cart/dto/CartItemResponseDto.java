@@ -27,7 +27,7 @@ public class CartItemResponseDto {
     @ApiModelProperty(name = "AR가능여부", example = "true / false")
     Boolean isAr;
 
-    @ApiModelProperty(name = "AR가능여부", example = "true / false")
+    @ApiModelProperty(name = "좋아요 여부", example = "true / false")
     Boolean isFavorite;
 
     @ApiModelProperty(name = "장바구니 아이템 개수", example = "1,2,3")

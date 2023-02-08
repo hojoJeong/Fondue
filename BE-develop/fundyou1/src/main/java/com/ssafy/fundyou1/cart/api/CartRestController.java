@@ -14,8 +14,6 @@ import com.ssafy.fundyou1.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -53,8 +51,6 @@ public class CartRestController {
 
         Long memberId = responseDto.getId();
 
-        String username = responseDto.getUsername();
-
         Long itemId = cartRequestDto.getItemId();
 
         Cart cart = cartService.findOneCartItem(memberId, itemId);
@@ -64,7 +60,7 @@ public class CartRestController {
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", addcount ));
         } else {
             // 동일한 아이템이 없으면 아이템 추가해주기
-            Long cartId = cartService.addCart(cartRequestDto, username);
+            Long cartId = cartService.addCart(cartRequestDto);
             return new ResponseEntity<Long>(cartId, HttpStatus.OK);
 
         }
