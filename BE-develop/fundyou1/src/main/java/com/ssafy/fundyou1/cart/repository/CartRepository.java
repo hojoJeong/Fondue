@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,15 +23,15 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
     void deleteById(Long id);
 
 
+    // 장바구니에 아이템을 찾는다( 아이템 아이디, 회원아이디)
+    @Query(value="Select * " +
+            "From Cart c " +
+            "WHERE c.item_id = :id " +
+            "AND c.member_id = :memberId", nativeQuery = true)
+    Cart findCartItem( @Param("id") Long id,@Param("memberId") Long memberId);
 
 
-    @Modifying
-    @Query(value="DELETE FROM Cart c " +
-            "WHERE c.member_id = :memberId " +
-            "AND c.item_id = :id" ,nativeQuery = true)
-    void deleteCartItem(@Param("memberId") Long memberId,@Param("id") Long id);
-
-
+    // 장바구니에서 아이템 개수를 추가 업데이트 한다.(숫자, 아이템아이디, 멤버아이디)
     @Modifying
     @Query(value="UPDATE Cart c " +
             "SET c.count = c.count + :count " +
@@ -41,11 +40,11 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
     void updateAddCartItem( @Param("count") int count,@Param("id") Long id,@Param("memberId") Long memberId);
 
 
-
-    @Query(value="Select * " +
-            "From Cart c " +
-            "WHERE c.item_id = :id " +
-            "AND c.member_id = :memberId", nativeQuery = true)
-    Cart findCartItem( @Param("id") Long id,@Param("memberId") Long memberId);
+    // 장바구니에서 (회원 아이디, 아이템 아이디)로 물건을 삭제한다.
+    @Modifying
+    @Query(value="DELETE FROM Cart c " +
+            "WHERE c.member_id = :memberId " +
+            "AND c.item_id = :id" ,nativeQuery = true)
+    void deleteCartItem(@Param("memberId") Long memberId,@Param("id") Long id);
 
 }

@@ -11,10 +11,9 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,20 +26,21 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api")
+@Api(tags = {"장바구니"})
 public class CartRestController {
 
     @Autowired
     CartService cartService;
 
     @Autowired
-    private final MemberService memberService;
+    MemberService memberService;
 
     @Autowired
     MemberRepository memberRepository;
     @Autowired
     CartRepository cartRepository;
 
-
+    // 장바구니에 아이템을 추가
     @PostMapping(value = "/cart")
     public @ResponseBody
     ResponseEntity  addCartItem(@RequestBody @Valid CartRequestDto cartRequestDto){
@@ -51,23 +51,23 @@ public class CartRestController {
 
         Long memberId = responseDto.getId();
 
-        String username = responseDto.getUsername();
-
         Long itemId = cartRequestDto.getItemId();
 
         Cart cart = cartService.findOneCartItem(memberId, itemId);
-        // 카트에 동일한 아이템이 있으면 아이템개수만 업데이트
+        // 장바구니에 동일한 아이템이 있으면 장바구니 아이템 개수만 업데이트
         if (cart != null) {
             int addcount = cartService.updateAddCartItem(cartRequestDto, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", addcount ));
         } else {
-            Long cartId = cartService.addCart(cartRequestDto, username);
+            // 동일한 아이템이 없으면 아이템 추가해주기
+            Long cartId = cartService.addCart(cartRequestDto);
             return new ResponseEntity<Long>(cartId, HttpStatus.OK);
 
         }
 
     }
 
+    // 회원의 장바구니 아이템 조회
     @GetMapping("/cart/list")
     @ApiOperation(value = "장바구니 아이템 조회", notes = "회원의 장바구니 목록을 반환한다.")
     public ResponseEntity<List<CartItemResponseDto>> getAllCartItems() {
@@ -77,6 +77,7 @@ public class CartRestController {
         return ResponseEntity.status(HttpStatus.OK).body(cartList);
     }
 
+    // 회원의 장바구니 아이템 삭제. itemId를 전달받는다.
     @DeleteMapping("/cartItem/{itemid}")
     @ApiOperation(value = "장바구니 아이템 삭제", notes = "<strong>장바구니 목록 id를 받아</strong> 장바구니 목록에서 아이템을 삭제한다.")
     public ResponseEntity deleteCartItem(@PathVariable Long itemid){
@@ -88,6 +89,7 @@ public class CartRestController {
         Long memberId = member.getId();
 
         try {
+            // 삭제 했으면 현재 남아 있는 장바구니 내역을 반환한다.
             List<CartItemResponseDto> cartItemResponseDtos = cartService.deleteByCartItemId(itemid);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", cartItemResponseDtos ));
         } catch (Exception e){
@@ -96,6 +98,7 @@ public class CartRestController {
 
     }
 
+    // 장바구니 내부에서 아이템 개수 수정 (아이템 추가)
     @PutMapping("/cart")
     @ApiOperation(value = "장바구니 아이템 개수 추가", notes = "<strong>장바구니 목록 아이템 id를 받아</strong> 장바구니 목록에서 아이템을 개수 추가한다.")
     public ResponseEntity updateCartItem(@RequestBody CartRequestDto cartRequestDto) {
@@ -107,6 +110,7 @@ public class CartRestController {
         Long memberId = member.getId();
 
         try {
+            // 장바구니 내부에서 아이템 개수 추가
             int addcount = cartService.updateAddCartItem(cartRequestDto, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", addcount ));
         } catch (Exception e){

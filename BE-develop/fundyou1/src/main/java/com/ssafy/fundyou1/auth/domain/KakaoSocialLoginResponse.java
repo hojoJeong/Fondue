@@ -1,16 +1,12 @@
 package com.ssafy.fundyou1.auth.domain;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.ssafy.fundyou1.member.entity.Member;
+
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Date;
-import java.util.Map;
-import java.util.Properties;
 
+// 카카오 API 로그인 정보 받는 DTO
 @Getter
 public class KakaoSocialLoginResponse {
 

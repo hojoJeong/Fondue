@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -34,7 +35,9 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun tokenValidation() {
-        splashViewModel.getLocalAccessToken()
+        Handler(mainLooper).postDelayed({
+            splashViewModel.getLocalAccessToken()
+        }, 1000)
     }
 
     private fun initSplashViewModel() {
@@ -47,7 +50,10 @@ class SplashActivity : AppCompatActivity() {
                     splashViewModel.getJWTByRefreshToken()
                 }
                 is ViewState.Error -> {
-                    if (response.message == NO_TOKEN) startLoginActivity()
+                    if (response.message == NO_TOKEN) {
+                        Log.d(TAG, "initSplashViewModel: no token")
+                        startLoginActivity()
+                    }
                 }
             }
         }
@@ -80,5 +86,9 @@ class SplashActivity : AppCompatActivity() {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
         startActivity(intent)
+    }
+
+    companion object {
+        private const val TAG = "SplashActivity..."
     }
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+// 일반 로그인 할때 받아오는 DTO
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
