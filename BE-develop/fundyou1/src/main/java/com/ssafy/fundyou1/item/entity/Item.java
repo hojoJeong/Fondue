@@ -74,11 +74,6 @@ public class Item {
     }
 
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-//    List<Like> likes = new ArrayList<>();
-
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)

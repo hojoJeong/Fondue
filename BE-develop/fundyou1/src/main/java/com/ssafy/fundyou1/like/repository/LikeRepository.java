@@ -34,15 +34,5 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
             "AND li.member_id = :memberId", nativeQuery = true)
     Like findLikeItem(@Param("id") Long id, @Param("memberId") Long memberId);
 
-    // Item의 is_favorite 값 바꾸기
-//    @Modifying
-//    @Query(value="UPDATE Item i " +
-//            "SET i.is_favorite = :b " +
-//            "WHERE i.item_id = :id"
-//            , nativeQuery = true)
-//    void updateItemIsFavorite( @Param("id") Long id, @Param("b") boolean b);
-//
-//
-
 
 }

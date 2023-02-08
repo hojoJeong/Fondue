@@ -101,15 +101,4 @@ public class LikeService {
         return likeItemResponse;
     }
 
-//    @Transactional
-//    public List<LikeItemResponseDto> updateIsFavorited(Long itemId, boolean b, Long memberId) {
-//        if (b) {
-//            likeRepository.updateItemIsFavorite(itemId, b);
-//        } else {
-//            likeRepository.updateItemIsFavorite(itemId, b);
-//        }
-//        List<LikeItemResponseDto> likeItemResponse= findLikeByMemberId(memberId);
-//        return likeItemResponse;
-//    }
-
 }
