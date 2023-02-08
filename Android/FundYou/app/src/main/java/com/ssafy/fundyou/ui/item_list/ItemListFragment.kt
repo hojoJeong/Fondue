@@ -4,19 +4,20 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemListBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
+import com.ssafy.fundyou.ui.item_list.adapter.ItemListAdapter
+import com.ssafy.fundyou.ui.item_list.model.ItemListModel
 
 class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment_item_list) {
-
-    private var productList = mutableListOf<ProductItemModel>()
+    private val itemListViewModel by activityViewModels<ItemListViewModel>()
     private val categoryType : ItemListFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,34 +30,42 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         super.onViewCreated(view, savedInstanceState)
 
         initView()
+        initViewModels()
     }
 
     override fun initView() {
+        itemListViewModel.getAllItemList()
         initCategory()
         initTitlePriceRange()
-        initItemList()
     }
 
     override fun initViewModels() {
-
+        initItemListObserve()
     }
 
     private fun initCategory() {
+        val categoryId = resources.getStringArray(R.array.category_num).indexOf(categoryType.categoryType)
         val categoryGroup = binding.chipgItemListCategory
         val hScrollView = binding.hscvItemListCategory
-        for(chipNum in 0 until categoryGroup.childCount){
-            val category = categoryGroup.getChildAt(chipNum) as Chip
-            Log.d(TAG, "initCategory: ${category.text}")
-            if(category.text.equals(categoryType.categoryType)){
-                category.isChecked = true
-                hScrollView.post{
-                    hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
-                }
-
-                //TODO("상품 목록 초기 진입 시 카테고리에 따른 데이터 호출")
-                break
+        if(resources.getStringArray(R.array.category_num).contains(categoryType.categoryType)){
+            val category = categoryGroup.getChildAt(categoryId) as Chip
+            category.isChecked = true
+            hScrollView.post{
+                hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
             }
+            itemListViewModel.setCategory(categoryId)
         }
+//        for(chipNum in 0 until categoryGroup.childCount){
+//            val category = categoryGroup.getChildAt(chipNum) as Chip
+//            Log.d(TAG, "initCategory: ${category.text}")
+//            if(category.text.equals(categoryType.categoryType)){
+//                category.isChecked = true
+//                hScrollView.post{
+//                    hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
+//                }
+//                break
+//            }
+//        }
         categoryGroup.setOnCheckedStateChangeListener { group, checkedId ->
             //TODO("칩 변경 시 서버통신")
         }
@@ -84,31 +93,31 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         }
     }
 
-    private fun initItemList() {
-        //임시 데이터 추가
-        with(productList) {
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+    private fun initCategoryObserve(categoryId: Int){
+        itemListViewModel.categoryId.observe(viewLifecycleOwner){
+            itemListViewModel.getCategoryItemList(categoryId)
         }
+    }
 
-        val itemListAdapter = ProductItemAdapter()
-        itemListAdapter.submitList(productList)
+    private fun initItemListObserve() {
+        itemListViewModel.itemList.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initItemList: ItemList Loading...")
+                }
+                is ViewState.Success -> {
+                    initItemListAdapter(response.value ?: emptyList())
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initItemList: ItemList Loading Error...${response.message}")
+                }
+            }
+        }
+    }
+
+    private fun initItemListAdapter(itemList: List<ItemListModel>){
+        val itemListAdapter = ItemListAdapter()
+        itemListAdapter.submitList(itemList)
         binding.rvItemList.apply {
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter

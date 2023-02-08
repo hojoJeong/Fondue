@@ -66,12 +66,13 @@ class SearchResultFragment :
 
     private fun tempData(): List<ProductItemModel> {
         val rankingProductList = mutableListOf<ProductItemModel>()
-        rankingProductList.add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-        rankingProductList.add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-        rankingProductList.add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-        rankingProductList.add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-        rankingProductList.add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//        rankingProductList.add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//        rankingProductList.add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//        rankingProductList.add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
+//        rankingProductList.add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
+//        rankingProductList.add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
+//        rankingProductList.add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+//
         return rankingProductList.toList()
     }
 }

@@ -17,7 +17,6 @@ import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailInfoAdapter
@@ -42,7 +41,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
     override fun initView() {
         // 상품 전체 정보 넣기
-        binding.productInfo = ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true)
+//        binding.productInfo = ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true)
         itemInfoImgSize = binding.ivItemInfo.layoutParams.height
 
         initItemImgAdapter()
@@ -100,42 +99,42 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     }
 
     private fun initRelatedItemAdapter() {
-        val tempList = mutableListOf<ProductItemModel>()
-        tempList.add(
-            ProductItemModel(
-                0,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                true
-            )
-        )
-        tempList.add(
-            ProductItemModel(
-                1,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                true,
-                "삼성",
-                false
-            )
-        )
-        tempList.add(
-            ProductItemModel(
-                2,
-                100000,
-                "",
-                "BESPOKE 냉장고",
-                false,
-                "삼성",
-                false
-            )
-        )
-        relatedAdapter.submitList(tempList)
-        binding.rvRelatedItemList.adapter = relatedAdapter
+//        val tempList = mutableListOf<ProductItemModel>()
+//        tempList.add(
+//            ProductItemModel(
+//                0,
+//                100000,
+//                "",
+//                "BESPOKE 냉장고",
+//                false,
+//                "삼성",
+//                true
+//            )
+//        )
+//        tempList.add(
+//            ProductItemModel(
+//                1,
+//                100000,
+//                "",
+//                "BESPOKE 냉장고",
+//                true,
+//                "삼성",
+//                false
+//            )
+//        )
+//        tempList.add(
+//            ProductItemModel(
+//                2,
+//                100000,
+//                "",
+//                "BESPOKE 냉장고",
+//                false,
+//                "삼성",
+//                false
+//            )
+//        )
+//        relatedAdapter.submitList(tempList)
+//        binding.rvRelatedItemList.adapter = relatedAdapter
     }
 
     private fun initItemDetailAdapter() {

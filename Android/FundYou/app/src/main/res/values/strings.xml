@@ -133,4 +133,13 @@
     <string name="content_wishlist_balloon">친구들과 펀딩 정보를\n공유할 수 있어요</string>
     <string name="title_wishlist_callendar">펀딩 기간을 설정해주세요</string>
     <string name="content_wishlist_funding_period">%1$s ~ %2$s</string>
+
+    <!-- 카테고리 -->
+    <string-array name="category_num">
+        <item>인테리어</item>
+        <item>디지털/가전</item>
+        <item>주방용품</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>

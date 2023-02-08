@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentInvitedFondueBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel
 
 class InvitedFondueFragment : BaseFragment<FragmentInvitedFondueBinding>(R.layout.fragment_invited_fondue) {
@@ -43,57 +41,57 @@ class InvitedFondueFragment : BaseFragment<FragmentInvitedFondueBinding>(R.layou
     }
 
     private fun initFundingItem(){
-        with(fundingItemList){
-            add(InvitedFundingModel(0, "유승우", FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", true, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            )))
-            add(InvitedFundingModel(0, "유승우", FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            )))
-            add(InvitedFundingModel(0, "유승우", FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            )))
-            add(InvitedFundingModel(0, "유승우", FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", true, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            )))
-            add(InvitedFundingModel(0, "유승우", FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            )))
-            add(InvitedFundingModel(0, "유승우", FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", true, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            )))
-            add(InvitedFundingModel(0, "유승우", FundingItemModel(
-                id = 0,
-                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
-                tempProductImg = R.drawable.ic_launcher_background,
-                currentFundingPrice = 1000,
-                fundingParticipate = 3,
-            )))
-        }
+//        with(fundingItemList){
+//            add(InvitedFundingModel(0, "유승우", FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", true, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            )))
+//            add(InvitedFundingModel(0, "유승우", FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            )))
+//            add(InvitedFundingModel(0, "유승우", FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            )))
+//            add(InvitedFundingModel(0, "유승우", FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", true, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            )))
+//            add(InvitedFundingModel(0, "유승우", FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            )))
+//            add(InvitedFundingModel(0, "유승우", FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", true, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            )))
+//            add(InvitedFundingModel(0, "유승우", FundingItemModel(
+//                id = 0,
+//                ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
+//                tempProductImg = R.drawable.ic_launcher_background,
+//                currentFundingPrice = 1000,
+//                fundingParticipate = 3,
+//            )))
+//        }
     }
 
     private fun initFundingItemAdapter(){

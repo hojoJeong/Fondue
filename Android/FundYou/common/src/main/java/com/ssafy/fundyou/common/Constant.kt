@@ -8,7 +8,7 @@ object Constant {
     const val SUCCESS = 200
 }
 
-object ErrorMessage {
+object ErrorMessage{
     const val NO_TOKEN = "NO_TOKEN"
     const val AUTHORIZATION_ERROR = "AUTHORIZATION_ERROR"
 }
