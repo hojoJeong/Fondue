@@ -9,8 +9,12 @@ import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.item.dto.*;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
+import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
+import com.ssafy.fundyou1.like.entity.Like;
+import com.ssafy.fundyou1.like.repository.LikeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.metadata.ItemMetadata;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,6 +32,9 @@ public class ItemService {
     @Autowired
     CategoryRepository categoryRepository;
 
+    @Autowired
+    LikeRepository likeRepository;
+
     //희주 상품 데이터 추가
 
     @Transactional
@@ -39,7 +46,7 @@ public class ItemService {
     }
 
 
-    // 희주 상품 이름 브랜드 중복 검사
+    // 상품 이름 브랜드 중복 검사
 
     public void checkDuplicateItemTitle(String title, String brand) {
         if (itemRepository.existsByTitleAndBrand(title, brand)) {
@@ -85,13 +92,14 @@ public class ItemService {
     }
     @Transactional
     public List<RandomItemResponse> getRandomItemList() {
+        System.out.println("랜덤: " + itemRepository.findRandomItemById());
         List<RandomItemResponse> randomItemResponseList = new ArrayList<RandomItemResponse>();
         for (Item item : itemRepository.findRandomItemById()) {
             randomItemResponseList.add(new RandomItemResponse(item.getId(), item.getImage(), item.getIsAr(), item.getIsFavorite(), item.getPrice(), item.getTitle()));
         }
         return randomItemResponseList;
     }
-    @Transactional
+
     public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
         return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
     }

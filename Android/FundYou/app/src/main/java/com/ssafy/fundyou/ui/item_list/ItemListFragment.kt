@@ -18,11 +18,9 @@ import com.ssafy.fundyou.ui.item_list.model.ItemListModel
 
 class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment_item_list) {
     private val itemListViewModel by activityViewModels<ItemListViewModel>()
-    private val categoryType : ItemListFragmentArgs by navArgs()
-
+    private val categoryType: ItemListFragmentArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         Log.d(TAG, "onViewCreated: ${categoryType.categoryType}")
     }
 
@@ -34,49 +32,52 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     override fun initView() {
-        itemListViewModel.getAllItemList()
         initCategory()
         initTitlePriceRange()
     }
 
     override fun initViewModels() {
         initItemListObserve()
+        initCategoryObserve()
+        initPriceObserve()
     }
 
     private fun initCategory() {
-        val categoryId = resources.getStringArray(R.array.category_num).indexOf(categoryType.categoryType)
+        var categoryId =
+            resources.getStringArray(R.array.category_num).indexOf(categoryType.categoryType)
         val categoryGroup = binding.chipgItemListCategory
         val hScrollView = binding.hscvItemListCategory
-        if(resources.getStringArray(R.array.category_num).contains(categoryType.categoryType)){
+        if (resources.getStringArray(R.array.category_num).contains(categoryType.categoryType)) {
             val category = categoryGroup.getChildAt(categoryId) as Chip
             category.isChecked = true
-            hScrollView.post{
+            hScrollView.post {
                 hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
             }
-            itemListViewModel.setCategory(categoryId)
+            if (categoryId == 0) {
+                itemListViewModel.getAllItemList()
+            } else {
+                itemListViewModel.setCategory(categoryId)
+            }
         }
-//        for(chipNum in 0 until categoryGroup.childCount){
-//            val category = categoryGroup.getChildAt(chipNum) as Chip
-//            Log.d(TAG, "initCategory: ${category.text}")
-//            if(category.text.equals(categoryType.categoryType)){
-//                category.isChecked = true
-//                hScrollView.post{
-//                    hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
-//                }
-//                break
-//            }
-//        }
-        categoryGroup.setOnCheckedStateChangeListener { group, checkedId ->
-            //TODO("칩 변경 시 서버통신")
+
+        /* 카테고리 체크 변화 시 서버 통신 */
+        categoryGroup.setOnCheckedStateChangeListener { group, _ ->
+            val checkedChip = group.findViewById(group.checkedChipId) as Chip
+            categoryId =
+                resources.getStringArray(R.array.category_num).indexOf(checkedChip.text.toString())
+
+            itemListViewModel.setCategory(categoryId)
         }
     }
 
     private fun initTitlePriceRange() {
+        var minPrice = 0
+        var maxPrice = 0
         with(binding.sldItemList) {
             addOnChangeListener { slider, _, _ ->
                 val sliderValueList = slider.values
-                val minPrice = sliderValueList[0].toInt()
-                val maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
+                minPrice = sliderValueList[0].toInt()
+                maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
                 binding.tvItemListPriceRange.text =
                     getString(R.string.title_rank_price_range, minPrice, maxPrice)
             }
@@ -86,22 +87,26 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                 }
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
-
-                    //TODO("가격 변경 시 서버통신")
+                    /* 가격 변경 시 서버 통신 */
+                    itemListViewModel.setPrice(minPrice, maxPrice)
                 }
             })
         }
     }
 
-    private fun initCategoryObserve(categoryId: Int){
-        itemListViewModel.categoryId.observe(viewLifecycleOwner){
-            itemListViewModel.getCategoryItemList(categoryId)
+    private fun initCategoryObserve() {
+        itemListViewModel.categoryId.observe(viewLifecycleOwner) { categoryId ->
+            if(categoryId == 0){
+                itemListViewModel.getAllItemList()
+            } else {
+                itemListViewModel.getCategoryItemList(categoryId)
+            }
         }
     }
 
     private fun initItemListObserve() {
-        itemListViewModel.itemList.observe(viewLifecycleOwner){ response ->
-            when(response){
+        itemListViewModel.itemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initItemList: ItemList Loading...")
                 }
@@ -115,12 +120,24 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         }
     }
 
-    private fun initItemListAdapter(itemList: List<ItemListModel>){
+    private fun initPriceObserve(){
+        itemListViewModel.sumPrice.observe(viewLifecycleOwner){
+            val categoryId = itemListViewModel.categoryId.value ?: 0
+            val min = itemListViewModel.minPrice.value ?: 0
+            val max = itemListViewModel.maxPrice.value?: 1000000
+            itemListViewModel.getItemByPrice(categoryId, min, max)
+        }
+    }
+
+    private fun initItemListAdapter(itemList: List<ItemListModel>) {
         val itemListAdapter = ItemListAdapter()
         itemListAdapter.submitList(itemList)
         binding.rvItemList.apply {
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
     }
+
+
 }

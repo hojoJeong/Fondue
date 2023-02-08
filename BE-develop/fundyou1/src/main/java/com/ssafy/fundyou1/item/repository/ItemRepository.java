@@ -4,12 +4,14 @@ import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
 
@@ -55,6 +57,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findBySearch(@Param("keyword")String keyword, @Param("minPrice") Integer minPrice, @Param("maxPrice") Integer maxPrice);
 
     Optional<Item> findById(Long itemId);
+
+
+    List<Item> findAllByIsFavorite(boolean b);
 
 
 }

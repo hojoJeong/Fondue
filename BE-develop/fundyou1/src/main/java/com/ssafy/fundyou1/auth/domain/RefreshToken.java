@@ -5,8 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
+// 리프레쉬 토큰
 @Getter
 @NoArgsConstructor
 @Table(name = "refresh_token")

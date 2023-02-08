@@ -2,26 +2,22 @@ package com.ssafy.fundyou1.item.api;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.ssafy.fundyou1.category.service.CategoryService;
-import com.ssafy.fundyou1.item.dto.DescriptionData;
-import com.ssafy.fundyou1.item.dto.ItemDto;
-import com.ssafy.fundyou1.item.dto.ItemSaveRequest;
-import com.ssafy.fundyou1.item.dto.RandomItemResponse;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
+import com.ssafy.fundyou1.item.dto.*;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.service.ItemService;
+import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,6 +33,7 @@ public class ItemApiController {
     @Autowired
     private CategoryService categoryService;
 
+    // 상품 등록
 
     @PostMapping("/save")
     @ApiOperation(value = "상품등록", notes = "상품등록")
@@ -93,6 +90,16 @@ public class ItemApiController {
         List<RandomItemResponse> randomItemResponseList = itemService.getRandomItemList();
 
         return ResponseEntity.status(HttpStatus.OK).body(randomItemResponseList);
+    }
+
+
+    // 아이템 전체 조회
+
+    @GetMapping(value = "/list/member")
+    public ResponseEntity<List<ItemResponseDto>> getItemAll() {
+        List<ItemResponseDto> ItemList = itemService.findAllItem(SecurityUtil.getCurrentMemberId());
+
+        return ResponseEntity.status(HttpStatus.OK).body(ItemList);
     }
 
 

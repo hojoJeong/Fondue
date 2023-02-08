@@ -13,8 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 
 class FavoriteViewModel @Inject constructor(private val getFavoriteItemUseCase : GetFavoriteItemUseCase) : ViewModel() {
-    private val _favoriteItemList = MutableLiveData<ViewState<List<FavoriteModel>>>()
-    val favoriteItemList: LiveData<ViewState<List<FavoriteModel>>>
+    private val _favoriteItemList = MutableLiveData<ViewState<List<FavoriteItemModel>>>()
+    val favoriteItemList: LiveData<ViewState<List<FavoriteItemModel>>>
         get() = _favoriteItemList
 
     fun getFavoriteItemList() = viewModelScope.launch {
