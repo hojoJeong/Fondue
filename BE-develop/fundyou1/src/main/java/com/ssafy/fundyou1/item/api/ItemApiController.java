@@ -49,54 +49,53 @@ public class ItemApiController {
     }
 
 
-    // 전체 상품 목록 조회
-    @GetMapping("/list")
-    public List<Item> getAllItems() {
-        return itemService.getAllItems();
+    // 멤버별 좋아요 구분해서 아이템 전체 조회
+    @GetMapping(value = "/list")
+    @ApiOperation(value = "전체 아이템 조회", notes = "회원 별로 is_favorite로 아이템 좋아요 구분 할 수 있음")
+    public ResponseEntity<List<ItemResponseDto>> getItemAll() {
+        // 현재 멤버 id를 넘겨주고 전체 아이템 찾기
+        List<ItemResponseDto> ItemList = itemService.findAllItem(SecurityUtil.getCurrentMemberId());
+
+        return ResponseEntity.status(HttpStatus.OK).body(ItemList);
     }
+
+
 
     // 상품 디테일
     @GetMapping("/{id}")
-    public Item itemDetail(@PathVariable Long id){
+    @ApiOperation(value = "id 값으로 아이템 1개 찾기", notes = "id값으로 아이템 1개 찾습니다.")
+    public List<ItemResponseDto> itemDetail(@PathVariable Long id){
         return itemService.itemDetail(id);
     }
 
 
     // 카테고리별 상품 목록 조회
     @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<ItemDto>> getCategoryItemList(@PathVariable Long categoryId) {
-        List<ItemDto> dtos = itemService.getCategoryItemList(categoryId);
+    public ResponseEntity<List<ItemResponseDto>> getCategoryItemList(@PathVariable Long categoryId) {
+        List<ItemResponseDto> categoryItemList = itemService.getCategoryItemList(categoryId);
 
-        return ResponseEntity.status(HttpStatus.OK).body(dtos);
+        return ResponseEntity.status(HttpStatus.OK).body(categoryItemList);
     }
 
 
     // 홈화면 조건에 맞는 Top5 아이템 조회
     @ApiOperation(value = "홈화면 Top5", notes = "카테고리, 가격범위에 맞는 아이템 5개 반환")
     @GetMapping("/category/{categoryId}/{minPrice}/{maxPrice}")
-    public ResponseEntity<List<Item>> getTopItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
-        List<Item> dtos = itemService.getTopItemList(categoryId, minPrice, maxPrice);
-        return ResponseEntity.status(HttpStatus.OK).body(dtos);
+    public ResponseEntity<List<RandomItemResponse>> getTopItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
+        List<RandomItemResponse> topList = itemService.getTopItemList(categoryId, minPrice, maxPrice);
+        return ResponseEntity.status(HttpStatus.OK).body(topList);
     }
 
 
     // 램덤 5개 조회
     @GetMapping(value = "/random")
+    @ApiOperation(value = "랜덤 5개 조회", notes = "아이템 중에 랜덤 5개 조회")
     public ResponseEntity<List<RandomItemResponse>> getRandomItemList(){
         List<RandomItemResponse> randomItemResponseList = itemService.getRandomItemList();
 
         return ResponseEntity.status(HttpStatus.OK).body(randomItemResponseList);
     }
 
-
-    // 아이템 전체 조회
-
-    @GetMapping(value = "/list/member")
-    public ResponseEntity<List<ItemResponseDto>> getItemAll() {
-        List<ItemResponseDto> ItemList = itemService.findAllItem(SecurityUtil.getCurrentMemberId());
-
-        return ResponseEntity.status(HttpStatus.OK).body(ItemList);
-    }
 
 
 }

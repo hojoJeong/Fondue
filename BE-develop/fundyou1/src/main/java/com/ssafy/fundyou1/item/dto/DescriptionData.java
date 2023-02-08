@@ -29,15 +29,6 @@ public class DescriptionData {
         this.value = value;
     }
 
-    public Description toDescription(Item item) {
-        return Description.builder()
-                .type(type)
-                .value(value)
-                .build();
-    }
-
-
-
 
 
 }

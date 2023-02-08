@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+// 아이템 상세목록 엔티티
 @Entity
 @Getter
 @Setter
