@@ -2,9 +2,9 @@ package com.ssafy.fundyou.data.remote.di
 
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
-import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
+import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
-import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSourceImpl
+import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
 import com.ssafy.fundyou.data.remote.repository.AuthRepositoryImpl
 import com.ssafy.fundyou.data.remote.repository.ItemRepositoryImpl
 import com.ssafy.fundyou.data.remote.repository.SearchRepositoryImpl
@@ -23,22 +23,23 @@ internal object RepositoryModule {
     @Provides
     @Singleton
     fun provideAuthRepository(
-        authRemoteDataSourceImpl: AuthRemoteDataSourceImpl,
+        authRemoteDataSource: AuthRemoteDataSource,
         authSharePreference: AuthSharePreference
-    ): AuthRepository{
-        return AuthRepositoryImpl(authRemoteDataSourceImpl, authSharePreference)
+    ): AuthRepository {
+        return AuthRepositoryImpl(authRemoteDataSource, authSharePreference)
     }
 
     @Provides
     @Singleton
     fun provideSearchRepository(
         searchKeywordPreference: SearchKeywordPreference,
-        searchRemoteDataSourceImpl: SearchRemoteDataSourceImpl
-    ) : SearchRepository{
-        return SearchRepositoryImpl(searchKeywordPreference, searchRemoteDataSourceImpl)
+        searchRemoteDataSource: SearchRemoteDataSource
+    ): SearchRepository {
+        return SearchRepositoryImpl(searchKeywordPreference, searchRemoteDataSource)
     }
 
     @Provides
     @Singleton
-    fun provideItemRepository(itemRemoteDataSource: ItemRemoteDataSource) : ItemRepository = ItemRepositoryImpl(itemRemoteDataSource)
+    fun provideItemRepository(itemRemoteDataSource: ItemRemoteDataSource): ItemRepository =
+        ItemRepositoryImpl(itemRemoteDataSource)
 }

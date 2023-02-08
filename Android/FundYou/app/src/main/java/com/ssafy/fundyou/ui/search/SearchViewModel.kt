@@ -8,7 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.Constant.SUCCESS
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.domain.model.search.PopularKeywordEntity
+import com.ssafy.fundyou.domain.usecase.item.GetKeywordItemListUseCase
 import com.ssafy.fundyou.domain.usecase.search.*
+import com.ssafy.fundyou.ui.search.model.SearchItemModel
+import com.ssafy.fundyou.ui.search.model.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -19,7 +22,8 @@ class SearchViewModel @Inject constructor(
     private val getSearchHistoryListUseCase: GetSearchHistoryListUseCase,
     private val deleteSearchHistoryKeywordUseCase: DeleteSearchHistoryKeywordUseCase,
     private val deleteAllHistoryKeywordUseCase: DeleteAllHistoryKeywordUseCase,
-    private val getPopularKeywordListUseCase: GetPopularKeywordListUseCase
+    private val getPopularKeywordListUseCase: GetPopularKeywordListUseCase,
+    private val getKeywordItemListUseCase: GetKeywordItemListUseCase
 ) : ViewModel() {
     private val _searchKeywordList = MutableLiveData<ViewState<List<String>>>()
     val searchKeywordList: LiveData<ViewState<List<String>>> get() = _searchKeywordList
@@ -35,6 +39,20 @@ class SearchViewModel @Inject constructor(
 
     private val _popularKeywordList = MutableLiveData<ViewState<List<PopularKeywordEntity>>>()
     val popularKeywordList: LiveData<ViewState<List<PopularKeywordEntity>>> get() = _popularKeywordList
+
+    private val _keywordItemList = MutableLiveData<ViewState<List<SearchItemModel>>>()
+    val keywordItemList: LiveData<ViewState<List<SearchItemModel>>> get() = _keywordItemList
+
+    fun getSearchItemList(keyword: String, minPrice: Int, maxPrice: Int) = viewModelScope.launch {
+        _keywordItemList.value = ViewState.Loading()
+        try {
+            val response =
+                getKeywordItemListUseCase(keyword, minPrice, maxPrice).map { it.toUiModel() }
+            _keywordItemList.value = ViewState.Success(response)
+        } catch (e: Exception) {
+            _keywordItemList.value = ViewState.Error(e.message)
+        }
+    }
 
     fun getPopularKeywordList() = viewModelScope.launch {
         _popularKeywordList.value = ViewState.Loading()

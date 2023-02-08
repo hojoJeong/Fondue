@@ -43,7 +43,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
         }
     }
 
-    private fun initFavoriteItemListAdapter(itemList: List<FavoriteModel>){
+    private fun initFavoriteItemListAdapter(itemList: List<FavoriteItemModel>){
         val itemListAdapter = FavoriteItemListAdapter()
         itemListAdapter.submitList(itemList)
         with(binding.rvFavorite){

@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.data.remote.repository
 
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
+import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemSearchRequestDto
 import com.ssafy.fundyou.data.remote.mappers.item.toDomainModel
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.domain.repository.ItemRepository
@@ -28,6 +29,7 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
         minPrice: Int,
         maxPrice: Int
     ): List<ProductItemModel> {
-        TODO("Not yet implemented")
+        val request = ItemSearchRequestDto(keyword, maxPrice, minPrice)
+        return itemRemoteDataSource.getKeywordItemList(request).map { it.toDomainModel() }
     }
 }
