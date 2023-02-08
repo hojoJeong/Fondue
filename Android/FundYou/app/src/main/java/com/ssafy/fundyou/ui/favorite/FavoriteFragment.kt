@@ -1,54 +1,51 @@
 package com.ssafy.fundyou.ui.favorite
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.adapter.ProductItemAdapter
 
 class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_favorite) {
-    private val itemList = mutableListOf<ProductItemModel>()
+    private val favoriteViewModel by activityViewModels<FavoriteViewModel>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
     override fun initView() {
-        initItemList()
+        favoriteViewModel.getFavoriteItemList()
     }
 
     override fun initViewModels() {
-
+        initFavoriteItemObserve()
     }
 
-    private fun initItemList(){
-        with(itemList) {
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(1, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
-            add(ProductItemModel(2, 100000, "", "BESPOKE 냉장고", false, "삼성", false))
-            add(ProductItemModel(3, 100000, "", "BESPOKE 냉장고", true, "삼성", true))
-            add(ProductItemModel(4, 100000, "", "BESPOKE 냉장고", false, "삼성", true))
-            add(ProductItemModel(5, 100000, "", "BESPOKE 냉장고", true, "삼성", false))
+    private fun initFavoriteItemObserve(){
+        favoriteViewModel.favoriteItemList.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initFavoriteItemList: Favorite Item List Loading...")
+                }
+                is ViewState.Success -> {
+                    initFavoriteItemListAdapter(response.value ?: emptyList())
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initFavoriteItemList: Favorite Item List Loading Error...${response.message}")
+                }
+            }
         }
+    }
 
-        val itemListAdapter = ProductItemAdapter()
+    private fun initFavoriteItemListAdapter(itemList: List<FavoriteModel>){
+        val itemListAdapter = FavoriteItemListAdapter()
         itemListAdapter.submitList(itemList)
-        itemListAdapter.setFavoriteVisibility(false)
-
         with(binding.rvFavorite){
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
