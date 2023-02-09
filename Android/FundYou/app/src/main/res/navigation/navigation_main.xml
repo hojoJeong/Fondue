@@ -119,7 +119,7 @@
     </fragment>
     <fragment
         android:id="@+id/favoriteFragment"
-        android:name="com.ssafy.fundyou.ui.favorite.FavoriteFragment"
+        android:name="com.ssafy.fundyou.ui.like.LikeFragment"
         android:label="FavoriteFragment" />
     <fragment
         android:id="@+id/myFundingFragment"

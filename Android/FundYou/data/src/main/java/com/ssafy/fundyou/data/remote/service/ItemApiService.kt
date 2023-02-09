@@ -17,8 +17,8 @@ internal interface ItemApiService {
     @GET("/item/random")
     suspend fun getRandomItemList() : List<ItemResponseDto>
 
-    @GET("/item/favorite")
-    suspend fun getFavoriteItemList() : List<ItemResponseDto>
+    @GET("/api/like/list")
+    suspend fun getLikeItemList() : List<ItemResponseDto>
 
     @GET("/item/category/{categoryId}")
     suspend fun getCategoryItemList(@Path("categoryId") categoryId: Int) : List<ItemResponseDto>
@@ -28,4 +28,7 @@ internal interface ItemApiService {
 
     @POST("/search")
     suspend fun getKeywordItemList(@Body request : ItemSearchRequestDto) : List<ItemResponseDto>
+
+    @POST("/api/like/{id}")
+    suspend fun addLikeItem(@Path("id") itemId: Long)
 }
