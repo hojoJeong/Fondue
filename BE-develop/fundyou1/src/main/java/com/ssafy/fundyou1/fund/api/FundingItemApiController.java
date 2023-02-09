@@ -75,5 +75,13 @@ public class FundingItemApiController {
     }
 
 
+    // 펀딩 아이템 종료
+    @PostMapping("/terminate")
+    @ApiOperation(value = "펀딩 아이템 펀딩 종료", notes = "반환값 - 펀딩 종료 완료 ")
+    public ResponseEntity<String> terminateFundingItem(@RequestBody Long fundingItemId) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.terminateFundingItem(fundingItemId));
+    }
+
+
 
 }
