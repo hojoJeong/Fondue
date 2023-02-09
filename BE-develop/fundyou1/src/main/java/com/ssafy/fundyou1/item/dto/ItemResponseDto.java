@@ -71,7 +71,7 @@ public class ItemResponseDto {
     public List<CustomDescriptionDto> changeDto(Item item){
         List<CustomDescriptionDto> desList = new ArrayList<>();
         for (Description des : item.getDescriptions()) {
-            desList.add(new CustomDescriptionDto(des.getType(), des.getValue()));
+            desList.add(new CustomDescriptionDto(des.getItemType(), des.getContent()));
         }
         return desList;
     }
