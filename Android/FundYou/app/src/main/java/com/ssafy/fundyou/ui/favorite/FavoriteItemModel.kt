@@ -16,6 +16,6 @@ fun ProductItemModel.toFavoriteModel() = FavoriteItemModel(
     title = this.title,
     brand = this.brand,
     price = this.price,
-    img = this.img,
+    img = this.img[0],
     isAr = this.isAr
 )

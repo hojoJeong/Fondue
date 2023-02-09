@@ -33,4 +33,10 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
     void addParticipantsCount(@Param("id") Long fundingItemId);
 
     List<FundingItem> findByFundingId(Long fundingId);
+
+    @Query(value = "select sum(item_Total_Price) from funding_Item fi where fi.funding_id = :fundingId", nativeQuery = true)
+    int sumTotalPriceByFundingId(@Param("fundingId") Long fundingId);
+
+    @Query(value = "select sum(current_funding_Price) from funding_Item fi where fi.funding_id = :fundingId", nativeQuery = true)
+    int sumCurrentFundingPriceByFundingId(@Param("fundingId") Long fundingId);
 }

@@ -14,7 +14,7 @@ data class SearchItemModel(
 
 fun ProductItemModel.toUiModel() = SearchItemModel(
     id = this.id,
-    itemImg = this.img,
+    itemImg = this.img[0],
     isFavorite = this.isFavorite,
     isAr = this.isAr,
     brand = this.brand,

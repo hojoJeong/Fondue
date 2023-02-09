@@ -12,6 +12,7 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchResultBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.home.MainViewModel
 import com.ssafy.fundyou.ui.search.adapter.SearchResultAdapter
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,6 +25,7 @@ class SearchResultFragment :
     private val resultAdapter = SearchResultAdapter()
     private val args by navArgs<SearchResultFragmentArgs>()
     private val searchViewModel by viewModels<SearchViewModel>()
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,6 +47,10 @@ class SearchResultFragment :
 
     override fun initViewModels() {
         initSearchViewModel()
+    }
+
+    private fun initMainViewModel(){
+        mainViewModel
     }
 
     private fun initSearchViewModel() {
