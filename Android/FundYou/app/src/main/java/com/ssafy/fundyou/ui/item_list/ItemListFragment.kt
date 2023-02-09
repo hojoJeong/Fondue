@@ -60,7 +60,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
             }
         }
 
-        /* 카테고리 체크 변화 시 서버 통신 */
+        /** 카테고리 체크 변화 시 서버 통신 **/
         categoryGroup.setOnCheckedStateChangeListener { group, _ ->
             val checkedChip = group.findViewById(group.checkedChipId) as Chip
             categoryId =

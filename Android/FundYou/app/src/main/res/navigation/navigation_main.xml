@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
     app:startDestination="@id/mainFragment">
 
@@ -95,6 +96,9 @@
         <action
             android:id="@+id/action_myPageFragment_to_myFundingFragment"
             app:destination="@id/myFundingFragment" />
+        <action
+            android:id="@+id/action_myPageFragment_to_pointLoadFragment"
+            app:destination="@id/pointLoadFragment"/>
     </fragment>
     <fragment
         android:id="@+id/userInfoFragment"
@@ -185,6 +189,9 @@
         <action
             android:id="@+id/action_payFragment_to_payResultFragment"
             app:destination="@id/payResultFragment"/>
+        <action
+            android:id="@+id/action_payFragment_to_pointLoadFragment"
+            app:destination="@id/pointLoadFragment" />
     </fragment>
     <fragment
         android:id="@+id/payResultFragment"
@@ -211,6 +218,28 @@
         <action
             android:id="@+id/action_wishListFragment_to_myFundingFragment"
             app:destination="@id/myFundingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pointLoadFragment"
+        android:name="com.ssafy.fundyou.ui.point.PointLoadFragment"
+        android:label="PointLoadFragment" >
+        <argument
+            android:name="balance_point"
+            app:nullable="false"
+            app:argType="integer"/>
+        <action
+            android:id="@+id/action_pointLoadFragment_to_pointResultFragment"
+            app:destination="@id/pointResultFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pointResultFragment"
+        android:name="com.ssafy.fundyou.ui.point.PointResultFragment"
+        android:label="PointResultFragment" >
+        <action
+            android:id="@+id/action_pointResultFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
 
