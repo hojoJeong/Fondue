@@ -34,5 +34,10 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
             "AND li.member_id = :memberId", nativeQuery = true)
     Like findLikeItem(@Param("id") Long id, @Param("memberId") Long memberId);
 
-
+    @Query(value= "SELECT * " +
+            "FROM Likes li " +
+            "WHERE li.item_id = :itemId " +
+            "AND li.member_id = :memberId"
+            , nativeQuery = true)
+    Like exists(@Param("itemId") Long itemId, @Param("memberId")Long memberId);
 }
