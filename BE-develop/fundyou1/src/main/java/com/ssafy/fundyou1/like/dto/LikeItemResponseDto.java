@@ -41,8 +41,6 @@ public class LikeItemResponseDto {
 
 
 
-
-
     public LikeItemResponseDto(Member member, boolean b, Item item){
         this.memberId = member.getId();
         this.itemId  = item.getId();

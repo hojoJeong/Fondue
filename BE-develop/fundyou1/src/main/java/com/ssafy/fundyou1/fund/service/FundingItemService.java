@@ -11,6 +11,7 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class FundingItemService {
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
         // 펀딩하려는 상품 찾기
-        FundingItem fundingItem = fundingItemRepository.getById(attendFundingDto.getFundingItemId());
+        FundingItem fundingItem = fundingItemRepository.getReferenceById(attendFundingDto.getFundingItemId());
         fundingItem.getItem();
         fundingItem.getFunding();
 
@@ -80,7 +81,7 @@ public class FundingItemService {
     }
 
     public FundingItemDto getFundingItem(Long fundingItemId) {
-        FundingItem fundingItem = fundingItemRepository.getById(fundingItemId);
+        FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
         FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
 
         return fundingItemDto;

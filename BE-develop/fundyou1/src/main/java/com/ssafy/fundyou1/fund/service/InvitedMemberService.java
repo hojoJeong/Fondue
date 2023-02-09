@@ -41,17 +41,16 @@ public class InvitedMemberService {
     private final InvitedMemberRepository invitedMemberRepository;
 
 
-
     // 초대 받은 펀딩 저장 (== 초대 된 Member 저장)
     @Transactional
     public InvitedMember storeInvitedFunding(InvitedMemberDto invitedMemberDto) {
         // 사용자 정보
         MemberResponseDto meDto = memberService.getMyInfo();
+
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
-
         // 펀딩 찾기
-        Funding funding = fundingRepository.getById(invitedMemberDto.getFundingId());
+        Funding funding = fundingRepository.getReferenceById(invitedMemberDto.getFundingId());
 
         // 참여 멤버 기록 만들기
         InvitedMember invitedMember = InvitedMember.builder().member(member).funding(funding).build();
@@ -79,7 +78,7 @@ public class InvitedMemberService {
 
         for(InvitedMember invitedMember : invitedFundingList){
             // 초대 받은 펀딩
-            Funding funding = fundingRepository.getById(invitedMember.getFunding().getId());
+            Funding funding = fundingRepository.getReferenceById(invitedMember.getFunding().getId());
 
             // 초대 받은 펀딩 중 참여한 아이템 목록 리스트
             List<Long> fundingItemIdList = fundingItemRepository.findIdListByFundingId(funding.getId());
