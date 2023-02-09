@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemRecentKeywordListBinding
 
-class SearchHistoryKeywordAdapter() :
+class SearchHistoryKeywordAdapter :
     RecyclerView.Adapter<SearchHistoryKeywordAdapter.SearchHistoryKeywordViewHolder>() {
 
     private val keywordList = mutableListOf<String>()

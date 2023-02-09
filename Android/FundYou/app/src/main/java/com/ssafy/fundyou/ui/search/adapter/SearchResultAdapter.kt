@@ -3,20 +3,23 @@ package com.ssafy.fundyou.ui.search.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemSearchResultListBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
+import com.ssafy.fundyou.ui.search.model.SearchItemModel
+import org.apache.commons.lang3.builder.Diff
 
-class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.SearchResultHolder>(ProductListDiffUtil) {
+class SearchResultAdapter : ListAdapter<SearchItemModel, SearchResultAdapter.SearchResultHolder>(SearchItemDiffUtil) {
 
     private lateinit var clickEvent : (Int) -> Unit
 
     inner class SearchResultHolder(private val binding : ItemSearchResultListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item : ProductItemModel){
-            binding.product = item
+        fun bind(item : SearchItemModel){
+            binding.item = item
 
             binding.root.setOnClickListener {
                 clickEvent.invoke(item.id.toInt())
@@ -33,5 +36,18 @@ class SearchResultAdapter : ListAdapter<ProductItemModel, SearchResultAdapter.Se
 
     fun initItemClickEvent(event : (Int) -> Unit) {
         this.clickEvent = event
+    }
+
+    object SearchItemDiffUtil : DiffUtil.ItemCallback<SearchItemModel>(){
+        override fun areItemsTheSame(oldItem: SearchItemModel, newItem: SearchItemModel): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(
+            oldItem: SearchItemModel,
+            newItem: SearchItemModel
+        ): Boolean {
+            return oldItem == newItem
+        }
     }
 }

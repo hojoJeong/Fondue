@@ -59,12 +59,6 @@ object BindingAdapters {
     }
 
     @JvmStatic
-    @BindingAdapter("favoriteVisibility")
-    fun ImageView.setFavoriteVisibility(type : String){
-        if(type == "ITEM_DETAIL") this.visibility = View.INVISIBLE
-    }
-
-    @JvmStatic
     @BindingAdapter("participate")
     fun TextView.setFundingParticipate(participate : Int){
         this.text = "${participate}명 참여"
