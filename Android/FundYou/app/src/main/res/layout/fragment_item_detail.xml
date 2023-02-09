@@ -14,13 +14,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- 담기 버튼 -->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
                 android:id="@+id/ly_main"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -189,12 +194,14 @@
                 <ImageView
                     android:id="@+id/iv_item_info"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
                     android:src="@drawable/ic_launcher_background"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/div_item_info_img_base" />
+                    app:layout_constraintTop_toBottomOf="@id/div_item_info_img_base"
+                    app:setItemImage="@{productInfo.descriptionImg}" />
 
                 <TextView
                     android:id="@+id/tv_more_item_info_img"
@@ -242,7 +249,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <!-- 담기 버튼 -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_cart"
             style="@style/base_font_medium_16_white"

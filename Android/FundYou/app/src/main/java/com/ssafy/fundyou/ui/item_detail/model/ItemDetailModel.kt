@@ -15,7 +15,7 @@ data class ItemDetailModel(
     val category: String
 )
 
-fun ProductItemModel.toUiModel() = ItemDetailModel(
+fun ProductItemModel.toItemDetailModel() = ItemDetailModel(
     id = this.id,
     price = this.price,
     imgList = this.img,
@@ -23,7 +23,7 @@ fun ProductItemModel.toUiModel() = ItemDetailModel(
     title = this.title,
     isAr = this.isAr,
     isFavorite = this.isFavorite,
-    description = this.description.map { it.toUiModel() },
+    description = this.description.map { it.toItemDetailModel() },
     brand = this.brand,
     category = this.category.categoryName
 )

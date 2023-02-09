@@ -20,6 +20,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.home.MainViewModel
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailDescriptionInfoAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
@@ -33,9 +34,10 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private val relatedAdapter = ItemDetailRelatedAdapter()
     private var itemImgFullState = false
     private var itemInfoImgSize = 0
-    private lateinit var itemDetailInfo : ItemDetailModel
+    private lateinit var itemDetailInfo: ItemDetailModel
 
     private val itemDetailViewModel by viewModels<ItemDetailViewModel>()
+    private val itemViewModel by viewModels<MainViewModel>()
     private val itemArgument by navArgs<ItemDetailFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,22 +51,44 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         itemDetailViewModel.getItemDetailInfo(itemArgument.itemId)
         itemInfoImgSize = binding.ivItemInfo.layoutParams.height
 
-        initItemImgAdapter()
-        initItemDetailAdapter()
         /** 아이템 랜덤 상품 */
-        //initRelatedItemAdapter()
+        initRelatedItemAdapter()
         initMoreItemInfoButtonEvent()
         addKakaoShareButtonEvent()
     }
 
     override fun initViewModels() {
+        initItemDetailViewModels()
+        initMainViewModels()
+    }
+
+    private fun initMainViewModels() {
+        itemViewModel.randomItemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    relatedAdapter.submitList(emptyList())
+                }
+                is ViewState.Error -> {
+
+                }
+            }
+        }
+    }
+
+    private fun initItemDetailViewModels() {
         itemDetailViewModel.itemDetailInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initViewModels: logading...")
                 }
                 is ViewState.Success -> {
-                    binding.productInfo = response.value
+                    itemDetailInfo = response.value!!
+                    binding.productInfo = itemDetailInfo
+                    initItemImgAdapter()
+                    initItemDetailAdapter()
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initViewModels: Error...")
@@ -73,6 +97,9 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         }
     }
 
+    private fun initRelatedItemAdapter() {
+
+    }
 
     private fun initMoreItemInfoButtonEvent() {
         binding.tvMoreItemInfoImg.setOnClickListener {
@@ -86,9 +113,9 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private fun addKakaoShareButtonEvent() {
         binding.btnItemShare.setOnClickListener {
             val feed = makeFeed(
-                "테스트1",
-                "테스트2",
-                "https://static.skmagic.com/image/goods/G000063300/G000063300_7_480x480.jpg",
+                itemDetailInfo.brand,
+                itemDetailInfo.title,
+                itemDetailInfo.imgList[0],
                 1
             )
             sendKakaoLink(feed)
@@ -118,24 +145,19 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
     private fun initItemDetailAdapter() {
         // 상품 상세정보 임시 리스트
-        val tempList = listOf(
-            ItemDetailDescriptionModel("type1", "value1"),
-            ItemDetailDescriptionModel("type2", "value2")
-        )
         val itemDetailAdapter = ItemDetailDescriptionInfoAdapter()
-
         binding.rvItemInfo.adapter = itemDetailAdapter
-
-        itemDetailAdapter.submitList(tempList)
+        itemDetailAdapter.submitList(itemDetailInfo.description)
     }
 
     private fun initItemImgAdapter() {
         val itemAdapter = ItemDetailImgAdapter()
         // 상품 이미지 임시 리스트
-        val itemImgList = listOf("test1", "Test2")
-        itemAdapter.addItemImgList(itemImgList)
+        itemAdapter.addItemImgList(itemDetailInfo.imgList)
 
-        binding.tvItemImgPage.text = "1 / ${itemImgList.size}"
+        val imageListSize = itemDetailInfo.imgList.size
+
+        binding.tvItemImgPage.text = "1 / $imageListSize"
 
         with(binding.vpItemImg) {
             adapter = itemAdapter
@@ -143,7 +165,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     binding.tvItemImgPage.text =
-                        "${(position % itemImgList.size) + 1} / ${itemImgList.size}"
+                        "${(position % imageListSize) + 1} / $imageListSize"
                 }
             })
         }
