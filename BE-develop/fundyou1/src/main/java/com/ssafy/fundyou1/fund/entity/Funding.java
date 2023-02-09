@@ -1,8 +1,15 @@
 package com.ssafy.fundyou1.fund.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -12,33 +19,27 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
+@NoArgsConstructor
 public class Funding {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="funding_id")
     private Long id; // PK
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
+    @JsonIgnore
     private Member member; // FK
 
-    @Column(name = "image",nullable = false)
-    private String image;
-
-    @Column(name = "start_date")
-    private LocalDateTime startDate; // due : 펀딩 시작 날짜
+//    @Column(name = "start_date")
+//    private Long startDate; // due : 펀딩 시작 날짜
 
     @Column(name = "end_date")
-    private LocalDateTime endDate; // due : 펀딩 마감 날짜
+    private Long endDate; // due : 펀딩 마감 날짜
 
-
-    /**
-     * orderStatus: 펀딩 상태(펀딩 진행중, 펀딩 마감 )
-     */
-    @Enumerated(EnumType.STRING)
     @Column(name = "funding_status")
-    private FundingStatus fundingStatus;
+    private boolean fundingStatus;
 
     @JsonIgnore
     @OneToMany(mappedBy = "funding",cascade = CascadeType.ALL)
@@ -46,15 +47,25 @@ public class Funding {
 
     //==연관 메서드 ==//
 
-    public void setMember(Member member) {
+
+    @Builder
+    public Funding(Long id, Member member, Long endDate) {
+        this.id = id;
         this.member = member;
-        member.getFundings().add(this);
+//        this.startDate = startDate;
+        this.endDate = endDate;
+        this.fundingStatus = true;
     }
 
 
-    public void addFundingItem(FundingItem fundingItem) {
-        fundingItems.add(fundingItem);
-        fundingItem.setFunding(this);
+    public static Funding createFunding(Member member, Long endDate){
+        Funding funding = new Funding();
+        funding.member = member;
+//        funding.startDate = startDate;
+        funding.endDate = endDate;
+        funding.fundingStatus = true;
+
+        return funding;
     }
 
 

@@ -75,6 +75,7 @@ public class ItemService {
 
 
 
+    @Transactional
     // 카테고리별 아이템 불러오기
     public List<ItemResponseDto> getCategoryItemList(Long categoryId) {
         // 카테고리 아이템
@@ -114,16 +115,7 @@ public class ItemService {
         return findItemOne;
     }
 
-
-    // 랜덤 5개 상품 추출
-//    "count": "1,2,3",
-//            "image": "ssafy/img/thumbnail.jpg",
-//            "isAr": false,
-//            "isFavorite": false,
-//            "itemId": "1,2",
-//            "memberId": "1,2",
-//            "price": 10000,
-//            "title": "쇼파"
+    @Transactional
     public List<RandomItemResponse> getRandomItemList() {
         System.out.println("랜덤: " + itemRepository.findRandomItemById());
         // 멤버가 좋아하는 아이템
@@ -189,6 +181,14 @@ public class ItemService {
             }
         }
         return itemList;
+    }
+
+    public List<Item> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
+        if(categoryId == 0){
+            return itemRepository.findItemWithFilterNoCategory(minPrice, maxPrice);
+        }else{
+            return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
+        }
     }
 
 }

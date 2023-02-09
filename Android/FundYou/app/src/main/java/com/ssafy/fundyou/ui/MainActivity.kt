@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.searchResultFragment -> {
                     setToolbarType(ToolbarType.NO)
+                    setBottomNavigationVisibility(View.GONE)
                 }
             }
         }

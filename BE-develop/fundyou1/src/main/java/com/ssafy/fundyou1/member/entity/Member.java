@@ -28,6 +28,7 @@ public class Member extends BaseEntity {
     @Column(name = "member_id")
     private Long id;
 
+
     @Column(name = "login_id", length = 32, nullable = false)
     private String loginId;
     @Column(name = "password")
@@ -37,7 +38,7 @@ public class Member extends BaseEntity {
     private String username;
 
     @Column(name = "member_status")
-    private Boolean status;
+    private boolean status;
 
     @Column(name = "profileImg")
     private String profileImg;
@@ -56,6 +57,7 @@ public class Member extends BaseEntity {
 
     @OneToOne(mappedBy = "member",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "like_id")
+    @JsonIgnore
     private Like like; //찜 정보
 
     @JsonIgnore
@@ -64,6 +66,7 @@ public class Member extends BaseEntity {
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
+    @Builder.Default
     private List<Funding> fundings = new ArrayList<>();
 
     @Builder

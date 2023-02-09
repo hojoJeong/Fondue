@@ -38,13 +38,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private val bannerImageList = mutableListOf<Int>()
     private val categoryList = mutableListOf<MainCategoryModel>()
-    private val popularSearchList = mutableListOf<String>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private val popularSearchAdapter = PopularSearchKeywordAdapter().apply {
-        addItemClickEvent { MainFragmentDirections.actionMainFragmentToItemDetailFragment(it) }
+        addItemClickEvent { MainFragmentDirections.actionMainFragmentToSearchResultFragment(it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -226,7 +225,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     initRankingItemAdapter(response.value ?: emptyList())
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initRankingItemObserve: Ranking Item Loading Error...${response.message}")
+                    Log.d(
+                        TAG,
+                        "initRankingItemObserve: Ranking Item Loading Error...${response.message}"
+                    )
                 }
             }
         }
@@ -242,7 +244,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     initRandomItemAdapter(response.value ?: emptyList())
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initRandomItemObserve: Random Item Loading Error...${response.message}")
+                    Log.d(
+                        TAG,
+                        "initRandomItemObserve: Random Item Loading Error...${response.message}"
+                    )
                 }
             }
         }

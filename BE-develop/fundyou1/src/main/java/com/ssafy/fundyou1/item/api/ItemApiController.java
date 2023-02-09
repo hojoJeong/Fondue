@@ -92,7 +92,6 @@ public class ItemApiController {
     @ApiOperation(value = "랜덤 5개 조회", notes = "아이템 중에 랜덤 5개 조회")
     public ResponseEntity<List<RandomItemResponse>> getRandomItemList(){
         List<RandomItemResponse> randomItemResponseList = itemService.getRandomItemList();
-
         return ResponseEntity.status(HttpStatus.OK).body(randomItemResponseList);
     }
 
