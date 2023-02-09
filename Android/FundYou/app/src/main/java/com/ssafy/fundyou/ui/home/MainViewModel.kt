@@ -15,6 +15,7 @@ import com.ssafy.fundyou.ui.home.model.toRandomItemModel
 import com.ssafy.fundyou.ui.home.model.toRankingModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.apache.commons.lang3.mutable.Mutable
 import javax.inject.Inject
 
 @HiltViewModel

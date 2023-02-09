@@ -3,7 +3,7 @@ package com.ssafy.fundyou.data.remote.datasource.item.dto
 import com.google.gson.annotations.SerializedName
 
 internal data class ItemResponseDto(
-    @SerializedName("id")
+    @SerializedName("itemId")
     val id: Long,
     @SerializedName("price")
     val price: Int,
@@ -22,5 +22,7 @@ internal data class ItemResponseDto(
     @SerializedName("brand")
     val brand: String,
     @SerializedName("category")
-    val category: CategoryResponseDto
+    val category: ItemCategoryResponseDto,
+    @SerializedName("description")
+    val description: List<ItemDescriptionResponseDto>
 )
