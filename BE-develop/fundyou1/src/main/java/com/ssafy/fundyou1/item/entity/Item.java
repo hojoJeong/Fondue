@@ -41,7 +41,6 @@ public class Item {
     @Column(name = "is_favorite", columnDefinition = "boolean default false")
     private Boolean isFavorite;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Description> descriptions = new ArrayList<>();
 
