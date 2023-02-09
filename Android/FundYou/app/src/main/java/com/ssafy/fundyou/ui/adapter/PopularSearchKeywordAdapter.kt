@@ -13,15 +13,16 @@ class PopularSearchKeywordAdapter :
         SearchPopularKeywordDiffUtil
     ) {
 
-    private lateinit var clickEvent : (Int) -> Unit
+    private lateinit var clickEvent : (String) -> Unit
 
     inner class MainPopularSearchViewHolder(val binding: ItemPopularKeywordListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: PopularKeywordEntity, position: Int) {
             binding.tvRank.text = "${position + 1}"
             binding.tvPopularKeyword.text = item.keyword
+
             binding.root.setOnClickListener {
-                clickEvent.invoke(item.id)
+                clickEvent.invoke(item.keyword)
             }
         }
     }
@@ -55,7 +56,7 @@ class PopularSearchKeywordAdapter :
         }
     }
 
-    fun addItemClickEvent(event : (Int) -> Unit) {
+    fun addItemClickEvent(event : (String) -> Unit) {
         this.clickEvent = event
     }
 }

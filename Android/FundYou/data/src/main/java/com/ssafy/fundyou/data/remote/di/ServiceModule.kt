@@ -28,7 +28,7 @@ internal object ServiceModule {
     @Singleton
     fun provideSearchService(
         @AuthInterceptorClient retrofit: Retrofit
-    ) : SearchApiService {
+    ): SearchApiService {
         return retrofit.create(SearchApiService::class.java)
     }
 

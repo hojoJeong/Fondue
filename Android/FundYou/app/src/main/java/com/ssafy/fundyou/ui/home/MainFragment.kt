@@ -38,13 +38,14 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     val MIN_PRICE = 0
     val MAX_PRICE = 1000000
     private val mainViewModel by activityViewModels<MainViewModel>()
+
     private val bannerImageList = mutableListOf<Int>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private val popularSearchAdapter = PopularSearchKeywordAdapter().apply {
-        addItemClickEvent { MainFragmentDirections.actionMainFragmentToItemDetailFragment(it) }
+        addItemClickEvent { MainFragmentDirections.actionMainFragmentToSearchResultFragment(it) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
