@@ -40,9 +40,7 @@ public class ItemService {
     @Transactional
     public Long saveItem(ItemSaveRequest request) {
         checkDuplicateItemTitle(request.getTitle(), request.getBrand());
-
         Category category = categoryRepository.findByCategoryName(request.getCategoryName());
-
         Item item = request.toItem(category);
         return itemRepository.save(item).getId();
     }
@@ -71,58 +69,50 @@ public class ItemService {
     }
 
 
-
+    @Transactional
     // 카테고리별 아이템 불러오기
     public List<ItemDto> getCategoryItemList(Long categoryId) {
 
         return itemRepository.findAllByCategoryId(categoryId)
                 .stream()
-                .map(item -> ItemDto.createItemDto(item))
+                .map(item -> {
+                    item.getDescription();
+                    return ItemDto.createItemDto(item);
+                })
                 .collect(Collectors.toList());
     }
 
     // 상품 디테일
+    @Transactional
     public Item itemDetail(Long id) {
         return itemRepository.findById(id).orElse(null);
     }
 
     // 전체 상품 조회
+    @Transactional
     public List<Item> getAllItems() {
         return itemRepository.findAll();
     }
-
-    // 랜덤 5개 상품 추출
-//    "count": "1,2,3",
-//            "image": "ssafy/img/thumbnail.jpg",
-//            "isAr": false,
-//            "isFavorite": false,
-//            "itemId": "1,2",
-//            "memberId": "1,2",
-//            "price": 10000,
-//            "title": "쇼파"
+    @Transactional
     public List<RandomItemResponse> getRandomItemList() {
         System.out.println("랜덤: " + itemRepository.findRandomItemById());
         List<RandomItemResponse> randomItemResponseList = new ArrayList<RandomItemResponse>();
         for (Item item : itemRepository.findRandomItemById()) {
             randomItemResponseList.add(new RandomItemResponse(item.getId(), item.getImage(), item.getIsAr(), item.getIsFavorite(), item.getPrice(), item.getTitle()));
         }
-//        return itemRepository.findRandomItemById()
-//                .stream()
-//                .map(item -> ItemDto.createItemDto(item))
-//                .collect(Collectors.toList());
-        System.out.println("랜덤: " + randomItemResponseList);
         return randomItemResponseList;
     }
 
     public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
-        List<Item> list = itemRepository.findTopItem(categoryId, minPrice, maxPrice);
-        System.out.println("testinfo : " + list);
-
-        return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+        if(categoryId == 0){
+            return itemRepository.findTopItemNoCategory(minPrice, maxPrice);
+        }else{
+            return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+        }
     }
 
 
-    // 회원별 구분 아이템 전체 리스트
+    // 회원별 아이템 전체 리스트
     public List<ItemResponseDto> findAllItem(Long memberId) {
         List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
 
@@ -143,6 +133,14 @@ public class ItemService {
             }
         }
         return ItemResponseDto;
+    }
+
+    public List<Item> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
+        if(categoryId == 0){
+            return itemRepository.findItemWithFilterNoCategory(minPrice, maxPrice);
+        }else{
+            return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
+        }
     }
 
 }

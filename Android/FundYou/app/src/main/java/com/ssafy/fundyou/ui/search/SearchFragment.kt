@@ -92,8 +92,8 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>(R.layout.fragment_sea
 
     private fun initPopularKeywordList() {
         viewModels.getPopularKeywordList()
-        popularKeywordAdapter.addItemClickEvent { itemId ->
-            navigate(SearchFragmentDirections.actionSearchFragmentToItemDetailFragment(itemId))
+        popularKeywordAdapter.addItemClickEvent { keyword ->
+            navigate(SearchFragmentDirections.actionSearchFragmentToSearchResultFragment(keyword))
         }
         binding.rvPopularKeyword.adapter = popularKeywordAdapter
     }

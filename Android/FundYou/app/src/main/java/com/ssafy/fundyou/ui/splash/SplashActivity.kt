@@ -50,10 +50,7 @@ class SplashActivity : AppCompatActivity() {
                     splashViewModel.getJWTByRefreshToken()
                 }
                 is ViewState.Error -> {
-                    if (response.message == NO_TOKEN) {
-                        Log.d(TAG, "initSplashViewModel: no token")
-                        startLoginActivity()
-                    }
+                    startLoginActivity()
                 }
             }
         }

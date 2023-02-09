@@ -31,8 +31,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findAllByCategoryId(@Param("categoryId") Long categoryId);
 
 
-    // 랜덤 5개 상품 추출
-    @Query(value = "SELECT * FROM item order by RAND() limit 5", nativeQuery = true)
+    // 랜덤 6개 상품 추출
+    @Query(value = "SELECT * FROM item order by RAND() limit 6", nativeQuery = true)
     List<Item> findRandomItemById();
 
 
@@ -64,5 +64,26 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findAllByIsFavorite(boolean b);
 
+    @Query(value =
+            "SELECT * " +
+                    "FROM item " +
+                    "WHERE item.category_id = :categoryId " +
+                    "AND item.price BETWEEN :minPrice AND :maxPrice ",
+            nativeQuery = true)
+    List<Item> findItemWithFilter(Long categoryId, Long minPrice, Long maxPrice);
 
+    @Query(value =
+            "SELECT * " +
+                    "FROM item " +
+                    "WHERE item.price BETWEEN :minPrice AND :maxPrice " +
+                    "ORDER BY item.selling_count DESC LIMIT 5",
+            nativeQuery = true)
+    List<Item> findTopItemNoCategory(@Param("minPrice") Long minimumPrice,@Param("maxPrice") Long maxPrice);
+
+    @Query(value =
+            "SELECT * " +
+                    "FROM item " +
+                    "WHERE item.price BETWEEN :minPrice AND :maxPrice ",
+            nativeQuery = true)
+    List<Item> findItemWithFilterNoCategory(Long minPrice, Long maxPrice);
 }
