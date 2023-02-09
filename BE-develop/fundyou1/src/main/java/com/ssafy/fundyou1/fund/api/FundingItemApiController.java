@@ -12,6 +12,7 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/funding/item")
+@RequestMapping("/fundingItem")
+@Api(tags = {"펀딩 아이템"})
 public class FundingItemApiController {
     @Autowired
     private MemberRepository memberRepository;

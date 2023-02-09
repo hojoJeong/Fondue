@@ -30,7 +30,7 @@ public class AuthRestController {
     AuthService authService;
 
     // 일반 로그인 - 현재 클라이언트에는 카카오 로그인만 존재
-    @PostMapping("/members/login")
+    @PostMapping("/login")
     @ApiOperation(value = "일반 로그인", notes = "일반 로그인 API")
     @ApiResponses({
         @ApiResponse(code = 401, message = "UNAUTHORIZED\n일치하지 않는 비밀번호(M04)"),
@@ -42,7 +42,7 @@ public class AuthRestController {
 
 
     // 카카오 소셜 로그인
-    @PostMapping("members/social/kakao")
+    @PostMapping("/social/kakao")
     @ApiOperation(value = "카카오 소셜 로그인", notes = "소셜 로그인 API")
     public ResponseEntity<TokenDto> kakaoLogin(@RequestBody String accessToken, HttpServletResponse response){
         // 카카오 로그인 서비스 호출. 카카오 API response return.
@@ -51,7 +51,7 @@ public class AuthRestController {
 
         String kakaoId = String.valueOf(rEntity.getId());
 
-        String passwerd = "fundyou" + rEntity.getId();
+        String password = "fundyou" + rEntity.getId();
 
         // 회원가입
         authService.signup(MemberRequestDto.builder()
@@ -64,13 +64,13 @@ public class AuthRestController {
         //로그인 하고 토큰 발급받기
         MemberLoginRequestDto memberLoginRequestDto = MemberLoginRequestDto.builder()
                         .loginId(kakaoId)
-                        .password(passwerd)
+                        .password(password)
                         .build();
         return ResponseEntity.ok(authService.login(memberLoginRequestDto));
     }
 
     //토큰 재발급
-    @PostMapping("/members/reissue")
+    @PostMapping("/reissue")
     @ApiOperation(value = "토큰 재발급", notes = "토큰을 재발급하는 API")
     public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
