@@ -32,12 +32,15 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 
+
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
+    val CATEGORY_ALL = 0
+    val MIN_PRICE = 0
+    val MAX_PRICE = 1000000
     private val mainViewModel by activityViewModels<MainViewModel>()
 
     private val bannerImageList = mutableListOf<Int>()
-    private val categoryList = mutableListOf<MainCategoryModel>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
@@ -67,12 +70,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initBanner()
         initCategory()
         initRankCategory()
-        initTitlePriceRange()
+        initRankingPriceRange()
         initShowMoreBtnListener()
         initFloatingBtn()
         initPopularSearch()
         initSearchClickEvent()
-        mainViewModel.getRankingItemList()
+        mainViewModel.getRankingItemList(CATEGORY_ALL, MIN_PRICE, MAX_PRICE)
         mainViewModel.getRandomItemList()
     }
 
@@ -142,6 +145,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initCategory() {
         //임시 데이터 추가
+        val categoryList = mutableListOf<MainCategoryModel>()
         categoryList.clear()
         categoryList.add(
             MainCategoryModel(
@@ -185,31 +189,47 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initRankCategory() {
         binding.chipgMainRankCategory.setOnCheckedStateChangeListener { group, checkedId ->
+            val checkedCategory = group.findViewById(group.checkedChipId) as Chip
+            Log.d("TAG", "initRankCategory: ${checkedCategory.text}")
 
-            val checkedChip = group.getChildAt(0) as Chip
-            val checkedChip2 = group.findViewById<Chip>(group.checkedChipId) as Chip
-            Log.d("TAG", "initRankCategory: ${checkedChip2.text}")
-            //TODO(칩 선택 변경 시 서버통신 추가)
+            val categoryId = resources.getStringArray(R.array.category_num)
+                .indexOf(checkedCategory.text.toString())
+
+            with(mainViewModel) {
+                setCategory(categoryId)
+                getRankingItemList(
+                    rankingCategoryId.value ?: CATEGORY_ALL,
+                    rankingMinPrice.value ?: MIN_PRICE,
+                    rankingMaxPrice.value ?: MAX_PRICE
+                )
+            }
+
         }
     }
 
-    private fun initTitlePriceRange() {
+    private fun initRankingPriceRange() {
+        var minPrice = MIN_PRICE
+        var maxPrice = MAX_PRICE
         with(binding.sldMainRank) {
             addOnChangeListener { slider, _, _ ->
                 val sliderValueList = slider.values
-                val minPrice = sliderValueList[0].toInt()
-                val maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
+                minPrice = sliderValueList[0].toInt()
+                maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
                 binding.tvMainRankPriceRange.text =
                     getString(R.string.title_rank_price_range, minPrice, maxPrice)
             }
             addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
-                override fun onStartTrackingTouch(slider: RangeSlider) {
-
-                }
+                override fun onStartTrackingTouch(slider: RangeSlider) {}
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
-
-                    //가격 범위 변경 시 서버통신 추가
+                    with(mainViewModel) {
+                        setPrice(minPrice, maxPrice)
+                        getRankingItemList(
+                            rankingCategoryId.value ?: CATEGORY_ALL,
+                            rankingMinPrice.value ?: MIN_PRICE,
+                            rankingMaxPrice.value ?: MAX_PRICE
+                        )
+                    }
                 }
             })
         }

@@ -12,10 +12,10 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
     override suspend fun getAllProductItemList() =
         itemRemoteDataSource.getAllItemList().map { it.toDomainModel() }
 
-    override suspend fun getRankingItemList(): List<ProductItemModel> =
-        itemRemoteDataSource.getRankingItemList().map { it.toDomainModel() }
+    override suspend fun getRankingItemList(categoryId: Int, minPrice: Int, maxPrice: Int) =
+        itemRemoteDataSource.getRankingItemList(categoryId, minPrice, maxPrice).map { it.toDomainModel() }
 
-    override suspend fun getRandomItemList(): List<ProductItemModel> =
+    override suspend fun getRandomItemList() =
         itemRemoteDataSource.getRandomItemList().map { it.toDomainModel() }
 
     override suspend fun getFavoriteItemList(): List<ProductItemModel> =

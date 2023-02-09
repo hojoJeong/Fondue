@@ -152,7 +152,7 @@
         <argument
             android:name="user_info"
             app:nullable="false"
-            app:argType="string"/>
+            app:argType="com.ssafy.fundyou.ui.mypage.model.UserInfoModel"/>
         <action
             android:id="@+id/action_cancelMenbershipFragment_to_mainFragment"
             app:destination="@id/mainFragment"
