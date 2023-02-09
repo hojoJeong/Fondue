@@ -57,14 +57,12 @@ public class CartRestController {
         // 장바구니에 동일한 아이템이 있으면 장바구니 아이템 개수만 업데이트
         if (cart != null) {
             int addcount = cartService.updateAddCartItem(cartRequestDto, memberId);
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", addcount ));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 업데이트", addcount));
         } else {
             // 동일한 아이템이 없으면 아이템 추가해주기
             Long cartId = cartService.addCart(cartRequestDto);
-            return new ResponseEntity<Long>(cartId, HttpStatus.OK);
-
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 아이템 추가", cartId));
         }
-
     }
 
     // 회원의 장바구니 아이템 조회
