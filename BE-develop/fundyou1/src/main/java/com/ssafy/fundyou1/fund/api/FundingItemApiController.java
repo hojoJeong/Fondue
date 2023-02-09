@@ -7,6 +7,11 @@ import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.service.FundingItemService;
 import com.ssafy.fundyou1.fund.service.FundingService;
+import com.ssafy.fundyou1.global.dto.BaseResponseBody;
+import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
+import com.ssafy.fundyou1.member.entity.Member;
+import com.ssafy.fundyou1.member.repository.MemberRepository;
+import com.ssafy.fundyou1.member.service.MemberService;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +25,27 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/api/funding/item")
 public class FundingItemApiController {
+    @Autowired
+    private MemberRepository memberRepository;
 
     @Autowired
     private FundingItemService fundingItemService;
+
+    @Autowired
+    private MemberService memberService;
 
 
     // 펀딩 참여(돈 보내기)
     @ApiOperation(value = "펀딩 참여(돈 보내기)", notes = "참여한 펀딩 아이템 정보")
     @PostMapping("/attend")
-    public ResponseEntity<FundingItemDto> attendFunding(@RequestBody AttendFundingDto attendFundingDto){
-        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.attendFunding(attendFundingDto));
+    public ResponseEntity attendFunding(@RequestBody AttendFundingDto attendFundingDto){
+
+        int holdMoney = memberService.getMyInfo().getPoint();
+        if (holdMoney > attendFundingDto.getPoint()){
+            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "잔액이 부족합니다.", null));
+        } else{
+            return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.attendFunding(attendFundingDto));
+        }
     }
 
 

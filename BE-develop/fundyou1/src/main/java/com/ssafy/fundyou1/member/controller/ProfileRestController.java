@@ -31,12 +31,5 @@ public class ProfileRestController {
         return ResponseEntity.ok(memberService.getMyInfo());
     }
 
-    // 로그인 아이디로 찾기
-    @GetMapping("members/{loginId}")
-    public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable String loginId) {
-        return ResponseEntity.ok(memberService.getMemberInfo(loginId));
-    }
-
-
 
 }
