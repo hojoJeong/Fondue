@@ -80,9 +80,8 @@ public class CartRestController {
     @ApiOperation(value = "장바구니 아이템 삭제", notes = "<strong>장바구니 목록 id를 받아</strong> 장바구니 목록에서 아이템을 삭제한다.")
     public ResponseEntity deleteCartItem(@PathVariable Long itemid){
 
-        MemberResponseDto meDto = memberService.getMyInfo();
-
-        Member member = memberRepository.findByUsername(meDto.getUsername());
+        MemberResponseDto memberResponseDto = memberService.getMyInfo();
+        Member member = memberRepository.findByUsername(memberResponseDto.getUsername());
 
         Long memberId = member.getId();
 

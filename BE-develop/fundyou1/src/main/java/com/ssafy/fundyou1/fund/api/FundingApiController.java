@@ -75,12 +75,14 @@ public class FundingApiController {
 
     // 내 진행중인 펀딩 리스트
     @PostMapping("/myOngoingList")
+    @ApiOperation(value = "나의 진행중 펀딩 리스트", notes = "나의 진행중 펀딩 리스트")
     public ResponseEntity<List<MyFundingDto>> getMyOngoingFundingList() {
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.getMyOngoingFundingList());
     }
 
     // 내 마감된 펀딩 리스트
     @PostMapping("/myClosedList")
+    @ApiOperation(value = "나의 마감된 펀딩 리스트", notes = "나의 마감된 펀딩 리스트")
     public ResponseEntity<List<MyFundingDto>> getMyClosedFundingList() {
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.getMyClosedFundingList());
     }
