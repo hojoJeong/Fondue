@@ -2,19 +2,23 @@ package com.ssafy.fundyou.ui.mypage
 
 import android.os.Bundle
 import android.view.View
-import com.kakao.sdk.user.model.User
+import androidx.fragment.app.activityViewModels
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentUserInfoBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.mypage.model.UserInfoModel
 
 class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment_user_info) {
-    private val userInfo = "김싸피"
+    private val userInfoViewModel by activityViewModels<UserInfoViewModel>()
+    private lateinit var userInfo: UserInfoModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
 
     override fun initView() {
+        userInfo = userInfoViewModel.userInfo.value?.value!!
+        binding.user = userInfo
         membershipWithdrawalClickListener()
     }
 
@@ -23,7 +27,6 @@ class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment
 
     private fun membershipWithdrawalClickListener(){
         binding.tvUserinfoCancelMembershipTitle.setOnClickListener {
-            //TODO(arg로 들어가는 데이터 수정)
             navigate(UserInfoFragmentDirections.actionUserInfoFragmentToCancelMenbershipFragment(userInfo))
         }
     }

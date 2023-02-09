@@ -41,6 +41,6 @@ internal object DataSourceModule {
 
     @Provides
     @Singleton
-    fun provideUserRemoteDataSource(UserApiService: UserApiService): UserRemoteDataSource =
-        UserRemoteDataSourceImpl(UserApiService)
+    fun provideUserRemoteDataSource(userApiService: UserApiService): UserRemoteDataSource =
+        UserRemoteDataSourceImpl(userApiService)
 }

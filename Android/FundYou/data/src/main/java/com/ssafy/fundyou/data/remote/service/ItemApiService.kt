@@ -2,6 +2,7 @@ package com.ssafy.fundyou.data.remote.service
 
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemResponseDto
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemSearchRequestDto
+import com.ssafy.fundyou.data.remote.datasource.item.dto.RandomItemResponseDto
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -15,7 +16,7 @@ internal interface ItemApiService {
     suspend fun getRankingItemList(@Path("categoryId") categoryId: Int, @Path("minPrice") minPrice: Int, @Path("maxPrice") maxPrice: Int) : List<ItemResponseDto>
 
     @GET("/item/random")
-    suspend fun getRandomItemList() : List<ItemResponseDto>
+    suspend fun getRandomItemList() : List<RandomItemResponseDto>
 
     @GET("/item/favorite")
     suspend fun getFavoriteItemList() : List<ItemResponseDto>

@@ -1,5 +1,6 @@
 package com.ssafy.fundyou
 
+import android.content.ContentValues.TAG
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
@@ -7,6 +8,7 @@ import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -194,9 +196,8 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setItemImage")
-    fun ImageView.setItemImage(img: String) {
+    fun ImageView.setItemImage(img: String?) {
+        Log.d(TAG, "setItemImage: 글라이드 이미지 : $img")
         Glide.with(context).load(img).into(this)
     }
-
-
 }
