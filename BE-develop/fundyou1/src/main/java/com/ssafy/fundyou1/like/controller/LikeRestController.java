@@ -1,13 +1,10 @@
 package com.ssafy.fundyou1.like.controller;
 
 
-import com.ssafy.fundyou1.cart.dto.CartItemResponseDto;
 import com.ssafy.fundyou1.global.dto.BaseResponseBody;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
-import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
-import com.ssafy.fundyou1.like.dto.LikeRequestDto;
 import com.ssafy.fundyou1.like.entity.Like;
 import com.ssafy.fundyou1.like.service.LikeService;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
@@ -20,7 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -32,28 +28,23 @@ public class LikeRestController {
     @Autowired
     LikeService likeService;
 
-    @Autowired
-    MemberService memberService;
-
-    @Autowired
-    MemberRepository memberRepository;
-    private final ItemRepository itemRepository;
 
     // 회원 찜 목록에 아이템 아이디로 아이템 추가
-    @PostMapping(value = "/like")
+    @PostMapping(value = "/like/{id}")
+    @ApiOperation(value = "아이템 상세 1개 조회", notes = "아이템 상세를 아이템 id값으로 조회합니다")
     @ResponseBody
-    public ResponseEntity addLikeItem(@RequestBody @Valid LikeRequestDto likeRequestDto) {
+    public ResponseEntity addLikeItem(@PathVariable Long id ) {
+        // 회원 아이디
         Long memberId = SecurityUtil.getCurrentMemberId();
 
-        Long itemId = likeRequestDto.getItemId();
-
-        Like like = likeService.findOneLikeItem(itemId,memberId);
+        // 아이템 아이디랑, 회원아이디로 찾기
+        Like like = likeService.findOneLikeItem(id,memberId);
 
         if(like != null) {
-            List<LikeItemResponseDto> likeItemResponse = likeService.deleteByLikeItemId(itemId);
+            List<LikeItemResponseDto> likeItemResponse = likeService.deleteByLikeItemId(id);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 취소", likeItemResponse ));
         } else {
-            Long likeId = likeService.addLike(likeRequestDto, memberId);
+            Long likeId = likeService.addLike(id, memberId);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "좋아요 추가", likeId ));
         }
     }

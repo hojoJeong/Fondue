@@ -52,6 +52,7 @@
     <string name="title_mypage_terms_of_service">서비스 이용약관</string>
     <string name="title_mypage_logout">로그아웃</string>
     <string name="title_mypage_fondue_pay_charge">퐁듀Pay 충전</string>
+    <string name="content_mypage_app_version">v1.0.0</string>
 
     <!-- 계정 기본 정보 -->
     <string name="title_userinfo_email">이메일</string>
