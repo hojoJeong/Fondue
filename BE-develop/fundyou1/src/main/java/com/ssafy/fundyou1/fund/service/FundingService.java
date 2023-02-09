@@ -81,19 +81,6 @@ public class FundingService {
     }
 
 
-    // 내 펀딩 중 특정 펀팅 선택
-    @Transactional
-    public Funding findMyFunding(Long fundingId){
-        // 사용자 정보
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
-
-        // 펀딩 찾기
-        Funding funding = fundingRepository.findByIdAndMemberId(fundingId, member.getId());
-
-        return funding;
-    }
-
 
     // 펀딩 통계 (참여 멤버)
     @Transactional
@@ -187,6 +174,9 @@ public class FundingService {
         return myClosedFundingListDto;
     }
 
+
+    // 내 펀딩 중 특정 펀팅 선택
+    @Transactional
     public FundingDto getFundingInfo(Long fundingId) {
 
         Funding funding = fundingRepository.getById(fundingId);
@@ -195,10 +185,10 @@ public class FundingService {
 
         int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(funding.getId());
 
-        List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(funding.getId());
-
         FundingDto fundingDto = new FundingDto(funding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100);
 
         return fundingDto;
     }
+
+
 }
