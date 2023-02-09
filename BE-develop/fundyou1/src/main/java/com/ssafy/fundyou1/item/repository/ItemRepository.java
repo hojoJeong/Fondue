@@ -14,10 +14,13 @@ import java.util.Optional;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
+    // 특정 아이템 불러오기
+    @Query(value = "SELECT * FROM item WHERE item.item_id = :id", nativeQuery = true)
+    Item findItemById(@Param("id") Long id);
 
-    // 아이템 전체 조회
-    @Override
-    ArrayList<Item> findAll();
+    // 아이템 전체 조회 리스트
+
+    List<Item> findAll();
 
     // 카테고리별 아이템 불러오기
     @Query(value =
@@ -39,13 +42,12 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
                     "FROM item " +
                     "WHERE item.category_id = :categoryId " +
                     "AND item.price BETWEEN :minPrice AND :maxPrice " +
-                    "ORDER BY item.selling_count DESC LIMIT 5",
+                    "ORDER BY item.selling_count DESC LIMIT 6",
             nativeQuery = true)
     List<Item> findTopItem(@Param("categoryId") Long categoryId, @Param("minPrice") Long minimumPrice,@Param("maxPrice") Long maxPrice);
 
     boolean existsByTitleAndBrand(String title, String brand);
 
-    Item findByTitle(String title);
 
     @Query(value =
             "SELECT * " +
