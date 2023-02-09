@@ -28,4 +28,7 @@ internal interface ItemApiService {
 
     @POST("/search")
     suspend fun getKeywordItemList(@Body request : ItemSearchRequestDto) : List<ItemResponseDto>
+
+    @GET("/item/{itemId}")
+    suspend fun getItemDetailInfo(itemId : Long) : ItemResponseDto
 }

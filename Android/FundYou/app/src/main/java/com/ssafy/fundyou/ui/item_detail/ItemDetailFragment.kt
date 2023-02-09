@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.kakao.sdk.common.util.KakaoCustomTabsClient
@@ -16,12 +17,14 @@ import com.kakao.sdk.template.model.Content
 import com.kakao.sdk.template.model.FeedTemplate
 import com.kakao.sdk.template.model.Link
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailDescriptionInfoAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailDescriptionModel
+import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -30,6 +33,9 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private val relatedAdapter = ItemDetailRelatedAdapter()
     private var itemImgFullState = false
     private var itemInfoImgSize = 0
+    private lateinit var itemDetailInfo : ItemDetailModel
+
+    private val itemDetailViewModel by viewModels<ItemDetailViewModel>()
     private val itemArgument by navArgs<ItemDetailFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -40,7 +46,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
     override fun initView() {
         // 상품 전체 정보 넣기
-        binding.productInfo = null
+        itemDetailViewModel.getItemDetailInfo(itemArgument.itemId)
         itemInfoImgSize = binding.ivItemInfo.layoutParams.height
 
         initItemImgAdapter()
@@ -52,8 +58,21 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     }
 
     override fun initViewModels() {
-
+        itemDetailViewModel.itemDetailInfo.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initViewModels: logading...")
+                }
+                is ViewState.Success -> {
+                    binding.productInfo = response.value
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initViewModels: Error...")
+                }
+            }
+        }
     }
+
 
     private fun initMoreItemInfoButtonEvent() {
         binding.tvMoreItemInfoImg.setOnClickListener {
@@ -77,7 +96,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     }
 
     private fun setItemInfoImgWrapContent() {
-
         binding.ivItemInfo.layoutParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             ConstraintLayout.LayoutParams.WRAP_CONTENT
@@ -102,7 +120,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         // 상품 상세정보 임시 리스트
         val tempList = listOf(
             ItemDetailDescriptionModel("type1", "value1"),
-            ItemDetailDescriptionModel( "type2", "value2")
+            ItemDetailDescriptionModel("type2", "value2")
         )
         val itemDetailAdapter = ItemDetailDescriptionInfoAdapter()
 
@@ -114,7 +132,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private fun initItemImgAdapter() {
         val itemAdapter = ItemDetailImgAdapter()
         // 상품 이미지 임시 리스트
-        val itemImgList = listOf("test1","Test2")
+        val itemImgList = listOf("test1", "Test2")
         itemAdapter.addItemImgList(itemImgList)
 
         binding.tvItemImgPage.text = "1 / ${itemImgList.size}"

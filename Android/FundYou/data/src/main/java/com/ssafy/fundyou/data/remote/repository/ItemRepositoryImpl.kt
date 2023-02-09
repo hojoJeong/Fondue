@@ -33,6 +33,11 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
         return itemRemoteDataSource.getKeywordItemList(request).map { it.toDomainModel() }
     }
 
+    override suspend fun getItemDetailInfo(itemId: Long): ProductItemModel {
+        val response = itemRemoteDataSource.getItemDetailInfo(itemId)
+        return response.toDomainModel()
+    }
+
     override suspend fun getItemByPrice(
         categoryId: Int,
         minPrice: Int,
