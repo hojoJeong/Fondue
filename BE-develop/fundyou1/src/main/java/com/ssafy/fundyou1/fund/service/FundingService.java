@@ -198,4 +198,18 @@ public class FundingService {
     }
 
 
+
+    // 펀딩 종료 버튼 클릭
+    @Transactional
+    public String terminateFunding(Long fundingId) {
+
+        // 펀딩 종료
+        fundingRepository.updateStatus(fundingId, false);
+
+        // 펀딩 상품 종료
+        fundingItemRepository.updateStatus(fundingId, false);
+
+        return "펀딩이 종료 되었습니다.";
+
+    }
 }

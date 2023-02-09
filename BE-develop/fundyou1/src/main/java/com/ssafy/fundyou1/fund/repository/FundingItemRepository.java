@@ -37,6 +37,11 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
     @Query(value = "select sum(item_Total_Price) from funding_Item fi where fi.funding_id = :fundingId", nativeQuery = true)
     int sumTotalPriceByFundingId(@Param("fundingId") Long fundingId);
 
+    @Modifying(clearAutomatically = true)
     @Query(value = "select sum(current_funding_Price) from funding_Item fi where fi.funding_id = :fundingId", nativeQuery = true)
     int sumCurrentFundingPriceByFundingId(@Param("fundingId") Long fundingId);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update funding_item fi set fi.funding_item_status = :status where fi.funding_id = :fundingId", nativeQuery = true)
+    void updateStatus(@Param("fundingId") Long fundingId, @Param("status") boolean status);
 }
