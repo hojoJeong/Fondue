@@ -29,8 +29,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import javax.servlet.http.HttpServletResponse;
-
 @Service
 @RequiredArgsConstructor
 public class AuthService {
@@ -40,9 +38,6 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-    private MemberRequestDto memberRequestDto;
-
-    private KakaoSocialLoginResponse kakaoSocialLoginResponse;
 
     // 카카오 API로 정보 가져오는 로직
     public KakaoSocialLoginResponse kakaoLoginService(String accessToken) {
