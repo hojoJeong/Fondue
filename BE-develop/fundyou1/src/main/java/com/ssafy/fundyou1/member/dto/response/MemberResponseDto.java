@@ -29,7 +29,7 @@ public class MemberResponseDto {
                 member.getId(),
                 member.getLoginId(),
                 member.getUsername(),
-                member.getStatus(),
+                member.isStatus(),
                 member.getProfileImg(),
                 member.getPoint()
         );

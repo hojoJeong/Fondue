@@ -27,7 +27,6 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
     void deleteLikeItem(@Param("memberId") Long memberId, @Param("id") Long id);
 
     // 찜 아이템 찾기 ( 아이템 아이디, 회원 아이디)
-
     @Query(value="Select * " +
             "From Likes li " +
             "WHERE li.item_id = :id " +

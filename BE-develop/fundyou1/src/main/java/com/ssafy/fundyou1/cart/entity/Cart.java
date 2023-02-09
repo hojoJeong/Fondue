@@ -40,6 +40,7 @@ public class Cart {
         this.count = count;
     }
 
+
     // 카트에 유저 할당하여 넣어줌
     public static Cart createCart(Member member, Item item, int count) {
         Cart cart = new Cart();
@@ -48,6 +49,7 @@ public class Cart {
         cart.setCount(count);
         return cart;
     }
+
 
 }
 

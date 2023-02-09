@@ -6,8 +6,11 @@ import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.item.dto.*;
+import com.ssafy.fundyou1.item.entity.Description;
 import com.ssafy.fundyou1.item.entity.Item;
+import com.ssafy.fundyou1.item.repository.DescriptionRepository;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.like.dto.LikeItemResponseDto;
 import com.ssafy.fundyou1.like.entity.Like;
@@ -35,15 +38,28 @@ public class ItemService {
     @Autowired
     LikeRepository likeRepository;
 
-    //희주 상품 데이터 추가
+    @Autowired
+    DescriptionRepository descriptionRepository;
 
+    //상품 데이터 추가
     @Transactional
     public Long saveItem(ItemSaveRequest request) {
+        // 브랜드 이름, 중복검사
         checkDuplicateItemTitle(request.getTitle(), request.getBrand());
-
+        // 카테고리찾기
         Category category = categoryRepository.findByCategoryName(request.getCategoryName());
-
+        // 아이템 먼저 저장
         Item item = request.toItem(category);
+        // description 여러개 리스트
+        for(Description description : request.getDescription()) {
+            Description newDescription  = Description.builder()
+                    .item(item) // 위에서 등록한 itemEntity
+                    .type(description .getType())  // 필드 1
+                    .value(description .getValue())  // 필드 2
+                    .build();
+            descriptionRepository.save(newDescription);
+
+        }
         return itemRepository.save(item).getId();
     }
 
@@ -57,88 +73,139 @@ public class ItemService {
     }
 
 
-    // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
+
+
     @Transactional
-    public String saveDescriptionList(String title, List<DescriptionData> description) throws JsonProcessingException {
-        Item item = itemRepository.findByTitle(title);
-
-        ObjectMapper mapper = new ObjectMapper();
-        item.setDescription(Collections.singletonList(mapper.writeValueAsString(description)));
-        return item.getTitle();
-    }
-
-
     // 카테고리별 아이템 불러오기
-    public List<ItemDto> getCategoryItemList(Long categoryId) {
-
-        return itemRepository.findAllByCategoryId(categoryId)
-                .stream()
-                .map(item -> ItemDto.createItemDto(item))
-                .collect(Collectors.toList());
+    public List<ItemResponseDto> getCategoryItemList(Long categoryId) {
+        // 카테고리 아이템
+        List<Item> categoryItemList = itemRepository.findAllByCategoryId(categoryId);
+        // 좋아요한 아이템
+        List<Like> findLikeItems = likeRepository.findAllByMember_Id(SecurityUtil.getCurrentMemberId());
+        // 좋아요 구분된 카테고리 리스트
+        List<ItemResponseDto> itemList = new ArrayList<>();
+        // 회원이 좋아요한 아이템이랑 아닌 아이템이랑 is_favorite로 구분해주기
+        for (Item item : categoryItemList) {
+            Long ItemId  = item.getId();
+            for (Like like : findLikeItems) {
+                if (like.getItem_id() == ItemId) {
+                    itemList.add(new ItemResponseDto(item, true));
+                    break;
+                } else {
+                    itemList.add(new ItemResponseDto(item, false));
+                }
+            }
+        }
+        return itemList;
     }
 
     // 상품 디테일
-    public Item itemDetail(Long id) {
-        return itemRepository.findById(id).orElse(null);
+    public List<ItemResponseDto> itemDetail(Long id) {
+
+        Optional<Item> findItem = itemRepository.findById(id);
+        List<ItemResponseDto> findItemOne = new ArrayList<>();
+        if (findItem.isPresent()) {
+            Item item = findItem.get();
+            if(likeRepository.findLikeItem(item.getId(), SecurityUtil.getCurrentMemberId()) != null) {
+                findItemOne.add(new ItemResponseDto(item, true));
+            } else {
+                findItemOne.add(new ItemResponseDto(item, false));
+            }
+        }
+        return findItemOne;
     }
 
-    // 전체 상품 조회
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
-    }
-
-    // 랜덤 5개 상품 추출
-//    "count": "1,2,3",
-//            "image": "ssafy/img/thumbnail.jpg",
-//            "isAr": false,
-//            "isFavorite": false,
-//            "itemId": "1,2",
-//            "memberId": "1,2",
-//            "price": 10000,
-//            "title": "쇼파"
+    @Transactional
     public List<RandomItemResponse> getRandomItemList() {
         System.out.println("랜덤: " + itemRepository.findRandomItemById());
-        List<RandomItemResponse> randomItemResponseList = new ArrayList<RandomItemResponse>();
+        // 멤버가 좋아하는 아이템
+        List<Like> findLikeItems = likeRepository.findAllByMember_Id(SecurityUtil.getCurrentMemberId());
+        List<RandomItemResponse> randomItemResponseList = new ArrayList<>();
         for (Item item : itemRepository.findRandomItemById()) {
-            randomItemResponseList.add(new RandomItemResponse(item.getId(), item.getImage(), item.getIsAr(), item.getIsFavorite(), item.getPrice(), item.getTitle()));
+            Long ItemId  = item.getId();
+            if(findLikeItems.size() != 0 ){
+                for (Like like : findLikeItems) {
+                    if (like.getItem_id() == ItemId) {
+                        randomItemResponseList.add(new RandomItemResponse(item, true));
+                        break;
+                    } else {
+                        randomItemResponseList.add(new RandomItemResponse(item, false));
+                    }
+                }
+            }
+            else {
+                randomItemResponseList.add(new RandomItemResponse(item, false));
+            }
+
         }
-//        return itemRepository.findRandomItemById()
-//                .stream()
-//                .map(item -> ItemDto.createItemDto(item))
-//                .collect(Collectors.toList());
         System.out.println("랜덤: " + randomItemResponseList);
         return randomItemResponseList;
     }
 
-    public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
-        List<Item> list = itemRepository.findTopItem(categoryId, minPrice, maxPrice);
-        System.out.println("testinfo : " + list);
 
-        return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+
+    public List<RandomItemResponse> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
+        List<Item> toplist = itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+        System.out.println("탑 아이템 : " + toplist);
+        // 멤버가 좋아하는 아이템
+        List<Like> findLikeItems = likeRepository.findAllByMember_Id(SecurityUtil.getCurrentMemberId());
+        List<RandomItemResponse> topResponseList = new ArrayList<>();
+        for (Item item : itemRepository.findRandomItemById()) {
+            Long ItemId  = item.getId();
+            if(findLikeItems.size() != 0 ){
+                for (Like like : findLikeItems) {
+                    if (like.getItem_id() == ItemId) {
+                        topResponseList.add(new RandomItemResponse(item, true));
+                        break;
+                    } else {
+                        topResponseList.add(new RandomItemResponse(item, false));
+                    }
+                }
+            }
+            else {
+                topResponseList.add(new RandomItemResponse(item, false));
+            }
+
+        }
+        System.out.println("탑 아이템: " + topResponseList);
+        return topResponseList;
     }
 
 
-    // 회원별 구분 아이템 전체 리스트
+    // 멤버별별 구분 아이템 전체 리스트
     public List<ItemResponseDto> findAllItem(Long memberId) {
+        // 멤버가 좋아하는 아이템
         List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
-
+        // 전체 아이템 조회
         List<Item> findAllItems = itemRepository.findAll();
-
-        List<ItemResponseDto> ItemResponseDto = new ArrayList<>();
-
+        // 아이템 리스트 만들기
+        List<ItemResponseDto> itemList = new ArrayList<>();
+        // 멤버가 좋아하는 아이템이랑 id값이 같으면 is_favorite ture/ 아니면 false
         for (Item item : findAllItems) {
             Long ItemId  = item.getId();
-            for (Like like : findLikeItems) {
-                if (like.getItem_id() == ItemId) {
-                    ItemResponseDto.add(new ItemResponseDto(item, true));
-                    break;
-                } else {
-                    ItemResponseDto.add(new ItemResponseDto(item, false));
+            if(findLikeItems.size() != 0 ){
+                for (Like like : findLikeItems) {
+                    if (like.getItem_id() == ItemId) {
+                        itemList.add(new ItemResponseDto(item, true));
+                        break;
+                    } else {
+                        itemList.add(new ItemResponseDto(item, false));
+                    }
                 }
-
+            }
+            else {
+                itemList.add(new ItemResponseDto(item, false));
             }
         }
-        return ItemResponseDto;
+        return itemList;
+    }
+
+    public List<Item> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
+        if(categoryId == 0){
+            return itemRepository.findItemWithFilterNoCategory(minPrice, maxPrice);
+        }else{
+            return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
+        }
     }
 
 }

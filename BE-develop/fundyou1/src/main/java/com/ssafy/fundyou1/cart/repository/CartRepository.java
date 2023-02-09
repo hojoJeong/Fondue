@@ -1,6 +1,7 @@
 package com.ssafy.fundyou1.cart.repository;
 
 import com.ssafy.fundyou1.cart.entity.Cart;
+import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,11 +15,7 @@ import java.util.Optional;
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
 
-
     List<Cart> findAllByMember_Id(Long memberId);
-
-    Optional<Cart> findById(Long cartId);
-
 
     void deleteById(Long id);
 
