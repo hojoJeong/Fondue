@@ -5,20 +5,16 @@ import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.category.repository.CategoryRepository;
 import com.ssafy.fundyou1.global.exception.BusinessException;
 import com.ssafy.fundyou1.global.exception.ErrorCode;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
 public class CategoryService {
+    @Autowired
+    CategoryRepository categoryRepository;
 
-    private final CategoryRepository categoryRepository;
-
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
-
-    // 카테고리 찾는 로직
     @Transactional(readOnly = true)
     public Category findById(Long id) {
         return categoryRepository.findById(id)
