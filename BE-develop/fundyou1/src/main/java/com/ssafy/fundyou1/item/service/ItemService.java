@@ -16,7 +16,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.metadata.ItemMetadata;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -54,7 +53,10 @@ public class ItemService {
             throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
         }
     }
-
+    // 특정 상품 조회
+    public Item itemView(Long id){
+        return itemRepository.findById(id).get();
+    }
 
     // 설명서 안 JSON 안의 json 리스트 객체 파싱 저장
     @Transactional
@@ -109,6 +111,30 @@ public class ItemService {
         }
     }
 
+
+    // 회원별 아이템 전체 리스트
+    public List<ItemResponseDto> findAllItem(Long memberId) {
+        List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
+
+        List<Item> findAllItems = itemRepository.findAll();
+
+        List<ItemResponseDto> ItemResponseDto = new ArrayList<>();
+
+        for (Item item : findAllItems) {
+            Long ItemId  = item.getId();
+            for (Like like : findLikeItems) {
+                if (like.getItem_id() == ItemId) {
+                    ItemResponseDto.add(new ItemResponseDto(item, true));
+                    break;
+                } else {
+                    ItemResponseDto.add(new ItemResponseDto(item, false));
+                }
+
+            }
+        }
+        return ItemResponseDto;
+    }
+
     public List<Item> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
         if(categoryId == 0){
             return itemRepository.findItemWithFilterNoCategory(minPrice, maxPrice);
@@ -116,4 +142,5 @@ public class ItemService {
             return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
         }
     }
+
 }

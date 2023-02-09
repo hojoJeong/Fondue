@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8080
 
 spring:
   profiles:
@@ -11,6 +11,7 @@ spring:
 
   main:
     allow-bean-definition-overriding: true
+
   datasource:
     url: jdbc:mariadb://localhost:3306/fundyou
     driver-class-name: org.mariadb.jdbc.Driver
