@@ -6,7 +6,7 @@
     <data>
         <variable
             name="itemImg"
-            type="com.ssafy.fundyou.ui.item_detail.model.ItemImgModel" />
+            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -17,26 +17,12 @@
             android:id="@+id/iv_item_img"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:srcByResId="@{itemImg.img}"
             android:scaleType="fitCenter"
+            app:setItemImage="@{itemImg}"
             android:src="@drawable/ic_back_arrow_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/tv_is_ar"
-            style="@style/base_font_medium_14_franch_rose"
-            android:layout_width="wrap_content"
-            app:arVisibility="@{itemImg.isAr}"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
-            android:paddingHorizontal="19dp"
-            android:paddingVertical="4dp"
-            app:layout_constraintBottom_toBottomOf="@id/iv_item_img"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:text="AR" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

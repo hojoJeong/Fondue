@@ -20,9 +20,6 @@ public class ProfileRestController {
     @Autowired
     MemberService memberService;
 
-    public ProfileRestController( MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     // 내 프로필
 
