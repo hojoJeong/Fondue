@@ -48,16 +48,13 @@ public class FundingService {
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
         // 펀딩 개설
-        Calendar cal = Calendar.getInstance();
-        Long nowDate = cal.getTimeInMillis();   // Date(long date)
-//        Long nowDate = LocalDateTime.now().getTimeInMills();
-//        Long nowDate = System.currentTimeMillis();
+
         Funding createdFunding = Funding.createFunding(member, endDate);
 
         // 새펀딩 저장 및 아이디 값 리턴
         Funding savedFunding = fundingRepository.save(createdFunding);
 
-        //---------------------------------------------------------------------------
+        //-----------------------------------------------------------------------//
         // 장바구니 아이템 펀딩 아이템으로 변환
 
 
@@ -132,7 +129,19 @@ public class FundingService {
     }
 
 
+
     // 내 펀딩 리스트
+    public List<Funding> getMyFundingList() {
+        MemberResponseDto meDto = memberService.getMyInfo();
+        Member member = memberRepository.findByUsername(meDto.getUsername());
+
+        List<Funding> myFundingList = fundingRepository.findAllByMemberId(member.getId());
+
+        return myFundingList;
+
+    }
+
+
 
 
 }

@@ -31,14 +31,12 @@ public class FundingItemMemberService {
     @Autowired
     FundingItemMemberRepository fundingItemMemberRepository;
 
-    // 펀딩 참여
+    // 펀딩 참여--------------------------------------------------------------------------------------------------
     @Transactional
     public FundingItemMember attendFunding(FundingItem fundingItem) {
         // 사용자 정보
         MemberResponseDto meDto = memberService.getMyInfo();
         Member member = memberRepository.findByUsername(meDto.getUsername());
-
-//        FundingItem fundingItem = fundingItemRepository.findByFundingItemId(attendFundingDto.getFundingItemId());
 
         // 펀딩 참여
         FundingItemMember fundingItemMember = FundingItemMember.builder().fundingItem(fundingItem).member(member).build();
@@ -47,15 +45,5 @@ public class FundingItemMemberService {
         return fundingItemMember;
     }
 
-    // 참여한 펀딩 리스트 불러오기
-    public List<FundingItemMember> getAttendedFundingList() {
-        // 사용자 정보
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
 
-        // 초대받은 펀딩 리스트 찾기
-        List<FundingItemMember> attendedFundingList = fundingItemMemberRepository.findAllByMemberId(member.getId());
-
-        return attendedFundingList;
-    }
 }
