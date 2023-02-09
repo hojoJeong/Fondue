@@ -8,13 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemItemDetailInfoListBinding
 import com.ssafy.fundyou.ui.adapter.diffutil.ItemDetailInfoDiffUtil
-import com.ssafy.fundyou.ui.item_detail.model.ItemDetailInfoModel
+import com.ssafy.fundyou.domain.model.item.ItemDescriptionModel
 
-class ItemDetailInfoAdapter : ListAdapter<ItemDetailInfoModel, ItemDetailInfoAdapter.ItemDetailInfoHolder>(
+class ItemDetailInfoAdapter : ListAdapter<ItemDescriptionModel, ItemDetailInfoAdapter.ItemDetailInfoHolder>(
     ItemDetailInfoDiffUtil
 ){
     class ItemDetailInfoHolder(private val binding : ItemItemDetailInfoListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item : ItemDetailInfoModel){
+        fun bind(item : ItemDescriptionModel){
             binding.itemDetailInfo = item
         }
     }

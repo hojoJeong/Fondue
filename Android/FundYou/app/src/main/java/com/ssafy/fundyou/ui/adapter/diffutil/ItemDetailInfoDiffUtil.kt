@@ -1,19 +1,19 @@
 package com.ssafy.fundyou.ui.adapter.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.ssafy.fundyou.ui.item_detail.model.ItemDetailInfoModel
+import com.ssafy.fundyou.domain.model.item.ItemDescriptionModel
 
-object ItemDetailInfoDiffUtil : DiffUtil.ItemCallback<ItemDetailInfoModel>(){
+object ItemDetailInfoDiffUtil : DiffUtil.ItemCallback<ItemDescriptionModel>(){
     override fun areItemsTheSame(
-        oldItem: ItemDetailInfoModel,
-        newItem: ItemDetailInfoModel
+        oldItem: ItemDescriptionModel,
+        newItem: ItemDescriptionModel
     ): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: ItemDetailInfoModel,
-        newItem: ItemDetailInfoModel
+        oldItem: ItemDescriptionModel,
+        newItem: ItemDescriptionModel
     ): Boolean {
         return oldItem == newItem
     }

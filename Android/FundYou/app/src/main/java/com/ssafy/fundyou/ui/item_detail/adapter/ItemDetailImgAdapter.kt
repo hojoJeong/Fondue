@@ -6,7 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemItemImgListBinding
-import com.ssafy.fundyou.ui.item_detail.model.ItemImgModel
 
 class ItemDetailImgAdapter : RecyclerView.Adapter<ItemDetailImgAdapter.ItemDetailImgHolder>() {
 

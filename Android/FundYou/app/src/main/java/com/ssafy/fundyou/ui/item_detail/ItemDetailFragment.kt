@@ -21,8 +21,9 @@ import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailInfoAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
-import com.ssafy.fundyou.ui.item_detail.model.ItemDetailInfoModel
-import com.ssafy.fundyou.ui.item_detail.model.ItemImgModel
+import com.ssafy.fundyou.domain.model.item.ItemCategoryModel
+import com.ssafy.fundyou.domain.model.item.ItemDescriptionModel
+import com.ssafy.fundyou.domain.model.item.ItemDetailModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +42,12 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
     override fun initView() {
         // 상품 전체 정보 넣기
-//        binding.productInfo = ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true)
+        binding.productInfo = ItemDetailModel(
+            1, 100000, listOf("123","123"), "상품이름", true, listOf(
+                ItemDescriptionModel(0, "무게", "100kg"),
+            "싸피",true, 100, ItemCategoryModel(1, "인테리어")
+            )
+        )
         itemInfoImgSize = binding.ivItemInfo.layoutParams.height
 
         initItemImgAdapter()
@@ -140,8 +146,8 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private fun initItemDetailAdapter() {
         // 상품 상세정보 임시 리스트
         val tempList = listOf(
-            ItemDetailInfoModel(1, "type1", "value1"),
-            ItemDetailInfoModel(2, "type2", "value2")
+            ItemDescriptionModel(1, "type1", "value1"),
+            ItemDescriptionModel(2, "type2", "value2")
         )
         val itemDetailAdapter = ItemDetailInfoAdapter()
 
