@@ -33,10 +33,10 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     // 랜덤 6개 상품 추출
     @Query(value = "SELECT * FROM item order by RAND() limit 6", nativeQuery = true)
-    List<Item> findRandomItemById();
+    List<Item> findSixRandomItem();
 
 
-    // 조건에 맞는 상위 5개 상품 추출
+    // 조건에 맞는 상위 6개 상품 추출
     @Query(value =
             "SELECT * " +
                     "FROM item " +
