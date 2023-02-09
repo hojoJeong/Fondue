@@ -5,12 +5,15 @@ import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
+import com.ssafy.fundyou.data.remote.datasource.user.UserRemoteDataSource
 import com.ssafy.fundyou.data.remote.repository.AuthRepositoryImpl
 import com.ssafy.fundyou.data.remote.repository.ItemRepositoryImpl
 import com.ssafy.fundyou.data.remote.repository.SearchRepositoryImpl
+import com.ssafy.fundyou.data.remote.repository.UserRepositoryImpl
 import com.ssafy.fundyou.domain.repository.AuthRepository
 import com.ssafy.fundyou.domain.repository.ItemRepository
 import com.ssafy.fundyou.domain.repository.SearchRepository
+import com.ssafy.fundyou.domain.repository.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,4 +45,9 @@ internal object RepositoryModule {
     @Singleton
     fun provideItemRepository(itemRemoteDataSource: ItemRemoteDataSource): ItemRepository =
         ItemRepositoryImpl(itemRemoteDataSource)
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(userRemoteDataSource: UserRemoteDataSource): UserRepository =
+        UserRepositoryImpl(userRemoteDataSource)
 }
