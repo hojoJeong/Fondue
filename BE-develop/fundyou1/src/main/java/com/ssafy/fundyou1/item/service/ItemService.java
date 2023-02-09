@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.configurationprocessor.metadata.ItemMetadata;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -101,10 +102,18 @@ public class ItemService {
     }
 
     public List<Item> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
-        return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+        if(categoryId == 0){
+            return itemRepository.findTopItemNoCategory(minPrice, maxPrice);
+        }else{
+            return itemRepository.findTopItem(categoryId, minPrice, maxPrice);
+        }
     }
 
     public List<Item> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
-        return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
+        if(categoryId == 0){
+            return itemRepository.findItemWithFilterNoCategory(minPrice, maxPrice);
+        }else{
+            return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
+        }
     }
 }

@@ -68,4 +68,19 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
                     "AND item.price BETWEEN :minPrice AND :maxPrice ",
             nativeQuery = true)
     List<Item> findItemWithFilter(Long categoryId, Long minPrice, Long maxPrice);
+
+    @Query(value =
+            "SELECT * " +
+                    "FROM item " +
+                    "WHERE item.price BETWEEN :minPrice AND :maxPrice " +
+                    "ORDER BY item.selling_count DESC LIMIT 5",
+            nativeQuery = true)
+    List<Item> findTopItemNoCategory(@Param("minPrice") Long minimumPrice,@Param("maxPrice") Long maxPrice);
+
+    @Query(value =
+            "SELECT * " +
+                    "FROM item " +
+                    "WHERE item.price BETWEEN :minPrice AND :maxPrice ",
+            nativeQuery = true)
+    List<Item> findItemWithFilterNoCategory(Long minPrice, Long maxPrice);
 }
