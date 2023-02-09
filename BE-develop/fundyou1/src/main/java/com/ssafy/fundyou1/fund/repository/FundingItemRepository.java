@@ -43,5 +43,9 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
 
     @Modifying(clearAutomatically = true)
     @Query(value = "update funding_item fi set fi.funding_item_status = :status where fi.funding_id = :fundingId", nativeQuery = true)
-    void updateStatus(@Param("fundingId") Long fundingId, @Param("status") boolean status);
+    void updateFundingItemStatusByFundingId(@Param("fundingId") Long fundingId, @Param("status") boolean status);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update funding_item fi set fi.funding_item_status = :status where fi.funding_item_id = :fundingItemId", nativeQuery = true)
+    void updateFundingItemStatusByFundingItemId(@Param("fundingItemId") Long fundingItemId, @Param("status") boolean status);
 }

@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.fund.repository;
 
 import com.ssafy.fundyou1.fund.entity.Funding;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -21,6 +22,7 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
 
 
     // 펀딩 status 값 변경
-    @Query(value = "update Funding f set f.fundingStatus = :status where f.funding_id = :fundingId")
-    Funding updateStatus(@Param("fundingId") Long fundingId, @Param("status") boolean status);
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update Funding f set f.funding_Status = :status where f.funding_id = :fundingId", nativeQuery = true)
+    void updateStatus(@Param("fundingId") Long fundingId, @Param("status") boolean status);
 }

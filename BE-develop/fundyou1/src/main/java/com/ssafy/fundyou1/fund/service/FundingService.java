@@ -207,7 +207,7 @@ public class FundingService {
         fundingRepository.updateStatus(fundingId, false);
 
         // 펀딩 상품 종료
-        fundingItemRepository.updateStatus(fundingId, false);
+        fundingItemRepository.updateFundingItemStatusByFundingId(fundingId, false);
 
         return "펀딩이 종료 되었습니다.";
 

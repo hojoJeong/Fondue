@@ -54,8 +54,8 @@ public class ItemService {
         for(Description description : request.getDescription()) {
             Description newDescription  = Description.builder()
                     .item(item) // 위에서 등록한 itemEntity
-                    .type(description .getType())  // 필드 1
-                    .value(description .getValue())  // 필드 2
+                    .itemType(description .getItemType())  // 필드 1
+                    .Content(description .getContent())  // 필드 2
                     .build();
             descriptionRepository.save(newDescription);
 
