@@ -32,6 +32,8 @@ public class ItemDto {
 
     private Boolean isAr;
 
+    private Boolean isFavorite;
+
     private List<Description> description;
 
     private int sellingCount;
@@ -41,34 +43,49 @@ public class ItemDto {
     @JsonProperty("category_id")
     private Long categoryId;
 
-    public ItemDto(Long id, int price, String image, String descriptionImg, String title, Boolean isAr, List<Description> description, int sellingCount, String brand, Long id1) {
-        this.id = id;
-        this.price = price;
-        this.image = image;
-        this.descriptionImg = descriptionImg;
-        this.title = title;
-        this.isAr = isAr;
-        this.description = description;
-        this.sellingCount = sellingCount;
-        this.brand = brand;
-        this.categoryId = id1;
-
+    public ItemDto(Item item) {
+        this.id = item.getId();
+        this.price = item.getPrice();
+        this.image = item.getImage();
+        this.descriptionImg = item.getDescriptionImg();
+        this.title = item.getTitle();
+        this.isAr = item.getIsAr();
+        this.isFavorite = item.getIsFavorite();
+        this.description = item.getDescriptions();
+        this.sellingCount = item.getSellingCount();
+        this.brand = item.getBrand();
+        this.categoryId = item.getCategory().getId();
     }
 
-    public static ItemDto createItemDto(Item item) {
-        return new ItemDto(
-                item.getId(),
-                item.getPrice(),
-                item.getImage(),
-                item.getDescriptionImg(),
-                item.getTitle(),
-                item.getIsAr(),
-                item.getDescriptions(),
-                item.getSellingCount(),
-                item.getBrand(),
-                item.getCategory().getId()
-        );
-    }
+    //    public ItemDto(Long id, int price, String image, String descriptionImg, String title, Boolean isAr, List<Description> description, int sellingCount, String brand, Long id1) {
+//        this.id = id;
+//        this.price = price;
+//        this.image = image;
+//        this.descriptionImg = descriptionImg;
+//        this.title = title;
+//        this.isAr = isAr;
+//        this.description = description;
+//        this.sellingCount = sellingCount;
+//        this.brand = brand;
+//        this.categoryId = id1;
+//
+//    }
+
+//    public static ItemDto createItemDto(Item item) {
+//        return new ItemDto(
+//                item.getId(),
+//                item.getPrice(),
+//                item.getImage(),
+//                item.getDescriptionImg(),
+//                item.getTitle(),
+//                item.getIsAr(),
+//                item.getIsFavorite(),
+//                item.getDescriptions(),
+//                item.getSellingCount(),
+//                item.getBrand(),
+//                item.getCategory().getId()
+//        );
+//    }
 
 
     public void addsellingCount(int quantity) {

@@ -41,6 +41,7 @@ public class Item {
     @Column(name = "is_favorite", columnDefinition = "boolean default false")
     private Boolean isFavorite;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "item")
     private List<Description> descriptions = new ArrayList<>();
 
@@ -72,10 +73,5 @@ public class Item {
         this.category = category;
     }
 
-
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<FundingItem> fundingItems = new ArrayList<>();
 
 }

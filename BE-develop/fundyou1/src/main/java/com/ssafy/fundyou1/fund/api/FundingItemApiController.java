@@ -12,6 +12,7 @@ import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,8 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/funding/item")
+@RequestMapping("/fundingItem")
+@Api(tags = {"펀딩 아이템"})
 public class FundingItemApiController {
     @Autowired
     private MemberRepository memberRepository;
@@ -41,7 +43,7 @@ public class FundingItemApiController {
     public ResponseEntity attendFunding(@RequestBody AttendFundingDto attendFundingDto){
 
         int holdMoney = memberService.getMyInfo().getPoint();
-        if (holdMoney > attendFundingDto.getPoint()){
+        if (holdMoney < attendFundingDto.getPoint()){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "잔액이 부족합니다.", null));
         } else{
             return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.attendFunding(attendFundingDto));
@@ -72,6 +74,14 @@ public class FundingItemApiController {
     @PostMapping("/memberList")
     public ResponseEntity<List<FundingItemMember>> getAttendMember(@RequestBody Long fundingItemId){
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getAttendMember(fundingItemId));
+    }
+
+
+    // 펀딩 아이템 종료
+    @PostMapping("/terminate")
+    @ApiOperation(value = "펀딩 아이템 펀딩 종료", notes = "반환값 - 펀딩 종료 완료 ")
+    public ResponseEntity<String> terminateFundingItem(@RequestBody Long fundingItemId) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.terminateFundingItem(fundingItemId));
     }
 
 

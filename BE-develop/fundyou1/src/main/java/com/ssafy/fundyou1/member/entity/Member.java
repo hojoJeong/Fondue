@@ -8,6 +8,7 @@ import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.global.domain.BaseEntity;
 import com.ssafy.fundyou1.like.entity.Like;
+import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -79,5 +80,4 @@ public class Member extends BaseEntity {
         this.authority = authority;
         this.status = status;
     }
-
 }

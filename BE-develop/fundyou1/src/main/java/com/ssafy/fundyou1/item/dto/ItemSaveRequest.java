@@ -8,9 +8,7 @@ import com.ssafy.fundyou1.item.entity.Item;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
-
 import java.util.List;
-
 
 @Getter
 public class ItemSaveRequest {
@@ -39,7 +37,7 @@ public class ItemSaveRequest {
 
     @ApiModelProperty(position = 6, notes = "찜 여부", example = "true or false")
     @JsonProperty("is_favorite")
-    private boolean isFavorite;
+    private Boolean isFavorite;
 
     @ApiModelProperty(position = 7, notes = "상품 부가 설명", example = "[{\"type\":\"크기\",\"value\":\"10\"},{\"type\":\"색깔\",\"value\":\"red\"}]")
     @JsonProperty("description")
@@ -84,7 +82,4 @@ public class ItemSaveRequest {
                 .category(category)
                 .build();
     }
-
-
-
 }
