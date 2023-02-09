@@ -19,10 +19,9 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
-import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailInfoAdapter
+import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailDescriptionInfoAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
-import com.ssafy.fundyou.ui.item_detail.model.ItemDetailInfoModel
-import com.ssafy.fundyou.ui.item_detail.model.ItemImgModel
+import com.ssafy.fundyou.ui.item_detail.model.ItemDetailDescriptionModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,12 +40,13 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
     override fun initView() {
         // 상품 전체 정보 넣기
-//        binding.productInfo = ProductItemModel(0, 100000, "", "BESPOKE 냉장고", false, "삼성", true)
+        binding.productInfo = null
         itemInfoImgSize = binding.ivItemInfo.layoutParams.height
 
         initItemImgAdapter()
         initItemDetailAdapter()
-        initRelatedItemAdapter()
+        /** 아이템 랜덤 상품 */
+        //initRelatedItemAdapter()
         initMoreItemInfoButtonEvent()
         addKakaoShareButtonEvent()
     }
@@ -98,52 +98,13 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         binding.tvMoreItemInfoImg.text = "상품설명 더보기"
     }
 
-    private fun initRelatedItemAdapter() {
-//        val tempList = mutableListOf<ProductItemModel>()
-//        tempList.add(
-//            ProductItemModel(
-//                0,
-//                100000,
-//                "",
-//                "BESPOKE 냉장고",
-//                false,
-//                "삼성",
-//                true
-//            )
-//        )
-//        tempList.add(
-//            ProductItemModel(
-//                1,
-//                100000,
-//                "",
-//                "BESPOKE 냉장고",
-//                true,
-//                "삼성",
-//                false
-//            )
-//        )
-//        tempList.add(
-//            ProductItemModel(
-//                2,
-//                100000,
-//                "",
-//                "BESPOKE 냉장고",
-//                false,
-//                "삼성",
-//                false
-//            )
-//        )
-//        relatedAdapter.submitList(tempList)
-//        binding.rvRelatedItemList.adapter = relatedAdapter
-    }
-
     private fun initItemDetailAdapter() {
         // 상품 상세정보 임시 리스트
         val tempList = listOf(
-            ItemDetailInfoModel(1, "type1", "value1"),
-            ItemDetailInfoModel(2, "type2", "value2")
+            ItemDetailDescriptionModel("type1", "value1"),
+            ItemDetailDescriptionModel( "type2", "value2")
         )
-        val itemDetailAdapter = ItemDetailInfoAdapter()
+        val itemDetailAdapter = ItemDetailDescriptionInfoAdapter()
 
         binding.rvItemInfo.adapter = itemDetailAdapter
 
@@ -153,10 +114,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private fun initItemImgAdapter() {
         val itemAdapter = ItemDetailImgAdapter()
         // 상품 이미지 임시 리스트
-        val itemImgList = listOf(
-            ItemImgModel(1, R.drawable.ic_launcher_background, false),
-            ItemImgModel(2, R.drawable.bg_banner_ssafylogo2, true)
-        )
+        val itemImgList = listOf("test1","Test2")
         itemAdapter.addItemImgList(itemImgList)
 
         binding.tvItemImgPage.text = "1 / ${itemImgList.size}"

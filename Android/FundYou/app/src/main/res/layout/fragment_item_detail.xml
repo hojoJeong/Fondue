@@ -47,6 +47,21 @@
                     tools:text="1 / 2" />
 
                 <TextView
+                    android:id="@+id/tv_is_ar"
+                    style="@style/base_font_medium_14_franch_rose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+                    android:paddingHorizontal="19dp"
+                    android:paddingVertical="4dp"
+                    app:arVisibility="@{productInfo.isAr}"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_img_page"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_item_img_page"
+                    tools:text="AR" />
+
+                <TextView
                     android:id="@+id/tv_brand"
                     style="@style/base_font_medium_12_raven"
                     android:layout_width="wrap_content"
