@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.item.repository;
 
 import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -85,4 +86,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
                     "WHERE item.price BETWEEN :minPrice AND :maxPrice ",
             nativeQuery = true)
     List<Item> findItemWithFilterNoCategory(Long minPrice, Long maxPrice);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update item i set i.selling_count = i.selling_count + 1 where i.item_id = :itemId", nativeQuery = true)
+    void updateCountPlus(@Param("itemId") Long itemId);
 }
