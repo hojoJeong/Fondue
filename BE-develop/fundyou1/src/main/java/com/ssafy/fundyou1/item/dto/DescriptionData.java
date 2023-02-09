@@ -18,15 +18,15 @@ import java.util.List;
 public class DescriptionData {
 
     private Item item;
-    private String type;
-    private String value;
+    private String itemType;
+    private String content;
 
 
     @Builder
-    public DescriptionData(Item item, String type, String value) {
+    public DescriptionData(Item item, String itemType, String content) {
         this.item = item;
-        this.type = type;
-        this.value = value;
+        this.itemType = itemType;
+        this.content = content;
     }
 
 
