@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.fund.service;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.fund.dto.FundingResultMemberDto;
+import com.ssafy.fundyou1.fund.dto.MyFundingDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
@@ -131,17 +132,54 @@ public class FundingService {
 
 
     // 내 펀딩 리스트
-    public List<Funding> getMyFundingList() {
+    public List<MyFundingDto> getMyOngoingFundingList() {
         MemberResponseDto meDto = memberService.getMyInfo();
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
-        List<Funding> myFundingList = fundingRepository.findAllByMemberId(member.getId());
+        // "내" & "진행중" 펀딩
+        List<Funding> myOngoingFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.getId(), true);
 
-        return myFundingList;
+        List<MyFundingDto> myOngoingFundingListDto  = new ArrayList<>();
+
+        for(Funding myOngoingFunding : myOngoingFundingList ){
+            int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(myOngoingFunding.getId());
+
+            int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(myOngoingFunding.getId());
+
+            List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
+
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+
+            myOngoingFundingListDto.add(myFundingDto);
+        }
+
+        return myOngoingFundingListDto;
 
     }
 
 
+    public List<MyFundingDto> getMyClosedFundingList() {
 
+        MemberResponseDto meDto = memberService.getMyInfo();
+        Member member = memberRepository.findByUsername(meDto.getUsername());
 
+        // "내" & "종료된" 펀딩
+        List<Funding> myClosedFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.getId(), false);
+
+        List<MyFundingDto> myClosedFundingListDto  = new ArrayList<>();
+
+        for(Funding myOngoingFunding : myClosedFundingList ){
+            int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(myOngoingFunding.getId());
+
+            int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(myOngoingFunding.getId());
+
+            List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
+
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+
+            myClosedFundingListDto.add(myFundingDto);
+        }
+
+        return myClosedFundingListDto;
+    }
 }

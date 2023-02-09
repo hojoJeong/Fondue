@@ -24,11 +24,10 @@ public class FundingItemDto {
     // 총가격
     private int itemTotalPrice;
 
+    // 현재 펀딩된 가격
     private int count;
 
-    // 현재 펀딩된 가격
     private boolean fundingItemStatus;
-
 
     @Builder
     public static FundingItemDto createFundingItemDto(FundingItem fundingItem) {
