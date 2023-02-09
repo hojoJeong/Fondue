@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@RequiredArgsConstructor
 public class MemberService {
 
     @Autowired
@@ -29,5 +28,8 @@ public class MemberService {
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
-
+    @Transactional
+    public Integer chargePoint(Long point) {
+        return memberRepository.chargePoint(point, SecurityUtil.getCurrentMemberId());
+    }
 }

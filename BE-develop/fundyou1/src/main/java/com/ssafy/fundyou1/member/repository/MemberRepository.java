@@ -22,4 +22,8 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Modifying(clearAutomatically = true)
     @Query(value = "update Member m set m.point = m.point - :point where m.username = :username", nativeQuery = true)
     void minusPoint(@Param("username") String username, @Param("point") int point);
+
+    @Modifying
+    @Query(value = "update member set point = point + :point where member_id = :member_id",nativeQuery = true)
+    Integer chargePoint(@Param("point") Long point, @Param("member_id") Long member_id);
 }

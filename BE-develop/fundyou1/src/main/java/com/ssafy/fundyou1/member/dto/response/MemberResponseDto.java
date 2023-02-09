@@ -2,12 +2,10 @@ package com.ssafy.fundyou1.member.dto.response;
 
 import com.ssafy.fundyou1.member.entity.Member;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 // 정보 반환해주는 DTO
-@Getter
+@Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MemberResponseDto {
@@ -27,7 +25,6 @@ public class MemberResponseDto {
     @ApiModelProperty(position = 1, notes = "회원이메일(카카오 이메일)", example = "eeee@naver.com")
     private String mail;
 
-
     public static MemberResponseDto of(Member member) {
         return new MemberResponseDto(
                 member.getId(),
@@ -39,6 +36,4 @@ public class MemberResponseDto {
                 member.getMail()
         );
     }
-
-
 }

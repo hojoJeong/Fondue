@@ -41,9 +41,8 @@ public class ItemApiController {
     @ApiResponses({
             @ApiResponse(code = 409, message = "CONFLICT\n 상품 이름.브랜드 중복(I01)\n")
     })
-    public ResponseEntity saveItem(@RequestBody @Valid ItemSaveRequest request) throws JsonProcessingException {
+    public ResponseEntity saveItem(@RequestBody ItemSaveRequest request){
         Long itemId = itemService.saveItem(request);
-
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",itemId  ));
 
     }
