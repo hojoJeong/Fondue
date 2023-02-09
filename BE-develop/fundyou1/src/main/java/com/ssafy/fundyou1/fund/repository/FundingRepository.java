@@ -2,6 +2,8 @@ package com.ssafy.fundyou1.fund.repository;
 
 import com.ssafy.fundyou1.fund.entity.Funding;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,5 +16,6 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
 
     Funding findByIdAndMemberId(Long fundingId, Long memberId);
 
-    List<Funding> findAllByMemberId(Long id);
+    @Query(value = "select * from Funding fi where fi.member_Id = :memberId and fi.funding_status = :status", nativeQuery = true)
+    List<Funding> findAllByMemberIdAndByFundingStatus(@Param("memberId") Long memberId, @Param("status") boolean status);
 }
