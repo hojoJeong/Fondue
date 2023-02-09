@@ -18,9 +18,9 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     @Query(value = "SELECT * FROM item WHERE item.item_id = :id", nativeQuery = true)
     Item findItemById(@Param("id") Long id);
 
-    // 아이템 전체 조회
-    @Override
-    ArrayList<Item> findAll();
+    // 아이템 전체 조회 리스트
+
+    List<Item> findAll();
 
     // 카테고리별 아이템 불러오기
     @Query(value =
@@ -48,7 +48,6 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 
     boolean existsByTitleAndBrand(String title, String brand);
 
-    Item findByTitle(String title);
 
     @Query(value =
             "SELECT * " +

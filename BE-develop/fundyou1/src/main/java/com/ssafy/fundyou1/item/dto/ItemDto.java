@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.item.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
+import com.ssafy.fundyou1.item.entity.Description;
 import com.ssafy.fundyou1.item.entity.Item;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,7 +32,7 @@ public class ItemDto {
 
     private Boolean isAr;
 
-    private List<String> description;
+    private List<Description> description;
 
     private int sellingCount;
 
@@ -40,7 +41,7 @@ public class ItemDto {
     @JsonProperty("category_id")
     private Long categoryId;
 
-    public ItemDto(Long id, int price, String image, String descriptionImg, String title, Boolean isAr, List<String> description, int sellingCount, String brand, Long id1) {
+    public ItemDto(Long id, int price, String image, String descriptionImg, String title, Boolean isAr, List<Description> description, int sellingCount, String brand, Long id1) {
         this.id = id;
         this.price = price;
         this.image = image;
@@ -62,7 +63,7 @@ public class ItemDto {
                 item.getDescriptionImg(),
                 item.getTitle(),
                 item.getIsAr(),
-                item.getDescription(),
+                item.getDescriptions(),
                 item.getSellingCount(),
                 item.getBrand(),
                 item.getCategory().getId()
