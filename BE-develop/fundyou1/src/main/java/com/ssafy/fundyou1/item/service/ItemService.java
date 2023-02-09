@@ -106,7 +106,7 @@ public class ItemService {
         List<ItemResponseDto> findItemOne = new ArrayList<>();
         if (findItem.isPresent()) {
             Item item = findItem.get();
-            if(likeRepository.exists(item.getId(), SecurityUtil.getCurrentMemberId()) != null) {
+            if(likeRepository.findLikeItem(item.getId(), SecurityUtil.getCurrentMemberId()) != null) {
                 findItemOne.add(new ItemResponseDto(item, true));
             } else {
                 findItemOne.add(new ItemResponseDto(item, false));
@@ -123,14 +123,20 @@ public class ItemService {
         List<RandomItemResponse> randomItemResponseList = new ArrayList<>();
         for (Item item : itemRepository.findRandomItemById()) {
             Long ItemId  = item.getId();
-            for (Like like : findLikeItems) {
-                if (like.getItem_id() == ItemId) {
-                    randomItemResponseList.add(new RandomItemResponse(item, true));
-                    break;
-                } else {
-                    randomItemResponseList.add(new RandomItemResponse(item, false));
+            if(findLikeItems.size() != 0 ){
+                for (Like like : findLikeItems) {
+                    if (like.getItem_id() == ItemId) {
+                        randomItemResponseList.add(new RandomItemResponse(item, true));
+                        break;
+                    } else {
+                        randomItemResponseList.add(new RandomItemResponse(item, false));
+                    }
                 }
             }
+            else {
+                randomItemResponseList.add(new RandomItemResponse(item, false));
+            }
+
         }
         System.out.println("랜덤: " + randomItemResponseList);
         return randomItemResponseList;
@@ -146,14 +152,20 @@ public class ItemService {
         List<RandomItemResponse> topResponseList = new ArrayList<>();
         for (Item item : itemRepository.findRandomItemById()) {
             Long ItemId  = item.getId();
-            for (Like like : findLikeItems) {
-                if (like.getItem_id() == ItemId) {
-                    topResponseList.add(new RandomItemResponse(item, true));
-                    break;
-                } else {
-                    topResponseList.add(new RandomItemResponse(item, false));
+            if(findLikeItems.size() != 0 ){
+                for (Like like : findLikeItems) {
+                    if (like.getItem_id() == ItemId) {
+                        topResponseList.add(new RandomItemResponse(item, true));
+                        break;
+                    } else {
+                        topResponseList.add(new RandomItemResponse(item, false));
+                    }
                 }
             }
+            else {
+                topResponseList.add(new RandomItemResponse(item, false));
+            }
+
         }
         System.out.println("탑 아이템: " + topResponseList);
         return topResponseList;
@@ -171,13 +183,18 @@ public class ItemService {
         // 멤버가 좋아하는 아이템이랑 id값이 같으면 is_favorite ture/ 아니면 false
         for (Item item : findAllItems) {
             Long ItemId  = item.getId();
-            for (Like like : findLikeItems) {
-                if (like.getItem_id() == ItemId) {
-                    itemList.add(new ItemResponseDto(item, true));
-                    break;
-                } else {
-                    itemList.add(new ItemResponseDto(item, false));
+            if(findLikeItems.size() != 0 ){
+                for (Like like : findLikeItems) {
+                    if (like.getItem_id() == ItemId) {
+                        itemList.add(new ItemResponseDto(item, true));
+                        break;
+                    } else {
+                        itemList.add(new ItemResponseDto(item, false));
+                    }
                 }
+            }
+            else {
+                itemList.add(new ItemResponseDto(item, false));
             }
         }
         return itemList;

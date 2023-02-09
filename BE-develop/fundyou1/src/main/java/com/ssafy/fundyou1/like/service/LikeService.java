@@ -42,12 +42,11 @@ public class LikeService {
     LikeRepository likeRepository;
 
     // 찜목록에 상품을 담는 로직
-    public Long addLike(LikeRequestDto likeRequestDto, Long memberId) {
+    public Long addLike(Long id, Long memberId) {
 
-        Long itemId = likeRequestDto.getItemId();
         Optional<Member> member = memberRepository.findById(memberId); // 찜 목록에 담을 회원 엔티티 조회
 
-        Like createLike = Like.createLike(member.get(), itemId);
+        Like createLike = Like.createLike(member.get(), id);
 
         likeRepository.save(createLike);
 
