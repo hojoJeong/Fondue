@@ -33,7 +33,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
 
     override fun initView() {
         initCategory()
-        initTitlePriceRange()
+        initPriceRange()
     }
 
     override fun initViewModels() {
@@ -70,7 +70,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         }
     }
 
-    private fun initTitlePriceRange() {
+    private fun initPriceRange() {
         var minPrice = 0
         var maxPrice = 0
         with(binding.sldItemList) {
@@ -82,9 +82,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                     getString(R.string.title_rank_price_range, minPrice, maxPrice)
             }
             addOnSliderTouchListener(object : RangeSlider.OnSliderTouchListener {
-                override fun onStartTrackingTouch(slider: RangeSlider) {
-
-                }
+                override fun onStartTrackingTouch(slider: RangeSlider) {}
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
                     /* 가격 변경 시 서버 통신 */

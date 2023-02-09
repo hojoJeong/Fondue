@@ -9,16 +9,24 @@ import com.ssafy.fundyou.databinding.ItemItemImgListBinding
 
 class ItemDetailImgAdapter : RecyclerView.Adapter<ItemDetailImgAdapter.ItemDetailImgHolder>() {
 
-    private val itemImgList = mutableListOf<ItemImgModel>()
+    private val itemImgList = mutableListOf<String>()
 
-    class ItemDetailImgHolder(private val binding : ItemItemImgListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item : ItemImgModel){
-           binding.itemImg = item
+    class ItemDetailImgHolder(private val binding: ItemItemImgListBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(itemImg: String) {
+            binding.itemImg = itemImg
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemDetailImgHolder =
-        ItemDetailImgHolder(DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_item_img_list, parent, false))
+        ItemDetailImgHolder(
+            DataBindingUtil.inflate(
+                LayoutInflater.from(parent.context),
+                R.layout.item_item_img_list,
+                parent,
+                false
+            )
+        )
 
     override fun onBindViewHolder(holder: ItemDetailImgHolder, position: Int) {
         holder.bind(itemImgList[position % itemImgList.size])
@@ -26,9 +34,8 @@ class ItemDetailImgAdapter : RecyclerView.Adapter<ItemDetailImgAdapter.ItemDetai
 
     override fun getItemCount() = Int.MAX_VALUE
 
-    fun addItemImgList(list : List<ItemImgModel>){
+    fun addItemImgList(list: List<String>) {
         itemImgList.clear()
         itemImgList.addAll(list)
     }
-
 }

@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="itemDetailInfo"
-            type="com.ssafy.fundyou.domain.model.item.ItemDescriptionModel" />
+            type="com.ssafy.fundyou.ui.item_detail.model.ItemDetailDescriptionModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,13 +19,13 @@
             android:id="@+id/tv_detail_type"
             style="@style/base_font_medium_12_raven"
             android:layout_width="100dp"
-            android:paddingStart="10dp"
             android:layout_height="match_parent"
             android:background="@drawable/bg_rect_hawkes_blue_transparent_radius0_stroke1_no_top_left_bottom"
             android:maxEms="10"
             android:maxLength="10"
-            android:text="@{itemDetailInfo.type}"
             android:paddingVertical="10dp"
+            android:paddingStart="10dp"
+            android:text="@{itemDetailInfo.type}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,9 +35,9 @@
             android:id="@+id/tv_detail_value"
             style="@style/base_font_medium_12_raven"
             android:layout_width="0dp"
-            android:paddingStart="10dp"
             android:layout_height="wrap_content"
             android:paddingVertical="10dp"
+            android:paddingStart="10dp"
             android:text="@{itemDetailInfo.value}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
