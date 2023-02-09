@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.fund.service;
 
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
+import com.ssafy.fundyou1.fund.dto.FundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingResultMemberDto;
 import com.ssafy.fundyou1.fund.dto.MyFundingDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
@@ -80,20 +81,9 @@ public class FundingService {
     }
 
 
-    // 내 펀딩 중 특정 펀팅 선택
-    public Funding findMyFunding(Long fundingId){
-        // 사용자 정보
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
-
-        // 펀딩 찾기
-        Funding funding = fundingRepository.findByIdAndMemberId(fundingId, member.getId());
-
-        return funding;
-    }
-
 
     // 펀딩 통계 (참여 멤버)
+    @Transactional
     public List<FundingResultMemberDto> fundingResultMemberDtoList(Long fundingId) {
 
         // 해당 펀딩(fundingId)의 펀딩 아이템 리스트 찾고
@@ -132,6 +122,7 @@ public class FundingService {
 
 
     // 내 펀딩 리스트
+    @Transactional
     public List<MyFundingDto> getMyOngoingFundingList() {
         MemberResponseDto meDto = memberService.getMyInfo();
         Member member = memberRepository.findByUsername(meDto.getUsername());
@@ -182,4 +173,22 @@ public class FundingService {
 
         return myClosedFundingListDto;
     }
+
+
+    // 내 펀딩 중 특정 펀팅 선택
+    @Transactional
+    public FundingDto getFundingInfo(Long fundingId) {
+
+        Funding funding = fundingRepository.getById(fundingId);
+
+        int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(funding.getId());
+
+        int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(funding.getId());
+
+        FundingDto fundingDto = new FundingDto(funding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100);
+
+        return fundingDto;
+    }
+
+
 }

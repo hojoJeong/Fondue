@@ -1,6 +1,7 @@
 package com.ssafy.fundyou1.fund.dto;
 
 import com.ssafy.fundyou1.fund.entity.Funding;
+import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
 
@@ -14,27 +15,21 @@ import java.util.List;
 public class FundingDto {
 
     private Long id;
-    private Member member;
-    private LocalDateTime startDate;
-
-//    private LocalDateTime endDate;
+    private Long endDate;
     private boolean fundingStatus;
+    // 총가격
+    private int totalPrice;
+    // 현재 펀딩된 가격
+    private int currentFundingPrice;
+    private int percentage;
 
-//    public Funding toEntity() {
-//        Funding build = Funding.builder()
-//                .id(id)
-//                .member(member)
-//                .build();
-//        return build;
-//    }
-
-    @Builder
-    public FundingDto(Long id, Member member, LocalDateTime startDate) {
-        this.id = id;
-        this.member = member;
-        this.startDate = startDate;
-//        this.endDate = endDate;
-        this.fundingStatus = true;
+    public FundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage) {
+        this.id = funding.getId();
+        this.endDate = funding.getEndDate();
+        this.fundingStatus = funding.isFundingStatus();
+        this.totalPrice = totalPrice;
+        this.currentFundingPrice = currentFundingPrice;
+        this.percentage = percentage;
     }
 
 
