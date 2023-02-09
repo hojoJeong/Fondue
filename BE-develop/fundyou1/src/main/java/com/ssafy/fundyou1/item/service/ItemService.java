@@ -139,4 +139,12 @@ public class ItemService {
         }
     }
 
+    @Transactional
+    public List<ItemResponseDto> getRankItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice){
+        if (categoryId != 0){
+            return matchFavoriteItem(itemRepository.findTopItem(categoryId, minPrice, maxPrice), SecurityUtil.getCurrentMemberId());
+        }else{
+            return matchFavoriteItem(itemRepository.findTopItemNoCategory(minPrice, maxPrice), SecurityUtil.getCurrentMemberId());
+        }
+    }
 }

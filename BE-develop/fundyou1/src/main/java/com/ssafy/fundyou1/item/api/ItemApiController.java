@@ -81,11 +81,16 @@ public class ItemApiController {
     // 홈화면 조건에 맞는 Top5 아이템 조회
     @ApiOperation(value = "홈화면 Top5", notes = "카테고리, 가격범위에 맞는 아이템 5개 반환")
     @GetMapping("/category/{categoryId}/{minPrice}/{maxPrice}")
-    public ResponseEntity<List<ItemResponseDto>> getTopItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
-        List<ItemResponseDto> topList = itemService.getItemListWithFilter(categoryId, minPrice, maxPrice);
-        return ResponseEntity.status(HttpStatus.OK).body(topList);
+    public ResponseEntity<List<ItemResponseDto>> getRankItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
+        List<ItemResponseDto> rankItemList = itemService.getRankItemListWithFilter(categoryId, minPrice, maxPrice);
+        return ResponseEntity.status(HttpStatus.OK).body(rankItemList);
     }
-
+    @ApiOperation(value = "카테고리, 가격범위로 아이템 조회", notes = "카테고리, 가격범위에 맞는 아이템 반환")
+    @GetMapping("/ranking/{categoryId}/{minPrice}/{maxPrice}")
+    public ResponseEntity<List<ItemResponseDto>> getItemListWithFilter(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
+        List<ItemResponseDto> itemResponseDtoList = itemService.getItemListWithFilter(categoryId, minPrice, maxPrice);
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponseDtoList);
+    }
 
     // 램덤 5개 조회
     @GetMapping(value = "/random")
@@ -94,7 +99,4 @@ public class ItemApiController {
         List<ItemResponseDto> randomItemResponseList = itemService.getRandomItemList();
         return ResponseEntity.status(HttpStatus.OK).body(randomItemResponseList);
     }
-
-
-
 }
