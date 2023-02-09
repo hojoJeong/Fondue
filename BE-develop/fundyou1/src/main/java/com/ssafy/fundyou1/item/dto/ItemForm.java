@@ -24,7 +24,7 @@ public class ItemForm {
 
     private String title;
 
-    private String isAr;
+    private Boolean isAr;
 
     private String description;
     
@@ -33,5 +33,5 @@ public class ItemForm {
     private Category category;
 
     private int sellingCount;
-    
+
 }
