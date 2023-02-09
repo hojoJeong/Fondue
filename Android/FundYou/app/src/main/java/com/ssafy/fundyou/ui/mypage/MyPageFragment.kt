@@ -77,7 +77,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun logoutCickListener(){
         binding.tvMypageLogout.setOnClickListener {
-
         }
     }
 
