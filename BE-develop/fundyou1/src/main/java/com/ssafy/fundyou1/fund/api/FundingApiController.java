@@ -64,6 +64,14 @@ public class FundingApiController {
         return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingDtoList());
     }
 
+    // 펀딩 한개 정보 (내펀딩 상세보기 상단 부분)
+    @ApiOperation(value = "펀딩 한개 정보", notes = "해당 펀딩에 대한 값 반환")
+    @PostMapping()
+    public ResponseEntity<FundingDto> getFundingInfo(@RequestBody Long FundingId) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getFundingInfo(FundingId));
+    }
+
+
 
     // 펀딩 통계 (참여 멤버)
     @ApiOperation(value = "펀딩 통계 (멤버별)", notes = "펀딩 참여 멤버의 펀딩 참여 금액 - 펀딩 금액 큰 순서")
