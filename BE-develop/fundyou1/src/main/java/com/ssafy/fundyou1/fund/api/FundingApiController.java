@@ -50,7 +50,6 @@ public class FundingApiController {
 
     }
 
-
     // 초대 받은 펀딩 데이터 베이스에 저장하기
     @ApiOperation(value = "링크로 초대받은 펀딩 값 데이터 베이스에 저장", notes = "링크로 초대받은 펀딩 값 데이터 베이스에 저장, 리턴값: 저장된 멤버 & 펀딩 값 반환")
     @PostMapping("/getInvited")
@@ -96,5 +95,15 @@ public class FundingApiController {
     public ResponseEntity<List<MyFundingDto>> getMyClosedFundingList() {
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.getMyClosedFundingList());
     }
+
+
+    // 펀딩 종료
+    @PostMapping("/terminate")
+    @ApiOperation(value = "펀딩 종료", notes = "반환값 미정")
+    public ResponseEntity<String> terminateFunding(@RequestBody Long fundingId) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingId));
+    }
+
+
 
 }
