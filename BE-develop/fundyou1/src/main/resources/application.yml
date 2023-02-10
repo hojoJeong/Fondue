@@ -12,30 +12,32 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
+
+  datasource:
+    url: jdbc:mariadb://localhost:3306/fundyou
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: fundyou
+    password: fundyou
+  jpa:
+    open-in-view: false
+    generate-ddl: true
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+#
 #  datasource:
-#    url: jdbc:mariadb://localhost:3306/fundyou
-#    driver-class-name: org.mariadb.jdbc.Driver
-#    username: fundyou
-#    password: 1234
+#    driver-class-name: org.h2.Driver
+#    url: jdbc:h2:tcp://localhost/~/test;
+#    username: sa
+#    password:
+
 #  jpa:
-#    open-in-view: false
-#    generate-ddl: true
-#    show-sql: true
+#    open-in-view: true
+#    show_sql: true
 #    hibernate:
 #      ddl-auto: update
-  datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:tcp://localhost/~/test;
-    username: sa
-    password:
-
-  jpa:
-    open-in-view: true
-    show_sql: true
-    hibernate:
-      ddl-auto: create-drop
-      auto_quote_keyword: true
-    defer-datasource-initialization: true
+#      auto_quote_keyword: true
+#    defer-datasource-initialization: true
   h2:
     console:
       enabled: true

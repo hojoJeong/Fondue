@@ -15,11 +15,11 @@ public interface FundingItemMemberRepository extends JpaRepository<FundingItemMe
     List<FundingItemMember> findAllByMemberId(Long id);
 
 
-    @Query(value = "select sum(funding_Item_Price) from Funding_Item_Member fim where fim.member_Id = :memberId and (fim.funding_Item_Id in :fundingItemIdList) ",nativeQuery = true)
+    @Query(value = "select sum(funding_item_price) from funding_item_member fim where fim.member_id = :memberId and (fim.funding_item_id in :fundingItemIdList) ",nativeQuery = true)
     int findAllByMemberIdAndFundingItemList(@Param("memberId") Long memberId, @Param("fundingItemIdList") List<Long> fundingItemIdList);
 
     List<FundingItemMember> findAllByFundingItemId(Long id);
 
-    @Query(value = "select sum(funding_Item_Price) from Funding_Item_Member fim where fim.member_Id = :memberId and fim.funding_Item_Id = :fundingItemId ",nativeQuery = true)
+    @Query(value = "select sum(funding_item_price) from funding_item_member fim where fim.member_id = :memberId and fim.funding_item_id = :fundingItemId ",nativeQuery = true)
     int findSumByMemberIdAndFundingItemId(@Param("memberId") Long memberId, @Param("fundingItemId") Long fundingItemId);
 }

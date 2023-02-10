@@ -24,6 +24,6 @@ internal fun ItemResponseDto.toDomainModel() = ProductItemModel(
 )
 
 internal fun ItemDescriptionResponseDto.toDomainModel() = ProductDescriptionModel(
-    type = this.type,
-    value = this.value
+    type = this.itemType,
+    value = this.content
 )

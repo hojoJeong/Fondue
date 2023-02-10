@@ -7,20 +7,25 @@
 
         <variable
             name="productInfo"
-            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
+            type="com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- 담기 버튼 -->
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
                 android:id="@+id/ly_main"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
                 <androidx.viewpager2.widget.ViewPager2
@@ -188,28 +193,14 @@
 
                 <ImageView
                     android:id="@+id/iv_item_info"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/ic_launcher_background"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/div_item_info_img_base" />
-
-                <TextView
-                    android:id="@+id/tv_more_item_info_img"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/bg_rect_link_water_transparent_radius4_stroke1"
-                    android:drawableEnd="@drawable/ic_more_info_arrow"
-                    android:drawablePadding="5dp"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="16dp"
-                    android:text="상품설명 더보기"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_item_info" />
+                    app:layout_constraintTop_toBottomOf="@id/div_item_info_img_base"
+                    app:setFullSizeImage="@{productInfo.descriptionImg}" />
 
                 <TextView
                     android:id="@+id/tv_related_item_title"
@@ -220,7 +211,7 @@
                     android:layout_marginTop="32dp"
                     android:text="연관 추천 선물"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_more_item_info_img" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_item_info" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_related_item_list"
@@ -242,7 +233,6 @@
 
         </androidx.core.widget.NestedScrollView>
 
-        <!-- 담기 버튼 -->
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_cart"
             style="@style/base_font_medium_16_white"

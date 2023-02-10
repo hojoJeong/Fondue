@@ -15,7 +15,7 @@ public interface SearchRepository extends JpaRepository<Search, Long> {
 
     @Query(value = "SELECT * " +
             "FROM search " +
-            "ORDER BY search.search_count " +
+            "ORDER BY search_count " +
             "DESC LIMIT 10", nativeQuery = true)
     List<Search> findSearchKeywordRankTop10();
 
@@ -23,7 +23,7 @@ public interface SearchRepository extends JpaRepository<Search, Long> {
 
     @Modifying
     @Query(value = "UPDATE search " +
-            "SET search.search_count = search.search_count + 1 " +
+            "SET search_count = search_count + 1 " +
             "WHERE search.keyword = :keyword", nativeQuery = true)
     void increaseSearchCount(String keyword);
 }

@@ -9,6 +9,7 @@ import com.ssafy.fundyou1.fund.service.FundingItemMemberService;
 import com.ssafy.fundyou1.fund.service.FundingService;
 import com.ssafy.fundyou1.fund.service.InvitedMemberService;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,8 @@ import java.util.List;
 
 @RestController
 @Slf4j
-@RequestMapping("/api/funding")
+@RequestMapping("/funding")
+@Api(tags = {"펀딩"})
 public class FundingApiController {
     @Autowired
     private FundingRepository fundingRepository;
@@ -48,7 +50,6 @@ public class FundingApiController {
 
     }
 
-
     // 초대 받은 펀딩 데이터 베이스에 저장하기
     @ApiOperation(value = "링크로 초대받은 펀딩 값 데이터 베이스에 저장", notes = "링크로 초대받은 펀딩 값 데이터 베이스에 저장, 리턴값: 저장된 멤버 & 펀딩 값 반환")
     @PostMapping("/getInvited")
@@ -64,6 +65,14 @@ public class FundingApiController {
         return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingDtoList());
     }
 
+    // 펀딩 한개 정보 (내펀딩 상세보기 상단 부분)
+    @ApiOperation(value = "펀딩 한개 정보", notes = "해당 펀딩에 대한 값 반환")
+    @PostMapping()
+    public ResponseEntity<FundingDto> getFundingInfo(@RequestBody Long FundingId) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getFundingInfo(FundingId));
+    }
+
+
 
     // 펀딩 통계 (참여 멤버)
     @ApiOperation(value = "펀딩 통계 (멤버별)", notes = "펀딩 참여 멤버의 펀딩 참여 금액 - 펀딩 금액 큰 순서")
@@ -73,11 +82,28 @@ public class FundingApiController {
     }
 
 
-    // 내 펀딩 리스트
-    @PostMapping("/myList")
-    public ResponseEntity<List<Funding>> getMyFundingList() {
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getMyFundingList());
+    // 내 진행중인 펀딩 리스트
+    @PostMapping("/myOngoingList")
+    @ApiOperation(value = "나의 진행중 펀딩 리스트", notes = "나의 진행중 펀딩 리스트")
+    public ResponseEntity<List<MyFundingDto>> getMyOngoingFundingList() {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getMyOngoingFundingList());
     }
+
+    // 내 마감된 펀딩 리스트
+    @PostMapping("/myClosedList")
+    @ApiOperation(value = "나의 마감된 펀딩 리스트", notes = "나의 마감된 펀딩 리스트")
+    public ResponseEntity<List<MyFundingDto>> getMyClosedFundingList() {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getMyClosedFundingList());
+    }
+
+
+    // 펀딩 종료
+    @PostMapping("/terminate")
+    @ApiOperation(value = "펀딩 종료", notes = "반환값 미정")
+    public ResponseEntity<String> terminateFunding(@RequestBody Long fundingId) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingId));
+    }
+
 
 
 }

@@ -12,16 +12,16 @@ public class CustomDescriptionDto {
 
 
     @ApiModelProperty(position = 0, notes = "속성", example = "색상")
-    private String type;
+    private String itemType;
 
     @ApiModelProperty(position = 1, notes = "값", example = "red")
-    private String value;
+    private String content;
 
 
     @Builder
-    public CustomDescriptionDto(String type, String value) {
-        this.type = type;
-        this.value = value;
+    public CustomDescriptionDto(String itemType, String content) {
+        this.itemType = itemType;
+        this.content = content;
     }
 
 

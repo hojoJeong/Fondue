@@ -54,158 +54,95 @@ public class ItemService {
         for(Description description : request.getDescription()) {
             Description newDescription  = Description.builder()
                     .item(item) // 위에서 등록한 itemEntity
-                    .type(description .getType())  // 필드 1
-                    .value(description .getValue())  // 필드 2
+                    .itemType(description .getItemType())  // 필드 1
+                    .content(description .getContent())  // 필드 2
                     .build();
             descriptionRepository.save(newDescription);
-
         }
         return itemRepository.save(item).getId();
     }
 
 
     // 상품 이름 브랜드 중복 검사
-
     public void checkDuplicateItemTitle(String title, String brand) {
         if (itemRepository.existsByTitleAndBrand(title, brand)) {
             throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);
         }
     }
 
-
-
-
     @Transactional
     // 카테고리별 아이템 불러오기
     public List<ItemResponseDto> getCategoryItemList(Long categoryId) {
-        // 카테고리 아이템
-        List<Item> categoryItemList = itemRepository.findAllByCategoryId(categoryId);
-        // 좋아요한 아이템
-        List<Like> findLikeItems = likeRepository.findAllByMember_Id(SecurityUtil.getCurrentMemberId());
-        // 좋아요 구분된 카테고리 리스트
-        List<ItemResponseDto> itemList = new ArrayList<>();
-        // 회원이 좋아요한 아이템이랑 아닌 아이템이랑 is_favorite로 구분해주기
-        for (Item item : categoryItemList) {
-            Long ItemId  = item.getId();
-            for (Like like : findLikeItems) {
-                if (like.getItem_id() == ItemId) {
-                    itemList.add(new ItemResponseDto(item, true));
-                    break;
-                } else {
-                    itemList.add(new ItemResponseDto(item, false));
-                }
-            }
+        if(categoryId != 0){
+           return matchFavoriteItem(itemRepository.findAllByCategoryId(categoryId), SecurityUtil.getCurrentMemberId());
+        }else {
+            return matchFavoriteItem(itemRepository.findAll(), SecurityUtil.getCurrentMemberId());
         }
-        return itemList;
     }
-
+    @Transactional
     // 상품 디테일
-    public List<ItemResponseDto> itemDetail(Long id) {
-
+    public ItemResponseDto itemDetail(Long id) {
         Optional<Item> findItem = itemRepository.findById(id);
-        List<ItemResponseDto> findItemOne = new ArrayList<>();
+        ItemResponseDto itemResponseDto = new ItemResponseDto();
         if (findItem.isPresent()) {
             Item item = findItem.get();
             if(likeRepository.findLikeItem(item.getId(), SecurityUtil.getCurrentMemberId()) != null) {
-                findItemOne.add(new ItemResponseDto(item, true));
+                itemResponseDto = new ItemResponseDto(item, true);
             } else {
-                findItemOne.add(new ItemResponseDto(item, false));
+                itemResponseDto = new ItemResponseDto(item, false);
             }
         }
-        return findItemOne;
+        return itemResponseDto;
     }
 
     @Transactional
-    public List<RandomItemResponse> getRandomItemList() {
-        System.out.println("랜덤: " + itemRepository.findRandomItemById());
+    public List<ItemResponseDto> getRandomItemList() {
         // 멤버가 좋아하는 아이템
-        List<Like> findLikeItems = likeRepository.findAllByMember_Id(SecurityUtil.getCurrentMemberId());
-        List<RandomItemResponse> randomItemResponseList = new ArrayList<>();
-        for (Item item : itemRepository.findRandomItemById()) {
-            Long ItemId  = item.getId();
-            if(findLikeItems.size() != 0 ){
-                for (Like like : findLikeItems) {
-                    if (like.getItem_id() == ItemId) {
-                        randomItemResponseList.add(new RandomItemResponse(item, true));
-                        break;
-                    } else {
-                        randomItemResponseList.add(new RandomItemResponse(item, false));
-                    }
-                }
-            }
-            else {
-                randomItemResponseList.add(new RandomItemResponse(item, false));
-            }
-
-        }
-        System.out.println("랜덤: " + randomItemResponseList);
-        return randomItemResponseList;
+        return matchFavoriteItem(itemRepository.findSixRandomItem(), SecurityUtil.getCurrentMemberId());
     }
 
-
-
-    public List<RandomItemResponse> getTopItemList(Long categoryId, Long minPrice, @Param("maxPrice") Long maxPrice) {
-        List<Item> toplist = itemRepository.findTopItem(categoryId, minPrice, maxPrice);
-        System.out.println("탑 아이템 : " + toplist);
-        // 멤버가 좋아하는 아이템
-        List<Like> findLikeItems = likeRepository.findAllByMember_Id(SecurityUtil.getCurrentMemberId());
-        List<RandomItemResponse> topResponseList = new ArrayList<>();
-        for (Item item : itemRepository.findRandomItemById()) {
-            Long ItemId  = item.getId();
-            if(findLikeItems.size() != 0 ){
-                for (Like like : findLikeItems) {
-                    if (like.getItem_id() == ItemId) {
-                        topResponseList.add(new RandomItemResponse(item, true));
-                        break;
-                    } else {
-                        topResponseList.add(new RandomItemResponse(item, false));
-                    }
-                }
-            }
-            else {
-                topResponseList.add(new RandomItemResponse(item, false));
-            }
-
-        }
-        System.out.println("탑 아이템: " + topResponseList);
-        return topResponseList;
-    }
-
-
+    @Transactional
     // 멤버별별 구분 아이템 전체 리스트
     public List<ItemResponseDto> findAllItem(Long memberId) {
-        // 멤버가 좋아하는 아이템
-        List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
-        // 전체 아이템 조회
-        List<Item> findAllItems = itemRepository.findAll();
-        // 아이템 리스트 만들기
-        List<ItemResponseDto> itemList = new ArrayList<>();
-        // 멤버가 좋아하는 아이템이랑 id값이 같으면 is_favorite ture/ 아니면 false
-        for (Item item : findAllItems) {
-            Long ItemId  = item.getId();
-            if(findLikeItems.size() != 0 ){
-                for (Like like : findLikeItems) {
-                    if (like.getItem_id() == ItemId) {
-                        itemList.add(new ItemResponseDto(item, true));
-                        break;
-                    } else {
-                        itemList.add(new ItemResponseDto(item, false));
+        List<Item> totalItemList = itemRepository.findAll();
+        return matchFavoriteItem(totalItemList, memberId);
+    }
+
+    // 특정 아이템리스트에 찜 status 변경 함수
+    public List<ItemResponseDto> matchFavoriteItem(List<Item> totalItemList, Long memberId){
+        List<Like> likeItemList = likeRepository.findAllByMember_Id(memberId);
+        List<ItemResponseDto> itemResponseDtoList = new ArrayList();
+        for(Item item : totalItemList){
+            Long itemId = item.getId();
+            if(likeItemList.size() != 0){
+                for(Like likeItem: likeItemList){
+                    if(likeItem.getItem_id() == itemId){
+                        itemResponseDtoList.add(new ItemResponseDto(item, true));
+                    }else{
+                        itemResponseDtoList.add(new ItemResponseDto(item, false));
                     }
                 }
-            }
-            else {
-                itemList.add(new ItemResponseDto(item, false));
+            }else{
+                itemResponseDtoList.add(new ItemResponseDto(item, false));
             }
         }
-        return itemList;
+        return itemResponseDtoList;
     }
-
-    public List<Item> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
+    @Transactional
+    public List<ItemResponseDto> getItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice) {
         if(categoryId == 0){
-            return itemRepository.findItemWithFilterNoCategory(minPrice, maxPrice);
+            return matchFavoriteItem(itemRepository.findItemWithFilterNoCategory(minPrice,maxPrice), SecurityUtil.getCurrentMemberId());
         }else{
-            return itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice);
+            return matchFavoriteItem(itemRepository.findItemWithFilter(categoryId, minPrice, maxPrice), SecurityUtil.getCurrentMemberId());
         }
     }
 
+    @Transactional
+    public List<ItemResponseDto> getRankItemListWithFilter(Long categoryId, Long minPrice, Long maxPrice){
+        if (categoryId != 0){
+            return matchFavoriteItem(itemRepository.findTopItem(categoryId, minPrice, maxPrice), SecurityUtil.getCurrentMemberId());
+        }else{
+            return matchFavoriteItem(itemRepository.findTopItemNoCategory(minPrice, maxPrice), SecurityUtil.getCurrentMemberId());
+        }
+    }
 }

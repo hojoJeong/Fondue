@@ -21,7 +21,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping(path = "/api")
+@RequestMapping("/favorite")
 @Api(tags = {"찜"})
 public class LikeRestController {
 

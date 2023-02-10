@@ -24,16 +24,14 @@ public class Description {
     @JoinColumn(name = "item_id")
     private Item item;
 
-    private String type;
+    private String itemType;
 
-    private String value;
+    private String content;
 
     @Builder
-    public Description(Item item, String type, String value ) {
+    public Description(Item item, String itemType, String content ) {
         this.item = item;
-        this.type = type;
-        this.value = value;
+        this.itemType = itemType;
+        this.content = content;
     }
-
-
 }

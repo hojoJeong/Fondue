@@ -9,25 +9,36 @@ import retrofit2.http.Path
 
 internal interface ItemApiService {
     @GET("/item/list")
-    suspend fun getAllProductItemList() : List<ItemResponseDto>
+    suspend fun getAllProductItemList(): List<ItemResponseDto>
 
     @GET("/item/ranking/{categoryId}/{minPrice}/{maxPrice}")
-    suspend fun getRankingItemList(@Path("categoryId") categoryId: Int, @Path("minPrice") minPrice: Int, @Path("maxPrice") maxPrice: Int) : List<ItemResponseDto>
+    suspend fun getRankingItemList(
+        @Path("categoryId") categoryId: Int,
+        @Path("minPrice") minPrice: Int,
+        @Path("maxPrice") maxPrice: Int
+    ): List<ItemResponseDto>
 
     @GET("/item/random")
-    suspend fun getRandomItemList() : List<ItemResponseDto>
+    suspend fun getRandomItemList(): List<ItemResponseDto>
 
     @GET("/favorite/like/list")
     suspend fun getLikeItemList() : List<ItemResponseDto>
 
     @GET("/item/category/{categoryId}")
-    suspend fun getCategoryItemList(@Path("categoryId") categoryId: Int) : List<ItemResponseDto>
+    suspend fun getCategoryItemList(@Path("categoryId") categoryId: Int): List<ItemResponseDto>
 
     @GET("/item/category/{categoryId}/{minPrice}/{maxPrice}")
-    suspend fun getItemByPrice(@Path("categoryId") categoryId: Int, @Path("minPrice") minPrice: Int, @Path("maxPrice") maxPrice: Int) : List<ItemResponseDto>
+    suspend fun getItemByPrice(
+        @Path("categoryId") categoryId: Int,
+        @Path("minPrice") minPrice: Int,
+        @Path("maxPrice") maxPrice: Int
+    ): List<ItemResponseDto>
 
     @POST("/search")
-    suspend fun getKeywordItemList(@Body request : ItemSearchRequestDto) : List<ItemResponseDto>
+    suspend fun getKeywordItemList(@Body request: ItemSearchRequestDto): List<ItemResponseDto>
+
+    @GET("/item/{id}")
+    suspend fun getItemDetailInfo(@Path("id") itemId: Long): ItemResponseDto
 
     @POST("/favorite/like/{id}")
     suspend fun addLikeItem(@Path("id") itemId: Long)
