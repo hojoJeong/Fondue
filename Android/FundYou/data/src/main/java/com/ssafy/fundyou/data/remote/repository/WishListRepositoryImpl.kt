@@ -21,7 +21,7 @@ internal class WishListRepositoryImpl @Inject constructor(private val wishListRe
         return wishListRemoteDataSource.addWishListItem(request).statusCode
     }
 
-    override suspend fun deleteWishListItem(itemId: Int) : Int {
+    override suspend fun deleteWishListItem(itemId: Long) : Int {
         return wishListRemoteDataSource.deleteWishListItem(itemId).statusCode
     }
 }

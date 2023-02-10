@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 internal data class WishListResponseDto(
     @SerializedName("count")
-    val count: String,
+    val count: Int,
 
     @SerializedName("image")
     val image: String,
@@ -16,14 +16,17 @@ internal data class WishListResponseDto(
     val isFavorite: Boolean,
 
     @SerializedName("itemId")
-    val itemId: String,
+    val itemId: Long,
 
     @SerializedName("memberId")
-    val memberId: String,
+    val memberId: Long,
 
     @SerializedName("price")
     val price: Int,
 
     @SerializedName("title")
-    val title: String
+    val title: String,
+
+    @SerializedName("brand")
+    val brand: String
 )

@@ -58,7 +58,7 @@ class WishListViewModel @Inject constructor(
         }
     }
 
-    fun deletewishListItem(itemId: Int) = viewModelScope.launch {
+    fun deleteWishListItem(itemId: Long) = viewModelScope.launch {
         _resultWishList.value = ViewState.Loading()
         try {
             val response = deleteWishListItemUseCase(itemId)

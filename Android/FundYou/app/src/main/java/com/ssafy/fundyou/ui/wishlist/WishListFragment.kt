@@ -1,30 +1,35 @@
 package com.ssafy.fundyou.ui.wishlist
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.showAlignTop
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentWishListBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
 import java.text.SimpleDateFormat
 
 class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment_wish_list) {
-    private val wishLIstItemList = mutableListOf<ProductItemModel>()
     private lateinit var calendar: MaterialDatePicker<Pair<Long, Long>>
+    private val wishListViewModel by activityViewModels<WishListViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
 
     override fun initView() {
         binding.btnWishlistStartFunding.showAlignTop(makeBalloon())
-        initWishListItem()
+        wishListViewModel.getWishListItemList()
         startFundingBtnListener()
         cancelBtnListener()
         initCalendar()
@@ -32,19 +37,62 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     }
 
     override fun initViewModels() {
+        wishListItemObserve()
+        initWishListItemDeleteResultObserve()
     }
 
-    private fun initWishListItem() {
-//        val rvWishList = binding.rvWishlistItem
-//        val wishListItemAdapter = ProductItemAdapter()
-//        with(wishListItemAdapter) {
-//            setFavoriteVisibility(false)
-//            checkNeedRanking(false)
-//            submitList(wishLIstItemList)
-//            rvWishList.layoutManager =
-//                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            rvWishList.adapter = wishListItemAdapter
-//        }
+
+    private fun wishListItemObserve() {
+        wishListViewModel.wishListItem.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "wishListItemObserve: WishList Item Loading...")
+                }
+                is ViewState.Success -> {
+                    initWishListAdapter(response.value ?: emptyList())
+                    Log.d(
+                        TAG,
+                        "wishListItemObserve: WishList Item Loading Success ${response.value}"
+                    )
+                }
+                is ViewState.Error -> {
+                    Log.d(
+                        TAG,
+                        "wishListItemObserve: WishList Item Loading Error... ${response.message}"
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initWishListItemDeleteResultObserve(){
+        wishListViewModel.resultWishList.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initWishListItemChangeResultObserve: WishList Item Delete Loading...")
+                }
+                is ViewState.Success -> {
+                    wishListViewModel.getWishListItemList()
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initWishListItemChangeResultObserve: WishList Item Delete Error...${response.message}")
+                }
+            }
+        }
+    }
+
+    private fun initWishListAdapter(itemList: List<WishListModel>) {
+        val rvWishList = binding.rvWishlistItem
+        val wishListItemAdapter = WishListAdapter()
+
+        rvWishList.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        rvWishList.adapter = wishListItemAdapter
+
+        wishListItemAdapter.submitList(itemList)
+        wishListItemAdapter.deleteItemBtnClickListener { id ->
+            wishListViewModel.deleteWishListItem(id)
+        }
     }
 
     private fun makeBalloon(): Balloon {
@@ -101,6 +149,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                 getString(R.string.content_wishlist_funding_period, startDay, endDay)
         }
     }
+
 
     private fun startFundingBtnListener() {
         binding.btnWishlistStartFunding.setOnClickListener {
