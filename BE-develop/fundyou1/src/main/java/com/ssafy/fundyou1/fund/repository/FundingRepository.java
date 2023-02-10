@@ -17,12 +17,12 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
 
     Funding findByIdAndMemberId(Long fundingId, Long memberId);
 
-    @Query(value = "select * from Funding fi where fi.member_Id = :memberId and fi.funding_status = :status", nativeQuery = true)
+    @Query(value = "select * from funding fi where fi.member_id = :memberId and fi.funding_status = :status", nativeQuery = true)
     List<Funding> findAllByMemberIdAndByFundingStatus(@Param("memberId") Long memberId, @Param("status") boolean status);
 
 
     // 펀딩 status 값 변경
     @Modifying(clearAutomatically = true)
-    @Query(value = "update Funding f set f.funding_Status = :status where f.funding_id = :fundingId", nativeQuery = true)
+    @Query(value = "update funding f set f.funding_status = :status where f.funding_id = :fundingId", nativeQuery = true)
     void updateStatus(@Param("fundingId") Long fundingId, @Param("status") boolean status);
 }

@@ -28,9 +28,6 @@ public class CartService {
     @Autowired
     MemberRepository memberRepository;
     @Autowired
-    MemberService memberService;
-
-    @Autowired
     CartRepository cartRepository;
 
 
@@ -50,7 +47,7 @@ public class CartService {
 
     //회원 id를 이용하여 카트 리스트를 조회하는 로직
     @Transactional(readOnly = true)
-    public List<CartItemResponseDto> findCartItemsByCartId(Long memberId) {
+    public List<CartItemResponseDto> findCartItemsByMemberId(Long memberId) {
         List<Cart> findCartItems = cartRepository.findAllByMember_Id(memberId);
 
         if ( findCartItems.size() != 0) {
@@ -66,12 +63,9 @@ public class CartService {
 
     // 회원의 장바구니 아이템 삭제하는 로직
     @Transactional
-    public List<CartItemResponseDto> deleteByCartItemId(Long id) {
-        MemberResponseDto memberDto = memberService.getMyInfo();
-        Long memberId = memberDto.getId();
-        cartRepository.deleteCartItem(memberId, id);
-        List<CartItemResponseDto> cartItemResponseDtos= findCartItemsByCartId(memberId);
-        return cartItemResponseDtos;
+    public Integer deleteByItemId(Long itemId) {
+        return cartRepository.deleteCartItem(SecurityUtil.getCurrentMemberId(), itemId);
+
     }
 
     // 회원의 장바구니 아이템 추가하는 로직
