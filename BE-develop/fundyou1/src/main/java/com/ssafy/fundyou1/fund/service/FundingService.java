@@ -12,6 +12,7 @@ import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
 import com.ssafy.fundyou1.item.dto.ItemDto;
+import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
@@ -51,8 +52,9 @@ public class FundingService {
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
         // 펀딩 개설
+        Long startDate = System.currentTimeMillis();
 
-        Funding createdFunding = Funding.createFunding(member, endDate);
+        Funding createdFunding = Funding.createFunding(member, startDate, endDate);
 
         // 새펀딩 저장 및 아이디 값 리턴
         Funding savedFunding = fundingRepository.save(createdFunding);
@@ -77,7 +79,6 @@ public class FundingService {
             cartRepository.delete(cart);
 
             // 해당 아이템 구매 횟수 값 + 1
-
             itemRepository.updateCountPlus(cart.getItem().getId());
 
         }

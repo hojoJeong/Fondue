@@ -42,7 +42,7 @@ public class Item {
     private Boolean isFavorite;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<Description> descriptions = new ArrayList<>();
 
     @Column(name = "selling_count",columnDefinition = "integer default 0")
@@ -52,7 +52,7 @@ public class Item {
     private String brand;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "item")
+    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
     private List<Cart> carts = new ArrayList<>();
 
 

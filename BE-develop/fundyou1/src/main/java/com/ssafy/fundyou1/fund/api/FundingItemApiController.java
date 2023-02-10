@@ -43,15 +43,15 @@ public class FundingItemApiController {
     // 펀딩 참여(돈 보내기)
     @ApiOperation(value = "펀딩 참여(돈 보내기)", notes = "참여한 펀딩 아이템 정보")
     @PostMapping("/attend")
-    public ResponseEntity attendFunding(@RequestBody AttendFundingDto attendFundingDto){
+    public ResponseEntity attendFunding(@RequestBody AttendFundingDto attendFundingDto) {
 
         FundingItem fundingItem = fundingItemRepository.findByFundingItemId(attendFundingDto.getFundingItemId());
         int restFundingPrice = fundingItem.getItemTotalPrice() - fundingItem.getCurrentFundingPrice();
 
         int holdMoney = memberService.getMyInfo().getPoint();
-        if (holdMoney < attendFundingDto.getPoint()){
 
-        if (holdMoney > attendFundingDto.getPoint()){
+
+        if (holdMoney < attendFundingDto.getPoint()) {
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "잔액이 부족합니다.", null));
         } else if (restFundingPrice < attendFundingDto.getPoint()) {
             // 남은 펀딩 금액 보다 큰 금액을 펀딩하려는 경우
@@ -59,6 +59,7 @@ public class FundingItemApiController {
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.attendFunding(attendFundingDto));
         }
+
     }
 
 
