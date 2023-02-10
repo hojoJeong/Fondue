@@ -38,7 +38,11 @@ public class SearchService {
 
     @Transactional
     public void addSearchCount(String keyword) {
-        Search search = Search.builder().keyword(keyword).search_count(0).build();
+        Search search = Search.builder()
+                .keyword(keyword)
+                .search_count(0)
+                .build();
+        if(keyword.length() == 0) return;
         if (duplicateSearchKeywordCheck(keyword)) {
             // 키워드가 이미 있음. 카운트 + 1
             searchRepository.increaseSearchCount(keyword);
