@@ -20,7 +20,7 @@ public class Description {
     @Column(name = "description_id")
     private Long id;
 
-    @ManyToOne(targetEntity = Item.class)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
 
