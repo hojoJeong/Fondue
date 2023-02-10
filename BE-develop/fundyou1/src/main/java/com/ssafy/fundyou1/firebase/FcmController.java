@@ -19,18 +19,14 @@ public class FcmController {
     @Autowired
     FirebaseCloudMessageService firebaseCloudMessageService;
 
-    @PostMapping("/fcm")
-    public ResponseEntity getFirebase(@RequestBody FcmCreateRequestDto requestDTO) throws IOException {
-        
-
-        return ResponseEntity.ok().build();
+    // 파이어베이스 디바이스 토큰 저장
+    @GetMapping("/fcm")
+    public ResponseEntity getFirebase() throws IOException {
+        // 1. 파이어베이스 토큰 얻기
+        String targetToken = firebaseCloudMessageService.getAccessToken();
+        // 2. 토큰 저장
+        firebaseCloudMessageService.saveFirebase(targetToken);
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",targetToken));
     }
-
-
-//
-//      firebaseCloudMessageService.sendMessageTo(
-//              requestDTO.getTargetToken(),
-//              requestDTO.getTitle(),
-//              requestDTO.getBody());
 
 }
