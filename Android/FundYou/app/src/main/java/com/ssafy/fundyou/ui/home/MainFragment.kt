@@ -246,7 +246,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     Log.d(TAG, "initRankingItemObserve: Ranking Item Loading...")
                 }
                 is ViewState.Success -> {
+                    binding.lyMainNoItem.root.visibility = View.GONE
                     initRankingItemAdapter(response.value ?: emptyList())
+                    if(response.value!!.isEmpty()){
+                        binding.lyMainNoItem.root.visibility = View.VISIBLE
+                    }
                 }
                 is ViewState.Error -> {
                     Log.d(
