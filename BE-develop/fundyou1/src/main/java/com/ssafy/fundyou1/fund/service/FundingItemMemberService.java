@@ -25,10 +25,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class FundingItemMemberService {
     @Autowired
-    private FundingItemRepository fundingItemRepository;
-    @Autowired
-    MemberService memberService;
-    @Autowired
     MemberRepository memberRepository;
     @Autowired
     FundingItemMemberRepository fundingItemMemberRepository;

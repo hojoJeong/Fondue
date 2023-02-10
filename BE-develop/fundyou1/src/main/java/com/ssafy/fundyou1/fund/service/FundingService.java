@@ -132,11 +132,10 @@ public class FundingService {
     // 내 펀딩 리스트
     @Transactional
     public List<MyFundingDto> getMyOngoingFundingList() {
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
+        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
         // "내" & "진행중" 펀딩
-        List<Funding> myOngoingFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.getId(), true);
+        List<Funding> myOngoingFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.get().getId(), true);
 
         List<MyFundingDto> myOngoingFundingListDto  = new ArrayList<>();
 
@@ -159,28 +158,32 @@ public class FundingService {
 
     public List<MyFundingDto> getMyClosedFundingList() {
 
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
+        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
         // "내" & "종료된" 펀딩
-        List<Funding> myClosedFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.getId(), false);
+        List<Funding> myClosedFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.get().getId(), false);
 
         List<MyFundingDto> myClosedFundingListDto  = new ArrayList<>();
 
-        for(Funding myOngoingFunding : myClosedFundingList ){
-            int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(myOngoingFunding.getId());
+        for(Funding myClosedFunding : myClosedFundingList ){
+            // 해당 펀딩에 펀딩된 상품이 없는 경우 null 값을 반환해서 오류
 
-            int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(myOngoingFunding.getId());
+            int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(myClosedFunding.getId());
 
-            List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
+            int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(myClosedFunding.getId());
 
-            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+            List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myClosedFunding.getId());
+
+
+            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
 
             myClosedFundingListDto.add(myFundingDto);
         }
 
         return myClosedFundingListDto;
     }
+
+
 
 
     // 내 펀딩 중 특정 펀팅 선택
