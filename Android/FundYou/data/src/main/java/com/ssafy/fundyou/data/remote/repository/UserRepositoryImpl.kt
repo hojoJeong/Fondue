@@ -8,4 +8,5 @@ import javax.inject.Inject
 
 internal class UserRepositoryImpl @Inject constructor(private val userRemoteDataSource: UserRemoteDataSource) : UserRepository {
     override suspend fun getUserInfo(): UserInfoDomainModel = userRemoteDataSource.getUserInfo().toDomainModel()
+    override suspend fun loadPoint(point: Int): Int = userRemoteDataSource.loadPoint(point)
 }

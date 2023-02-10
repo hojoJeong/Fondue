@@ -1,8 +1,8 @@
-package com.ssafy.fundyou.ui.favorite
+package com.ssafy.fundyou.ui.like
 
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 
-data class FavoriteItemModel(
+data class LikeItemModel(
     val id: Long,
     val title: String,
     val brand: String,
@@ -11,7 +11,7 @@ data class FavoriteItemModel(
     val isAr: Boolean
 )
 
-fun ProductItemModel.toFavoriteModel() = FavoriteItemModel(
+fun ProductItemModel.toLikeItemModel() = LikeItemModel(
     id =  this.id,
     title = this.title,
     brand = this.brand,

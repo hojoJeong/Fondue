@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.favorite
+package com.ssafy.fundyou.ui.like
 
 import android.content.ContentValues.TAG
 import android.os.Bundle
@@ -11,8 +11,8 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
 
-class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_favorite) {
-    private val favoriteViewModel by activityViewModels<FavoriteViewModel>()
+class LikeFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_favorite) {
+    private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -20,7 +20,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
         initViewModels()
     }
     override fun initView() {
-        favoriteViewModel.getFavoriteItemList()
+        likeItemViewModel.getLikeItemList()
     }
 
     override fun initViewModels() {
@@ -28,7 +28,7 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
     }
 
     private fun initFavoriteItemObserve(){
-        favoriteViewModel.favoriteItemList.observe(viewLifecycleOwner){ response ->
+        likeItemViewModel.likeItemList.observe(viewLifecycleOwner){ response ->
             when(response){
                 is ViewState.Loading -> {
                     Log.d(TAG, "initFavoriteItemList: Favorite Item List Loading...")
@@ -43,13 +43,12 @@ class FavoriteFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment
         }
     }
 
-    private fun initFavoriteItemListAdapter(itemList: List<FavoriteItemModel>){
-        val itemListAdapter = FavoriteItemListAdapter()
+    private fun initFavoriteItemListAdapter(itemList: List<LikeItemModel>){
+        val itemListAdapter = LikeItemListAdapter()
         itemListAdapter.submitList(itemList)
         with(binding.rvFavorite){
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
     }
-
 }

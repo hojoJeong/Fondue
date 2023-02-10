@@ -6,4 +6,5 @@ import javax.inject.Inject
 
 internal class UserRemoteDataSourceImpl @Inject constructor(private val userApiService: UserApiService) : UserRemoteDataSource{
     override suspend fun getUserInfo(): UserResponseDto = userApiService.getUserInfo()
+    override suspend fun loadPoint(point: Int): Int = userApiService.loadPoint(point)
 }

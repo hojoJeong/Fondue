@@ -22,16 +22,27 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     override fun initView() {
         userInfoViewModel.getUserInfo()
         initClickListener()
+        initLoadPointBtnListener()
     }
 
     override fun initViewModels() {
         initUserInfoObserve()
     }
 
-    private fun initUserInfoObserve(){
-        userInfoViewModel.userInfo.observe(viewLifecycleOwner){ response ->
-            when(response){
-                is ViewState.Loading ->{
+    private fun initLoadPointBtnListener() {
+        binding.btnMypagePoint.setOnClickListener {
+            navigate(
+                MyPageFragmentDirections.actionMyPageFragmentToPointLoadFragment(
+                    userInfoViewModel.userInfo.value?.value?.point ?: 0
+                )
+            )
+        }
+    }
+
+    private fun initUserInfoObserve() {
+        userInfoViewModel.userInfo.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
                     Log.d(TAG, "initUserInfoObserve: UserInfo Loading...")
                 }
                 is ViewState.Success -> {
@@ -45,6 +56,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
             }
         }
     }
+
     private fun initClickListener() {
         userInfoClickListener()
         notiSettingClickListener()
@@ -82,7 +94,6 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun notiSettingClickListener() {
         binding.tvMypageNotificationSetting.setOnClickListener {
-            //TODO("로그인된 사용자 계정 정보 arg로 넘겨주기")
             navigate(MyPageFragmentDirections.actionMyPageFragmentToNotiSettingFragment())
         }
     }
