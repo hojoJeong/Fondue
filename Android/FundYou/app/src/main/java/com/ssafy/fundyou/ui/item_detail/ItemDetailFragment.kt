@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.viewModels
@@ -24,20 +25,20 @@ import com.ssafy.fundyou.ui.home.MainViewModel
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailDescriptionInfoAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
-import com.ssafy.fundyou.ui.item_detail.model.ItemDetailDescriptionModel
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.fragment_item_detail) {
 
-    private val relatedAdapter = ItemDetailRelatedAdapter()
-    private var itemImgFullState = false
-    private var itemInfoImgSize = 0
+    private val relatedAdapter = ItemDetailRelatedAdapter().apply {
+        addItemClickListener { itemId ->
+            navigate(ItemDetailFragmentDirections.actionItemDetailFragmentSelf2(itemId))
+        }
+    }
     private lateinit var itemDetailInfo: ItemDetailModel
 
     private val itemDetailViewModel by viewModels<ItemDetailViewModel>()
-    private val itemViewModel by viewModels<MainViewModel>()
     private val itemArgument by navArgs<ItemDetailFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -49,11 +50,9 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     override fun initView() {
         // 상품 전체 정보 넣기
         itemDetailViewModel.getItemDetailInfo(itemArgument.itemId)
-        itemInfoImgSize = binding.ivItemInfo.layoutParams.height
+        itemDetailViewModel.getRelatedItemList()
 
         /** 아이템 랜덤 상품 */
-        initRelatedItemAdapter()
-        initMoreItemInfoButtonEvent()
         addKakaoShareButtonEvent()
     }
 
@@ -63,13 +62,15 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     }
 
     private fun initMainViewModels() {
-        itemViewModel.randomItemList.observe(viewLifecycleOwner) { response ->
+        itemDetailViewModel.relatedItemList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
 
                 }
                 is ViewState.Success -> {
                     relatedAdapter.submitList(emptyList())
+                    relatedAdapter.submitList(response.value)
+                    binding.rvRelatedItemList.adapter = relatedAdapter
                 }
                 is ViewState.Error -> {
 
@@ -82,11 +83,14 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         itemDetailViewModel.itemDetailInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
+                    binding.lyMain.visibility = View.INVISIBLE
                     Log.d(TAG, "initViewModels: logading...")
                 }
                 is ViewState.Success -> {
+                    binding.lyMain.visibility = View.VISIBLE
                     itemDetailInfo = response.value!!
                     binding.productInfo = itemDetailInfo
+
                     initItemImgAdapter()
                     initItemDetailAdapter()
                 }
@@ -94,19 +98,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                     Log.d(TAG, "initViewModels: Error...")
                 }
             }
-        }
-    }
-
-    private fun initRelatedItemAdapter() {
-
-    }
-
-    private fun initMoreItemInfoButtonEvent() {
-        binding.tvMoreItemInfoImg.setOnClickListener {
-            if (itemImgFullState) setItemInfoImgFixSize()
-            else setItemInfoImgWrapContent()
-
-            itemImgFullState = !itemImgFullState
         }
     }
 
@@ -120,27 +111,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
             )
             sendKakaoLink(feed)
         }
-    }
-
-    private fun setItemInfoImgWrapContent() {
-        binding.ivItemInfo.layoutParams = ConstraintLayout.LayoutParams(
-            ConstraintLayout.LayoutParams.MATCH_PARENT,
-            ConstraintLayout.LayoutParams.WRAP_CONTENT
-        ).apply {
-            endToEnd = ConstraintSet.PARENT_ID
-            startToStart = ConstraintSet.PARENT_ID
-            topToBottom = R.id.div_item_info_img_base
-        }
-
-        binding.tvMoreItemInfoImg.text = "상품설명 최소화"
-    }
-
-    private fun setItemInfoImgFixSize() {
-        val layoutParams = binding.ivItemInfo.layoutParams
-        layoutParams.height = itemInfoImgSize
-        binding.ivItemInfo.layoutParams = layoutParams
-
-        binding.tvMoreItemInfoImg.text = "상품설명 더보기"
     }
 
     private fun initItemDetailAdapter() {

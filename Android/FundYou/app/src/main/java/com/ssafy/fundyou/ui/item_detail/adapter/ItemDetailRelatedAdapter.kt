@@ -9,12 +9,19 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemRelatedItemListBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
+import com.ssafy.fundyou.ui.adapter.diffutil.RelatedItemDiffUtil
+import com.ssafy.fundyou.ui.item_detail.model.RelatedItemModel
 
-class ItemDetailRelatedAdapter : ListAdapter<ProductItemModel, ItemDetailRelatedAdapter.ItemDetailRelatedHolder>(ProductListDiffUtil){
+class ItemDetailRelatedAdapter : ListAdapter<RelatedItemModel, ItemDetailRelatedAdapter.ItemDetailRelatedHolder>(RelatedItemDiffUtil){
+
+    private lateinit var clickEvent : (Long) -> Unit
 
     inner class ItemDetailRelatedHolder(private val binding : ItemRelatedItemListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item : ProductItemModel){
+        fun bind(item : RelatedItemModel){
             binding.product = item
+            binding.root.setOnClickListener {
+                clickEvent.invoke(item.id)
+            }
         }
     }
 
@@ -23,5 +30,9 @@ class ItemDetailRelatedAdapter : ListAdapter<ProductItemModel, ItemDetailRelated
 
     override fun onBindViewHolder(holder: ItemDetailRelatedHolder, position: Int){
         holder.bind(currentList[position])
+    }
+
+    fun addItemClickListener(event : (Long) -> Unit){
+        clickEvent = event
     }
 }

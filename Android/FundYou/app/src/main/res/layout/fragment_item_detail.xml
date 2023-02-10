@@ -193,30 +193,14 @@
 
                 <ImageView
                     android:id="@+id/iv_item_info"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_launcher_background"
+                    android:layout_marginTop="12dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/div_item_info_img_base"
-                    app:setItemImage="@{productInfo.descriptionImg}" />
-
-                <TextView
-                    android:id="@+id/tv_more_item_info_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="32dp"
-                    android:background="@drawable/bg_rect_link_water_transparent_radius4_stroke1"
-                    android:drawableEnd="@drawable/ic_more_info_arrow"
-                    android:drawablePadding="5dp"
-                    android:paddingHorizontal="20dp"
-                    android:paddingVertical="16dp"
-                    android:text="상품설명 더보기"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/iv_item_info" />
+                    app:setFullSizeImage="@{productInfo.descriptionImg}" />
 
                 <TextView
                     android:id="@+id/tv_related_item_title"
@@ -227,7 +211,7 @@
                     android:layout_marginTop="32dp"
                     android:text="연관 추천 선물"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_more_item_info_img" />
+                    app:layout_constraintTop_toBottomOf="@id/iv_item_info" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_related_item_list"
