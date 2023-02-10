@@ -66,10 +66,6 @@ public class FundingItemService {
         // 4. 사용자 point 차감
         memberRepository.minusPoint(member.getUsername(), attendFundingDto.getPoint());
 
-
-
-//        FundingItem updatedFundingItem = fundingItemRepository.getById(attendFundingDto.getFundingItemId());
-//        FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItemRepository.getById(attendFundingDto.getFundingItemId()));
         return getFundingItem(attendFundingDto.getFundingItemId());
 
     }
@@ -90,5 +86,14 @@ public class FundingItemService {
     public List<FundingItemMember> getAttendMember(Long fundingItemId) {
         List<FundingItemMember> fundingItemMemberList = fundingItemMemberRepository.findAllByFundingItemId(fundingItemId);
         return fundingItemMemberList;
+    }
+
+    @Transactional
+    public String terminateFundingItem(Long fundingItemId) {
+
+        // 펀딩 상품 종료
+        fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
+
+        return "펀딩이 종료 되었습니다.";
     }
 }

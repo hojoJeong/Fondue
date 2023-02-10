@@ -1,5 +1,7 @@
 package com.ssafy.fundyou.ui.home
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +15,7 @@ import com.ssafy.fundyou.ui.home.model.toRandomItemModel
 import com.ssafy.fundyou.ui.home.model.toRankingModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import org.apache.commons.lang3.mutable.Mutable
 import javax.inject.Inject
 
 @HiltViewModel
@@ -29,11 +32,25 @@ class MainViewModel @Inject constructor(
     val randomItemList: LiveData<ViewState<List<RandomItemModel>>>
         get() = _randomItemList
 
-    fun getRankingItemList() = viewModelScope.launch {
+    private val _rankingCategoryId = MutableLiveData<Int>()
+    val rankingCategoryId: LiveData<Int>
+        get() = _rankingCategoryId
+
+    private val _rankingMinPrice = MutableLiveData<Int>()
+    val rankingMinPrice: LiveData<Int>
+        get() = _rankingMinPrice
+
+    private val _rankingMaxPrice = MutableLiveData<Int>()
+    val rankingMaxPrice: LiveData<Int>
+        get() = _rankingMaxPrice
+
+    fun getRankingItemList(categoryId: Int, minPrice: Int, maxPrice: Int) = viewModelScope.launch {
         _rankingItemList.value = ViewState.Loading()
         try {
-            val response = getRankingItemUserCase()
+            val response = getRankingItemUserCase(categoryId, minPrice, maxPrice)
             _rankingItemList.value = ViewState.Success(response.map { it.toRankingModel() })
+            val itemlist = _rankingItemList.value?.value
+            Log.d(TAG, "getRankingItemList: ${itemlist}")
         } catch (e: Exception){
             _rankingItemList.value = ViewState.Error(e.message)
         }
@@ -47,5 +64,14 @@ class MainViewModel @Inject constructor(
         }catch (e: Exception){
             _randomItemList.value = ViewState.Error(e.message)
         }
+    }
+
+    fun setCategory(categoryId: Int) {
+        _rankingCategoryId.value = categoryId
+    }
+
+    fun setPrice(min: Int, max: Int) {
+        _rankingMinPrice.value = min
+        _rankingMaxPrice.value = max
     }
 }

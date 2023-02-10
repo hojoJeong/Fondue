@@ -31,6 +31,9 @@ public class ItemResponseDto {
     @ApiModelProperty(name = "AR가능여부", example = "true / false")
     private Boolean isAr;
 
+    @ApiModelProperty(name = "상품 상세 이미지", example = "ssafy/img/item.jpg")
+    private String descriptionImg;
+
     @ApiModelProperty(name = "상세 정보", example = "type, value")
     private List<CustomDescriptionDto> description;
 
@@ -54,6 +57,7 @@ public class ItemResponseDto {
         this.image = item.getImage();
         this.title = item.getTitle();
         this.isAr = item.getIsAr();
+        this.descriptionImg = item.getDescriptionImg();
         this.description = changeDto(item);
         this.brand = item.getBrand();
         this.isFavorite = b;
@@ -67,7 +71,7 @@ public class ItemResponseDto {
     public List<CustomDescriptionDto> changeDto(Item item){
         List<CustomDescriptionDto> desList = new ArrayList<>();
         for (Description des : item.getDescriptions()) {
-            desList.add(new CustomDescriptionDto(des.getType(), des.getValue()));
+            desList.add(new CustomDescriptionDto(des.getItemType(), des.getContent()));
         }
         return desList;
     }

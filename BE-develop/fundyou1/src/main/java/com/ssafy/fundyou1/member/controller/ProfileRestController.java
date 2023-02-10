@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/profile")
 @Slf4j
 @Api(tags = {"프로필"})
 public class ProfileRestController {
@@ -20,23 +20,13 @@ public class ProfileRestController {
     @Autowired
     MemberService memberService;
 
-    public ProfileRestController( MemberService memberService) {
-        this.memberService = memberService;
-    }
 
     // 내 프로필
 
-    @GetMapping("members/me")
+    @GetMapping()
     public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
         return ResponseEntity.ok(memberService.getMyInfo());
     }
-
-    // 로그인 아이디로 찾기
-    @GetMapping("members/{loginId}")
-    public ResponseEntity<MemberResponseDto> getMemberInfo(@PathVariable String loginId) {
-        return ResponseEntity.ok(memberService.getMemberInfo(loginId));
-    }
-
 
 
 }

@@ -10,8 +10,11 @@ internal class ItemRemoteDataSourceImpl @Inject constructor(private var itemApiS
     override suspend fun getAllItemList(): List<ItemResponseDto> =
         itemApiService.getAllProductItemList()
 
-    override suspend fun getRankingItemList(): List<ItemResponseDto> =
-        itemApiService.getRankingItemList()
+    override suspend fun getRankingItemList(
+        categoryId: Int,
+        minPrice: Int,
+        maxPrice: Int
+    ): List<ItemResponseDto> = itemApiService.getRankingItemList(categoryId, minPrice, maxPrice)
 
     override suspend fun getRandomItemList(): List<ItemResponseDto> =
         itemApiService.getRandomItemList()

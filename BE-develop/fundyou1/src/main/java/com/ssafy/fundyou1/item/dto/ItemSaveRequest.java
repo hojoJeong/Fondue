@@ -8,9 +8,7 @@ import com.ssafy.fundyou1.item.entity.Item;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
-
 import java.util.List;
-
 
 @Getter
 public class ItemSaveRequest {
@@ -84,7 +82,4 @@ public class ItemSaveRequest {
                 .category(category)
                 .build();
     }
-
-
-
 }

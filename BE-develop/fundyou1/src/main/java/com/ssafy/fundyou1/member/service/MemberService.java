@@ -5,6 +5,7 @@ import com.ssafy.fundyou1.global.security.SecurityUtil;
 
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 
+import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 
@@ -14,19 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@RequiredArgsConstructor
 public class MemberService {
 
     @Autowired
     MemberRepository memberRepository;
 
-    // 회원 정보 인포를 가져오는 로직 (로그인 아이디)
-    @Transactional(readOnly = true)
-    public MemberResponseDto getMemberInfo(String loginId) {
-        return memberRepository.findByLoginId(loginId)
-                .map(MemberResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("유저 정보가 없습니다."));
-    }
 
     // 현재 SecurityContext 에 있는 유저 정보 가져오기 - 현재 접속한 회원 프로필
     @Transactional(readOnly = true)
@@ -35,5 +28,8 @@ public class MemberService {
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
-
+    @Transactional
+    public Integer chargePoint(Long point) {
+        return memberRepository.chargePoint(point, SecurityUtil.getCurrentMemberId());
+    }
 }

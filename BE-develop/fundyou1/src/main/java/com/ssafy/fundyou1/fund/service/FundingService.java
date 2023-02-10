@@ -2,13 +2,16 @@ package com.ssafy.fundyou1.fund.service;
 
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
+import com.ssafy.fundyou1.fund.dto.FundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingResultMemberDto;
+import com.ssafy.fundyou1.fund.dto.MyFundingDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
+import com.ssafy.fundyou1.item.dto.ItemDto;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
@@ -57,7 +60,6 @@ public class FundingService {
         //-----------------------------------------------------------------------//
         // 장바구니 아이템 펀딩 아이템으로 변환
 
-
         // 장바구니 상품 가져오기
         List<Cart> foundCartList = cartRepository.findAllByMember_Id(member.getId());
 
@@ -66,10 +68,17 @@ public class FundingService {
 
         // funding_item으로 변경하여 저장
         for(Cart cart : foundCartList){
+
             FundingItem createdFundingItem = FundingItem.createFundingItem(savedFunding, cart.getItem(), cart.getCount());
+
             fundingItemRepository.save(createdFundingItem);
+
             // 장바구니에서 삭제
             cartRepository.delete(cart);
+
+            // 해당 아이템 구매 횟수 값 + 1
+
+            itemRepository.updateCountPlus(cart.getItem().getId());
 
         }
 
@@ -79,20 +88,9 @@ public class FundingService {
     }
 
 
-    // 내 펀딩 중 특정 펀팅 선택
-    public Funding findMyFunding(Long fundingId){
-        // 사용자 정보
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
-
-        // 펀딩 찾기
-        Funding funding = fundingRepository.findByIdAndMemberId(fundingId, member.getId());
-
-        return funding;
-    }
-
 
     // 펀딩 통계 (참여 멤버)
+    @Transactional
     public List<FundingResultMemberDto> fundingResultMemberDtoList(Long fundingId) {
 
         // 해당 펀딩(fundingId)의 펀딩 아이템 리스트 찾고
@@ -131,17 +129,87 @@ public class FundingService {
 
 
     // 내 펀딩 리스트
-    public List<Funding> getMyFundingList() {
+    @Transactional
+    public List<MyFundingDto> getMyOngoingFundingList() {
         MemberResponseDto meDto = memberService.getMyInfo();
         Member member = memberRepository.findByUsername(meDto.getUsername());
 
-        List<Funding> myFundingList = fundingRepository.findAllByMemberId(member.getId());
+        // "내" & "진행중" 펀딩
+        List<Funding> myOngoingFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.getId(), true);
 
-        return myFundingList;
+        List<MyFundingDto> myOngoingFundingListDto  = new ArrayList<>();
+
+        for(Funding myOngoingFunding : myOngoingFundingList ){
+            int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(myOngoingFunding.getId());
+
+            int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(myOngoingFunding.getId());
+
+            List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
+
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+
+            myOngoingFundingListDto.add(myFundingDto);
+        }
+
+        return myOngoingFundingListDto;
 
     }
 
 
+    public List<MyFundingDto> getMyClosedFundingList() {
+
+        MemberResponseDto meDto = memberService.getMyInfo();
+        Member member = memberRepository.findByUsername(meDto.getUsername());
+
+        // "내" & "종료된" 펀딩
+        List<Funding> myClosedFundingList = fundingRepository.findAllByMemberIdAndByFundingStatus(member.getId(), false);
+
+        List<MyFundingDto> myClosedFundingListDto  = new ArrayList<>();
+
+        for(Funding myOngoingFunding : myClosedFundingList ){
+            int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(myOngoingFunding.getId());
+
+            int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(myOngoingFunding.getId());
+
+            List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
+
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+
+            myClosedFundingListDto.add(myFundingDto);
+        }
+
+        return myClosedFundingListDto;
+    }
 
 
+    // 내 펀딩 중 특정 펀팅 선택
+    @Transactional
+    public FundingDto getFundingInfo(Long fundingId) {
+
+        Funding funding = fundingRepository.getById(fundingId);
+
+        int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(funding.getId());
+
+        int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(funding.getId());
+
+        FundingDto fundingDto = new FundingDto(funding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100);
+
+        return fundingDto;
+    }
+
+
+
+    // 펀딩 종료 버튼 클릭
+    @Transactional
+    public String terminateFunding(Long fundingId) {
+
+        // 펀딩 종료
+        fundingRepository.updateStatus(fundingId, false);
+
+        // 펀딩 상품 종료
+        fundingItemRepository.updateFundingItemStatusByFundingId(fundingId, false);
+
+        return "펀딩이 종료 되었습니다.";
+
+    }
 }

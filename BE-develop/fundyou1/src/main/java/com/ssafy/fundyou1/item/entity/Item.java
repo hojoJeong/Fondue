@@ -74,9 +74,4 @@ public class Item {
     }
 
 
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "item",cascade = CascadeType.ALL)
-    List<FundingItem> fundingItems = new ArrayList<>();
-
 }
