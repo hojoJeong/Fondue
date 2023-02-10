@@ -63,7 +63,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/edit_search" />
+            app:layout_constraintTop_toBottomOf="@id/sld_main_rank" />
 
         <com.google.android.material.slider.RangeSlider
             android:id="@+id/sld_main_rank"

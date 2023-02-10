@@ -11,4 +11,5 @@ interface ItemRepository {
     suspend fun getCategoryItemList(categoryId: Int) : List<ProductItemModel>
     suspend fun getItemByPrice(categoryId: Int, minPrice: Int, maxPrice: Int): List<ProductItemModel>
     suspend fun getKeywordItemList(keyword : String, minPrice : Int, maxPrice : Int) : List<ProductItemModel>
+    suspend fun getItemDetailInfo(itemId : Long) : ProductItemModel
 }

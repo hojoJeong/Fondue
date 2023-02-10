@@ -25,7 +25,6 @@ class SearchResultFragment :
     private val resultAdapter = SearchResultAdapter()
     private val args by navArgs<SearchResultFragmentArgs>()
     private val searchViewModel by viewModels<SearchViewModel>()
-    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -49,10 +48,6 @@ class SearchResultFragment :
         initSearchViewModel()
     }
 
-    private fun initMainViewModel(){
-        mainViewModel
-    }
-
     private fun initSearchViewModel() {
         searchViewModel.keywordItemList.observe(viewLifecycleOwner) { response ->
             when (response) {
@@ -62,18 +57,14 @@ class SearchResultFragment :
                 is ViewState.Success -> {
                     resultAdapter.submitList(emptyList())
                     if (response.value?.size!! > 0) {
-                        binding.tvMainRankPriceRange.visibility = View.VISIBLE
-                        binding.sldMainRank.visibility = View.VISIBLE
                         binding.lyNoContent.root.visibility = View.GONE
                         resultAdapter.submitList(response.value ?: emptyList())
                     } else {
-                        binding.tvMainRankPriceRange.visibility = View.GONE
-                        binding.sldMainRank.visibility = View.GONE
                         binding.lyNoContent.root.visibility = View.VISIBLE
                     }
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initSearchViewModel: error...")
+                    Log.d(TAG, "initSearchViewModel: error...${response.message}")
                 }
             }
         }
@@ -97,8 +88,8 @@ class SearchResultFragment :
                     val sliderValueList = slider.values
                     searchViewModel.getSearchItemList(
                         keyword = binding.editSearch.text.toString(),
-                        minPrice = sliderValueList[0].toInt() * 100000,
-                        maxPrice = sliderValueList[sliderValueList.size - 1].toInt() * 1000000
+                        minPrice = sliderValueList[0].toInt() * 10000,
+                        maxPrice = sliderValueList[sliderValueList.size - 1].toInt() * 10000
                     )
                 }
             })

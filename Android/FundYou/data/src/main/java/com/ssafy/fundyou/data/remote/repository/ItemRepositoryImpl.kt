@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.data.remote.repository
 
+import android.util.Log
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemSearchRequestDto
 import com.ssafy.fundyou.data.remote.mappers.toDomainModel
@@ -30,7 +31,13 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
         maxPrice: Int
     ): List<ProductItemModel> {
         val request = ItemSearchRequestDto(keyword, maxPrice, minPrice)
-        return itemRemoteDataSource.getKeywordItemList(request).map { it.toDomainModel() }
+        val response = itemRemoteDataSource.getKeywordItemList(request)
+        return response.map { it.toDomainModel() }
+    }
+
+    override suspend fun getItemDetailInfo(itemId: Long): ProductItemModel {
+        val response = itemRemoteDataSource.getItemDetailInfo(itemId)
+        return response.toDomainModel()
     }
 
     override suspend fun getItemByPrice(

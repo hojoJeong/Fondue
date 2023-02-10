@@ -12,6 +12,8 @@ import java.util.List;
 @Repository
 public interface FundingItemRepository extends JpaRepository<FundingItem, Long> {
 
+    FundingItem findByFundingIdAndItemId(Long fundingId, Long itemId);
+
     @Query(value = "select funding_item_id from funding_item fi where fi.funding_id = :fundingId", nativeQuery = true)
     List<Long> findIdListByFundingId(@Param("fundingId") Long fundingId);
 
