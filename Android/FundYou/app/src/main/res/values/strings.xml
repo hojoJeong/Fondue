@@ -21,7 +21,7 @@
     <string name="title_AR_btn">AR</string>
     <string name="title_category_all">전체</string>
     <string name="title_category_digital">디지털/가전</string>
-    <string name="title_category_living">리빙/인테리어</string>
+    <string name="title_category_living">인테리어</string>
     <string name="title_category_kitchen">주방용품</string>
     <string name="title_category_etc">기타</string>
     <string name="title_rank_price_default">상품 가격대를 설정해주세요</string>

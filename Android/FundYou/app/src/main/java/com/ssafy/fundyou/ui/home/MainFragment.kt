@@ -205,7 +205,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
             val categoryId = resources.getStringArray(R.array.category_num)
                 .indexOf(checkedCategory.text.toString())
-
             with(mainViewModel) {
                 setCategory(categoryId)
                 getRankingItemList(
