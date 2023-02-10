@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CategorySaveRequest {
 
-    @ApiModelProperty(position = 1, notes = "카테고리명", example = "인테리어")
     @JsonProperty("categoryName")
     private String categoryName;
 

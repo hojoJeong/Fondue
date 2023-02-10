@@ -16,32 +16,23 @@ import javax.persistence.Column;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LikeItemResponseDto {
-    @ApiModelProperty(name = "찜목록 회원 아이디 ", example = "1,2")
+
     Long memberId;
-    @ApiModelProperty(name = "아이템 아이디", example = "1,2")
+
     Long itemId;
 
-    @ApiModelProperty(name = "아이템 가격", example = "10000")
     int price;
 
-    @ApiModelProperty(name = "아이템 이미지", example = "ssafy/img/thumbnail.jpg")
     String image;
 
-    @ApiModelProperty(name = "아이템 타이틀", example = "쇼파")
     String title;
 
-    @ApiModelProperty(name = "AR가능여부", example = "true / false")
     Boolean isAr;
 
     @Column(name = "brand")
     private String brand;
 
-    @ApiModelProperty(name = "좋아요 여부 ", example = "true / false")
     Boolean isFavorite;
-
-
-
-
 
     public LikeItemResponseDto(Member member, boolean b, Item item){
         this.memberId = member.getId();

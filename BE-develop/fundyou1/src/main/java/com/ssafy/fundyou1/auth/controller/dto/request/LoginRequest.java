@@ -13,11 +13,9 @@ import lombok.NoArgsConstructor;
 public class LoginRequest {
 
     @JsonProperty("loginId")
-    @ApiModelProperty(required = true, position = 0, notes = "유저네임", example = "퐁듀")
     private String loginId;
 
     @JsonProperty("password")
-    @ApiModelProperty(required = true, position = 1, notes = "비밀번호", example = "asdfq!!!!")
     private String password;
 
 }
