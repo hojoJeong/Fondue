@@ -24,8 +24,10 @@ public class FundingItemDto {
     // 총가격
     private int itemTotalPrice;
 
-    // 현재 펀딩된 가격
     private int count;
+
+    // 현재 펀딩된 가격
+    private int currentFundingPrice;
 
     private boolean fundingItemStatus;
 
@@ -37,6 +39,7 @@ public class FundingItemDto {
                 fundingItem.getFunding(),
                 fundingItem.getItemTotalPrice(),
                 fundingItem.getCount(),
+                fundingItem.getCurrentFundingPrice(),
                 fundingItem.getFunding().isFundingStatus()
         );
     }

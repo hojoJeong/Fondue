@@ -19,8 +19,8 @@ internal class ItemRemoteDataSourceImpl @Inject constructor(private var itemApiS
     override suspend fun getRandomItemList(): List<ItemResponseDto> =
         itemApiService.getRandomItemList()
 
-    override suspend fun getFavoriteItemList(): List<ItemResponseDto> =
-        itemApiService.getFavoriteItemList()
+    override suspend fun getLikeItemList(): List<ItemResponseDto> =
+        itemApiService.getLikeItemList()
 
     override suspend fun getCategoryItemList(categoryId: Int): List<ItemResponseDto> =
         itemApiService.getCategoryItemList(categoryId)
@@ -33,4 +33,8 @@ internal class ItemRemoteDataSourceImpl @Inject constructor(private var itemApiS
         minPrice: Int,
         maxPrice: Int
     ): List<ItemResponseDto> = itemApiService.getItemByPrice(categoryId, minPrice, maxPrice)
+
+    override suspend fun addLikeItem(itemId: Long) = itemApiService.addLikeItem(itemId)
+
+    override suspend fun getItemDetailInfo(itemId: Long): ItemResponseDto = itemApiService.getItemDetailInfo(itemId)
 }

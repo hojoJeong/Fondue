@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.data.remote.repository
 
+import android.util.Log
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemSearchRequestDto
 import com.ssafy.fundyou.data.remote.mappers.toDomainModel
@@ -13,13 +14,14 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
         itemRemoteDataSource.getAllItemList().map { it.toDomainModel() }
 
     override suspend fun getRankingItemList(categoryId: Int, minPrice: Int, maxPrice: Int) =
-        itemRemoteDataSource.getRankingItemList(categoryId, minPrice, maxPrice).map { it.toDomainModel() }
+        itemRemoteDataSource.getRankingItemList(categoryId, minPrice, maxPrice)
+            .map { it.toDomainModel() }
 
     override suspend fun getRandomItemList() =
         itemRemoteDataSource.getRandomItemList().map { it.toDomainModel() }
 
-    override suspend fun getFavoriteItemList(): List<ProductItemModel> =
-        itemRemoteDataSource.getFavoriteItemList().map { it.toDomainModel() }
+    override suspend fun getLikeItemList(): List<ProductItemModel> =
+        itemRemoteDataSource.getLikeItemList().map { it.toDomainModel() }
 
     override suspend fun getCategoryItemList(categoryId: Int): List<ProductItemModel> =
         itemRemoteDataSource.getCategoryItemList(categoryId).map { it.toDomainModel() }
@@ -30,8 +32,16 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
         maxPrice: Int
     ): List<ProductItemModel> {
         val request = ItemSearchRequestDto(keyword, maxPrice, minPrice)
-        return itemRemoteDataSource.getKeywordItemList(request).map { it.toDomainModel() }
+        val response = itemRemoteDataSource.getKeywordItemList(request)
+        return response.map { it.toDomainModel() }
     }
+
+    override suspend fun getItemDetailInfo(itemId: Long): ProductItemModel {
+        val response = itemRemoteDataSource.getItemDetailInfo(itemId)
+        return response.toDomainModel()
+    }
+
+    override suspend fun addLikeItem(itemId: Long) = itemRemoteDataSource.addLikeItem(itemId)
 
     override suspend fun getItemByPrice(
         categoryId: Int,

@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
-                app:layout_constraintEnd_toStartOf="@+id/btn_layout_pay_add"
+                app:layout_constraintEnd_toStartOf="@+id/btn_layout_pay_load"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_layout_pay_logo"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="10dp"
@@ -57,7 +57,7 @@
                 android:textColor="@color/black" />
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_layout_pay_add"
+                android:id="@+id/btn_layout_pay_load"
                 android:layout_width="32dp"
                 android:layout_height="20dp"
                 android:background="@drawable/bg_rect_gradient_white_round10_stroke1"

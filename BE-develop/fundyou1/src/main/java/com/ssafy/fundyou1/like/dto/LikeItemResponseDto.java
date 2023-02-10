@@ -33,7 +33,7 @@ public class LikeItemResponseDto {
     @ApiModelProperty(name = "AR가능여부", example = "true / false")
     Boolean isAr;
 
-    @Column(name = "brand")
+    @ApiModelProperty(name = "브랜드", example = "true / false")
     private String brand;
 
     @ApiModelProperty(name = "좋아요 여부 ", example = "true / false")

@@ -45,18 +45,12 @@ public class CartRestController {
     public @ResponseBody
     ResponseEntity  addCartItem(@RequestBody @Valid CartRequestDto cartRequestDto){
 
-        MemberResponseDto responseDto= memberRepository.findById(SecurityUtil.getCurrentMemberId())
-                .map(MemberResponseDto::of)
-                .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
-
-        Long memberId = responseDto.getId();
-
         Long itemId = cartRequestDto.getItemId();
 
-        Cart cart = cartService.findOneCartItem(memberId, itemId);
+        Cart cart = cartService.findOneCartItem(SecurityUtil.getCurrentMemberId(), itemId);
         // 장바구니에 동일한 아이템이 있으면 장바구니 아이템 개수만 업데이트
         if (cart != null) {
-            int addcount = cartService.updateAddCartItem(cartRequestDto, memberId);
+            int addcount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 업데이트", addcount));
         } else {
             // 동일한 아이템이 없으면 아이템 추가해주기
@@ -70,25 +64,17 @@ public class CartRestController {
     @ApiOperation(value = "장바구니 아이템 조회", notes = "회원의 장바구니 목록을 반환한다.")
     public ResponseEntity<List<CartItemResponseDto>> getAllCartItems() {
 
-        List<CartItemResponseDto> cartList = cartService.findCartItemsByCartId(SecurityUtil.getCurrentMemberId());
+        List<CartItemResponseDto> cartList = cartService.findCartItemsByMemberId(SecurityUtil.getCurrentMemberId());
 
         return ResponseEntity.status(HttpStatus.OK).body(cartList);
     }
 
     // 회원의 장바구니 아이템 삭제. itemId를 전달받는다.
-    @DeleteMapping("/cartItem/{itemid}")
+    @DeleteMapping("/cartItem/{itemId}")
     @ApiOperation(value = "장바구니 아이템 삭제", notes = "<strong>장바구니 목록 id를 받아</strong> 장바구니 목록에서 아이템을 삭제한다.")
-    public ResponseEntity deleteCartItem(@PathVariable Long itemid){
-
-        MemberResponseDto memberResponseDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(memberResponseDto.getUsername());
-
-        Long memberId = member.getId();
-
+    public ResponseEntity deleteCartItem(@PathVariable Long itemId){
         try {
-            // 삭제 했으면 현재 남아 있는 장바구니 내역을 반환한다.
-            List<CartItemResponseDto> cartItemResponseDtos = cartService.deleteByCartItemId(itemid);
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", cartItemResponseDtos ));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", cartService.deleteByItemId(itemId)));
         } catch (Exception e){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "fail", null));
         }
@@ -100,15 +86,9 @@ public class CartRestController {
     @ApiOperation(value = "장바구니 아이템 개수 추가", notes = "<strong>장바구니 목록 아이템 id를 받아</strong> 장바구니 목록에서 아이템을 개수 추가한다.")
     public ResponseEntity updateCartItem(@RequestBody CartRequestDto cartRequestDto) {
 
-        MemberResponseDto meDto = memberService.getMyInfo();
-
-        Member member = memberRepository.findByUsername(meDto.getUsername());
-
-        Long memberId = member.getId();
-
         try {
             // 장바구니 내부에서 아이템 개수 추가
-            int addcount = cartService.updateAddCartItem(cartRequestDto, memberId);
+            int addcount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", addcount ));
         } catch (Exception e){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "fail", null));

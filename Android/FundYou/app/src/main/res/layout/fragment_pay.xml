@@ -344,12 +344,12 @@
                             android:layout_marginBottom="10dp"
                             android:textColor="@color/black"
                             app:layout_constraintBottom_toBottomOf="@+id/iv_layout_pay_logo"
-                            app:layout_constraintEnd_toStartOf="@+id/btn_layout_pay_add"
+                            app:layout_constraintEnd_toStartOf="@+id/btn_layout_pay_load"
                             tools:text="잔액 : 100,000원"
                             app:setRemainPoint="@{item.remainPoint}"/>
 
                         <androidx.appcompat.widget.AppCompatButton
-                            android:id="@+id/btn_layout_pay_add"
+                            android:id="@+id/btn_layout_pay_load"
                             android:layout_width="32dp"
                             android:layout_height="20dp"
                             android:layout_marginEnd="14dp"
