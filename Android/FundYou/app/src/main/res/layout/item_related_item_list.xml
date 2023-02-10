@@ -7,22 +7,22 @@
 
         <variable
             name="product"
-            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
+            type="com.ssafy.fundyou.ui.item_detail.model.RelatedItemModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_marginEnd="12dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp">
 
         <ImageView
             android:id="@+id/iv_item_img"
-            android:layout_width="140dp"
-            android:layout_height="140dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_back_arrow_24"
+            app:setItemImage="@{product.img}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,22 +32,25 @@
             style="@style/base_font_medium_14_franch_rose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
             android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
             android:paddingHorizontal="16dp"
             android:paddingVertical="3dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginEnd="6dp"
             app:arVisibility="@{product.isAr}"
             app:layout_constraintBottom_toBottomOf="@id/iv_item_img"
             app:layout_constraintEnd_toEndOf="@id/iv_item_img"
             tools:text="AR" />
+
         <TextView
             android:id="@+id/tv_brand"
             style="@style/base_font_medium_12_link_water"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:gravity="start"
             android:text="@{product.brand}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_item_img"
             tools:text="브랜드 이름 영역입니다." />
@@ -55,10 +58,12 @@
         <TextView
             android:id="@+id/tv_item_name"
             style="@style/base_font_medium_14_midnight_express"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:gravity="start"
             android:text="@{product.title}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_brand"
             tools:text="상품 이름 영역입니다." />

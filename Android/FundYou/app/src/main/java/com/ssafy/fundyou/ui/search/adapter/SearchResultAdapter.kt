@@ -15,14 +15,14 @@ import org.apache.commons.lang3.builder.Diff
 
 class SearchResultAdapter : ListAdapter<SearchItemModel, SearchResultAdapter.SearchResultHolder>(SearchItemDiffUtil) {
 
-    private lateinit var clickEvent : (Int) -> Unit
+    private lateinit var clickEvent : (Long) -> Unit
 
     inner class SearchResultHolder(private val binding : ItemSearchResultListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : SearchItemModel){
             binding.item = item
 
             binding.root.setOnClickListener {
-                clickEvent.invoke(item.id.toInt())
+                clickEvent.invoke(item.id)
             }
         }
     }
@@ -34,7 +34,7 @@ class SearchResultAdapter : ListAdapter<SearchItemModel, SearchResultAdapter.Sea
         holder.bind(currentList[position])
     }
 
-    fun initItemClickEvent(event : (Int) -> Unit) {
+    fun initItemClickEvent(event : (Long) -> Unit) {
         this.clickEvent = event
     }
 

@@ -7,7 +7,7 @@ data class ItemDetailDescriptionModel(
     val value : String
 )
 
-fun ProductDescriptionModel.toUiModel() = ItemDetailDescriptionModel(
+fun ProductDescriptionModel.toItemDetailModel() = ItemDetailDescriptionModel(
     type = this.type,
     value = this.value
 )
