@@ -43,7 +43,6 @@ public class ItemApiController {
     })
     public ResponseEntity saveItem(@RequestBody ItemSaveRequest request){
         Long itemId = itemService.saveItem(request);
-
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",itemId  ));
 
     }
@@ -64,7 +63,7 @@ public class ItemApiController {
     // 상품 디테일
     @GetMapping("/{id}")
     @ApiOperation(value = "id 값으로 아이템 1개 찾기", notes = "id값으로 아이템 1개 찾습니다.")
-    public List<ItemResponseDto> itemDetail(@PathVariable Long id){
+    public ItemResponseDto itemDetail(@PathVariable Long id){
         return itemService.itemDetail(id);
     }
 
@@ -80,21 +79,23 @@ public class ItemApiController {
 
     // 홈화면 조건에 맞는 Top5 아이템 조회
     @ApiOperation(value = "홈화면 Top5", notes = "카테고리, 가격범위에 맞는 아이템 5개 반환")
-    @GetMapping("/category/{categoryId}/{minPrice}/{maxPrice}")
-    public ResponseEntity<List<RandomItemResponse>> getTopItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
-        List<RandomItemResponse> topList = itemService.getTopItemList(categoryId, minPrice, maxPrice);
-        return ResponseEntity.status(HttpStatus.OK).body(topList);
+    @GetMapping("/ranking/{categoryId}/{minPrice}/{maxPrice}")
+    public ResponseEntity<List<ItemResponseDto>> getRankItemList(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
+        List<ItemResponseDto> rankItemList = itemService.getRankItemListWithFilter(categoryId, minPrice, maxPrice);
+        return ResponseEntity.status(HttpStatus.OK).body(rankItemList);
     }
-
+    @ApiOperation(value = "카테고리, 가격범위로 아이템 조회", notes = "카테고리, 가격범위에 맞는 아이템 반환")
+    @GetMapping("/category/{categoryId}/{minPrice}/{maxPrice}")
+    public ResponseEntity<List<ItemResponseDto>> getItemListWithFilter(@PathVariable Long categoryId,@PathVariable Long minPrice,@PathVariable Long maxPrice) {
+        List<ItemResponseDto> itemResponseDtoList = itemService.getItemListWithFilter(categoryId, minPrice, maxPrice);
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponseDtoList);
+    }
 
     // 램덤 5개 조회
     @GetMapping(value = "/random")
     @ApiOperation(value = "랜덤 5개 조회", notes = "아이템 중에 랜덤 5개 조회")
-    public ResponseEntity<List<RandomItemResponse>> getRandomItemList(){
-        List<RandomItemResponse> randomItemResponseList = itemService.getRandomItemList();
+    public ResponseEntity<List<ItemResponseDto>> getRandomItemList(){
+        List<ItemResponseDto> randomItemResponseList = itemService.getRandomItemList();
         return ResponseEntity.status(HttpStatus.OK).body(randomItemResponseList);
     }
-
-
-
 }

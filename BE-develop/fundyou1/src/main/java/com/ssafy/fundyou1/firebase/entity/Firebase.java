@@ -9,6 +9,8 @@ import javax.persistence.*;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 public class Firebase {
 
     @Id
@@ -25,6 +27,7 @@ public class Firebase {
 
     @Builder
     public Firebase(Long memberId, String targetToken) {
-
+        this.memberId = memberId;
+        this.targetToken = targetToken;
     }
 }

@@ -16,20 +16,21 @@ import java.io.IOException;
 @Api(tags = {"fcm"})
 public class FcmController {
 
-
     @Autowired
     FirebaseCloudMessageService firebaseCloudMessageService;
 
     @PostMapping("/fcm")
-    public ResponseEntity pushMessage(@RequestBody FcmMessageRequestDto requestDTO) throws IOException {
-        System.out.println(requestDTO.getTargetToken() + " "
-                +requestDTO.getTitle() + " " + requestDTO.getBody());
+    public ResponseEntity getFirebase(@RequestBody FcmCreateRequestDto requestDTO) throws IOException {
+        
 
-        firebaseCloudMessageService.sendMessageTo(
-                requestDTO.getTargetToken(),
-                requestDTO.getTitle(),
-                requestDTO.getBody());
         return ResponseEntity.ok().build();
     }
+
+
+//
+//      firebaseCloudMessageService.sendMessageTo(
+//              requestDTO.getTargetToken(),
+//              requestDTO.getTitle(),
+//              requestDTO.getBody());
 
 }

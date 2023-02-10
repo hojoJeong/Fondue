@@ -40,7 +40,7 @@ public class CartService {
         Optional<Item> item = itemRepository.findById(cartRequestDto.getItemId()); //장바구니에 담을 상품 엔티티 조회
 
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
-
+        member.get();
       // 아니면은 CartItem 에 상품 저장
         Cart createCart = Cart.createCart( member.get(), item.get(), cartRequestDto.getCount());
         cartRepository.save(createCart);
@@ -79,7 +79,6 @@ public class CartService {
     public int updateAddCartItem(CartRequestDto cartRequestDto, Long memberId) {
         Long id = cartRequestDto.getItemId();
         int count = cartRequestDto.getCount();
-
         cartRepository.updateAddCartItem(count,id, memberId);
 
         return count;

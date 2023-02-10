@@ -5,13 +5,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.net.HttpHeaders;
 import com.google.gson.JsonParseException;
+import com.ssafy.fundyou1.firebase.Repository.FirebaseRepository;
+import com.ssafy.fundyou1.firebase.entity.Firebase;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 
 @Component
@@ -19,7 +26,11 @@ import java.util.List;
 public class FirebaseCloudMessageService {
 
     private final String API_URL = "https://fcm.googleapis.com/v1/projects/fundyou-1674632553418/messages:send";
+
     private final ObjectMapper objectMapper;
+
+    @Autowired
+    FirebaseRepository firebaseRepository;
 
     @Value("${firebase.firebase_config_path}")
     private String googleApplicationCredentials;
@@ -70,16 +81,24 @@ public class FirebaseCloudMessageService {
         return googleCredentials.getAccessToken().getTokenValue();
     }
 
-
-    // 클라이언트 토큰 관리
-    public void addToken(String token, String userId) {	// userI랑 token을 파라미타로 받아서 t_user의 token 값 저장
-//        clientTokens.add(token);
-        FcmToken fcmToken = new FcmToken();
-        fcmToken.setId(userId);
-        fcmToken.setToken(token);
-        updateUserToken(fcmToken);
+    // 회원 파이어 베이스 토큰 저장, 토큰 갱신
+    @Transactional
+    private Long saveFirebase(String targetToken) {
+        //멤버 아이디로 파이어베이스 정보 찾기
+        Optional<Firebase> firebase = firebaseRepository.findByMemberId(SecurityUtil.getCurrentMemberId());
+        // 만약에 디바이스 토큰을 등록한 회원이라면 새로 갱신
+        if (firebase.isPresent()) {
+            firebaseRepository.updateFirebase(firebase.get().getMemberId(), targetToken);
+        } else {
+            // 디바이스 토큰이 없는 회원 이라면 새로 등록 저장 해주기
+            Firebase newFirebase = Firebase.builder()
+                    .memberId(SecurityUtil.getCurrentMemberId())
+                    .targetToken(targetToken)
+                    .build();
+            firebaseRepository.save(newFirebase);
+        }
+        return SecurityUtil.getCurrentMemberId();
     }
-
 
 
 

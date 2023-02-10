@@ -26,14 +26,12 @@ public class Description {
 
     private String itemType;
 
-    private String Content;
+    private String content;
 
     @Builder
-    public Description(Item item, String itemType, String Content ) {
+    public Description(Item item, String itemType, String content ) {
         this.item = item;
         this.itemType = itemType;
-        this.Content = Content;
+        this.content = content;
     }
-
-
 }

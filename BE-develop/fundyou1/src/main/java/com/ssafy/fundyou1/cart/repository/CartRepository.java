@@ -30,7 +30,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     // 장바구니에서 아이템 개수를 추가 업데이트 한다.(숫자, 아이템아이디, 멤버아이디)
     @Modifying
-    @Query(value="UPDATE Cart c " +
+    @Query(value="UPDATE Cart " +
             "SET c.count = c.count + :count " +
             "WHERE c.item_id = :id " +
             "AND c.member_id = :memberId", nativeQuery = true)

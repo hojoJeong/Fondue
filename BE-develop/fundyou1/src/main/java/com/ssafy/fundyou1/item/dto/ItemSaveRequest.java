@@ -13,42 +13,42 @@ import java.util.List;
 @Getter
 public class ItemSaveRequest {
 
-    @ApiModelProperty(position = 0, notes = "상품 가격", example = "10000")
+    @ApiModelProperty(position = 1, notes = "상품 가격", example = "10000")
     @JsonProperty("price")
     private int price;
 
-    @ApiModelProperty(position = 1, notes = "상품 이미지 경로", example = "경로")
+    @ApiModelProperty(position = 2, notes = "상품 이미지 경로", example = "경로")
     @JsonProperty("image")
     private String image;
 
 
-    @ApiModelProperty(position = 2, notes = "상품 상세 설명 경로", example = "경로")
+    @ApiModelProperty(position = 3, notes = "상품 상세 설명 경로", example = "경로")
     @JsonProperty("description_img")
     private String descriptionImg;
 
 
-    @ApiModelProperty(position = 3, notes = "상품명", example = "푹신한 쇼파")
+    @ApiModelProperty(position = 4, notes = "상품명", example = "푹신한 쇼파")
     @JsonProperty("title")
     private String title;
 
-    @ApiModelProperty(position = 4, notes = "AR 가능 여부", example = "true or false")
+    @ApiModelProperty(position = 5, notes = "AR 가능 여부", example = "true or false")
     @JsonProperty("is_ar")
     private Boolean isAr;
 
-    @ApiModelProperty(position = 5, notes = "찜 여부", example = "true or false")
+    @ApiModelProperty(position = 6, notes = "찜 여부", example = "true or false")
     @JsonProperty("is_favorite")
     private Boolean isFavorite;
 
-    @ApiModelProperty(position = 6, notes = "상품 부가 설명", example = "[{\"type\":\"크기\",\"value\":\"10\"},{\"type\":\"색깔\",\"value\":\"red\"}]")
+    @ApiModelProperty(position = 7, notes = "상품 부가 설명", example = "[{\"type\":\"크기\",\"value\":\"10\"},{\"type\":\"색깔\",\"value\":\"red\"}]")
     @JsonProperty("description")
     private List<Description> description;
 
 
-    @ApiModelProperty(position = 7, notes = "상품 브랜드", example = "한샘")
+    @ApiModelProperty(position = 8, notes = "상품 브랜드", example = "한샘")
     @JsonProperty("brand")
     private String brand;
 
-    @ApiModelProperty(position = 8, notes = "카테고리명", example = "인테리어")
+    @ApiModelProperty(position = 9, notes = "카테고리명", example = "인테리어")
     @JsonProperty("category_name")
     private String categoryName;
 
