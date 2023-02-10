@@ -213,8 +213,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         with(binding.sldMainRank) {
             addOnChangeListener { slider, _, _ ->
                 val sliderValueList = slider.values
-                minPrice = sliderValueList[0].toInt()
-                maxPrice = sliderValueList[sliderValueList.size - 1].toInt()
+                minPrice = (sliderValueList[0].toInt())
+                maxPrice = (sliderValueList[sliderValueList.size - 1].toInt())
                 binding.tvMainRankPriceRange.text =
                     getString(R.string.title_rank_price_range, minPrice, maxPrice)
             }
@@ -223,11 +223,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
                     with(mainViewModel) {
-                        setPrice(minPrice, maxPrice)
+                        setPrice(minPrice * 10000, maxPrice * 10000)
                         getRankingItemList(
                             rankingCategoryId.value ?: CATEGORY_ALL,
                             rankingMinPrice.value ?: MIN_PRICE,
                             rankingMaxPrice.value ?: MAX_PRICE
+                        )
+                        Log.d(
+                            TAG,
+                            "onStopTrackingTouch 가격 설정 : ${mainViewModel.rankingMaxPrice.value}, ${mainViewModel.rankingMinPrice.value}"
                         )
                     }
                 }

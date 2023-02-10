@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.ViewState
+import com.ssafy.fundyou.domain.usecase.item.AddLikeItemUseCase
 import com.ssafy.fundyou.domain.usecase.item.GetAllProductItemUseCase
 import com.ssafy.fundyou.domain.usecase.item.GetCategoryItemUseCase
 import com.ssafy.fundyou.domain.usecase.item.GetItemByPriceUseCase
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class ItemListViewModel @Inject constructor(
     private val getAllProductItemUseCase: GetAllProductItemUseCase,
     private val getCategoryItemUseCase: GetCategoryItemUseCase,
-    private val getItemByPriceUseCase: GetItemByPriceUseCase
+    private val getItemByPriceUseCase: GetItemByPriceUseCase,
+    private val addLikeItemUseCase: AddLikeItemUseCase
 ) : ViewModel() {
     private val _itemList = MutableLiveData<ViewState<List<ItemListModel>>>()
     val itemList: LiveData<ViewState<List<ItemListModel>>>
@@ -73,7 +75,6 @@ class ItemListViewModel @Inject constructor(
         }
     }
 
-
     fun setCategory(categoryId: Int) {
         _categoryId.value = categoryId
     }
@@ -82,5 +83,10 @@ class ItemListViewModel @Inject constructor(
         _minPrice.value = min
         _maxPrice.value = max
         _sumPrice.value = min + max
+    }
+
+    fun addLikeItem(id: Long) = viewModelScope.launch {
+        addLikeItemUseCase(id)
+        getAllItemList()
     }
 }

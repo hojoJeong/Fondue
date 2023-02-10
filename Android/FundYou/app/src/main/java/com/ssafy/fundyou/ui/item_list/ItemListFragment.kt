@@ -60,7 +60,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
             }
         }
 
-        /* 카테고리 체크 변화 시 서버 통신 */
+        /** 카테고리 체크 변화 시 서버 통신 **/
         categoryGroup.setOnCheckedStateChangeListener { group, _ ->
             val checkedChip = group.findViewById(group.checkedChipId) as Chip
             categoryId =
@@ -86,7 +86,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
                     /* 가격 변경 시 서버 통신 */
-                    itemListViewModel.setPrice(minPrice, maxPrice)
+                    itemListViewModel.setPrice(minPrice * 10000, maxPrice * 10000)
                 }
             })
         }
@@ -135,7 +135,9 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
+
+        itemListAdapter.addLikeItem { id ->
+            itemListViewModel.addLikeItem(id)
+        }
     }
-
-
 }

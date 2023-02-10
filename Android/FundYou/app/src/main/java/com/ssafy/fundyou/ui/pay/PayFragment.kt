@@ -29,6 +29,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
         countMessageLength()
         setFundingPrice()
         initFundingBtnListener()
+        initLoadingPointBtnClickListener()
     }
 
     override fun initViewModels() {
@@ -120,6 +121,13 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
             } else {
                 navigate(PayFragmentDirections.actionPayFragmentToPayResultFragment(payResult.value!!, payItem))
             }
+        }
+    }
+
+    private fun initLoadingPointBtnClickListener(){
+        binding.btnLayoutPayLoad.setOnClickListener {
+            /** 잔여 포인트 임시 */
+            navigate(PayFragmentDirections.actionPayFragmentToPointLoadFragment(10000))
         }
     }
 }
