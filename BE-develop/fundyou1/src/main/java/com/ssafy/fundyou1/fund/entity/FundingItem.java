@@ -34,6 +34,7 @@ public class FundingItem {
     // 총 아이템 금액
     private int itemTotalPrice;
 
+    // 아이템 갯수
     private int count;
 
 
