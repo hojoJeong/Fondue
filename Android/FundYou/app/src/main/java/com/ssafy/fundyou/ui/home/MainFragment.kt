@@ -2,7 +2,9 @@ package com.ssafy.fundyou.ui.home
 
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ScrollView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
@@ -17,11 +19,11 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.ui.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
+import com.ssafy.fundyou.ui.home.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainRankingItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import com.ssafy.fundyou.ui.home.model.RandomItemModel
@@ -46,18 +48,28 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private val popularSearchAdapter = PopularSearchKeywordAdapter().apply {
-        addItemClickEvent { MainFragmentDirections.actionMainFragmentToSearchResultFragment(it) }
+        addItemClickEvent { navigate(MainFragmentDirections.actionMainFragmentToSearchResultFragment(it)) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         with(bannerImageList) {
             add(R.drawable.bg_banner_motiondesk)
             add(R.drawable.bg_banner_samsung_bespoke)
             add(R.drawable.bg_banner_ssafylogo2)
             add(R.drawable.bg_banner_ssafylogo3)
         }
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        return super.onCreateView(inflater, container, savedInstanceState)
+
+        mainViewModel.getRankingItemList(CATEGORY_ALL, MIN_PRICE, MAX_PRICE)
+        mainViewModel.getRandomItemList()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -75,8 +87,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initFloatingBtn()
         initPopularSearch()
         initSearchClickEvent()
-        mainViewModel.getRankingItemList(CATEGORY_ALL, MIN_PRICE, MAX_PRICE)
-        mainViewModel.getRandomItemList()
+
     }
 
     override fun initViewModels() {
@@ -298,7 +309,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         val randomAdapter = MainRandomItemAdapter()
         val spanCount = 3
         randomAdapter.submitList(randomItemList)
-
+        randomAdapter.addItemClickListener { id ->
+            navigate(MainFragmentDirections.actionMainFragmentToItemDetailFragment(id))
+        }
         with(binding.rvMainRandom) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
