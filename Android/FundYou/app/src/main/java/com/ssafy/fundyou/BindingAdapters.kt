@@ -2,6 +2,7 @@ package com.ssafy.fundyou
 
 import android.content.ContentValues.TAG
 import android.graphics.Typeface
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -16,6 +17,10 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
 import com.ssafy.fundyou.util.addComma
 import com.ssafy.fundyou.util.getColorNoTheme
@@ -52,8 +57,8 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("favoriteImage")
-    fun ImageView.checkFavoriteFragment(isFavorite : Boolean){
-        if(isFavorite) {
+    fun ImageView.checkFavoriteFragment(isFavorite: Boolean) {
+        if (isFavorite) {
             this.setImageResource(R.drawable.ic_favorite)
         } else {
             this.setImageResource(R.drawable.ic_favorite_line)
@@ -62,23 +67,23 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("participate")
-    fun TextView.setFundingParticipate(participate : Int){
+    fun TextView.setFundingParticipate(participate: Int) {
         this.text = "${participate}명 참여"
     }
 
     @JvmStatic
     @BindingAdapter("percentage")
-    fun TextView.setPercentage(percent : Int){
+    fun TextView.setPercentage(percent: Int) {
         this.text = "${percent}%"
     }
 
     @JvmStatic
     @BindingAdapter("fundingStateType")
-    fun AppCompatButton.setFundingButtonType(state : Boolean){
-        if(state){
+    fun AppCompatButton.setFundingButtonType(state: Boolean) {
+        if (state) {
             this.text = "펀딩 완료"
             this.setBackgroundResource(R.drawable.bg_rect_transparent_midnight_express_radius8_stroke0)
-        } else{
+        } else {
             this.text = "펀딩 중단"
             this.setBackgroundResource(R.drawable.bg_transparent_franch_rose_radius8_stroke0)
         }
@@ -93,18 +98,18 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("fundingSuccess")
-    fun TextView.setFundingSuccess(success : Boolean){
-        if(success) setTextColor(context.getColorNoTheme(R.color.franch_rose))
+    fun TextView.setFundingSuccess(success: Boolean) {
+        if (success) setTextColor(context.getColorNoTheme(R.color.franch_rose))
         else setTextColor(context.getColorNoTheme(R.color.raven))
     }
 
     @JvmStatic
     @BindingAdapter("checkFundingParticipate")
-    fun Chip.setFundingParticipateButtonType(state : Boolean){
-        if(state){
+    fun Chip.setFundingParticipateButtonType(state: Boolean) {
+        if (state) {
             this.text = "참여"
             this.setChipBackgroundColorResource(R.color.cornflower_blue)
-        } else{
+        } else {
             this.text = "미참여"
             this.setChipBackgroundColorResource(R.color.arapawa)
         }
@@ -112,11 +117,11 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("checkFundingEnd")
-    fun Chip.setFundingEndButtonType(state : Boolean){
-        if(state){
+    fun Chip.setFundingEndButtonType(state: Boolean) {
+        if (state) {
             this.text = "진행중"
             this.setChipBackgroundColorResource(R.color.heliotrope)
-        } else{
+        } else {
             this.text = "종료"
             this.setChipBackgroundColorResource(R.color.nobel)
         }
@@ -124,7 +129,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setPrice")
-    fun TextView.setFundingPrice(price : Int){
+    fun TextView.setFundingPrice(price: Int) {
         val decimalFormat = DecimalFormat("#,##0")
         val content = "${decimalFormat.format(price)}원 펀딩"
         val builder = SpannableStringBuilder(content)
@@ -198,6 +203,17 @@ object BindingAdapters {
     @BindingAdapter("setItemImage")
     fun ImageView.setItemImage(img: String?) {
         Log.d(TAG, "setItemImage: 글라이드 이미지 : $img")
-        Glide.with(context).load(img).into(this)
+        Glide.with(context)
+            .load(img)
+            .into(this)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setFullSizeImage")
+    fun ImageView.setFullSizeImage(imgSrc : String?){
+        Glide.with(context)
+            .load(imgSrc)
+            .override(Target.SIZE_ORIGINAL)
+            .into(this)
     }
 }
