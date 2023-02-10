@@ -12,18 +12,23 @@ import com.ssafy.fundyou.databinding.ItemListProductBinding
 import com.ssafy.fundyou.ui.home.model.RankingItemModel
 
 class MainRankingItemAdapter : ListAdapter<RankingItemModel, MainRankingItemAdapter.RankingItemHolder>(RankingDiffUtil()){
-
-    class RankingItemHolder(private val binding: ItemListProductBinding) : RecyclerView.ViewHolder(binding.root){
+    private lateinit var clickListener : (Long) -> Unit
+    inner class RankingItemHolder(private val binding: ItemListProductBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: RankingItemModel, position: Int){
             with(binding){
                 rankingItem = item
                 favoriteVisibility = true
                 tvItemListProductRanking.visibility = View.VISIBLE
                 tvItemListProductRanking.text = "${position+1}위"
+                root.setOnClickListener{
+                    clickListener.invoke(item.id)
+                }
             }
         }
     }
-
+    fun addItemClickListener(itemId: (Long) -> Unit){
+        clickListener = itemId
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RankingItemHolder {
         val view = DataBindingUtil.inflate<ItemListProductBinding>(LayoutInflater.from(parent.context), R.layout.item_list_product, parent, false)
@@ -33,6 +38,8 @@ class MainRankingItemAdapter : ListAdapter<RankingItemModel, MainRankingItemAdap
     override fun onBindViewHolder(holder: RankingItemHolder, position: Int) {
         holder.bind(getItem(position), position)
     }
+
+
 
     class RankingDiffUtil : DiffUtil.ItemCallback<RankingItemModel>() {
         override fun areItemsTheSame(
