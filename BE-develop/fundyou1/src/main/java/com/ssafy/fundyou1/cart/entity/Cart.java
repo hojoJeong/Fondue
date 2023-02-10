@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.cart.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
@@ -25,9 +26,9 @@ public class Cart {
     private Member member; // FK
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "item_id")
-    private Item item; // FK
+    private Item item; // FK0
 
     @Column(name = "count")
     private int count;

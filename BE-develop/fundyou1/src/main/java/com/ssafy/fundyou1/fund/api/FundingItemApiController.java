@@ -5,6 +5,7 @@ import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemDto;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
+import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.service.FundingItemService;
 import com.ssafy.fundyou1.fund.service.FundingService;
 import com.ssafy.fundyou1.global.dto.BaseResponseBody;
@@ -28,6 +29,8 @@ import java.util.List;
 @Api(tags = {"펀딩 아이템"})
 public class FundingItemApiController {
     @Autowired
+    private FundingItemRepository fundingItemRepository;
+    @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
@@ -40,14 +43,23 @@ public class FundingItemApiController {
     // 펀딩 참여(돈 보내기)
     @ApiOperation(value = "펀딩 참여(돈 보내기)", notes = "참여한 펀딩 아이템 정보")
     @PostMapping("/attend")
-    public ResponseEntity attendFunding(@RequestBody AttendFundingDto attendFundingDto){
+    public ResponseEntity attendFunding(@RequestBody AttendFundingDto attendFundingDto) {
+
+        FundingItem fundingItem = fundingItemRepository.findByFundingItemId(attendFundingDto.getFundingItemId());
+        int restFundingPrice = fundingItem.getItemTotalPrice() - fundingItem.getCurrentFundingPrice();
 
         int holdMoney = memberService.getMyInfo().getPoint();
-        if (holdMoney < attendFundingDto.getPoint()){
+
+
+        if (holdMoney < attendFundingDto.getPoint()) {
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "잔액이 부족합니다.", null));
-        } else{
+        } else if (restFundingPrice < attendFundingDto.getPoint()) {
+            // 남은 펀딩 금액 보다 큰 금액을 펀딩하려는 경우
+            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "가능한 펀딩 금액을 초과했습니다.", null));
+        } else {
             return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.attendFunding(attendFundingDto));
         }
+
     }
 
 
