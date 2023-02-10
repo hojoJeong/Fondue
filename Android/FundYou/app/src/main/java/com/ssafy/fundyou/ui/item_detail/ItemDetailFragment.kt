@@ -37,6 +37,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
     private val itemDetailViewModel by viewModels<ItemDetailViewModel>()
     private val itemArgument by navArgs<ItemDetailFragmentArgs>()
+    private lateinit var dialog : ItemAddBottomSheetFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -64,12 +65,12 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private fun addItemInWishList() {
         binding.btnAddCart.setOnClickListener {
             // 바텀 슬라이드
-            ItemAddBottomSheetFragment { count, itemId ->
+            dialog = ItemAddBottomSheetFragment { count, itemId ->
                 itemDetailViewModel.addWishList(count, itemId)
             }.apply {
                 setItemInfo(binding.productInfo?.id?.toInt()!!, binding.productInfo?.price!!)
-            }.show(childFragmentManager, tag)
-
+            }
+            dialog.show(childFragmentManager, tag)
         }
     }
 
@@ -98,10 +99,11 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
                 }
                 is ViewState.Success -> {
+                    dialog.dismiss()
                     requireContext().showToast("선물이 추가되었습니다.")
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initAddWishListObserve: {${response.message}}")
+                    dialog.dismiss()
                     requireContext().showToast("선물을 추가하지 못했습니다.")
                 }
             }

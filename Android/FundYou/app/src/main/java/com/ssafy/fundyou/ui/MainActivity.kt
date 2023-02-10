@@ -79,6 +79,7 @@ class MainActivity : AppCompatActivity() {
     private fun setToolbarType(type: ToolbarType, title: String = "") {
         toolbarClear()
         setToolbarTitle(title)
+        binding.lyToolbar.root.visibility = View.VISIBLE
         when (type) {
             ToolbarType.LOGO_WISH -> {
                 setToolbarLeft(ToolbarLeftImg.LOGO)
@@ -129,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             ToolbarRightImg.CANCEL -> {
-                with(binding.lyToolbar.ivLeftImg) {
+                with(binding.lyToolbar.ivRightImg) {
                     setImageResource(R.drawable.ic_cancel)
                     setOnClickListener {
                         navController.popBackStack()

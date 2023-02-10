@@ -3,14 +3,15 @@ package com.ssafy.fundyou.ui.wishlist.model
 import com.ssafy.fundyou.domain.model.wishlist.WishListDomainModel
 
 data class WishListModel(
-    val count: String,
+    val count: Int,
     val image: String,
     val isAr: Boolean,
     val isFavorite: Boolean,
-    val itemId: String,
-    val memberId: String,
+    val itemId: Long,
+    val memberId: Long,
     val price: Int,
-    val title: String
+    val title: String,
+    val brand: String
 )
 
 fun WishListDomainModel.toUiModel() = WishListModel(
@@ -21,5 +22,6 @@ fun WishListDomainModel.toUiModel() = WishListModel(
     itemId = this.itemId,
     memberId = this.memberId,
     price = this.price,
-    title = this.title
+    title = this.title,
+    brand = this.brand
 )

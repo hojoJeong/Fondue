@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -18,27 +20,29 @@
             type="com.ssafy.fundyou.ui.like.LikeItemModel" />
 
         <variable
+            name="wishlist_item"
+            type="com.ssafy.fundyou.ui.wishlist.model.WishListModel" />
+
+        <variable
             name="favorite_visibility"
             type="Boolean" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="10dp">
 
         <ImageView
             android:id="@+id/iv_item_list_product"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
             android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
             android:padding="4dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setItemImage="@{product.img ?? ranking_item.img ?? favorite_item.img}" />
+            app:setItemImage="@{product.img != null ? product.img : (ranking_item.img != null ? ranking_item.img : (favorite_item.img != null ? favorite_item.img : wishlist_item.image))}" />
 
         <ImageView
             android:id="@+id/iv_item_list_product_favorite"
@@ -47,14 +51,14 @@
             android:layout_margin="6dp"
             android:scaleType="centerInside"
             android:visibility="@{favorite_visibility ? View.VISIBLE : View.GONE, default = visible}"
-            app:favoriteImage="@{product.title != null ? product.favorite : ranking_item.favorite}"
+            app:favoriteImage="@{product.title != null ? product.favorite : (ranking_item.title != null ? ranking_item.favorite : wishlist_item.favorite)}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product"
             tools:src="@drawable/ic_favorite" />
 
         <TextView
             android:id="@+id/tv_item_list_product_ranking"
-            style="@style/base_font_bold_16_black"
+            style="@style/base_font_bold_14_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
@@ -66,39 +70,45 @@
 
         <TextView
             android:id="@+id/tv_item_list_product_brand"
-            style="@style/base_font_medium"
-            android:layout_width="wrap_content"
+            style="@style/base_font_medium_12"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="6dp"
-            android:text="@{product.brand ?? ranking_item.brand ?? favorite_item.brand}"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{product.brand != null ? product.brand : (ranking_item.brand != null ? ranking_item.brand  : (favorite_item.brand != null ? favorite_item.brand : wishlist_item.brand))}"
             android:textColor="@color/link_water"
+            app:layout_constraintEnd_toStartOf="@+id/btn_item_list_cancel"
             app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
             tools:text="삼성" />
 
         <TextView
             android:id="@+id/tv_item_list_product_name"
-            style="@style/base_font_medium_16_black"
+            style="@style/base_font_medium_14_black"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item_between_tv"
-            android:gravity="start"
-            android:text="@{product.title ?? ranking_item.title ?? favorite_item.title}"
+            android:layout_marginEnd="10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{product.title != null ? product.title : (ranking_item.title != null ? ranking_item.title : (favorite_item.title != null ? favorite_item.title : wishlist_item.title))}"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_item_list_cancel"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
             tools:text="상품 이름" />
 
         <TextView
             android:id="@+id/tv_item_list_product_price"
-            style="@style/base_font_bold_16_black"
+            style="@style/base_font_bold_14_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item_between_tv"
             android:textColor="@color/black"
-            app:addCommaText="@{product.title != null ? product.price  : (ranking_item.title != null ? ranking_item.price : favorite_item.price)}"
+            app:addCommaText="@{product.title != null ? product.price  : (ranking_item.title != null ? ranking_item.price : (favorite_item.title != null ? favorite_item.price : wishlist_item.price))}"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
             tools:text="2,890,000원" />
@@ -111,14 +121,14 @@
             android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
             android:text="@string/title_AR_btn"
             android:textColor="@color/franch_rose"
-            app:arVisibility="@{product.title != null ? product.ar : (ranking_item.title != null ? ranking_item.ar : favorite_item.ar)}"
+            app:arVisibility="@{product.title != null ? product.ar : (ranking_item.title != null ? ranking_item.ar : (favorite_item.title != null ? favorite_item.ar : wishlist_item.ar))}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_item_list_cancel"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="11dp"
+            android:layout_height="12dp"
             android:background="@drawable/ic_cancel"
             android:visibility="@{favorite_visibility ? View.GONE : View.VISIBLE, default=visible}"
             app:layout_constraintEnd_toEndOf="parent"

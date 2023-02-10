@@ -32,8 +32,8 @@ public class Funding {
     @JsonIgnore
     private Member member; // FK
 
-//    @Column(name = "start_date")
-//    private Long startDate; // due : 펀딩 시작 날짜
+    @Column(name = "start_date")
+    private Long startDate; // due : 펀딩 시작 날짜
 
     @Column(name = "end_date")
     private Long endDate; // due : 펀딩 마감 날짜
@@ -49,19 +49,19 @@ public class Funding {
 
 
     @Builder
-    public Funding(Long id, Member member, Long endDate) {
+    public Funding(Long id, Member member, Long startDate, Long endDate) {
         this.id = id;
         this.member = member;
-//        this.startDate = startDate;
+        this.startDate = startDate;
         this.endDate = endDate;
         this.fundingStatus = true;
     }
 
 
-    public static Funding createFunding(Member member, Long endDate){
+    public static Funding createFunding(Member member, Long startDate, Long endDate){
         Funding funding = new Funding();
         funding.member = member;
-//        funding.startDate = startDate;
+        funding.startDate = startDate;
         funding.endDate = endDate;
         funding.fundingStatus = true;
 

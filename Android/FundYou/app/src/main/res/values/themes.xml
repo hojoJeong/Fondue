@@ -218,9 +218,9 @@
 
     <!-- Callendar -->
     <style name="custom_calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">@color/pig_pink</item>
-        <item name="colorOnPrimary">@color/razzmatazz</item>
-        <item name="colorContainer">@color/pig_pink</item>
+        <item name="colorPrimary">@color/link_water</item>
+        <item name="colorOnPrimary">@color/midnight_express</item>
+        <item name="colorContainer">@color/link_water</item>
         <!-- 상단 컨테이너 색상 -->
     </style>
 </resources>

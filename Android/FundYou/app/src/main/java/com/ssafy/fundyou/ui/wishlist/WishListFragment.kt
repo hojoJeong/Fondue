@@ -1,50 +1,119 @@
 package com.ssafy.fundyou.ui.wishlist
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
+import androidx.fragment.app.activityViewModels
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
 import com.skydoves.balloon.showAlignTop
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentWishListBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.wishlist.model.WishListModel
+import com.ssafy.fundyou.util.addComma
 import java.text.SimpleDateFormat
+import java.util.*
 
 class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment_wish_list) {
-    private val wishLIstItemList = mutableListOf<ProductItemModel>()
+
     private lateinit var calendar: MaterialDatePicker<Pair<Long, Long>>
+    private val wishListViewModel by activityViewModels<WishListViewModel>()
+    private val wishListAdapter = WishListAdapter().apply {
+        deleteItemBtnClickListener { id ->
+            wishListViewModel.deleteWishListItem(id)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
 
     override fun initView() {
         binding.btnWishlistStartFunding.showAlignTop(makeBalloon())
-        initWishListItem()
-        startFundingBtnListener()
-        cancelBtnListener()
-        initCalendar()
-        setFundingPeriod()
+        wishListViewModel.getWishListItemList()
     }
 
     override fun initViewModels() {
+        wishListItemObserve()
+        initWishListItemDeleteResultObserve()
     }
 
-    private fun initWishListItem() {
-//        val rvWishList = binding.rvWishlistItem
-//        val wishListItemAdapter = ProductItemAdapter()
-//        with(wishListItemAdapter) {
-//            setFavoriteVisibility(false)
-//            checkNeedRanking(false)
-//            submitList(wishLIstItemList)
-//            rvWishList.layoutManager =
-//                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-//            rvWishList.adapter = wishListItemAdapter
-//        }
+
+    private fun wishListItemObserve() {
+        wishListViewModel.wishListItem.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    binding.lyEmptyWishList.root.visibility = View.GONE
+                    binding.btnWishlistStartFunding.visibility = View.GONE
+                    binding.scvWishlist.visibility = View.GONE
+                }
+                is ViewState.Success -> {
+                    if (response.value?.isNotEmpty() == true) {
+                        binding.scvWishlist.visibility = View.VISIBLE
+                        binding.btnWishlistStartFunding.visibility = View.VISIBLE
+
+                        initWishListInfo(response.value!!)
+                        startFundingBtnListener()
+                        initCalendar()
+                        setFundingPeriod()
+                    } else binding.lyEmptyWishList.root.visibility = View.VISIBLE
+                    Log.d(TAG, "wishListItemObserve: WishList Item Loading Success ${response.value}")
+                }
+                is ViewState.Error -> {
+                    Log.d(
+                        TAG,
+                        "wishListItemObserve: WishList Item Loading Error... ${response.message}"
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initWishListItemDeleteResultObserve() {
+        wishListViewModel.resultWishList.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(
+                        TAG,
+                        "initWishListItemChangeResultObserve: WishList Item Delete Loading..."
+                    )
+                }
+                is ViewState.Success -> {
+                    wishListViewModel.getWishListItemList()
+                }
+                is ViewState.Error -> {
+                    Log.d(
+                        TAG,
+                        "initWishListItemChangeResultObserve: WishList Item Delete Error...${response.message}"
+                    )
+                }
+            }
+        }
+    }
+
+    private fun initWishListInfo(itemList: List<WishListModel>) {
+        binding.rvWishlistItem.adapter = wishListAdapter
+        wishListAdapter.submitList(itemList)
+
+        var totalCount = 0
+        var totalPrice = 0
+
+        itemList.forEach { data ->
+            totalCount += data.count
+            totalPrice += data.price * data.count
+        }
+        with(binding) {
+            tvWishlistInfoPrice.text = "${addComma(totalPrice)}원"
+            tvWishlistItemCount.text = "${totalCount}개"
+        }
     }
 
     private fun makeBalloon(): Balloon {
@@ -71,6 +140,8 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     }
 
     private fun initCalendar() {
+        binding.tvWishlistFundingPeriod.text = "날짜를 지정해주세요"
+
         calendar = MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText(R.string.title_wishlist_callendar)
             .setPositiveButtonText("확인")
@@ -83,6 +154,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
             )
             .setTheme(R.style.custom_calendar)
             .build()
+
         binding.btnWishlistFundingPeriod.setOnClickListener {
             calendar.show(parentFragmentManager, "펀딩 기간 설정")
         }
@@ -93,7 +165,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
             val startPick = calendar.selection?.first
             val endPick = calendar.selection?.second
 
-            val dateFormat = SimpleDateFormat("yyyy.MM.dd")
+            val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA)
             val startDay = dateFormat.format(startPick)
             val endDay = dateFormat.format(endPick)
 
@@ -102,15 +174,11 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         }
     }
 
+
     private fun startFundingBtnListener() {
         binding.btnWishlistStartFunding.setOnClickListener {
             navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment())
         }
     }
 
-    private fun cancelBtnListener() {
-        binding.btnWishlistCancel.setOnClickListener {
-            popBackStack()
-        }
-    }
 }
