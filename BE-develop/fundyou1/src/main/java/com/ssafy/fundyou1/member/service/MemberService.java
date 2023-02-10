@@ -32,4 +32,8 @@ public class MemberService {
     public Integer chargePoint(Long point) {
         return memberRepository.chargePoint(point, SecurityUtil.getCurrentMemberId());
     }
+
+    public Integer withdrawMembership() {
+        return memberRepository.withdrawMembership(SecurityUtil.getCurrentMemberId(), System.currentTimeMillis());
+    }
 }
