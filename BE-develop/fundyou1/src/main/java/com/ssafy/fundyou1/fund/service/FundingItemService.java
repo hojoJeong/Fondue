@@ -8,6 +8,7 @@ import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -42,8 +44,7 @@ public class FundingItemService {
     @Transactional
     public FundingItemDto attendFunding(AttendFundingDto attendFundingDto) {
         // 사용자 정보
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
+        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회;
 
         // 펀딩하려는 상품 찾기
         FundingItem fundingItem = fundingItemRepository.getReferenceById(attendFundingDto.getFundingItemId());
@@ -51,7 +52,7 @@ public class FundingItemService {
         fundingItem.getFunding();
 
         // 해당 펀딩에 참여했다는 데이터 기록 (fundingItem_member 테이블)
-        FundingItemMember fundingItemMember = FundingItemMember.builder().fundingItem(fundingItem).member(member).fundingItemPrice(attendFundingDto.getPoint()).message(attendFundingDto.getMessage()).build();
+        FundingItemMember fundingItemMember = FundingItemMember.builder().fundingItem(fundingItem).member(member.get()).fundingItemPrice(attendFundingDto.getPoint()).message(attendFundingDto.getMessage()).build();
         fundingItemMemberRepository.save(fundingItemMember);
 
         // 펀딩 상품에
@@ -68,7 +69,7 @@ public class FundingItemService {
 
 
         // 4. 사용자 point 차감
-        memberRepository.minusPoint(member.getUsername(), attendFundingDto.getPoint());
+        memberRepository.minusPoint(member.get().getId(), attendFundingDto.getPoint());
 
         return getFundingItem(attendFundingDto.getFundingItemId());
 
