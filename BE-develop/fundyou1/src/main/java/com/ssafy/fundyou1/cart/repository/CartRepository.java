@@ -1,7 +1,6 @@
 package com.ssafy.fundyou1.cart.repository;
 
 import com.ssafy.fundyou1.cart.entity.Cart;
-import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,15 +8,12 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
 
     List<Cart> findAllByMember_Id(Long memberId);
-
-    void deleteById(Long id);
 
 
     // 장바구니에 아이템을 찾는다( 아이템 아이디, 회원아이디)
@@ -39,9 +35,10 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     // 장바구니에서 (회원 아이디, 아이템 아이디)로 물건을 삭제한다.
     @Modifying
-    @Query(value="DELETE FROM cart c " +
-            "WHERE c.member_id = :memberId " +
-            "AND c.item_id = :id" ,nativeQuery = true)
-    void deleteCartItem(@Param("memberId") Long memberId,@Param("id") Long id);
+    @Query(value="DELETE " +
+            "FROM cart " +
+            "WHERE member_id = :memberId " +
+            "AND item_id = :itemId" ,nativeQuery = true)
+    Integer deleteCartItem(@Param("memberId") Long memberId,@Param("itemId") Long itemId);
 
 }
