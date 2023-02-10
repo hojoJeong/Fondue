@@ -55,17 +55,15 @@ public class ItemService {
             Description newDescription  = Description.builder()
                     .item(item) // 위에서 등록한 itemEntity
                     .itemType(description .getItemType())  // 필드 1
-                    .Content(description .getContent())  // 필드 2
+                    .content(description .getContent())  // 필드 2
                     .build();
             descriptionRepository.save(newDescription);
-
         }
         return itemRepository.save(item).getId();
     }
 
 
     // 상품 이름 브랜드 중복 검사
-
     public void checkDuplicateItemTitle(String title, String brand) {
         if (itemRepository.existsByTitleAndBrand(title, brand)) {
             throw new BusinessException(ErrorCode.ITEM_TITLE_BRAND_DUPLICATED);

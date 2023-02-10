@@ -1,6 +1,7 @@
 package com.ssafy.fundyou1.search.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ssafy.fundyou1.item.dto.ItemResponseDto;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.search.dto.SearchKeyWord;
 import com.ssafy.fundyou1.search.entity.Search;
@@ -28,7 +29,7 @@ public class SearchController {
 
     @PostMapping()
     @ApiOperation(value = "상품 검색", notes = "title: 상품명\nminPrice: 최소가격\nmaxPrice: 최대가격")
-    public  ResponseEntity<List<Item>> getItemBySearch(@RequestBody SearchKeyWord searchKeyWord){
+    public  ResponseEntity<List<ItemResponseDto>> getItemBySearch(@RequestBody SearchKeyWord searchKeyWord){
         return ResponseEntity.status(HttpStatus.OK).body(searchService.getItemBySearch(searchKeyWord));
     }
 
