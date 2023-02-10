@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <data>
+
         <import type="android.view.View" />
+
         <variable
             name="product"
             type="com.ssafy.fundyou.ui.item_list.model.ItemListModel" />
+
         <variable
             name="ranking_item"
             type="com.ssafy.fundyou.ui.home.model.RankingItemModel" />
+
         <variable
             name="favorite_item"
             type="com.ssafy.fundyou.ui.like.LikeItemModel" />
+
         <variable
             name="favorite_visibility"
             type="Boolean" />
@@ -30,9 +36,9 @@
             android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
             android:padding="4dp"
             android:scaleType="centerCrop"
-            app:setItemImage="@{product.img ?? ranking_item.img ?? favorite_item.img}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setItemImage="@{product.img ?? ranking_item.img ?? favorite_item.img}" />
 
         <ImageView
             android:id="@+id/iv_item_list_product_favorite"
@@ -40,8 +46,8 @@
             android:layout_height="20dp"
             android:layout_margin="6dp"
             android:scaleType="centerInside"
-            app:favoriteImage="@{product.title != null ? product.favorite : ranking_item.favorite}"
             android:visibility="@{favorite_visibility ? View.VISIBLE : View.GONE, default = visible}"
+            app:favoriteImage="@{product.title != null ? product.favorite : ranking_item.favorite}"
             app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
             app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product"
             tools:src="@drawable/ic_favorite" />
@@ -53,10 +59,10 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:visibility="gone"
-            tools:visibility="visible"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_brand"
             app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
-            tools:text="1위"/>
+            tools:text="1위"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tv_item_list_product_brand"
@@ -74,11 +80,13 @@
         <TextView
             android:id="@+id/tv_item_list_product_name"
             style="@style/base_font_medium_16_black"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item_between_tv"
+            android:gravity="start"
             android:text="@{product.title ?? ranking_item.title ?? favorite_item.title}"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
             tools:text="상품 이름" />

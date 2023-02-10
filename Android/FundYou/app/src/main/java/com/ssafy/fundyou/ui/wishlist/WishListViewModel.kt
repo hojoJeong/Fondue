@@ -9,6 +9,8 @@ import com.ssafy.fundyou.domain.usecase.wishlist.AddWishListItemUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.DeleteWishListItemUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.GetWishListItemListUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.ModifyWishListItemUseCase
+import com.ssafy.fundyou.ui.wishlist.model.WishListModel
+import com.ssafy.fundyou.ui.wishlist.model.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

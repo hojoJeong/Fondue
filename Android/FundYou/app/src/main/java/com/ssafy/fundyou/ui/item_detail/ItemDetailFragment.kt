@@ -4,9 +4,6 @@ import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -21,11 +18,11 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.home.MainViewModel
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailDescriptionInfoAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel
+import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -54,14 +51,29 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
         /** 아이템 랜덤 상품 */
         addKakaoShareButtonEvent()
+
+        addItemInWishList()
     }
 
     override fun initViewModels() {
-        initItemDetailViewModels()
-        initMainViewModels()
+        initItemDetailViewModel()
+        initMainViewModel()
+        initAddWishListObserve()
     }
 
-    private fun initMainViewModels() {
+    private fun addItemInWishList() {
+        binding.btnAddCart.setOnClickListener {
+            // 바텀 슬라이드
+            ItemAddBottomSheetFragment { count, itemId ->
+                itemDetailViewModel.addWishList(count, itemId)
+            }.apply {
+                setItemInfo(binding.productInfo?.id?.toInt()!!, binding.productInfo?.price!!)
+            }.show(childFragmentManager, tag)
+
+        }
+    }
+
+    private fun initMainViewModel() {
         itemDetailViewModel.relatedItemList.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
@@ -79,7 +91,24 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         }
     }
 
-    private fun initItemDetailViewModels() {
+    private fun initAddWishListObserve() {
+        itemDetailViewModel.addWishListStatus.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    requireContext().showToast("선물이 추가되었습니다.")
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initAddWishListObserve: {${response.message}}")
+                    requireContext().showToast("선물을 추가하지 못했습니다.")
+                }
+            }
+        }
+    }
+
+    private fun initItemDetailViewModel() {
         itemDetailViewModel.itemDetailInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {

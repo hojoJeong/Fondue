@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.wishlist
+package com.ssafy.fundyou.ui.wishlist.model
 
 import com.ssafy.fundyou.domain.model.wishlist.WishListDomainModel
 

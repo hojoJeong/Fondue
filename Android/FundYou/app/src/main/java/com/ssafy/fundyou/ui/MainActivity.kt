@@ -63,6 +63,10 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.NO)
                     setBottomNavigationVisibility(View.GONE)
                 }
+                R.id.wishListFragment -> {
+                    setToolbarType(ToolbarType.TEXT_CANCEL, "위시리스트")
+                    setBottomNavigationVisibility(View.GONE)
+                }
             }
         }
         binding.bnvMain.setupWithNavController(navController)
@@ -135,8 +139,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toolbarClear(){
-        with(binding.lyToolbar){
+    private fun toolbarClear() {
+        with(binding.lyToolbar) {
             ivLeftImg.setImageResource(0)
             tvTitle.text = ""
             ivRightImg.setImageResource(0)
