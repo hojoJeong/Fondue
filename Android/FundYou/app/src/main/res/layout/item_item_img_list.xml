@@ -19,7 +19,6 @@
             android:layout_height="match_parent"
             android:scaleType="fitCenter"
             app:setItemImage="@{itemImg}"
-            android:src="@drawable/ic_back_arrow_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

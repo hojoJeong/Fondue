@@ -13,4 +13,5 @@ internal interface ItemRemoteDataSource {
     suspend fun getCategoryItemList(categoryId: Int): List<ItemResponseDto>
     suspend fun getKeywordItemList(request: ItemSearchRequestDto): List<ItemResponseDto>
     suspend fun getItemByPrice(categoryId: Int, minPrice: Int, maxPrice: Int) : List<ItemResponseDto>
+    suspend fun getItemDetailInfo(itemId : Long) : ItemResponseDto
 }

@@ -56,7 +56,7 @@
         android:label="ItemDetailFragment">
         <argument
             android:name="itemId"
-            app:argType="integer"
+            app:argType="long"
             app:nullable="false" />
         <action
             android:id="@+id/action_itemDetailFragment_self2"
