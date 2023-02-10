@@ -22,7 +22,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     // 장바구니에 아이템을 찾는다( 아이템 아이디, 회원아이디)
     @Query(value="Select * " +
-            "From Cart c " +
+            "From cart c " +
             "WHERE c.item_id = :id " +
             "AND c.member_id = :memberId", nativeQuery = true)
     Cart findCartItem( @Param("id") Long id,@Param("memberId") Long memberId);
@@ -30,7 +30,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     // 장바구니에서 아이템 개수를 추가 업데이트 한다.(숫자, 아이템아이디, 멤버아이디)
     @Modifying
-    @Query(value="UPDATE Cart c " +
+    @Query(value="UPDATE cart c " +
             "SET c.count = c.count + :count " +
             "WHERE c.item_id = :id " +
             "AND c.member_id = :memberId", nativeQuery = true)
@@ -39,7 +39,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
 
     // 장바구니에서 (회원 아이디, 아이템 아이디)로 물건을 삭제한다.
     @Modifying
-    @Query(value="DELETE FROM Cart c " +
+    @Query(value="DELETE FROM cart c " +
             "WHERE c.member_id = :memberId " +
             "AND c.item_id = :id" ,nativeQuery = true)
     void deleteCartItem(@Param("memberId") Long memberId,@Param("id") Long id);
