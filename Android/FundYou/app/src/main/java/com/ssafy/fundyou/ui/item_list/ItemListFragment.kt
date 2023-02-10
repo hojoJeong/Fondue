@@ -109,7 +109,11 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                     Log.d(TAG, "initItemList: ItemList Loading...")
                 }
                 is ViewState.Success -> {
-                    initItemListAdapter(response.value ?: emptyList())
+                    binding.lyItemListNoContent.root.visibility = View.GONE
+                    initItemListAdapter(response.value?: emptyList())
+                    if(response.value!!.isEmpty()){
+                        binding.lyItemListNoContent.root.visibility = View.VISIBLE
+                    }
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initItemList: ItemList Loading Error...${response.message}")
