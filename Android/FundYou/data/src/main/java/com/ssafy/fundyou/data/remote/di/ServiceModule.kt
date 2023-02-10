@@ -1,9 +1,6 @@
 package com.ssafy.fundyou.data.remote.di
 
-import com.ssafy.fundyou.data.remote.service.AuthApiService
-import com.ssafy.fundyou.data.remote.service.ItemApiService
-import com.ssafy.fundyou.data.remote.service.SearchApiService
-import com.ssafy.fundyou.data.remote.service.UserApiService
+import com.ssafy.fundyou.data.remote.service.*
 import com.ssafy.fundyou.data.util.AuthInterceptorClient
 import com.ssafy.fundyou.data.util.NoAuthInterceptorClient
 import dagger.Module
@@ -39,5 +36,9 @@ internal object ServiceModule {
     @Provides
     @Singleton
     fun provideUserApiService(@AuthInterceptorClient retrofit: Retrofit): UserApiService = retrofit.create(UserApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideWishListApiService(@AuthInterceptorClient retrofit: Retrofit): WishListApiService = retrofit.create(WishListApiService::class.java)
 
 }

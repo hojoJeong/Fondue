@@ -21,6 +21,7 @@
             android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
             android:paddingVertical="4dp"
             android:scaleType="centerCrop"
+            app:setItemImage="@{product.img}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

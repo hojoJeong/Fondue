@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.favorite
+package com.ssafy.fundyou.ui.like
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,10 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemListProductBinding
 
-class FavoriteItemListAdapter : ListAdapter<FavoriteItemModel, FavoriteItemListAdapter.FavoriteItemHolder>(FavoriteDiffUtil()){
-
+class LikeItemListAdapter : ListAdapter<LikeItemModel, LikeItemListAdapter.FavoriteItemHolder>(FavoriteDiffUtil()){
     class FavoriteItemHolder(private val binding: ItemListProductBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item: FavoriteItemModel){
+        fun bind(item: LikeItemModel){
             with(binding){
                 favoriteItem = item
                 favoriteVisibility = false
@@ -30,17 +29,17 @@ class FavoriteItemListAdapter : ListAdapter<FavoriteItemModel, FavoriteItemListA
     }
 
 
-    class FavoriteDiffUtil : DiffUtil.ItemCallback<FavoriteItemModel>() {
+    class FavoriteDiffUtil : DiffUtil.ItemCallback<LikeItemModel>() {
         override fun areItemsTheSame(
-            oldItem: FavoriteItemModel,
-            newItem: FavoriteItemModel
+            oldItem: LikeItemModel,
+            newItem: LikeItemModel
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: FavoriteItemModel,
-            newItem: FavoriteItemModel
+            oldItem: LikeItemModel,
+            newItem: LikeItemModel
         ): Boolean {
             return oldItem == newItem
         }
