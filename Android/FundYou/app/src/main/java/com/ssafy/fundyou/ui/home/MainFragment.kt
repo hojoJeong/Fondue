@@ -280,6 +280,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private fun initRankingItemAdapter(rankingItemList: List<RankingItemModel>) {
         val rankingItemAdapter = MainRankingItemAdapter()
         rankingItemAdapter.submitList(rankingItemList)
+        rankingItemAdapter.addItemClickListener { id ->
+            navigate(MainFragmentDirections.actionMainFragmentToItemDetailFragment(id))
+        }
         with(binding.rvMainRank) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
