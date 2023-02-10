@@ -1,23 +1,19 @@
 package com.ssafy.fundyou1.cart.repository;
 
 import com.ssafy.fundyou1.cart.entity.Cart;
-import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, Long> {
 
-
     List<Cart> findAllByMember_Id(Long memberId);
-
-    void deleteById(Long id);
 
 
     // 장바구니에 아이템을 찾는다( 아이템 아이디, 회원아이디)
