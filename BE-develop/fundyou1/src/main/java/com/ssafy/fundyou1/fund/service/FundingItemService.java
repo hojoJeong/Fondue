@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.fund.service;
 
+import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemDto;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
@@ -25,13 +26,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FundingItemService {
     @Autowired
-    private FundingItemMemberRepository fundingItemMemberRepository;
+    FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
-    private FundingItemRepository fundingItemRepository;
+    FundingItemRepository fundingItemRepository;
     @Autowired
-    private MemberService memberService;
+    MemberService memberService;
     @Autowired
-    private MemberRepository memberRepository;
+    MemberRepository memberRepository;
+
+    @Autowired
+    FirebaseCloudMessageService firebaseCloudMessageService;
 
 
     // 펀딩 참여(돈 보내기)

@@ -48,7 +48,7 @@ public class FirebaseCloudMessageService {
         Request request = new Request.Builder()
                 .url(API_URL)
                 .post(requestBody)
-                .addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + firebaseToken.get().getToken())
+                .addHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getAccessToken())
                 .addHeader(HttpHeaders.CONTENT_TYPE, "application/json; UTF-8")
                 .build();
 
@@ -60,7 +60,6 @@ public class FirebaseCloudMessageService {
 
     // 알림 메세지 만드는 로직
     public String makeMessage(String targetToken, String title, String body) throws JsonParseException, JsonProcessingException {
-
         FcmMessage fcmMessage = FcmMessage.builder()
                 .message(FcmMessage.Message.builder()
                         .token(targetToken)
@@ -70,13 +69,11 @@ public class FirebaseCloudMessageService {
                                 .image(null)
                                 .build()
                         ).build()).validateOnly(false).build();
-
         return objectMapper.writeValueAsString(fcmMessage);
     }
 
-    // 파이어 베이스 토큰 얻는곳
+    // 파이어 베이스 서버 토큰 얻는곳
     public String getAccessToken() throws IOException {
-
         GoogleCredentials googleCredentials = GoogleCredentials
                 .fromStream(new ClassPathResource(googleApplicationCredentials).getInputStream())
                 .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
@@ -101,7 +98,7 @@ public class FirebaseCloudMessageService {
                     .build();
             firebaseRepository.save(newFirebase);
         }
-        Long memberId =  SecurityUtil.getCurrentMemberId();
+        Long memberId = SecurityUtil.getCurrentMemberId();
         return memberId;
     }
 
