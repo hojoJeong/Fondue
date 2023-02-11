@@ -4,6 +4,7 @@ import com.ssafy.fundyou1.cart.dto.CartItemResponseDto;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.item.dto.ItemDto;
+import com.ssafy.fundyou1.item.dto.ItemResponseDto;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.item.repository.ItemRepository;
 import com.ssafy.fundyou1.item.service.ItemService;
@@ -63,22 +64,22 @@ public class LikeService {
     //사용자 찜 목록 리스트
 
     @Transactional(readOnly = true)
-    public List<LikeItemResponseDto> findLikeByMemberId(Long memberId) {
+    public List<ItemResponseDto> findLikeByMemberId(Long memberId) {
         List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
 
         List<Item> findAllItems = itemRepository.findAll();
 
         if ( findLikeItems.size() != 0) {
-            List<LikeItemResponseDto> likeItemResponse = new ArrayList<>();
+            List<ItemResponseDto> likeItemResponse = new ArrayList<>();
             for (Like like : findLikeItems) {
                 Long likeItemId  = like.getItem_id();
                 Optional<Item> likeItem = itemRepository.findById(likeItemId);
                 Item likeItemOne = likeItem.get();
-                likeItemResponse.add(new LikeItemResponseDto( like.getMember(), true, likeItemOne));
+                likeItemResponse.add(new ItemResponseDto(likeItemOne, true));
             }
             return likeItemResponse;
         }
-        return null;
+        return new ArrayList();
     }
 
     // 사용자 찜 목록 리스트 - 조인 컬럼 해제
@@ -91,11 +92,9 @@ public class LikeService {
 
     // 사용자의 찜목록 아이템 삭제
     @Transactional
-    public List<LikeItemResponseDto> deleteByLikeItemId(Long id) {
+    public Integer deleteByLikeItemId(Long id) {
         Long memberId = SecurityUtil.getCurrentMemberId();
-        likeRepository.deleteLikeItem(memberId, id);
-        List<LikeItemResponseDto> likeItemResponse= findLikeByMemberId(memberId);
-        return likeItemResponse;
+        return likeRepository.deleteLikeItem(memberId, id);
     }
 
 }

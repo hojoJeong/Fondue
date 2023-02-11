@@ -78,7 +78,7 @@ public class FundingItemApiController {
     // 특정 펀딩의 펀딩 아이템 리스트 (초대장으로 들어올 경우, 펀딩 통계 화면)
     @ApiOperation(value = "특정 펀딩의 아이템 리스트", notes = "펀딩 아이템 정보 리스트")
     @PostMapping("/list")
-    public ResponseEntity<List<FundingItem>> getInvitedFundingItemList(@RequestBody FundingIdDto fundingIdDto){
+    public ResponseEntity<List<FundingItemDto>> getInvitedFundingItemList(@RequestBody FundingIdDto fundingIdDto){
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getInvitedFundingItemList(fundingIdDto.getFunding_id()));
     }
 

@@ -5,14 +5,18 @@ import com.ssafy.fundyou1.auth.domain.KakaoSocialLoginResponse;
 import com.ssafy.fundyou1.auth.service.AuthService;
 import com.ssafy.fundyou1.global.dto.TokenDto;
 import com.ssafy.fundyou1.global.dto.TokenRequestDto;
+import com.ssafy.fundyou1.global.exception.BusinessException;
+import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.member.dto.request.MemberLoginRequestDto;
 import com.ssafy.fundyou1.member.dto.request.MemberRequestDto;
+import com.ssafy.fundyou1.member.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,6 +33,8 @@ public class AuthRestController {
     @Autowired
     AuthService authService;
 
+    @Autowired
+    MemberService memberService;
     // 일반 로그인 - 현재 클라이언트에는 카카오 로그인만 존재
     @PostMapping("/login")
     @ApiOperation(value = "일반 로그인", notes = "일반 로그인 API")
@@ -61,6 +67,10 @@ public class AuthRestController {
                 .password("fundyou" + rEntity.getId())
                 .mail(rEntity.getKakao_account().email)
                 .build());
+        if(memberService.findByLoginId(String.valueOf(rEntity.getId())).get().isStatus() == false){
+            throw new BusinessException(ErrorCode.valueOf("탈퇴된 계정입니다."));
+        }
+
         //로그인 하고 토큰 발급받기
         MemberLoginRequestDto memberLoginRequestDto = MemberLoginRequestDto.builder()
                         .loginId(kakaoId)

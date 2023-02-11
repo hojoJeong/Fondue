@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.fund.service;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.fund.dto.FundingDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemDto;
 import com.ssafy.fundyou1.fund.dto.FundingResultMemberDto;
 import com.ssafy.fundyou1.fund.dto.MyFundingDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
@@ -146,7 +147,15 @@ public class FundingService {
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
 
-            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
+
+            for(FundingItem fundingItem : fundingItemList){
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+
+                fundingItemDtoList.add(fundingItemDto);
+            }
+
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
 
             myOngoingFundingListDto.add(myFundingDto);
         }
@@ -166,24 +175,27 @@ public class FundingService {
         List<MyFundingDto> myClosedFundingListDto  = new ArrayList<>();
 
         for(Funding myClosedFunding : myClosedFundingList ){
-            // 해당 펀딩에 펀딩된 상품이 없는 경우 null 값을 반환해서 오류
-
             int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(myClosedFunding.getId());
 
             int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(myClosedFunding.getId());
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myClosedFunding.getId());
 
+            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
 
-            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+            for(FundingItem fundingItem : fundingItemList){
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+
+                fundingItemDtoList.add(fundingItemDto);
+            }
+
+            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
 
             myClosedFundingListDto.add(myFundingDto);
         }
 
         return myClosedFundingListDto;
     }
-
-
 
 
     // 내 펀딩 중 특정 펀팅 선택
