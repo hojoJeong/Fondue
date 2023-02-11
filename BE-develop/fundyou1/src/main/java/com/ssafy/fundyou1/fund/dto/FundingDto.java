@@ -15,6 +15,8 @@ import java.util.List;
 public class FundingDto {
 
     private Long id;
+    private String fundingName;
+    private Long startDate;
     private Long endDate;
     private boolean fundingStatus;
     // 총가격
@@ -25,6 +27,8 @@ public class FundingDto {
 
     public FundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage) {
         this.id = funding.getId();
+        this.fundingName = funding.getFundingName();
+        this.startDate = funding.getStartDate();
         this.endDate = funding.getEndDate();
         this.fundingStatus = funding.isFundingStatus();
         this.totalPrice = totalPrice;

@@ -48,14 +48,14 @@ public class FundingService {
 
     // 펀딩 개설
     @Transactional
-    public Long createFunding(Long endDate) {
+    public Long createFunding(String fundingName, Long endDate) {
         // 사용자 정보
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
         // 펀딩 개설
         Long startDate = System.currentTimeMillis();
 
-        Funding createdFunding = Funding.createFunding(member.get(), startDate, endDate);
+        Funding createdFunding = Funding.createFunding(fundingName, member.get(), startDate, endDate);
 
         // 새펀딩 저장 및 아이디 값 리턴
         Funding savedFunding = fundingRepository.save(createdFunding);
