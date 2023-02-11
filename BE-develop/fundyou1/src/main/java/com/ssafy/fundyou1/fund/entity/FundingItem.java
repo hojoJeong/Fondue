@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.ssafy.fundyou1.item.entity.Item;
+import io.swagger.models.auth.In;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -43,8 +44,7 @@ public class FundingItem {
 
     private boolean fundingItemStatus;
 
-    // 참여자 수--------------------------------------
-    // 펀딩 참여자 DB 갯수 카운트 - @Query문 쓰면 되려나 or 펀딩 참여할 때 +1
+    // 참여자 수
     private int participantsCount;
 
     public static FundingItem createFundingItem(Funding funding, Item item, int count){
@@ -58,12 +58,6 @@ public class FundingItem {
         fundingItem.setParticipantsCount(0);
 
         return fundingItem;
-    }
-
-
-    // 펀딩 아이템 펀딩 종료
-    public void changeFundingStatus(){
-        this.fundingItemStatus = false;
     }
 
 

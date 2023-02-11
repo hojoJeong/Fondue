@@ -2,10 +2,8 @@ package com.ssafy.fundyou1.fund.dto;
 
 import lombok.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@ToString
+
+@Data
 public class InvitedMemberDto {
     public Long fundingId;
 }

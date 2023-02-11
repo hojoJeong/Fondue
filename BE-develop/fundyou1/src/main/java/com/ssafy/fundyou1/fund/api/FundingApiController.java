@@ -40,10 +40,10 @@ public class FundingApiController {
     @ApiOperation(value = "펀딩 시작", notes = "시작된 펀딩의 아이디 값 반환")
     @PostMapping("/create")
     @ResponseBody
-    public Long createFunding(@RequestBody Long endDate) {
+    public Long createFunding(@RequestBody StartFundingDto startFundingDto) {
 
         // 펀딩 만들기
-        Long createdFundingId = fundingService.createFunding(endDate);
+        Long createdFundingId = fundingService.createFunding(startFundingDto.getEndDate());
 
         // 새 펀딩 아이디 리턴
         return createdFundingId;
@@ -68,8 +68,8 @@ public class FundingApiController {
     // 펀딩 한개 정보 (내펀딩 상세보기 상단 부분)
     @ApiOperation(value = "펀딩 한개 정보", notes = "해당 펀딩에 대한 값 반환")
     @PostMapping()
-    public ResponseEntity<FundingDto> getFundingInfo(@RequestBody Long FundingId) {
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getFundingInfo(FundingId));
+    public ResponseEntity<FundingDto> getFundingInfo(@RequestBody FundingIdDto fundingIdDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getFundingInfo(fundingIdDto.getFunding_id()));
     }
 
 
@@ -77,8 +77,8 @@ public class FundingApiController {
     // 펀딩 통계 (참여 멤버)
     @ApiOperation(value = "펀딩 통계 (멤버별)", notes = "펀딩 참여 멤버의 펀딩 참여 금액 - 펀딩 금액 큰 순서")
     @PostMapping("/statistics")
-    public ResponseEntity<List<FundingResultMemberDto>> fundingResultMemberDtoList(@RequestBody Long fundingId){
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.fundingResultMemberDtoList(fundingId));
+    public ResponseEntity<List<FundingResultMemberDto>> fundingResultMemberDtoList(@RequestBody FundingIdDto fundingIdDto){
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.fundingResultMemberDtoList(fundingIdDto.getFunding_id()));
     }
 
 
@@ -100,8 +100,8 @@ public class FundingApiController {
     // 펀딩 종료
     @PostMapping("/terminate")
     @ApiOperation(value = "펀딩 종료", notes = "반환값 미정")
-    public ResponseEntity<String> terminateFunding(@RequestBody Long fundingId) {
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingId));
+    public ResponseEntity<String> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingIdDto.getFunding_id()));
     }
 
 
