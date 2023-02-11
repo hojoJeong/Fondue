@@ -116,6 +116,10 @@
         <item name="android:textColor">@color/white</item>
     </style>
 
+    <style name="base_font_medium_14_echo_blue" parent="base_font_medium_14">
+        <item name="android:textColor">@color/echo_blue</item>
+    </style>
+
     <style name="base_font_medium_15_midnight_express" parent="base_font_medium_15">
         <item name="android:textColor">@color/midnight_express</item>
     </style>
@@ -214,9 +218,9 @@
 
     <!-- Callendar -->
     <style name="custom_calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">@color/pig_pink</item>
-        <item name="colorOnPrimary">@color/razzmatazz</item>
-        <item name="colorContainer">@color/pig_pink</item>
+        <item name="colorPrimary">@color/raven</item>
+        <item name="colorOnPrimary">@color/midnight_express</item>
+        <item name="colorContainer">@color/link_water</item>
         <!-- 상단 컨테이너 색상 -->
     </style>
 </resources>
