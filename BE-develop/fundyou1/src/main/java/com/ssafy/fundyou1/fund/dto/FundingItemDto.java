@@ -19,7 +19,7 @@ import javax.persistence.OneToOne;
 public class FundingItemDto {
     private Long id;
     private Item item;
-    private Funding funding;
+    private Long funding_id;
 
     // 총가격
     private int itemTotalPrice;
@@ -36,7 +36,7 @@ public class FundingItemDto {
         return new FundingItemDto(
                 fundingItem.getId(),
                 fundingItem.getItem(),
-                fundingItem.getFunding(),
+                fundingItem.getFunding().getId(),
                 fundingItem.getItemTotalPrice(),
                 fundingItem.getCount(),
                 fundingItem.getCurrentFundingPrice(),
