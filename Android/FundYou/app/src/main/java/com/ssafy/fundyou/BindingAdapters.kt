@@ -25,6 +25,8 @@ import com.google.android.material.chip.Chip
 import com.ssafy.fundyou.util.addComma
 import com.ssafy.fundyou.util.getColorNoTheme
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 object BindingAdapters {
 
@@ -215,5 +217,18 @@ object BindingAdapters {
             .load(imgSrc)
             .override(Target.SIZE_ORIGINAL)
             .into(this)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setFundingSequence")
+    fun TextView.setFundingSequence(sequence : Int){
+        text = "${sequence}째 펀딩"
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["startDate", "endDate"])
+    fun TextView.setStartToEndDate(start : Long, end : Long){
+        val simpleDateFormat = SimpleDateFormat("YYYY.mm.DD", Locale.KOREA)
+        text = "${simpleDateFormat.format(start)}~${simpleDateFormat.format(end)}"
     }
 }

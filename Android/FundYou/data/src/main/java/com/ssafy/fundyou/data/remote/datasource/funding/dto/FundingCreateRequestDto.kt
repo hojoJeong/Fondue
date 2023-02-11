@@ -4,5 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 internal data class FundingCreateRequestDto(
     @SerializedName("endDate")
-    val endDate : Long?
+    val endDate : Long?,
+    @SerializedName("fundingName")
+    val fundingName : String?
 )

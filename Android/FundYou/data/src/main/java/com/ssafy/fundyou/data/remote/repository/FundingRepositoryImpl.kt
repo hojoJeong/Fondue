@@ -10,9 +10,11 @@ import javax.inject.Inject
 internal class FundingRepositoryImpl @Inject constructor(
     private val fundingDataSource: FundingDataSource
 ) : FundingRepository {
-    override suspend fun getFundingInfo(fundingId: Long) : FundingInfoModel = fundingDataSource.getFundingInfo(fundingId).toDomainModel()
-    override suspend fun createFunding(endDate: Long) : Long{
-        val request = FundingCreateRequestDto(endDate)
+    override suspend fun getFundingInfo(fundingId: Long): FundingInfoModel =
+        fundingDataSource.getFundingInfo(fundingId).toDomainModel()
+
+    override suspend fun createFunding(endDate: Long, fundingName: String): Long {
+        val request = FundingCreateRequestDto(endDate, fundingName)
         return fundingDataSource.createFunding(request)
     }
 }
