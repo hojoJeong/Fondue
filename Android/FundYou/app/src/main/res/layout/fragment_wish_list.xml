@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/base_vertical_margin"
-                    android:text="@string/title_wishlist_item_count"
+                    android:text="상품 품목 개수"
                     android:textColor="@color/black"
                     app:layout_constraintStart_toStartOf="@+id/tv_wishlist_price_title"
                     app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_price_title" />

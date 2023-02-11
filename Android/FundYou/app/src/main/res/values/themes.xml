@@ -218,7 +218,7 @@
 
     <!-- Callendar -->
     <style name="custom_calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
-        <item name="colorPrimary">@color/link_water</item>
+        <item name="colorPrimary">@color/raven</item>
         <item name="colorOnPrimary">@color/midnight_express</item>
         <item name="colorContainer">@color/link_water</item>
         <!-- 상단 컨테이너 색상 -->

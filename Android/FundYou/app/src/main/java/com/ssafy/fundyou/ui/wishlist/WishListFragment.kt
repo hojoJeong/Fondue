@@ -7,6 +7,8 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
@@ -29,6 +31,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
             wishListViewModel.deleteWishListItem(id)
         }
     }
+    private var endTime : Long = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -37,13 +40,14 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     }
 
     override fun initView() {
-        binding.btnWishlistStartFunding.showAlignTop(makeBalloon())
         wishListViewModel.getWishListItemList()
+        addFundingButtonEvent()
     }
 
     override fun initViewModels() {
         wishListItemObserve()
         initWishListItemDeleteResultObserve()
+        initAddFundingResultObserver()
     }
 
 
@@ -59,6 +63,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                     if (response.value?.isNotEmpty() == true) {
                         binding.scvWishlist.visibility = View.VISIBLE
                         binding.btnWishlistStartFunding.visibility = View.VISIBLE
+                        binding.btnWishlistStartFunding.showAlignTop(makeBalloon(resources.getString(R.string.content_wishlist_balloon)))
 
                         initWishListInfo(response.value!!)
                         startFundingBtnListener()
@@ -72,6 +77,24 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                         TAG,
                         "wishListItemObserve: WishList Item Loading Error... ${response.message}"
                     )
+                }
+            }
+        }
+    }
+
+    private fun initAddFundingResultObserver(){
+        wishListViewModel.addFundingStatus.observe(viewLifecycleOwner) { response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initAddFundingResultObserver: loading...")
+                }
+                is ViewState.Success -> {
+                    // 내 펀딩 화면으로 이동
+                    val fundingId = response.value!!
+                    navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(fundingId))
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initAddFundingResultObserver: error... ${response.message}")
                 }
             }
         }
@@ -103,24 +126,28 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         binding.rvWishlistItem.adapter = wishListAdapter
         wishListAdapter.submitList(itemList)
 
-        var totalCount = 0
         var totalPrice = 0
 
         itemList.forEach { data ->
-            totalCount += data.count
             totalPrice += data.price * data.count
         }
         with(binding) {
             tvWishlistInfoPrice.text = "${addComma(totalPrice)}원"
-            tvWishlistItemCount.text = "${totalCount}개"
+            tvWishlistItemCount.text = "${itemList.size}개"
         }
     }
 
-    private fun makeBalloon(): Balloon {
+    private fun addFundingButtonEvent(){
+        binding.btnWishlistStartFunding.setOnClickListener{
+            wishListViewModel.addFunding(endTime)
+        }
+    }
+
+    private fun makeBalloon(message : String): Balloon {
         val popUpMessage = Balloon.Builder(requireContext())
             .setWidth(BalloonSizeSpec.WRAP)
             .setHeight(BalloonSizeSpec.WRAP)
-            .setText(resources.getString(R.string.content_wishlist_balloon))
+            .setText(message)
             .setTextColorResource(R.color.white)
             .setTextTypeface(ResourcesCompat.getFont(requireContext(), R.font.notosanskr_medium)!!)
             .setTextSize(13f)
@@ -142,10 +169,13 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     private fun initCalendar() {
         binding.tvWishlistFundingPeriod.text = "날짜를 지정해주세요"
 
+        val calenderConstraint = CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
+
         calendar = MaterialDatePicker.Builder.dateRangePicker()
-            .setTitleText(R.string.title_wishlist_callendar)
+            .setTitleText(R.string.title_wishlist_calendar)
             .setPositiveButtonText("확인")
             .setNegativeButtonText("취소")
+            .setCalendarConstraints(calenderConstraint)
             .setSelection(
                 Pair(
                     MaterialDatePicker.todayInUtcMilliseconds(),
@@ -163,11 +193,11 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     private fun setFundingPeriod() {
         calendar.addOnPositiveButtonClickListener {
             val startPick = calendar.selection?.first
-            val endPick = calendar.selection?.second
+            endTime = calendar.selection?.second ?: 0
 
             val dateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA)
             val startDay = dateFormat.format(startPick)
-            val endDay = dateFormat.format(endPick)
+            val endDay = dateFormat.format(endTime)
 
             binding.tvWishlistFundingPeriod.text =
                 getString(R.string.content_wishlist_funding_period, startDay, endDay)
@@ -177,8 +207,8 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
 
     private fun startFundingBtnListener() {
         binding.btnWishlistStartFunding.setOnClickListener {
-            navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment())
+            if(endTime != 0L) wishListViewModel.addFunding(endTime)
+            else binding.btnWishlistStartFunding.showAlignTop(makeBalloon("기간을 설정해주세요!"))
         }
     }
-
 }

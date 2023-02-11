@@ -26,6 +26,10 @@
         <variable
             name="favorite_visibility"
             type="Boolean" />
+
+        <variable
+            name="count"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -108,10 +112,19 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_item_between_tv"
             android:textColor="@color/black"
-            app:addCommaText="@{product.title != null ? product.price  : (ranking_item.title != null ? ranking_item.price : (favorite_item.title != null ? favorite_item.price : wishlist_item.price))}"
+            app:addCommaText="@{product.title != null ? product.price  : (ranking_item.title != null ? ranking_item.price : (favorite_item.title != null ? favorite_item.price : wishlist_item.price * wishlist_item.count))}"
             app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
             tools:text="2,890,000원" />
+
+        <TextView
+            android:id="@+id/tv_count"
+            style="@style/base_font_medium_12"
+            android:textColor="@color/raven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/tv_item_list_product_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_list_product_price" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_item_list_product_ar"

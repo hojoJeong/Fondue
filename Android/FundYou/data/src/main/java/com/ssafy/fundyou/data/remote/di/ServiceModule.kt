@@ -41,4 +41,8 @@ internal object ServiceModule {
     @Singleton
     fun provideWishListApiService(@AuthInterceptorClient retrofit: Retrofit): WishListApiService = retrofit.create(WishListApiService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideFundingApiService(@AuthInterceptorClient retrofit: Retrofit) : FundingApiService = retrofit.create(FundingApiService::class.java)
+
 }

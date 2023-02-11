@@ -19,6 +19,7 @@ class WishListAdapter : ListAdapter<WishListModel, WishListAdapter.WishListItemH
     inner class WishListItemHolder(private val binding: ItemListProductBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: WishListModel){
             with(binding){
+                tvCount.text = "${item.count}개"
                 wishlistItem = item
                 favoriteVisibility = false
                 btnItemListCancel.setOnClickListener {
