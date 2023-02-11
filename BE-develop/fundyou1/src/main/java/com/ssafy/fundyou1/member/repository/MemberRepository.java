@@ -26,4 +26,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Modifying
     @Query(value = "update member set point = point + :point where member_id = :member_id",nativeQuery = true)
     Integer chargePoint(@Param("point") Long point, @Param("member_id") Long member_id);
+
 }
