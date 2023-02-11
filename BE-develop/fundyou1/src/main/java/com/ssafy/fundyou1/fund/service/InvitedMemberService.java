@@ -10,6 +10,7 @@ import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
 import com.ssafy.fundyou1.fund.repository.InvitedMemberRepository;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
