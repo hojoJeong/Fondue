@@ -4,5 +4,6 @@ import lombok.Data;
 
 @Data
 public class StartFundingDto {
+    String fundingName;
     Long endDate;
 }

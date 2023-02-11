@@ -27,6 +27,8 @@ public class Funding {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name="funding_id")
     private Long id; // PK
+    @Column(name = "funding_name")
+    private String fundingName;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     @JsonIgnore
@@ -58,8 +60,9 @@ public class Funding {
     }
 
 
-    public static Funding createFunding(Member member, Long startDate, Long endDate){
+    public static Funding createFunding(String fundingName, Member member, Long startDate, Long endDate){
         Funding funding = new Funding();
+        funding.fundingName = fundingName;
         funding.member = member;
         funding.startDate = startDate;
         funding.endDate = endDate;
