@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,9 +71,16 @@ public class FundingItemService {
     }
 
 
-    public List<FundingItem> getInvitedFundingItemList(Long fundingId) {
+    public List<FundingItemDto> getInvitedFundingItemList(Long fundingId) {
         List<FundingItem> invitedFundingItemList = fundingItemRepository.findByFundingId(fundingId);
-        return invitedFundingItemList;
+        List<FundingItemDto> invitedFundingItemDtoList = new ArrayList<>();
+
+        for(FundingItem fundingItem : invitedFundingItemList){
+            FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+
+            invitedFundingItemDtoList.add(fundingItemDto);
+        }
+        return invitedFundingItemDtoList;
     }
 
     public FundingItemDto getFundingItem(Long fundingItemId) {

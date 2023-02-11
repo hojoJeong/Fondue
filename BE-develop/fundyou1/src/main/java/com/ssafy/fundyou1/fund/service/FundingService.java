@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.fund.service;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.fund.dto.FundingDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemDto;
 import com.ssafy.fundyou1.fund.dto.FundingResultMemberDto;
 import com.ssafy.fundyou1.fund.dto.MyFundingDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
@@ -147,7 +148,15 @@ public class FundingService {
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
 
-            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
+
+            for(FundingItem fundingItem : fundingItemList){
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+
+                fundingItemDtoList.add(fundingItemDto);
+            }
+
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
 
             myOngoingFundingListDto.add(myFundingDto);
         }
@@ -174,7 +183,15 @@ public class FundingService {
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
 
-            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemList);
+            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
+
+            for(FundingItem fundingItem : fundingItemList){
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+
+                fundingItemDtoList.add(fundingItemDto);
+            }
+
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
 
             myClosedFundingListDto.add(myFundingDto);
         }
