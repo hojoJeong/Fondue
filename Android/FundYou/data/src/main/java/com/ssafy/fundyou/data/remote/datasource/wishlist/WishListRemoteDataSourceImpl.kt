@@ -17,7 +17,7 @@ internal class WishListRemoteDataSourceImpl @Inject constructor(private val wish
     override suspend fun modifyWishListItem(request: WishListRequestDto): BaseResultDto =
         wishListApiService.modifyWishListItem(request)
 
-    override suspend fun deleteWishListItem(itemId: Int): BaseResultDto =
+    override suspend fun deleteWishListItem(itemId: Long): BaseResultDto =
         wishListApiService.deleteWishListItem(itemId)
 
 }

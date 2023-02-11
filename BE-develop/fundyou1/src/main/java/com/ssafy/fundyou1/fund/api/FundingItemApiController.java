@@ -2,7 +2,9 @@ package com.ssafy.fundyou1.fund.api;
 
 
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
+import com.ssafy.fundyou1.fund.dto.FundingIdDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemIdDto;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
@@ -66,9 +68,9 @@ public class FundingItemApiController {
     // 펀딩 아이템 한개 찾기
     @ApiOperation(value = "펀딩 아이템 상세보기", notes = "펀딩 아이템 정보")
     @PostMapping()
-    public ResponseEntity<FundingItemDto> getFundingItem(@RequestBody Long fundingItemId){
-        fundingItemService.getFundingItem(fundingItemId);
-        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getFundingItem(fundingItemId));
+    public ResponseEntity<FundingItemDto> getFundingItem(@RequestBody FundingItemIdDto fundingItemIdDto){
+        fundingItemService.getFundingItem(fundingItemIdDto.getFunding_item_id());
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getFundingItem(fundingItemIdDto.getFunding_item_id()));
     }
 
 
@@ -76,24 +78,24 @@ public class FundingItemApiController {
     // 특정 펀딩의 펀딩 아이템 리스트 (초대장으로 들어올 경우, 펀딩 통계 화면)
     @ApiOperation(value = "특정 펀딩의 아이템 리스트", notes = "펀딩 아이템 정보 리스트")
     @PostMapping("/list")
-    public ResponseEntity<List<FundingItem>> getInvitedFundingItemList(@RequestBody Long fundingId){
-        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getInvitedFundingItemList(fundingId));
+    public ResponseEntity<List<FundingItemDto>> getInvitedFundingItemList(@RequestBody FundingIdDto fundingIdDto){
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getInvitedFundingItemList(fundingIdDto.getFunding_id()));
     }
 
 
     // 해당 펀딩 상품에 참여한 멤버 (선물한 친구)
     @ApiOperation(value = "펀딩 상품 한개에 참여한 멤버 리스트", notes = "참여 멤버 정보(이름, 펀딩금액, 메세지) 리스트 반환")
     @PostMapping("/memberList")
-    public ResponseEntity<List<FundingItemMember>> getAttendMember(@RequestBody Long fundingItemId){
-        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getAttendMember(fundingItemId));
+    public ResponseEntity<List<FundingItemMember>> getAttendMember(@RequestBody FundingItemIdDto fundingItemIdDto){
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getAttendMember(fundingItemIdDto.getFunding_item_id()));
     }
 
 
     // 펀딩 아이템 종료
     @PostMapping("/terminate")
     @ApiOperation(value = "펀딩 아이템 펀딩 종료", notes = "반환값 - 펀딩 종료 완료 ")
-    public ResponseEntity<String> terminateFundingItem(@RequestBody Long fundingItemId) {
-        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.terminateFundingItem(fundingItemId));
+    public ResponseEntity<String> terminateFundingItem(@RequestBody FundingItemIdDto fundingItemIdDto) {
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.terminateFundingItem(fundingItemIdDto.getFunding_item_id()));
     }
 
 

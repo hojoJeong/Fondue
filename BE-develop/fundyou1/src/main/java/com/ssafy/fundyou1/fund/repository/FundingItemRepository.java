@@ -12,7 +12,6 @@ import java.util.List;
 @Repository
 public interface FundingItemRepository extends JpaRepository<FundingItem, Long> {
 
-    FundingItem findByFundingIdAndItemId(Long fundingId, Long itemId);
 
     @Query(value = "select funding_item_id from funding_item fi where fi.funding_id = :fundingId", nativeQuery = true)
     List<Long> findIdListByFundingId(@Param("fundingId") Long fundingId);
@@ -35,11 +34,11 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
     List<FundingItem> findByFundingId(Long fundingId);
 
     @Query(value = "select sum(item_total_price) from funding_item fi where fi.funding_id = :fundingId", nativeQuery = true)
-    int sumTotalPriceByFundingId(@Param("fundingId") Long fundingId);
+    Integer sumTotalPriceByFundingId(@Param("fundingId") Long fundingId);
 
-    @Modifying(clearAutomatically = true)
+
     @Query(value = "select sum(current_funding_price) from funding_item fi where fi.funding_id = :fundingId", nativeQuery = true)
-    int sumCurrentFundingPriceByFundingId(@Param("fundingId") Long fundingId);
+    Integer sumCurrentFundingPriceByFundingId(@Param("fundingId") Long fundingId);
 
     @Modifying(clearAutomatically = true)
     @Query(value = "update funding_item fi set fi.funding_item_status = :status where fi.funding_id = :fundingId", nativeQuery = true)
@@ -49,6 +48,6 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
     @Query(value = "update funding_item fi set fi.funding_item_status = :status where fi.funding_item_id = :fundingItemId", nativeQuery = true)
     void updateFundingItemStatusByFundingItemId(@Param("fundingItemId") Long fundingItemId, @Param("status") boolean status);
 
-    @Query(value = "select * from funding_item fi where fi.id = :fundingItemId", nativeQuery = true)
+    @Query(value = "select * from funding_item fi where fi.funding_item_id = :fundingItemId", nativeQuery = true)
     FundingItem findByFundingItemId(@Param("fundingItemId") Long fundingItemId);
 }

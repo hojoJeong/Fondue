@@ -5,7 +5,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,12 +22,13 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     // point 차감
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update Member m set m.point = m.point - :point where m.username = :username", nativeQuery = true)
-    void minusPoint(@Param("username") String username, @Param("point") int point);
-    @Transactional
+    @Query(value = "update Member m set m.point = m.point - :point where m.member_id = :memberId", nativeQuery = true)
+    void minusPoint(@Param("memberId") Long memberId, @Param("point") int point);
+
     @Modifying
     @Query(value = "update member set point = point + :point where member_id = :member_id",nativeQuery = true)
     Integer chargePoint(@Param("point") Long point, @Param("member_id") Long member_id);
+
     @Transactional
     @Modifying
     @Query(value = "update member set member_status = false, deleted_at = :currentTime where member_id = :currentMemberId",nativeQuery = true)

@@ -29,7 +29,6 @@ public class LikeItemResponseDto {
 
     Boolean isAr;
 
-    @Column(name = "brand")
     private String brand;
 
     Boolean isFavorite;
