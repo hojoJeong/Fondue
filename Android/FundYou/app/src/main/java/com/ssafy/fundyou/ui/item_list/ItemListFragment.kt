@@ -23,7 +23,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onViewCreated: ${categoryType.categoryType}")
     }
-
+    
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -140,7 +140,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
             adapter = itemListAdapter
         }
 
-        itemListAdapter.addLikeItem { id ->
+        itemListAdapter.addLikeItemBtnClickListener { id ->
             itemListViewModel.addLikeItem(id)
         }
     }

@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.data.remote.repository
 
-import android.util.Log
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemSearchRequestDto
 import com.ssafy.fundyou.data.remote.mappers.toDomainModel
@@ -41,7 +40,8 @@ internal class ItemRepositoryImpl @Inject constructor(private var itemRemoteData
         return response.toDomainModel()
     }
 
-    override suspend fun addLikeItem(itemId: Long) = itemRemoteDataSource.addLikeItem(itemId)
+    override suspend fun addLikeItem(itemId: Long): Int = itemRemoteDataSource.addLikeItem(itemId).statusCode
+
 
     override suspend fun getItemByPrice(
         categoryId: Int,

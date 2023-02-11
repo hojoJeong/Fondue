@@ -65,17 +65,23 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         }
     }
 
-    private fun initWishListItemDeleteResultObserve(){
-        wishListViewModel.resultWishList.observe(viewLifecycleOwner){ response ->
-            when(response){
+    private fun initWishListItemDeleteResultObserve() {
+        wishListViewModel.resultWishList.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ViewState.Loading -> {
-                    Log.d(TAG, "initWishListItemChangeResultObserve: WishList Item Delete Loading...")
+                    Log.d(
+                        TAG,
+                        "initWishListItemChangeResultObserve: WishList Item Delete Loading..."
+                    )
                 }
                 is ViewState.Success -> {
                     wishListViewModel.getWishListItemList()
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initWishListItemChangeResultObserve: WishList Item Delete Error...${response.message}")
+                    Log.d(
+                        TAG,
+                        "initWishListItemChangeResultObserve: WishList Item Delete Error...${response.message}"
+                    )
                 }
             }
         }
@@ -115,6 +121,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
             .setDismissWhenClicked(true)
             .setDismissWhenOverlayClicked(true)
             .setDismissWhenTouchOutside(true)
+
         return popUpMessage.build()
     }
 

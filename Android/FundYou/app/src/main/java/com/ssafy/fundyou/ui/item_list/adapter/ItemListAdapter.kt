@@ -33,7 +33,7 @@ class ItemListAdapter : ListAdapter<ItemListModel, ItemListAdapter.ItemListViewH
         holder.bind(getItem(position))
     }
 
-    fun addLikeItem(id: (Long) -> Unit){
+    fun addLikeItemBtnClickListener(id: (Long) -> Unit){
         likeItemId = id
     }
 

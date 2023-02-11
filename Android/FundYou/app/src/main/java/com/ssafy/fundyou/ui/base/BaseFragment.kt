@@ -23,7 +23,6 @@ abstract class BaseFragment<T : ViewDataBinding>(
 
     protected val navController: NavController
         get() = NavHostFragment.findNavController(this)
-
     /** 화면 inflate */
     override fun onCreateView(
         inflater: LayoutInflater,
