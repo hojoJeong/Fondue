@@ -16,37 +16,26 @@ import java.util.List;
 @NoArgsConstructor
 public class ItemResponseDto {
 
-    @ApiModelProperty(name = "아이템 아이디", example = "1,2")
     private Long itemId;
 
-    @ApiModelProperty(name = "아이템 가격", example = "10000")
     private int price;
 
-    @ApiModelProperty(name = "아이템 이미지", example = "ssafy/img/thumbnail.jpg")
     private String image;
 
-    @ApiModelProperty(name = "아이템 타이틀", example = "쇼파")
     private String title;
 
-    @ApiModelProperty(name = "AR가능여부", example = "true / false")
     private Boolean isAr;
 
-    @ApiModelProperty(name = "상품 상세 이미지", example = "ssafy/img/item.jpg")
     private String descriptionImg;
 
-    @ApiModelProperty(name = "상세 정보", example = "type, value")
     private List<CustomDescriptionDto> description;
 
-    @ApiModelProperty(name = "브랜드", example = "한샘")
     private String brand;
 
-    @ApiModelProperty(name = "좋아요 여부", example = "true / false")
     private Boolean isFavorite;
 
-    @ApiModelProperty(name = "판매 수 카운트", example = "1,2,3")
     private int sellingCount;
 
-    @ApiModelProperty(name = "카테고리", example = "1,2,3")
     private Category category;
 
 

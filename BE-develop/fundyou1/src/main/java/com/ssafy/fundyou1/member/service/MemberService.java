@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 
 @Service
 public class MemberService {
@@ -31,5 +33,12 @@ public class MemberService {
     @Transactional
     public Integer chargePoint(Long point) {
         return memberRepository.chargePoint(point, SecurityUtil.getCurrentMemberId());
+    }
+
+    public Integer withdrawMembership() {
+        return memberRepository.withdrawMembership(SecurityUtil.getCurrentMemberId(), System.currentTimeMillis());
+    }
+    public Optional<Member> findByLoginId(String login_id){
+        return memberRepository.findByLoginId(login_id);
     }
 }
