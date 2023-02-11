@@ -1,5 +1,7 @@
 package com.ssafy.fundyou1.ar.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiOperation;
 import lombok.*;
 
 @Getter @Setter

@@ -58,6 +58,10 @@ dependencies {
 
 	implementation "org.springframework.boot:spring-boot-configuration-processor"
 
+	implementation 'com.google.firebase:firebase-admin:6.8.1'
+
+	implementation "com.squareup.okhttp3:okhttp:4.10.0"
+
 	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.9.2'
 	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.9.2'
 

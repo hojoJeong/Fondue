@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -46,15 +47,14 @@ public class InvitedMemberService {
     @Transactional
     public InvitedMember storeInvitedFunding(InvitedMemberDto invitedMemberDto) {
         // 사용자 정보
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
+        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
 
         // 펀딩 찾기
         Funding funding = fundingRepository.getById(invitedMemberDto.getFundingId());
 
         // 참여 멤버 기록 만들기
-        InvitedMember invitedMember = InvitedMember.builder().member(member).funding(funding).build();
+        InvitedMember invitedMember = InvitedMember.builder().member(member.get()).funding(funding).build();
         invitedMemberRepository.save(invitedMember);
 
         return invitedMember;
@@ -66,11 +66,10 @@ public class InvitedMemberService {
     @Transactional
     public List<InvitedFundingDto> getInvitedFundingDtoList() {
         // 사용자 정보
-        MemberResponseDto meDto = memberService.getMyInfo();
-        Member member = memberRepository.findByUsername(meDto.getUsername());
+        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
         // 초대받은 펀딩 리스트 찾기
-        List<InvitedMember> invitedFundingList = invitedMemberRepository.findAllByMemberId(member.getId());
+        List<InvitedMember> invitedFundingList = invitedMemberRepository.findAllByMemberId(member.get().getId());
 
 
         // 커스텀한 초대받은 펀딩 리스트
@@ -85,7 +84,7 @@ public class InvitedMemberService {
             List<Long> fundingItemIdList = fundingItemRepository.findIdListByFundingId(funding.getId());
 
             // 해당 펀딩에서 지불한 총 금액 구하기
-            int payTotalPoint = fundingItemMemberRepository.findAllByMemberIdAndFundingItemList(member.getId(), fundingItemIdList);
+            int payTotalPoint = fundingItemMemberRepository.findAllByMemberIdAndFundingItemList(member.get().getId(), fundingItemIdList);
 
             // 펀딩에 내가 지불한 금액 커스텀 하기
             InvitedFundingDto invitedFundingDto = new InvitedFundingDto(funding, payTotalPoint);
