@@ -76,7 +76,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun myFondueClickListener() {
         binding.ivMypageMyfondue.setOnClickListener {
-            navigate(MyPageFragmentDirections.actionMyPageFragmentToMyFundingFragment())
+
         }
     }
 

@@ -6,6 +6,8 @@ import com.ssafy.fundyou1.auth.domain.RefreshTokenRepository;
 import com.ssafy.fundyou1.auth.infrastructure.TokenProvider;
 import com.ssafy.fundyou1.global.dto.TokenDto;
 import com.ssafy.fundyou1.global.dto.TokenRequestDto;
+import com.ssafy.fundyou1.global.exception.BusinessException;
+import com.ssafy.fundyou1.global.exception.ErrorCode;
 import com.ssafy.fundyou1.member.dto.request.MemberLoginRequestDto;
 import com.ssafy.fundyou1.member.dto.request.MemberRequestDto;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
@@ -14,10 +16,7 @@ import com.ssafy.fundyou1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -87,6 +86,7 @@ public class AuthService {
 
     @Transactional
     public TokenDto login(MemberLoginRequestDto memberLoginRequestDto) {
+
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberLoginRequestDto.toAuthentication();
 

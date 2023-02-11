@@ -3,6 +3,8 @@ package com.ssafy.fundyou.data.remote.di
 
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
+import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
+import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
@@ -47,4 +49,9 @@ internal object DataSourceModule {
     @Singleton
     fun provideWishListRemoteDataSource(wishListApiService: WishListApiService): WishListRemoteDataSource =
         WishListRemoteDataSourceImpl(wishListApiService)
+
+    @Provides
+    @Singleton
+    fun provideFundingRemoteDataSource(fundingApiService: FundingApiService): FundingDataSource =
+        FundingDataSourceImpl(fundingApiService)
 }

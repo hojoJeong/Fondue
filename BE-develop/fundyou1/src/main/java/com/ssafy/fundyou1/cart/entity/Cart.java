@@ -1,6 +1,5 @@
 package com.ssafy.fundyou1.cart.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
@@ -41,7 +40,6 @@ public class Cart {
         this.count = count;
     }
 
-
     // 카트에 유저 할당하여 넣어줌
     public static Cart createCart(Member member, Item item, int count) {
         Cart cart = new Cart();
@@ -50,7 +48,5 @@ public class Cart {
         cart.setCount(count);
         return cart;
     }
-
-
 }
 
