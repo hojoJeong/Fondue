@@ -43,7 +43,7 @@ public class FundingApiController {
     public Long createFunding(@RequestBody StartFundingDto startFundingDto) {
 
         // 펀딩 만들기
-        Long createdFundingId = fundingService.createFunding(startFundingDto.getEndDate());
+        Long createdFundingId = fundingService.createFunding(startFundingDto.getFundingName(), startFundingDto.getEndDate());
 
         // 새 펀딩 아이디 리턴
         return createdFundingId;
