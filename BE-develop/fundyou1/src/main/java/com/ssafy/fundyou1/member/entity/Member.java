@@ -45,7 +45,7 @@ public class Member extends BaseEntity {
     private String profileImg;
 
 
-    @Column(name="point",columnDefinition = "int default 100000")
+    @Column(name="point")
     private int point;
 
     @Column(name = "mail")
