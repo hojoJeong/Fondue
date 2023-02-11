@@ -249,7 +249,11 @@
     <fragment
         android:id="@+id/myFundingListFragment"
         android:name="com.ssafy.fundyou.ui.funding_my_list.MyFundingListFragment"
-        android:label="MyFundingListFragment" />
+        android:label="MyFundingListFragment" >
+        <action
+            android:id="@+id/action_myFundingListFragment_to_myFundingFragment"
+            app:destination="@id/myFundingFragment" />
+    </fragment>
 
 
 </navigation>

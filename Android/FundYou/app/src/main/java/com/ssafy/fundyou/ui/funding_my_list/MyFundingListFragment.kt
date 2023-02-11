@@ -3,6 +3,11 @@ package com.ssafy.fundyou.ui.funding_my_list
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.constraintlayout.solver.state.State.Constraint
+import androidx.constraintlayout.solver.state.State.PARENT
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
+import androidx.constraintlayout.widget.Constraints
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.ssafy.fundyou.R
@@ -11,11 +16,24 @@ import com.ssafy.fundyou.databinding.FragmentMyFundingListBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.funding_my_list.adapter.MyFundingListAdapter
 
-class MyFundingListFragment : BaseFragment<FragmentMyFundingListBinding>(R.layout.fragment_my_funding_list) {
+class MyFundingListFragment :
+    BaseFragment<FragmentMyFundingListBinding>(R.layout.fragment_my_funding_list) {
 
     private val myFundingViewModel by activityViewModels<MyFundingListViewModel>()
-    private val onGoingFundingListAdapter = MyFundingListAdapter()
-    private val closedFundingListAdapter = MyFundingListAdapter()
+    private val onGoingFundingListAdapter = MyFundingListAdapter().apply {
+        addClickEvent { fundingId ->
+            MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
+                fundingId
+            )
+        }
+    }
+    private val closedFundingListAdapter = MyFundingListAdapter().apply {
+        addClickEvent { fundingId ->
+            MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
+                fundingId
+            )
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,6 +47,7 @@ class MyFundingListFragment : BaseFragment<FragmentMyFundingListBinding>(R.layou
 
     override fun initViewModels() {
         initOngoingFundingObserver()
+        initClosedFundingObserver()
     }
 
     private fun initOngoingFundingObserver() {
@@ -38,12 +57,53 @@ class MyFundingListFragment : BaseFragment<FragmentMyFundingListBinding>(R.layou
                     Log.d(TAG, "initOngoingFundingObserver: loading...")
                 }
                 is ViewState.Success -> {
-                    onGoingFundingListAdapter.submitList(response.value)
+                    if (response.value?.isEmpty() == true) {
+                        showNoOngoingFundingLayout()
+                    } else {
+                        onGoingFundingListAdapter.submitList(response.value)
+                    }
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initOngoingFundingObserver: erorr... ${response.message}")
+                    Log.d(TAG, "initOngoingFundingObserver: error... ${response.message}")
                 }
             }
+        }
+    }
+
+
+    private fun initClosedFundingObserver() {
+        myFundingViewModel.ongoingFunding.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initOngoingFundingObserver: loading...")
+                }
+                is ViewState.Success -> {
+                    if(response.value?.isEmpty() == true){
+                        with(binding.lyNoClosedFunding){
+                            root.visibility = View.VISIBLE
+                            tvNoKeyword.text = "완료된 펀딩이 없습니다."
+                        }
+                    }
+                    closedFundingListAdapter.submitList(response.value)
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initOngoingFundingObserver: error... ${response.message}")
+                }
+            }
+        }
+    }
+
+    private fun showNoOngoingFundingLayout() {
+        val dividerParams =
+            binding.divFundingShareBase.layoutParams as ConstraintLayout.LayoutParams
+        dividerParams.topToBottom = R.id.ly_no_ongoing_funding
+        dividerParams.startToStart = ConstraintSet.PARENT_ID
+        dividerParams.endToEnd = ConstraintSet.PARENT_ID
+        binding.divFundingShareBase.requestLayout()
+
+        with(binding.lyNoOngoingFunding) {
+            root.visibility = View.VISIBLE
+            tvNoKeyword.text = "진행 중인 펀딩이 없습니다."
         }
     }
 

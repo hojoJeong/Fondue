@@ -13,7 +13,7 @@
         app:showAsAction="always" />
     <item
         android:id="@+id/myFundingListFragment"
-        android:icon="@drawable/ic_favorite_border_24"
+        android:icon="@drawable/sc_check_my_funding"
         android:title="퐁듀"
         app:showAsAction="always" />
     <!-- 찜 구현 후 id 수정 -->

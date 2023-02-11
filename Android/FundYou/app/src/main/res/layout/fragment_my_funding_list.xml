@@ -21,6 +21,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/base_horizontal_margin"
+                android:layout_marginTop="12dp"
                 android:text="진행중인 펀딩"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -37,6 +38,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_progressing_funding_title" />
 
+            <include
+                android:id="@+id/ly_no_ongoing_funding"
+                layout="@layout/content_no_item"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/tv_end_funding_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/rv_progressing_funding_list"
+                app:layout_constraintVertical_bias="0.0" />
+
             <View
                 android:id="@+id/div_funding_share_line"
                 android:layout_width="match_parent"
@@ -45,7 +58,8 @@
                 android:background="@color/hawkes_blue"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rv_progressing_funding_list" />
+                app:layout_constraintTop_toBottomOf="@id/rv_progressing_funding_list"
+                app:layout_goneMarginTop="100dp" />
 
             <View
                 android:id="@+id/div_funding_share_base"
@@ -75,6 +89,16 @@
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_end_funding_title" />
+
+            <include
+                android:id="@+id/ly_no_closed_funding"
+                layout="@layout/content_no_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tv_end_funding_title" />
