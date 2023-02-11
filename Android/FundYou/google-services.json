@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "636220307565",
+    "project_id": "fundyou-1674632553418",
+    "storage_bucket": "fundyou-1674632553418.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:636220307565:android:27a0f704aeccf69f602764",
+        "android_client_info": {
+          "package_name": "com.ssafy.fundyou"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "636220307565-ujqv3lqgfp68s6co0ev93fgdhp9i8gag.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ssafy.fundyou",
+            "certificate_hash": "166a93f7acb86819a7881ad4d49b9900361e3065"
+          }
+        },
+        {
+          "client_id": "636220307565-9rf9g8o0ooilu2uet2tsac96ta9vipov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuz6gurbUCIm3qlha53wyX4tzMS1DMexo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "636220307565-89nhpf6f6dk7k8f80m04fpppn1sqqej8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

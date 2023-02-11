@@ -3,6 +3,7 @@ package com.ssafy.fundyou.data.remote.di
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSource
+import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.user.UserRemoteDataSource
@@ -54,4 +55,8 @@ internal object RepositoryModule {
     @Singleton
     fun provideWishRepository(wishListRemoteDataSource: WishListRemoteDataSource): WishListRepository =
         WishListRepositoryImpl(wishListRemoteDataSource)
+
+    @Provides
+    @Singleton
+    fun provideFundingRepository(fundingDataSource: FundingDataSource) : FundingRepository = FundingRepositoryImpl(fundingDataSource)
 }
