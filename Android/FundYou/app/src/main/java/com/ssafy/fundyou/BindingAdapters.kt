@@ -16,12 +16,14 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
+import com.ssafy.fundyou.ui.funding_my_list.adapter.MyFundingListImgAdapter
 import com.ssafy.fundyou.util.addComma
 import com.ssafy.fundyou.util.getColorNoTheme
 import java.text.DecimalFormat
@@ -230,5 +232,13 @@ object BindingAdapters {
     fun TextView.setStartToEndDate(start : Long, end : Long){
         val simpleDateFormat = SimpleDateFormat("YYYY.mm.DD", Locale.KOREA)
         text = "${simpleDateFormat.format(start)}~${simpleDateFormat.format(end)}"
+    }
+
+    @JvmStatic
+    @BindingAdapter("setImageList")
+    fun RecyclerView.setImageList(list : List<String>){
+        val adapter = MyFundingListImgAdapter()
+        adapter.addImageList(list)
+        this.adapter = adapter
     }
 }

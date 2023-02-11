@@ -46,7 +46,7 @@ class WishListViewModel @Inject constructor(
     fun addFunding(endData : Long, fundingName : String) = viewModelScope.launch {
         _addFundingStatus.value = ViewState.Loading()
         try {
-            val response = addFundingUseCase(endData)
+            val response = addFundingUseCase(endData, fundingName)
             _addFundingStatus.value = ViewState.Success(response)
         } catch (e: Exception) {
             _addFundingStatus.value = ViewState.Error(e.message)

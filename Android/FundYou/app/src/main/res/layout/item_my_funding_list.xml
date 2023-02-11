@@ -7,7 +7,7 @@
 
         <variable
             name="fundingItem"
-            type="com.ssafy.fundyou.ui.funding_my_list.model.MyFundingListModel" />
+            type="com.ssafy.fundyou.ui.funding_my_list.model.MyFundingListUiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,12 +16,12 @@
 
         <TextView
             android:id="@+id/tv_funding_sequence"
-            style="@style/base_font_medium_14_midnight_express"
+            style="@style/base_font_medium_16_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@{fundingItem.fundingName}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:setFundingSequence="@{fundingItem.sequence}"
             tools:text="1번째 펀딩" />
 
         <TextView
@@ -40,11 +40,13 @@
             android:id="@+id/rv_funding_item_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="18dp"
             android:layout_marginTop="12dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_funding_time" />
+            app:layout_constraintTop_toBottomOf="@id/tv_funding_time"
+            app:setImageList="@{fundingItem.imgList}" />
 
         <TextView
             android:id="@+id/tv_funding_progress"

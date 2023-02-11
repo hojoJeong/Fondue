@@ -7,19 +7,18 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
-import com.ssafy.fundyou.databinding.ItemMyFundingItemListBinding
 import com.ssafy.fundyou.databinding.ItemMyFundingListBinding
-import com.ssafy.fundyou.ui.funding_my_list.model.MyFundingListModel
+import com.ssafy.fundyou.ui.funding_my_list.model.MyFundingListUiModel
 
-class MyFundingListAdapter : ListAdapter<MyFundingListModel, MyFundingListAdapter.MyFundingListHolder>(MyFundingListDiffUtil){
+class MyFundingListAdapter : ListAdapter<MyFundingListUiModel, MyFundingListAdapter.MyFundingListHolder>(MyFundingListDiffUtil){
 
     private lateinit var clickEvent : (Long) -> Unit
 
-    class MyFundingListHolder(private val binding : ItemMyFundingListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(funding : MyFundingListModel){
+    inner class MyFundingListHolder(private val binding : ItemMyFundingListBinding) : RecyclerView.ViewHolder(binding.root){
+        fun bind(funding : MyFundingListUiModel){
             binding.fundingItem = funding
             binding.root.setOnClickListener {
-
+                clickEvent.invoke(funding.id)
             }
         }
     }
@@ -32,17 +31,17 @@ class MyFundingListAdapter : ListAdapter<MyFundingListModel, MyFundingListAdapte
         holder.bind(currentList[position])
     }
 
-    object MyFundingListDiffUtil : DiffUtil.ItemCallback<MyFundingListModel>(){
+    object MyFundingListDiffUtil : DiffUtil.ItemCallback<MyFundingListUiModel>(){
         override fun areItemsTheSame(
-            oldItem: MyFundingListModel,
-            newItem: MyFundingListModel
+            oldItem: MyFundingListUiModel,
+            newItem: MyFundingListUiModel
         ): Boolean {
             return oldItem.id == newItem.id
         }
 
         override fun areContentsTheSame(
-            oldItem: MyFundingListModel,
-            newItem: MyFundingListModel
+            oldItem: MyFundingListUiModel,
+            newItem: MyFundingListUiModel
         ): Boolean {
             return oldItem == newItem
         }

@@ -246,5 +246,10 @@
             app:popUpToInclusive="true" />
     </fragment>
 
+    <fragment
+        android:id="@+id/myFundingListFragment"
+        android:name="com.ssafy.fundyou.ui.funding_my_list.MyFundingListFragment"
+        android:label="MyFundingListFragment" />
+
 
 </navigation>

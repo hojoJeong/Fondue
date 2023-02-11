@@ -10,4 +10,6 @@ internal class FundingDataSourceImpl @Inject constructor(
 ) : FundingDataSource {
     override suspend fun getFundingInfo(fundingId: Long) = fundingApiService.getFundingInfo(fundingId)
     override suspend fun createFunding(endDate: FundingCreateRequestDto) = fundingApiService.createFunding(endDate)
+    override suspend fun getMyOngoingFunding(): List<FundingResponseDto> = fundingApiService.getMyOngoingFunding()
+    override suspend fun getMyClosedFunding() = fundingApiService.getMyClosedFundingList()
 }
