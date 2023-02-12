@@ -21,13 +21,6 @@ class FundingParticipationFragment :
 
     override fun initView() {
         initMessageList()
-//        binding.item = FundingItemModel(
-//            id = 0,
-//            ProductItemModel(id = 1, price = 3000, "img", "상품이름1", false, "브랜드1", true),
-//            tempProductImg = R.drawable.ic_launcher_background,
-//            currentFundingPrice = 1000,
-//            fundingParticipate = 3,
-//        )
     }
 
     override fun initViewModels() {

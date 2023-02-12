@@ -16,15 +16,19 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
+import com.ssafy.fundyou.ui.funding_my_list.adapter.MyFundingListImgAdapter
 import com.ssafy.fundyou.util.addComma
 import com.ssafy.fundyou.util.getColorNoTheme
 import java.text.DecimalFormat
+import java.text.SimpleDateFormat
+import java.util.*
 
 object BindingAdapters {
 
@@ -73,7 +77,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("percentage")
-    fun TextView.setPercentage(percent: Int) {
+    fun TextView.setPercentage(percent: Float) {
         this.text = "${percent}%"
     }
 
@@ -202,7 +206,6 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setItemImage")
     fun ImageView.setItemImage(img: String?) {
-        Log.d(TAG, "setItemImage: 글라이드 이미지 : $img")
         Glide.with(context)
             .load(img)
             .into(this)
@@ -215,5 +218,25 @@ object BindingAdapters {
             .load(imgSrc)
             .override(Target.SIZE_ORIGINAL)
             .into(this)
+    }
+
+    @JvmStatic
+    @BindingAdapter("setFundingSequence")
+    fun TextView.setFundingSequence(sequence : Int){
+        text = "${sequence}째 펀딩"
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["startDate", "endDate"])
+    fun TextView.setStartToEndDate(start : Long, end : Long){
+        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA)
+        text = "${simpleDateFormat.format(start)}~${simpleDateFormat.format(end)}"
+    }
+
+    @JvmStatic
+    @BindingAdapter("styleByStatus")
+    fun TextView.setStyleByStatus(status : Boolean){
+        if(status) this.setTextAppearance(R.style.base_font_bold_20_franch_rose)
+        else this.setTextAppearance(R.style.base_font_bold_20_matter_horn)
     }
 }

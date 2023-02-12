@@ -7,5 +7,5 @@ import javax.inject.Singleton
 class AddFundingUseCase @Inject constructor(
     private val fundingRepository: FundingRepository
 ) {
-    suspend operator fun invoke(endData : Long) = fundingRepository.createFunding(endData)
+    suspend operator fun invoke(endData : Long, fundingName : String) = fundingRepository.createFunding(endData, fundingName)
 }

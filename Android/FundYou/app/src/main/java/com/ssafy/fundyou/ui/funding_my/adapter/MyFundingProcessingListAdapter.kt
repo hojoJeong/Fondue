@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
-import com.ssafy.fundyou.databinding.ItemMyFundingListBinding
+import com.ssafy.fundyou.databinding.ItemMyFundingItemListBinding
 import com.ssafy.fundyou.ui.adapter.diffutil.FundingItemModelDiffUtil
 import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 
@@ -16,7 +16,7 @@ class MyFundingProcessingListAdapter : ListAdapter<FundingItemModel, MyFundingPr
 
     private lateinit var clickEvent : (Int) -> Unit
 
-    inner class MyFundingListHolder(private val binding: ItemMyFundingListBinding) : RecyclerView.ViewHolder(binding.root){
+    inner class MyFundingListHolder(private val binding: ItemMyFundingItemListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : FundingItemModel){
             binding.item = item
             binding.btnFunding.setOnClickListener {
@@ -26,7 +26,7 @@ class MyFundingProcessingListAdapter : ListAdapter<FundingItemModel, MyFundingPr
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = MyFundingListHolder(
-        DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_my_funding_list, parent, false)
+        DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_my_funding_item_list, parent, false)
     )
 
     override fun onBindViewHolder(holder: MyFundingListHolder, position: Int) {
