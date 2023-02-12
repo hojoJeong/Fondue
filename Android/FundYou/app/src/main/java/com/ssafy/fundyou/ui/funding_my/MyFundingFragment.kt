@@ -13,14 +13,16 @@ import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.funding_my.adapter.MyFundingItemListAdapter
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingInfoUiModel
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingItemListUiModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragment_my_funding) {
 
     private val ongoingFundingItemAdapter = MyFundingItemListAdapter()
     private val closedFundingItemAdapter = MyFundingItemListAdapter()
 
     private val args by navArgs<MyFundingFragmentArgs>()
-    private val myFundingViewModel by activityViewModels<MyFundingViewModel>()
+    private val myFundingViewModel by viewModels<MyFundingViewModel>()
     private lateinit var myFundingInfo: MyFundingInfoUiModel
     private lateinit var myFundingItem: MyFundingItemListUiModel
 
@@ -82,8 +84,15 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     }
 
     private fun initClosedFundingItemList() {
-        closedFundingItemAdapter.submitList(myFundingItem.myFundingClosedList)
-        binding.rvEndFundingList.adapter = closedFundingItemAdapter
+        if (myFundingItem.myFundingClosedList.isEmpty()) {
+            with(binding) {
+                tvEndFundingTitle.visibility = View.GONE
+                rvEndFundingList.visibility = View.GONE
+            }
+        } else {
+            closedFundingItemAdapter.submitList(myFundingItem.myFundingClosedList)
+            binding.rvEndFundingList.adapter = closedFundingItemAdapter
+        }
     }
 
     private fun addMyFundingDetailEvent() {

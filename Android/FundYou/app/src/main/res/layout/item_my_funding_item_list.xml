@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="state"
             type="String" />
@@ -19,15 +21,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <View
-            android:id="@+id/div_item"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/solitude"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/iv_funding_img"
             android:layout_width="150dp"
@@ -36,7 +29,7 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/div_item"
+            app:layout_constraintTop_toTopOf="parent"
             app:setItemImage="@{fundingItem.img}" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -91,6 +84,7 @@
             android:layout_marginStart="14dp"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
             android:background="@drawable/bg_rect_transparent_midnight_express_radius8_stroke0"
+            android:visibility="@{fundingItem.status ? View.VISIBLE : View.INVISIBLE}"
             app:fundingStateType="@{fundingItem.percentage == 100}"
             app:layout_constraintBottom_toBottomOf="@id/iv_funding_img"
             app:layout_constraintEnd_toEndOf="parent"
@@ -165,6 +159,16 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
             tools:text="60,000" />
+
+        <View
+            android:id="@+id/div_item"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/solitude"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pb_funding" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
