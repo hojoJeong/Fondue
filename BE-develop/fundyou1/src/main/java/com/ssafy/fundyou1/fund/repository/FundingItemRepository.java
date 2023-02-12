@@ -1,11 +1,14 @@
 package com.ssafy.fundyou1.fund.repository;
 
+import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
+import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -50,4 +53,12 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
 
     @Query(value = "select * from funding_item fi where fi.funding_item_id = :fundingItemId", nativeQuery = true)
     FundingItem findByFundingItemId(@Param("fundingItemId") Long fundingItemId);
+
+    @Query(value = "select case when count(*) = 1 then 'true' else 'false' end from funding_item fi where fi.funding_item_id = :itemId and fi.funding_id = :fundingId", nativeQuery = true)
+    boolean findByFundingIdAndItemId(@Param("fundingId") Long fundingId, @Param("itemId") Long itemId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update funding_item fi set fi.count = fi.count + :count and fi.item_total_price = fi.item_total_price + (:itemPrice * :count) where fi.funding_item_id = :itemId and fi.funding_id = :fundingId", nativeQuery = true)
+    void addFundingItem(@Param("fundingId") Long fundingId, @Param("itemId") Long itemId, @Param("count") int count, @Param("itemPrice") int itemPrice);
 }
