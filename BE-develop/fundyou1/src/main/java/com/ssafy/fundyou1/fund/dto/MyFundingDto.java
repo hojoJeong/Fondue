@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyFundingDto {
-    private Long id;
+    private Long fundingId;
     private String fundingName;
     private Long startDate;
     private Long endDate;
@@ -27,7 +27,7 @@ public class MyFundingDto {
     private List<FundingItemDto> fundingItemDtoList;
 
     public MyFundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage, List<FundingItemDto> fundingItemDtoList) {
-        this.id = funding.getId();
+        this.fundingId = funding.getId();
         this.fundingName = funding.getFundingName();
         this.startDate = funding.getStartDate();
         this.endDate = funding.getEndDate();
