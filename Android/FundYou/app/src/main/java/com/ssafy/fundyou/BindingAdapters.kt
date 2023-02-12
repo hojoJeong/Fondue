@@ -213,7 +213,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setFullSizeImage")
-    fun ImageView.setFullSizeImage(imgSrc : String?){
+    fun ImageView.setFullSizeImage(imgSrc: String?) {
         Glide.with(context)
             .load(imgSrc)
             .override(Target.SIZE_ORIGINAL)
@@ -222,21 +222,27 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setFundingSequence")
-    fun TextView.setFundingSequence(sequence : Int){
+    fun TextView.setFundingSequence(sequence: Int) {
         text = "${sequence}째 펀딩"
     }
 
     @JvmStatic
     @BindingAdapter(value = ["startDate", "endDate"])
-    fun TextView.setStartToEndDate(start : Long, end : Long){
+    fun TextView.setStartToEndDate(start: Long, end: Long) {
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA)
         text = "${simpleDateFormat.format(start)}~${simpleDateFormat.format(end)}"
     }
 
     @JvmStatic
     @BindingAdapter("styleByStatus")
-    fun TextView.setStyleByStatus(status : Boolean){
-        if(status) this.setTextAppearance(R.style.base_font_bold_20_franch_rose)
+    fun TextView.setStyleByStatus(status: Boolean) {
+        if (status) this.setTextAppearance(R.style.base_font_bold_20_franch_rose)
         else this.setTextAppearance(R.style.base_font_bold_20_matter_horn)
+    }
+
+    @JvmStatic
+    @BindingAdapter("deadLine")
+    fun TextView.setDeadLine(deadLine: Int) {
+        this.text = if (deadLine < 0) "마감" else "D-${deadLine}"
     }
 }

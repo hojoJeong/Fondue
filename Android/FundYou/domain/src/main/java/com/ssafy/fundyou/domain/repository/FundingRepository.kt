@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.domain.repository
 
 import com.ssafy.fundyou.domain.model.funding.FundingInfoModel
+import com.ssafy.fundyou.domain.model.funding.FundingItemInfoModel
 import com.ssafy.fundyou.domain.model.funding.FundingTotalModel
 
 interface FundingRepository {
@@ -8,4 +9,5 @@ interface FundingRepository {
     suspend fun createFunding(endDate : Long, fundingName : String) : Long
     suspend fun getMyOngoingFunding() : List<FundingTotalModel>
     suspend fun getMyClosedFunding() : List<FundingTotalModel>
+    suspend fun getFundingItemList(fundingId : Long) : List<FundingItemInfoModel>
 }

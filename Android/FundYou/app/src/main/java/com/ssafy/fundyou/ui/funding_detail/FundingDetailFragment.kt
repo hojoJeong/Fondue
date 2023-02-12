@@ -8,16 +8,11 @@ import com.github.mikephil.charting.data.PieEntry
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFundingDetailBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.funding_detail.adapter.FundingDetailStateAdapter
-import com.ssafy.fundyou.ui.funding_detail.adapter.FundingRankingAdapter
 import com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel
 import com.ssafy.fundyou.util.getColorNoTheme
 
 class FundingDetailFragment :
     BaseFragment<FragmentFundingDetailBinding>(R.layout.fragment_funding_detail) {
-
-    private val fundingRankingAdapter = FundingRankingAdapter()
-    private val fundingDetailStateAdapter = FundingDetailStateAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,8 +48,6 @@ class FundingDetailFragment :
                 listOf("냉장고", "전자레인지", "가스레인지")
             )
         )
-        fundingRankingAdapter.submitList(tempList)
-        binding.rvFundingRanking.adapter = fundingRankingAdapter
     }
 
     private fun initFundingStateList() {

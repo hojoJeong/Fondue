@@ -5,22 +5,16 @@
 
     <data>
 
+        <import type="android.view.View" />
+
+        <variable
+            name="fundingInfo"
+            type="com.ssafy.fundyou.ui.funding_my.model.MyFundingInfoUiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
-        <include
-            android:id="@+id/ly_no_progressing_funding"
-            layout="@layout/content_empty_wish_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/sv_main"
@@ -39,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/base_horizontal_margin"
                     android:layout_marginTop="20dp"
-                    android:text="D-30"
+                    app:deadLine="@{fundingInfo.deadLine}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,9 +71,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/base_horizontal_margin"
                     android:layout_marginTop="30dp"
-                    android:text="100%"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_d_day" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_d_day"
+                    app:percentage="@{fundingInfo.percentage}"
+                    app:styleByStatus="@{fundingInfo.status}" />
 
                 <ProgressBar
                     android:id="@+id/pb_funding"
@@ -87,8 +82,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/base_horizontal_margin"
-                    android:progress="50"
-                    android:progressDrawable="@drawable/bg_progress_funding"
+                    android:progress="@{fundingInfo.percentage}"
+                    android:progressDrawable="@{fundingInfo.status ? @drawable/bg_progress_funding : @drawable/bg_progress_end_funding}"
                     android:scaleY="0.5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -99,6 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="26dp"
+                    android:visibility="@{fundingInfo.status ? View.VISIBLE : View.GONE}"
                     android:background="@color/transparent"
                     android:src="@drawable/bg_funding_share"
                     app:layout_constraintEnd_toEndOf="@id/pb_funding"
@@ -133,6 +129,7 @@
                     android:layout_marginStart="@dimen/base_horizontal_margin"
                     android:layout_marginTop="24dp"
                     android:text="진행 중인 펀딩"
+                    android:visibility="@{fundingInfo.status ? View.VISIBLE : View.GONE, default = visible}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/div_funding_share_line" />
 
@@ -142,6 +139,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:orientation="vertical"
+                    android:visibility="@{fundingInfo.status ? View.VISIBLE : View.GONE, default = visible}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -156,7 +154,8 @@
                     android:layout_marginTop="60dp"
                     android:text="종료된 펀딩"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/rv_progressing_funding_list" />
+                    app:layout_constraintTop_toBottomOf="@id/rv_progressing_funding_list"
+                    app:layout_goneMarginTop="24dp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_end_funding_list"
