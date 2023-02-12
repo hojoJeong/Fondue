@@ -10,6 +10,7 @@ import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
 import com.ssafy.fundyou1.fund.repository.InvitedMemberRepository;
+import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
@@ -51,7 +52,7 @@ public class InvitedMemberService {
 
 
         // 펀딩 찾기
-        Funding funding = fundingRepository.getById(invitedMemberDto.getFundingId());
+        Funding funding = fundingRepository.getReferenceById(invitedMemberDto.getFundingId());
 
         // 참여 멤버 기록 만들기
         InvitedMember invitedMember = InvitedMember.builder().member(member.get()).funding(funding).build();
@@ -78,7 +79,7 @@ public class InvitedMemberService {
 
         for(InvitedMember invitedMember : invitedFundingList){
             // 초대 받은 펀딩
-            Funding funding = fundingRepository.getById(invitedMember.getFunding().getId());
+            Funding funding = fundingRepository.getReferenceById(invitedMember.getFunding().getId());
 
             // 초대 받은 펀딩 중 참여한 아이템 목록 리스트
             List<Long> fundingItemIdList = fundingItemRepository.findIdListByFundingId(funding.getId());

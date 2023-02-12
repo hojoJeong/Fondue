@@ -150,6 +150,7 @@ public class FundingService {
             List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
 
             for(FundingItem fundingItem : fundingItemList){
+
                 FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
 
                 fundingItemDtoList.add(fundingItemDto);
@@ -202,7 +203,7 @@ public class FundingService {
     @Transactional
     public FundingDto getFundingInfo(Long fundingId) {
 
-        Funding funding = fundingRepository.getById(fundingId);
+        Funding funding = fundingRepository.getReferenceById(fundingId);
 
         int totalPrice = fundingItemRepository.sumTotalPriceByFundingId(funding.getId());
 

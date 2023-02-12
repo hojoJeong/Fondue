@@ -42,7 +42,7 @@ public class Item {
     private Boolean isFavorite;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "item", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "item")
     private List<Description> descriptions = new ArrayList<>();
 
     @Column(name = "selling_count",columnDefinition = "integer default 0")
@@ -61,13 +61,14 @@ public class Item {
     private Category category;
 
     @Builder
-    public Item(int price, String image, String descriptionImg, String title, Boolean isAr,Boolean isFavorite, Description description, int sellingCount, String brand, Category category) {
+    public Item(int price, String image, String descriptionImg, String title, Boolean isAr,Boolean isFavorite, List<Description> description, int sellingCount, String brand, Category category) {
         this.price = price;
         this.image = image;
         this.descriptionImg = descriptionImg;
         this.title = title;
         this.isAr = isAr;
         this.isFavorite = false;
+        this.descriptions = description;
         this.sellingCount = sellingCount;
         this.brand = brand;
         this.category = category;
