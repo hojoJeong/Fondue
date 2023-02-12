@@ -102,7 +102,6 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                 is ViewState.Success -> {
                     // 내 펀딩 화면으로 이동
                     val fundingId = response.value!!
-                    popBackStack()
                     navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(
                             fundingId
                         )
