@@ -164,7 +164,7 @@ public class FundingService {
 
     }
 
-
+    @Transactional
     public List<MyFundingDto> getMyClosedFundingList() {
 
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
@@ -184,6 +184,8 @@ public class FundingService {
             List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
 
             for(FundingItem fundingItem : fundingItemList){
+                fundingItem.getItem().getDescriptions();
+
                 FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
 
                 fundingItemDtoList.add(fundingItemDto);
