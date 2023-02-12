@@ -99,8 +99,8 @@ public class FundingApiController {
 
     // 펀딩 종료
     @PostMapping("/terminate")
-    @ApiOperation(value = "펀딩 종료", notes = "반환값 미정")
-    public ResponseEntity<String> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
+    @ApiOperation(value = "펀딩 종료", notes = "반환값 true")
+    public ResponseEntity<Boolean> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingIdDto.getFunding_id()));
     }
 

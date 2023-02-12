@@ -69,7 +69,6 @@ public class FundingItemApiController {
     @ApiOperation(value = "펀딩 아이템 상세보기", notes = "펀딩 아이템 정보")
     @PostMapping()
     public ResponseEntity<FundingItemDto> getFundingItem(@RequestBody FundingItemIdDto fundingItemIdDto){
-        fundingItemService.getFundingItem(fundingItemIdDto.getFunding_item_id());
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getFundingItem(fundingItemIdDto.getFunding_item_id()));
     }
 
@@ -93,8 +92,8 @@ public class FundingItemApiController {
 
     // 펀딩 아이템 종료
     @PostMapping("/terminate")
-    @ApiOperation(value = "펀딩 아이템 펀딩 종료", notes = "반환값 - 펀딩 종료 완료 ")
-    public ResponseEntity<String> terminateFundingItem(@RequestBody FundingItemIdDto fundingItemIdDto) {
+    @ApiOperation(value = "펀딩 아이템 펀딩 종료", notes = "반환값 - true ")
+    public ResponseEntity<Boolean> terminateFundingItem(@RequestBody FundingItemIdDto fundingItemIdDto) {
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.terminateFundingItem(fundingItemIdDto.getFunding_item_id()));
     }
 
