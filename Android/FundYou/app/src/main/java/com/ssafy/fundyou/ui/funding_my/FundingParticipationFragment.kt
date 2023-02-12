@@ -3,13 +3,13 @@ package com.ssafy.fundyou.ui.funding_my
 import android.os.Bundle
 import android.view.View
 import com.ssafy.fundyou.R
-import com.ssafy.fundyou.databinding.FragmentFundingParticipationBinding
+import com.ssafy.fundyou.databinding.FragmentMyFundingParticipationBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.funding_my.adapter.FundingParticipateAdapter
 import com.ssafy.fundyou.ui.funding_my.model.FundingParticipateModel
 
 class FundingParticipationFragment :
-    BaseFragment<FragmentFundingParticipationBinding>(R.layout.fragment_funding_participation) {
+    BaseFragment<FragmentMyFundingParticipationBinding>(R.layout.fragment_my_funding_participation) {
 
     private val fundingParticipateAdapter = FundingParticipateAdapter()
 

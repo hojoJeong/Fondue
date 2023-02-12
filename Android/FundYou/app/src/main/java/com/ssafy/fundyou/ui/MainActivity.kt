@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.TEXT, "나의 펀딩")
                     setBottomNavigationVisibility(View.GONE)
                 }
-                R.id.fundingDetailFragment -> {
+                R.id.myFundingDetailFragment -> {
                     setToolbarType(ToolbarType.TEXT, "펀딩 통계")
                     setBottomNavigationVisibility(View.GONE)
                 }

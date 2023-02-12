@@ -50,7 +50,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     }
 
     private fun terminateFundingItemEvent(id: Long, status: Boolean) {
-        if (status) myFundingViewModel.terminateFundingItem(id)
+        if (!status) myFundingViewModel.terminateFundingItem(id)
         else showTerminateFundingItemDialog(id, title = "펀딩을 중단하시겠어요?", content = "이미 펀딩된 금액만 포인트로 들어와요")
     }
 
@@ -59,13 +59,13 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
             initDialog(id, title, content) { fundingItemId ->
                 myFundingViewModel.terminateFundingItem(fundingItemId)
             }
-            setCanceledOnTouchOutside(true)
-            window?.setLayout(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.WRAP_CONTENT
-            )
         }
         dialog.show()
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
     }
 
     private fun initTerminateFundingItemObserver(){
@@ -143,7 +143,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
 
     private fun addMyFundingDetailEvent() {
         binding.tvFundingDetail.setOnClickListener {
-            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToFundingDetailFragment())
+            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToMyFundingDetailFragment(args.fundingId))
         }
     }
 

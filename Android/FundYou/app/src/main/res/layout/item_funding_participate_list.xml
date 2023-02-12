@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="fundingUserData"
-            type="com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel" />
+            name="participateUserModel"
+            type="com.ssafy.fundyou.ui.funding_my_detail.model.FundingParticipateUserUiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,11 +19,10 @@
             android:id="@+id/iv_funding_category"
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:src="@drawable/ic_back_arrow_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcByResId="@{fundingUserData.tempUserImg}" />
+            app:setItemImage="@{participateUserModel.participateUserProfileImg}" />
 
 
 
@@ -43,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                android:text="@{fundingUserData.userName}"
+                android:text="@{participateUserModel.participateUserName}"
                 tools:text="펀딩 해준 사람" />
 
             <TextView
@@ -52,7 +51,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
-                app:fundingItems="@{fundingUserData.fundingItem}"
                 tools:text="펀딩 물건" />
         </LinearLayout>
 
@@ -61,7 +59,7 @@
             style="@style/base_font_bold_14_black"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:addCommaText="@{fundingUserData.fundingTotalPrice}"
+            app:addCommaText="@{participateUserModel.fundingPrice}"
             app:layout_constraintBottom_toBottomOf="@id/iv_funding_category"
             app:layout_constraintEnd_toStartOf="@id/tv_won"
             app:layout_constraintTop_toTopOf="@id/iv_funding_category" />

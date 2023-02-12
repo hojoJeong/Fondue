@@ -12,20 +12,23 @@ class CommonDialog(context : Context) : Dialog(context) {
     private lateinit var binding : DialogCommonBinding
     private lateinit var positiveButtonClickEvent : (Long) -> Unit
     private var id : Long = 0
+    private var title : String = ""
+    private var content : String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.inflate(layoutInflater, R.layout.dialog_common, null, false)
         setContentView(binding.root)
+        binding.tvDialogTitle.text = title
+        binding.tvDialogContent.text = content
+        initButtonEvent()
     }
 
     fun initDialog(id : Long, title : String, content : String, event : (Long) -> Unit){
         this.id = id
-        binding.tvDialogTitle.text = title
-        binding.tvDialogContent.text = content
         positiveButtonClickEvent = event
-
-        initButtonEvent()
+        this.title = title
+        this.content = content
     }
 
     private fun initButtonEvent(){
@@ -35,6 +38,7 @@ class CommonDialog(context : Context) : Dialog(context) {
 
         binding.btnPositive.setOnClickListener {
             positiveButtonClickEvent.invoke(id)
+            dismiss()
         }
     }
 }

@@ -10,7 +10,7 @@ import retrofit2.http.POST
 internal interface FundingApiService {
     @POST("/funding")
     suspend fun getFundingInfo(
-        @Body fundingId: FundingInfoRequestDto
+        @Body fundingId: FundingIdRequestDto
     ): FundingSimpleResponseDto
 
     @POST("/funding/create")
@@ -26,11 +26,16 @@ internal interface FundingApiService {
 
     @POST("/fundingItem/list")
     suspend fun getFundingItemList(
-        @Body fundingId: FundingInfoRequestDto
+        @Body fundingId: FundingIdRequestDto
     ): List<FundingItemResponseDto>
 
     @POST("/fundingItem/terminate")
     suspend fun terminateFundingItem(
         @Body fundingItemId: FundingItemIdRequestDto
     ): Boolean
+
+    @POST("/funding/statistics")
+    suspend fun getFundingStatistics(
+        @Body fundingId: FundingIdRequestDto
+    ) : List<FundingStatisticsResponseDto>
 }
