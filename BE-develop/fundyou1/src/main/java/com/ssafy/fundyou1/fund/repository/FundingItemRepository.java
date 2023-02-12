@@ -54,11 +54,11 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
     @Query(value = "select * from funding_item fi where fi.funding_item_id = :fundingItemId", nativeQuery = true)
     FundingItem findByFundingItemId(@Param("fundingItemId") Long fundingItemId);
 
-    @Query(value = "select case when count(*) = 1 then 'true' else 'false' end from funding_item fi where fi.funding_item_id = :itemId and fi.funding_id = :fundingId", nativeQuery = true)
+    @Query(value = "select case when count(*) = 1 then 'true' else 'false' end from funding_item fi where fi.item_id = :itemId and fi.funding_id = :fundingId", nativeQuery = true)
     boolean findByFundingIdAndItemId(@Param("fundingId") Long fundingId, @Param("itemId") Long itemId);
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update funding_item fi set fi.count = fi.count + :count and fi.item_total_price = fi.item_total_price + (:itemPrice * :count) where fi.funding_item_id = :itemId and fi.funding_id = :fundingId", nativeQuery = true)
+    @Query(value = "update funding_item set funding_item.count = funding_item.count + :count, funding_item.item_total_price = funding_item.item_total_price + (:itemPrice * :count) where funding_item.item_id = :itemId and funding_item.funding_id = :fundingId", nativeQuery = true)
     void addFundingItem(@Param("fundingId") Long fundingId, @Param("itemId") Long itemId, @Param("count") int count, @Param("itemPrice") int itemPrice);
 }
