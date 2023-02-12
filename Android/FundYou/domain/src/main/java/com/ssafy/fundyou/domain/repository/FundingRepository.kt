@@ -10,4 +10,5 @@ interface FundingRepository {
     suspend fun getMyOngoingFunding() : List<FundingTotalModel>
     suspend fun getMyClosedFunding() : List<FundingTotalModel>
     suspend fun getFundingItemList(fundingId : Long) : List<FundingItemInfoModel>
+    suspend fun terminateFundingItem(fundingItemId : Long) : Boolean
 }

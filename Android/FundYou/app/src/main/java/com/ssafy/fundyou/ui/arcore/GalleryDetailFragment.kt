@@ -8,7 +8,7 @@ import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentGalleryDetailBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 
 class GalleryDetailFragment : BaseFragment<FragmentGalleryDetailBinding>(R.layout.fragment_gallery_detail) {
 

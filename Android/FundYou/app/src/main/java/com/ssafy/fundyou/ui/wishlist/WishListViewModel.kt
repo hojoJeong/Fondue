@@ -32,7 +32,7 @@ class WishListViewModel @Inject constructor(
         get() = _resultWishList
 
     private val _addFundingStatus = SingleLiveEvent<ViewState<Long>>()
-    val addFundingStatus: SingleLiveEvent<ViewState<Long>> get() = _addFundingStatus
+    val addFundingStatus: LiveData<ViewState<Long>> get() = _addFundingStatus
 
     fun getWishListItemList() = viewModelScope.launch {
         _wishListItem.value = ViewState.Loading()

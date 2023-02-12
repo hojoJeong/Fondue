@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.adapter.diffutil
+package com.ssafy.fundyou.ui.common.adapter.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel

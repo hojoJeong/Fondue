@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.base
+package com.ssafy.fundyou.ui.common
 
 import android.os.Bundle
 import android.view.LayoutInflater

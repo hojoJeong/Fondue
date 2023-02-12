@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
@@ -17,7 +16,7 @@ import com.skydoves.balloon.showAlignTop
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentWishListBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.wishlist.model.WishListModel
 import com.ssafy.fundyou.util.addComma
 import dagger.hilt.android.AndroidEntryPoint

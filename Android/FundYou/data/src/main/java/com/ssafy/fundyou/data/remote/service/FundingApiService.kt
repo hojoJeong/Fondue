@@ -26,6 +26,11 @@ internal interface FundingApiService {
 
     @POST("/fundingItem/list")
     suspend fun getFundingItemList(
-        @Body fundingId : FundingInfoRequestDto
-    ) : List<FundingItemResponseDto>
+        @Body fundingId: FundingInfoRequestDto
+    ): List<FundingItemResponseDto>
+
+    @POST("/fundingItem/terminate")
+    suspend fun terminateFundingItem(
+        @Body fundingItemId: FundingItemIdRequestDto
+    ): Boolean
 }

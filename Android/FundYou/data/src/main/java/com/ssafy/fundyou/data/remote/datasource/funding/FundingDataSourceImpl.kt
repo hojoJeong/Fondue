@@ -24,4 +24,7 @@ internal class FundingDataSourceImpl @Inject constructor(
     override suspend fun getMyClosedFunding() = fundingApiService.getMyClosedFundingList()
     override suspend fun getFundingItemList(fundingInfoRequestDto: FundingInfoRequestDto) =
         fundingApiService.getFundingItemList(fundingInfoRequestDto)
+
+    override suspend fun terminateFundingItem(fundingItemIdRequestDto: FundingItemIdRequestDto) =
+        fundingApiService.terminateFundingItem(fundingItemIdRequestDto)
 }

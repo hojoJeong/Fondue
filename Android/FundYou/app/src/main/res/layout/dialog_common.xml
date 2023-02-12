@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/base_horizontal_margin"
+        android:layout_marginEnd="@dimen/base_horizontal_margin"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/tv_dialog_title"
+            style="@style/base_font_bold_20_matter_horn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:includeFontPadding="false"
+            android:text="펀딩을 중단 하시겠어요?"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_dialog_content"
+            style="@style/base_font_medium_14_raven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:includeFontPadding="false"
+            android:text="이미 펀딩된 금액만 포인트로 들어와요"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_dialog_title" />
+
+        <android.widget.Button
+            android:id="@+id/btn_positive"
+            style="@style/base_font_medium_16_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="15dp"
+            android:background="@drawable/bg_rect_transparent_franch_rose_radius4_stroke0"
+            android:includeFontPadding="false"
+            android:minHeight="0dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="9dp"
+            android:stateListAnimator="@null"
+            android:text="중단하기"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_dialog_content" />
+
+        <android.widget.Button
+            android:id="@+id/btn_negative"
+            style="@style/base_font_medium_16"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/bg_rect_transparent_solitude_radius4_stroke0"
+            android:includeFontPadding="false"
+            android:minHeight="0dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="9dp"
+            android:stateListAnimator="@null"
+            android:text="취소"
+            android:textColor="@color/raven"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_positive" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

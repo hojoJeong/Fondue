@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemMyFundingItemListBinding
-import com.ssafy.fundyou.ui.adapter.diffutil.MyFundingItemDiffUtil
+import com.ssafy.fundyou.ui.common.adapter.diffutil.MyFundingItemDiffUtil
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingItemInfoUiModel
 
 class MyFundingItemListAdapter :
@@ -15,14 +15,14 @@ class MyFundingItemListAdapter :
         MyFundingItemDiffUtil
     ) {
 
-    private lateinit var clickEvent: (Long) -> Unit
+    private lateinit var clickEvent: (Long, Boolean) -> Unit
 
     inner class MyFundingListHolder(private val binding: ItemMyFundingItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MyFundingItemInfoUiModel) {
             binding.fundingItem = item
             binding.btnFunding.setOnClickListener {
-                clickEvent.invoke(item.fundingItemId)
+                clickEvent.invoke(item.fundingItemId, item.status)
             }
         }
     }
@@ -40,7 +40,7 @@ class MyFundingItemListAdapter :
         holder.bind(currentList[position])
     }
 
-    fun addClickEvent(event: (Long) -> Unit) {
+    fun addClickEvent(event: (Long, Boolean) -> Unit) {
         this.clickEvent = event
     }
 }

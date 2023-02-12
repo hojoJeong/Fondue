@@ -7,7 +7,7 @@ import com.github.mikephil.charting.data.PieDataSet
 import com.github.mikephil.charting.data.PieEntry
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentFundingDetailBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.funding_detail.model.FundingUserModel
 import com.ssafy.fundyou.util.getColorNoTheme
 

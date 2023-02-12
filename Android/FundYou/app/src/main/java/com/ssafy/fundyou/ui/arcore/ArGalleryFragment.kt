@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.ui.arcore
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -11,7 +10,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArGalleryBinding
 import com.ssafy.fundyou.databinding.ItemArGalleryListBinding
 import com.ssafy.fundyou.ui.arcore.adapter.ArGalleryAdapter
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 
 
 class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragment_ar_gallery) {
