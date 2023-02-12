@@ -221,6 +221,7 @@
         android:label="WishListFragment">
         <action
             android:id="@+id/action_wishListFragment_to_myFundingFragment"
+            app:popUpTo="@id/mainFragment"
             app:destination="@id/myFundingFragment" />
     </fragment>
     <fragment

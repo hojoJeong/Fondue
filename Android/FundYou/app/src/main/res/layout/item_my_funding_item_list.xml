@@ -4,32 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="invited_funding"
-            type="com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingModel" />
+
+        <import type="android.view.View" />
 
         <variable
             name="state"
             type="String" />
 
         <variable
-            name="item"
-            type="com.ssafy.fundyou.ui.funding_my.model.FundingItemModel" />
+            name="fundingItem"
+            type="com.ssafy.fundyou.ui.funding_my.model.MyFundingItemInfoUiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/cstl_funding_item"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <View
-            android:id="@+id/div_item"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/solitude"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_funding_img"
@@ -39,25 +29,25 @@
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/div_item"
-            app:srcByResId="@{item.tempProductImg}" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:setItemImage="@{fundingItem.img}" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/iv_funding_ar"
+            style="@style/base_font_medium_14"
             android:layout_width="40dp"
             android:layout_height="22dp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_funding_img"
-            app:layout_constraintBottom_toBottomOf="@+id/iv_funding_img"
-            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
-            android:text="@string/title_AR_btn"
-            style="@style/base_font_medium_14"
-            android:gravity="center_vertical|center_horizontal"
-            android:textColor="@color/razzmatazz"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/title_AR_btn"
+            android:textColor="@color/razzmatazz"
             android:visibility="gone"
-            tools:visibility="visible"
-            app:setArVisibility="@{invited_funding.fundingItemModel.product.ar}"/>
+            app:layout_constraintBottom_toBottomOf="@+id/iv_funding_img"
+            app:layout_constraintEnd_toEndOf="@+id/iv_funding_img"
+            app:setArVisibility="@{fundingItem.isAr}"
+            tools:visibility="visible" />
 
         <TextView
             android:id="@+id/tv_brand"
@@ -66,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="14dp"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
-            android:text="@{item.product.brand}"
+            android:text="@{fundingItem.brand}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_funding_img"
             app:layout_constraintTop_toTopOf="@id/iv_funding_img"
@@ -80,7 +70,7 @@
             android:layout_marginStart="14dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
-            android:text="@{item.product.title}"
+            android:text="@{fundingItem.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_funding_img"
             app:layout_constraintTop_toBottomOf="@id/tv_brand"
@@ -94,7 +84,8 @@
             android:layout_marginStart="14dp"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
             android:background="@drawable/bg_rect_transparent_midnight_express_radius8_stroke0"
-            app:fundingStateType="@{item.fundingProgress == 100}"
+            android:visibility="@{fundingItem.status ? View.VISIBLE : View.INVISIBLE}"
+            app:fundingStateType="@{fundingItem.percentage == 100}"
             app:layout_constraintBottom_toBottomOf="@id/iv_funding_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_funding_img"
@@ -110,7 +101,7 @@
             android:layout_marginTop="13dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_funding_img"
-            app:percentage="@{item.fundingProgress}"
+            app:percentage="@{fundingItem.percentage}"
             tools:text="100%" />
 
         <TextView
@@ -119,13 +110,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
-            android:background="@drawable/bg_transparent_tomato_trans_20_radius4_stroke0"
+            android:background="@{fundingItem.status ? @drawable/bg_transparent_tomato_trans_20_radius4_stroke0 : @drawable/bg_rect_transparent_matter_horn_trans_20_radius4_stroke0}"
             android:paddingHorizontal="4dp"
             android:paddingVertical="2dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_funding_progress"
             app:layout_constraintStart_toEndOf="@id/tv_funding_progress"
             app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
-            app:participate="@{item.fundingParticipate}"
+            app:participate="@{fundingItem.participateCount}"
             tools:text="3명 참여" />
 
         <ProgressBar
@@ -136,8 +127,8 @@
             android:layout_marginHorizontal="@dimen/base_horizontal_margin"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="12dp"
-            android:progress="@{item.fundingProgress}"
-            android:progressDrawable="@drawable/bg_progress_funding"
+            android:progress="@{fundingItem.percentage}"
+            android:progressDrawable="@{fundingItem.status ? @drawable/bg_progress_funding : @drawable/bg_progress_end_funding}"
             android:scaleY="0.5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -163,11 +154,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
-            app:addCommaText="@{item.currentFundingPrice}"
+            app:addCommaText="@{fundingItem.currentFundingPrice}"
             app:layout_constraintBottom_toBottomOf="@+id/tv_funding_progress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
             tools:text="60,000" />
+
+        <View
+            android:id="@+id/div_item"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/solitude"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pb_funding" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

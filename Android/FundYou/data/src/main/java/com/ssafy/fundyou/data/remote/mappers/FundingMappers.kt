@@ -4,7 +4,7 @@ import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemResponseD
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingResponseDto
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingSimpleResponseDto
 import com.ssafy.fundyou.domain.model.funding.FundingInfoModel
-import com.ssafy.fundyou.domain.model.funding.FundingItemModel
+import com.ssafy.fundyou.domain.model.funding.FundingItemInfoModel
 import com.ssafy.fundyou.domain.model.funding.FundingTotalModel
 
 internal fun FundingSimpleResponseDto.toDomainModel() = FundingInfoModel(
@@ -32,7 +32,7 @@ internal fun FundingResponseDto.toDomainModel() = FundingTotalModel(
     fundingItemList = this.fundingItemList?.map { it.toDomainModel() } ?: emptyList()
 )
 
-internal fun FundingItemResponseDto.toDomainModel() = FundingItemModel(
+internal fun FundingItemResponseDto.toDomainModel() = FundingItemInfoModel(
     id = this.id ?: -1,
     itemCount = count ?: 0,
     currentFundingPrice = currentFundingPrice ?: 0,

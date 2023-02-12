@@ -22,15 +22,19 @@ class MyFundingListFragment :
     private val myFundingViewModel by activityViewModels<MyFundingListViewModel>()
     private val onGoingFundingListAdapter = MyFundingListAdapter().apply {
         addClickEvent { fundingId ->
-            MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
-                fundingId
+            navigate(
+                MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
+                    fundingId
+                )
             )
         }
     }
     private val closedFundingListAdapter = MyFundingListAdapter().apply {
         addClickEvent { fundingId ->
-            MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
-                fundingId
+            navigate(
+                MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
+                    fundingId
+                )
             )
         }
     }
@@ -80,12 +84,12 @@ class MyFundingListFragment :
                     Log.d(TAG, "initOngoingFundingObserver: loading...")
                 }
                 is ViewState.Success -> {
-                    if(response.value?.isEmpty() == true){
-                        with(binding.lyNoClosedFunding){
+                    if (response.value?.isEmpty() == true) {
+                        with(binding.lyNoClosedFunding) {
                             root.visibility = View.VISIBLE
                             tvNoKeyword.text = "완료된 펀딩이 없습니다."
                         }
-                    }else{
+                    } else {
                         closedFundingListAdapter.submitList(response.value)
                         binding.rvEndFundingList.adapter = closedFundingListAdapter
                     }

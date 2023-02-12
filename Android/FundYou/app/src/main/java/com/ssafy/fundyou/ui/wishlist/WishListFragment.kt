@@ -7,6 +7,7 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.google.android.material.datepicker.CalendarConstraints
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -27,7 +28,7 @@ import java.util.*
 class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment_wish_list) {
 
     private lateinit var calendar: MaterialDatePicker<Pair<Long, Long>>
-    private val wishListViewModel by activityViewModels<WishListViewModel>()
+    private val wishListViewModel by viewModels<WishListViewModel>()
     private val wishListAdapter = WishListAdapter().apply {
         deleteItemBtnClickListener { id ->
             wishListViewModel.deleteWishListItem(id)
@@ -101,8 +102,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                 is ViewState.Success -> {
                     // 내 펀딩 화면으로 이동
                     val fundingId = response.value!!
-                    navigate(
-                        WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(
+                    navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(
                             fundingId
                         )
                     )
