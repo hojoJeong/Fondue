@@ -8,6 +8,7 @@ import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
+import com.ssafy.fundyou1.fund.repository.InvitedMemberRepository;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
@@ -28,6 +29,8 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingItemService {
+    @Autowired
+    InvitedMemberRepository invitedMemberRepository;
     @Autowired
     FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
@@ -84,7 +87,8 @@ public class FundingItemService {
 
         for(FundingItem fundingItem : invitedFundingItemList){
             fundingItem.getItem().getDescriptions();
-            FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+            int attendMemberCount = countAttendMember(fundingItem.getId());
+            FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
             invitedFundingItemDtoList.add(fundingItemDto);
         }
@@ -93,7 +97,10 @@ public class FundingItemService {
 
     public FundingItemDto getFundingItem(Long fundingItemId) {
         FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
-        FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+
+        int attendMemberCount = countAttendMember(fundingItemId);
+
+        FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
         return fundingItemDto;
     }
@@ -104,11 +111,24 @@ public class FundingItemService {
     }
 
     @Transactional
-    public String terminateFundingItem(Long fundingItemId) {
+    public Boolean terminateFundingItem(Long fundingItemId) {
 
         // 펀딩 상품 종료
         fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
 
-        return "펀딩이 종료 되었습니다.";
+        // 확인
+        // 펀딩 진행 중이면
+        if (fundingItemRepository.findByFundingItemId(fundingItemId).isFundingItemStatus()){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+
+    public int countAttendMember(Long fundingItemId) {
+        int attendMemberCount = fundingItemMemberRepository.countAttendMember(fundingItemId);
+        return attendMemberCount;
     }
 }
