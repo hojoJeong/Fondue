@@ -140,12 +140,12 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_item_list_cancel"
-            android:layout_width="11dp"
-            android:layout_height="12dp"
+            android:layout_width="21dp"
+            android:layout_height="20dp"
             android:background="@drawable/ic_cancel"
             android:visibility="@{favorite_visibility ? View.GONE : View.VISIBLE, default=visible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_item_list_product_ranking"
-            tools:visibility="visible" />
+            tools:visibility="visible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

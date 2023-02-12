@@ -152,7 +152,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     private fun initResultAddLikeItemObserve() {
-        likeItemViewModel.resultAddListItem.observe(viewLifecycleOwner) { response ->
+        likeItemViewModel.resultModifyListItem.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initResultAddLikeItemObserve: Add Like Item Loading...")

@@ -21,9 +21,9 @@ class LikeItemViewModel @Inject constructor(
     val likeItemList: LiveData<ViewState<List<LikeItemModel>>>
         get() = _likeItemList
 
-    private val _resultAddLikeItem = SingleLiveEvent<ViewState<Int>>()
-    val resultAddListItem: LiveData<ViewState<Int>>
-        get() = _resultAddLikeItem
+    private val _resultModifyLikeItem = SingleLiveEvent<ViewState<Int>>()
+    val resultModifyListItem: LiveData<ViewState<Int>>
+        get() = _resultModifyLikeItem
 
     fun getLikeItemList() = viewModelScope.launch {
         _likeItemList.postValue(ViewState.Loading())
@@ -36,12 +36,12 @@ class LikeItemViewModel @Inject constructor(
     }
 
     fun addListItem(itemId: Long) = viewModelScope.launch {
-        _resultAddLikeItem.postValue(ViewState.Loading())
+        _resultModifyLikeItem.postValue(ViewState.Loading())
         try {
             val response = addListItemUseCase(itemId)
-            _resultAddLikeItem.postValue(ViewState.Success(response))
+            _resultModifyLikeItem.postValue(ViewState.Success(response))
         } catch (e: Exception){
-            _resultAddLikeItem.postValue(ViewState.Error(e.message))
+            _resultModifyLikeItem.postValue(ViewState.Error(e.message))
         }
     }
 
