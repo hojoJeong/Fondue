@@ -9,5 +9,6 @@ internal fun UserResponseDto.toDomainModel() =  UserInfoDomainModel(
     userName = this.username,
     status = this.status,
     profileImg = this.profileImg,
-    point = this.point
+    point = this.point,
+    email = this.email
 )
