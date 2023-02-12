@@ -301,11 +301,16 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 likeItemViewModel.addListItem(id)
             }
         }
+
+        rankingItemAdapter.setHasStableIds(true)
+
+        rankingItemAdapter.setHasStableIds(true)
         with(binding.rvMainRank) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
         }
+
     }
 
     private fun initResultAddLikeItemObserve() {

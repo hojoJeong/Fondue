@@ -24,6 +24,11 @@ class ItemListAdapter : ListAdapter<ItemListModel, ItemListAdapter.ItemListViewH
         }
     }
 
+    //아이템 갱신 시 깜빡임 현상 방지
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListViewHolder {
         val view = DataBindingUtil.inflate<ItemListProductBinding>(LayoutInflater.from(parent.context), R.layout.item_list_product, parent, false)
         return ItemListViewHolder(view)

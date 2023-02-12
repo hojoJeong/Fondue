@@ -1,9 +1,9 @@
 package com.ssafy.fundyou.ui.like
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.fundyou.common.SingleLiveEvent
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.domain.usecase.item.AddLikeItemUseCase
 import com.ssafy.fundyou.domain.usecase.item.GetLikeItemUseCase
@@ -17,31 +17,31 @@ class LikeItemViewModel @Inject constructor(
     private val addListItemUseCase: AddLikeItemUseCase
 ) :
     ViewModel() {
-    private val _likeItemList = MutableLiveData<ViewState<List<LikeItemModel>>>()
+    private val _likeItemList = SingleLiveEvent<ViewState<List<LikeItemModel>>>()
     val likeItemList: LiveData<ViewState<List<LikeItemModel>>>
         get() = _likeItemList
 
-    private val _resultAddLikeItem = MutableLiveData<ViewState<Int>>()
+    private val _resultAddLikeItem = SingleLiveEvent<ViewState<Int>>()
     val resultAddListItem: LiveData<ViewState<Int>>
         get() = _resultAddLikeItem
 
     fun getLikeItemList() = viewModelScope.launch {
-        _likeItemList.value = ViewState.Loading()
+        _likeItemList.postValue(ViewState.Loading())
         try {
             val response = getLikeItemUseCase()
-            _likeItemList.value = ViewState.Success(response.map { it.toLikeItemModel() })
+            _likeItemList.postValue(ViewState.Success(response.map { it.toLikeItemModel() }))
         } catch (e: Exception) {
-            _likeItemList.value = ViewState.Error(e.message)
+            _likeItemList.postValue(ViewState.Error(e.message))
         }
     }
 
     fun addListItem(itemId: Long) = viewModelScope.launch {
-        _resultAddLikeItem.value = ViewState.Loading()
+        _resultAddLikeItem.postValue(ViewState.Loading())
         try {
             val response = addListItemUseCase(itemId)
-            _resultAddLikeItem.value = ViewState.Success(response)
+            _resultAddLikeItem.postValue(ViewState.Success(response))
         } catch (e: Exception){
-            _resultAddLikeItem.value = ViewState.Error(e.message)
+            _resultAddLikeItem.postValue(ViewState.Error(e.message))
         }
     }
 

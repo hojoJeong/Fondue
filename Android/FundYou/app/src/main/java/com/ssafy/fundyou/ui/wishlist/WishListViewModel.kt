@@ -7,10 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.SingleLiveEvent
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.domain.usecase.funding.AddFundingUseCase
-import com.ssafy.fundyou.domain.usecase.wishlist.AddWishListItemUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.DeleteWishListItemUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.GetWishListItemListUseCase
-import com.ssafy.fundyou.domain.usecase.wishlist.ModifyWishListItemUseCase
 import com.ssafy.fundyou.ui.wishlist.model.WishListModel
 import com.ssafy.fundyou.ui.wishlist.model.toUiModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,8 +21,8 @@ class WishListViewModel @Inject constructor(
     private val deleteWishListItemUseCase: DeleteWishListItemUseCase,
     private val addFundingUseCase: AddFundingUseCase
 ) : ViewModel() {
-    private val _wishListItem = MutableLiveData<ViewState<List<WishListModel>>>()
-    val wishListItem: LiveData<ViewState<List<WishListModel>>>
+    private val _wishListItem = SingleLiveEvent<ViewState<List<WishListModel>>>()
+    val wishListItem: SingleLiveEvent<ViewState<List<WishListModel>>>
         get() = _wishListItem
 
     private val _resultWishList = MutableLiveData<ViewState<Int>>()
@@ -35,12 +33,12 @@ class WishListViewModel @Inject constructor(
     val addFundingStatus: SingleLiveEvent<ViewState<Long>> get() = _addFundingStatus
 
     fun getWishListItemList() = viewModelScope.launch {
-        _wishListItem.value = ViewState.Loading()
+        _wishListItem.postValue(ViewState.Loading())
         try {
             val response = getWishListItemListUseCase()
-            _wishListItem.value = ViewState.Success(response.map { it.toUiModel() })
+            _wishListItem.postValue(ViewState.Success(response.map { it.toUiModel() }))
         } catch (e: Exception) {
-            _wishListItem.value = ViewState.Error(e.message)
+            _wishListItem.postValue(ViewState.Error(e.message))
         }
     }
 

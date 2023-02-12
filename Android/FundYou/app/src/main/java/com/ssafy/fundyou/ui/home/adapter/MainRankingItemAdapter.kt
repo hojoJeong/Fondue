@@ -35,6 +35,11 @@ class MainRankingItemAdapter :
         }
     }
 
+    //아이템 갱신 시 깜빡임 현상 방지
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id
+    }
+
     fun addItemClickListener(itemId: (Long) -> Unit) {
         clickListener = itemId
     }
