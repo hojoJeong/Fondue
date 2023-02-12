@@ -30,5 +30,6 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
     @Query(value = "select * from funding where funding.end_date < :nowDate", nativeQuery = true)
     List<Funding> findNeedUpdateFunding(@Param("nowDate") Long nowDate);
 
-
+    @Query(value = "select * from funding where funding.member_id = :memberId and funding.funding_status = true", nativeQuery = true)
+    Funding findMyOngoingFunding(@Param("memberId") Long memberId);
 }
