@@ -12,6 +12,4 @@ import java.util.List;
 public interface InvitedMemberRepository extends JpaRepository<InvitedMember, Long> {
     List<InvitedMember> findAllByMemberId(Long memberId);
 
-    @Query(value = "select count(*) from invited_member where funding_id = :fundingId", nativeQuery = true)
-    int countAttendMember(@Param("fundingId") Long fundingId);
 }

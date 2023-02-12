@@ -99,11 +99,21 @@ public class FundingApiController {
 
     // 펀딩 종료
     @PostMapping("/terminate")
-    @ApiOperation(value = "펀딩 종료", notes = "반환값 미정")
-    public ResponseEntity<String> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
+    @ApiOperation(value = "펀딩 종료", notes = "반환값 true")
+    public ResponseEntity<Boolean> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingIdDto.getFunding_id()));
     }
 
 
+    // 진행 중 펀딩에 아이템 추가
+    @ApiOperation(value = "펀딩 중 펀딩에 아이템 추가", notes = "반환값: 펀딩 아이템이 추가되었습니다")
+    @PostMapping("/add")
+    @ResponseBody
+    public ResponseEntity<AddFundingResponseDto> addFundingItem() {
+
+        // 펀딩 아이템 추가
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.addFundingItem());
+
+    }
 
 }

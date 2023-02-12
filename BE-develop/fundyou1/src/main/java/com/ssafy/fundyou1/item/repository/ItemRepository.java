@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
             nativeQuery = true)
     List<Item> findItemWithFilterNoCategory(Long minPrice, Long maxPrice);
 
+    @Transactional
     @Modifying(clearAutomatically = true)
     @Query(value = "update item i set i.selling_count = i.selling_count + 1 where i.item_id = :itemId", nativeQuery = true)
     void updateCountPlus(@Param("itemId") Long itemId);

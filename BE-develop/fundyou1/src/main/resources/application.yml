@@ -74,9 +74,9 @@ jwt:
     header-type: JWT
     header: Authorization
     secret: c2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQtc2lsdmVybmluZS10ZWNoLXNwcmluZy1ib290LWp3dC10dXRvcmlhbC1zZWNyZXQK
-    access-time: 1800000 # 30분
-    refresh-time: 604800016 # 7일
-    issuer: fongyou
+    access-time: 86400000 # 하루
+    refresh-time: 604800000 # 1달
+    issuer: fundyou
 
 firebase:
   firebase-sdk-path: "firebase-adminsdk-cw4ut@fundyou-1674632553418.iam.gserviceaccount.com"
