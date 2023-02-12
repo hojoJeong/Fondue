@@ -26,7 +26,8 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingService {
-    private final FundingItemMemberRepository fundingItemMemberRepository;
+    @Autowired
+    private FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
     private ItemRepository itemRepository;
     @Autowired
@@ -39,6 +40,8 @@ public class FundingService {
     private FundingRepository fundingRepository;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private FundingItemService fundingItemService;
 
     // 펀딩 개설
     @Transactional
@@ -143,9 +146,11 @@ public class FundingService {
 
             List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
 
-            for(FundingItem fundingItem : fundingItemList){
 
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+
+            for(FundingItem fundingItem : fundingItemList){
+                int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
                 fundingItemDtoList.add(fundingItemDto);
             }
@@ -179,9 +184,11 @@ public class FundingService {
             List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
 
             for(FundingItem fundingItem : fundingItemList){
+                int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
+
                 fundingItem.getItem().getDescriptions();
 
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
                 fundingItemDtoList.add(fundingItemDto);
             }
@@ -214,15 +221,28 @@ public class FundingService {
 
     // 펀딩 종료 버튼 클릭
     @Transactional
-    public String terminateFunding(Long fundingId) {
+    public Boolean terminateFunding(Long fundingId) {
 
         // 펀딩 종료
         fundingRepository.updateStatus(fundingId, false);
 
+        // 펀딩 종료가 안된 경우
+        if (fundingRepository.getReferenceById(fundingId).isFundingStatus()){
+            return false;
+        }
+
         // 펀딩 상품 종료
         fundingItemRepository.updateFundingItemStatusByFundingId(fundingId, false);
+        List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(fundingId);
 
-        return "펀딩이 종료 되었습니다.";
+        for (FundingItem fundingItem : fundingItemList) {
+            // 펀딩 아이템 종료가 안된 경우
+            if (fundingItem.isFundingItemStatus()){
+                return false;
+            }
+        }
+
+        return true;
 
     }
 

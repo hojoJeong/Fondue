@@ -20,4 +20,7 @@ public interface FundingItemMemberRepository extends JpaRepository<FundingItemMe
 
     @Query(value = "select sum(funding_item_price) from funding_item_member fim where fim.member_id = :memberId and fim.funding_item_id = :fundingItemId ",nativeQuery = true)
     int findSumByMemberIdAndFundingItemId(@Param("memberId") Long memberId, @Param("fundingItemId") Long fundingItemId);
+
+    @Query(value = "select count(*) from (select distinct member_id from funding_item_member where funding_item_id = :fundingItemId) ",nativeQuery = true)
+    int countAttendMember(@Param("fundingItemId") Long fundingItemId);
 }

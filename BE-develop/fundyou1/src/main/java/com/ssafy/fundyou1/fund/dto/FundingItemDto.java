@@ -24,6 +24,8 @@ public class FundingItemDto {
     private Long fundingItemId;
     private ItemResponseDto item;
     private Long fundingId;
+    // 참여자 수
+    private int attendMemberCount;
 
     // 총가격
     private int itemTotalPrice;
@@ -36,11 +38,12 @@ public class FundingItemDto {
     private boolean fundingItemStatus;
 
     @Builder
-    public static FundingItemDto createFundingItemDto(FundingItem fundingItem) {
+    public static FundingItemDto createFundingItemDto(FundingItem fundingItem, int attendMemberCount) {
         return new FundingItemDto(
                 fundingItem.getId(),
                 new ItemResponseDto(fundingItem.getItem(), false),
                 fundingItem.getFunding().getId(),
+                attendMemberCount,
                 fundingItem.getItemTotalPrice(),
                 fundingItem.getCount(),
                 fundingItem.getCurrentFundingPrice(),
