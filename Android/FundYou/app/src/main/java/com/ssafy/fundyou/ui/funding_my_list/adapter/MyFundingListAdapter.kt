@@ -17,6 +17,11 @@ class MyFundingListAdapter : ListAdapter<MyFundingListUiModel, MyFundingListAdap
     inner class MyFundingListHolder(private val binding : ItemMyFundingListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(funding : MyFundingListUiModel){
             binding.fundingItem = funding
+
+            val imgAdapter = MyFundingListImgAdapter()
+            imgAdapter.addImageList(funding.imgList)
+            binding.rvFundingItemImg.adapter = imgAdapter
+
             binding.root.setOnClickListener {
                 clickEvent.invoke(funding.id)
             }

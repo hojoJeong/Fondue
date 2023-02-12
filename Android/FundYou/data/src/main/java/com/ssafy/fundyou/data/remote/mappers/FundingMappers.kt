@@ -15,7 +15,7 @@ internal fun FundingSimpleResponseDto.toDomainModel() = FundingInfoModel(
     endDate = this.endDate ?: -1,
     currentFundingPrice = this.currentFundingPrice ?: -1,
     totalPrice = this.totalPrice ?: 0,
-    percentage = this.percentage?.toFloat() ?: 0f,
+    percentage = this.percentage ?: -1
 )
 
 internal fun FundingResponseDto.toDomainModel() = FundingTotalModel(
@@ -27,13 +27,13 @@ internal fun FundingResponseDto.toDomainModel() = FundingTotalModel(
         endDate = this.endDate ?: -1,
         currentFundingPrice = this.currentFundingPrice ?: 0,
         totalPrice = this.totalPrice ?: 0,
-        percentage = this.percentage?.toFloat() ?: 0f
+        percentage = this.percentage ?: -1
     ),
-    fundingItem = this.fundingItemList?.map { it.toDomainModel() } ?: emptyList()
+    fundingItemList = this.fundingItemList?.map { it.toDomainModel() } ?: emptyList()
 )
 
 internal fun FundingItemResponseDto.toDomainModel() = FundingItemModel(
-    id = this.id,
+    id = this.id ?: -1,
     itemCount = count ?: 0,
     currentFundingPrice = currentFundingPrice ?: 0,
     status = fundingItemStatus ?: false,

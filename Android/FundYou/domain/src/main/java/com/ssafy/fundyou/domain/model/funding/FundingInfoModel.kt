@@ -8,5 +8,5 @@ data class FundingInfoModel(
     val endDate: Long,
     val currentFundingPrice: Int,
     val totalPrice: Int,
-    val percentage: Float,
+    val percentage: Int,
 )

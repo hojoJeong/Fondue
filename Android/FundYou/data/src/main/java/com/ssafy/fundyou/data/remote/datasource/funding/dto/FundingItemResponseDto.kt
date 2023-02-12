@@ -10,10 +10,10 @@ internal data class FundingItemResponseDto(
     val currentFundingPrice : Int?,
     @SerializedName("fundingItemStatus")
     val fundingItemStatus : Boolean?,
-    @SerializedName("funding_id")
+    @SerializedName("fundingId")
     val fundingId : Long,
-    @SerializedName("id")
-    val id : Long,
+    @SerializedName("fundingItemId")
+    val id : Long?,
     @SerializedName("item")
     val itemInfo : ItemResponseDto
 )

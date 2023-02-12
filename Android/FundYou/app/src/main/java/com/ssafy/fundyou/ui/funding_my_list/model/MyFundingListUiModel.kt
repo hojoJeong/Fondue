@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.ui.funding_my_list.model
 
+import com.ssafy.fundyou.domain.model.funding.FundingItemModel
 import com.ssafy.fundyou.domain.model.funding.FundingTotalModel
 
 data class MyFundingListUiModel(
@@ -10,6 +11,7 @@ data class MyFundingListUiModel(
     val status: Boolean,
     val currentFundingPrice: Int,
     val totalFundingPrice: Int,
+    val percentage : Int,
     val imgList: List<String>
 )
 
@@ -21,5 +23,6 @@ fun FundingTotalModel.toFundingListUiModel() = MyFundingListUiModel(
     status = this.fundingInfo.fundingStatus,
     currentFundingPrice = this.fundingInfo.currentFundingPrice,
     totalFundingPrice = this.fundingInfo.totalPrice,
-    imgList = this.fundingItem.filter { fundingItemModel -> fundingItemModel.id == fundingItemModel.info.id }[0].info.img
+    percentage = this.fundingInfo.percentage,
+    imgList = this.fundingItemList.map { it.info.img[0] }
 )

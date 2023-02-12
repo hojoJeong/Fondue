@@ -2,6 +2,7 @@ package com.ssafy.fundyou.ui.funding_my
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMyFundingBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
@@ -12,6 +13,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
 
     private val processingFundingAdapter = MyFundingProcessingListAdapter()
     private val endFundingAdapter = MyFundingItemEndListAdapter()
+    private val args by navArgs<MyFundingFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

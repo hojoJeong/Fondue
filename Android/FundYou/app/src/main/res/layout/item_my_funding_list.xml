@@ -12,7 +12,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/bg_rect_link_water_transparent_radius4_stroke1"
+        android:padding="13dp">
 
         <TextView
             android:id="@+id/tv_funding_sequence"
@@ -40,49 +43,47 @@
             android:id="@+id/rv_funding_item_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="18dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="18dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_funding_time"
-            app:setImageList="@{fundingItem.imgList}" />
+            app:layout_constraintVertical_bias="0.5" />
 
         <TextView
             android:id="@+id/tv_funding_progress"
-            style="@style/base_font_bold_20_franch_rose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:text="100%"
+            android:layout_marginTop="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/rv_funding_item_img" />
+            style="@style/base_font_bold_20_franch_rose"
+            app:layout_constraintTop_toBottomOf="@id/rv_funding_item_img"
+            app:percentage="@{fundingItem.percentage}"
+            app:styleByStatus="@{fundingItem.status}"
+            tools:text="100%" />
 
         <ProgressBar
             android:id="@+id/pb_funding"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:progress="50"
-            android:progressDrawable="@drawable/bg_progress_funding"
+            android:progress="@{fundingItem.percentage}"
+            android:progressDrawable="@{fundingItem.status ? @drawable/bg_progress_funding : @drawable/bg_progress_end_funding }"
             android:scaleY="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_funding_progress" />
+            app:layout_constraintTop_toBottomOf="@id/tv_funding_progress"
+            tools:progress="100" />
+
 
         <TextView
-            android:id="@+id/tv_funding_participant"
-            style="@style/base_font_medium_12_tomato"
+            android:id="@+id/tv_current_funding_price"
+            style="@style/base_font_medium_12_raven"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="6dp"
-            android:background="@drawable/bg_transparent_tomato_trans_20_radius4_stroke0"
-            android:paddingHorizontal="4dp"
-            android:paddingVertical="2dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_funding_progress"
-            app:layout_constraintStart_toEndOf="@id/tv_funding_progress"
-            app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
-            tools:text="3명 참여" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            app:setPrice="@{fundingItem.currentFundingPrice}"
+            tools:text="60,000" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

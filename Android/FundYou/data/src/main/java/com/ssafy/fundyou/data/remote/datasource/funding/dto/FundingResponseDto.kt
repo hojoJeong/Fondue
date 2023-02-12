@@ -7,19 +7,19 @@ internal data class FundingResponseDto(
     @SerializedName("currentFundingPrice")
     val currentFundingPrice: Int?,
     @SerializedName("startDate")
-    val startDate : Long?,
+    val startDate: Long?,
     @SerializedName("fundingName")
-    val fundingName : String,
+    val fundingName: String,
     @SerializedName("endDate")
     val endDate: Long?,
     @SerializedName("fundingStatus")
     val fundingStatus: Boolean?,
-    @SerializedName("id")
+    @SerializedName("fundingId")
     val id: Long?,
     @SerializedName("percentage")
     val percentage: Int?,
     @SerializedName("totalPrice")
     val totalPrice: Int?,
     @SerializedName("fundingItemDtoList")
-    val fundingItemList : List<FundingItemResponseDto>?
+    val fundingItemList: List<FundingItemResponseDto>?
 )

@@ -77,7 +77,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("percentage")
-    fun TextView.setPercentage(percent: Int) {
+    fun TextView.setPercentage(percent: Float) {
         this.text = "${percent}%"
     }
 
@@ -206,7 +206,6 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setItemImage")
     fun ImageView.setItemImage(img: String?) {
-        Log.d(TAG, "setItemImage: 글라이드 이미지 : $img")
         Glide.with(context)
             .load(img)
             .into(this)
@@ -230,15 +229,14 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter(value = ["startDate", "endDate"])
     fun TextView.setStartToEndDate(start : Long, end : Long){
-        val simpleDateFormat = SimpleDateFormat("YYYY.mm.DD", Locale.KOREA)
+        val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA)
         text = "${simpleDateFormat.format(start)}~${simpleDateFormat.format(end)}"
     }
 
     @JvmStatic
-    @BindingAdapter("setImageList")
-    fun RecyclerView.setImageList(list : List<String>){
-        val adapter = MyFundingListImgAdapter()
-        adapter.addImageList(list)
-        this.adapter = adapter
+    @BindingAdapter("styleByStatus")
+    fun TextView.setStyleByStatus(status : Boolean){
+        if(status) this.setTextAppearance(R.style.base_font_bold_20_franch_rose)
+        else this.setTextAppearance(R.style.base_font_bold_20_matter_horn)
     }
 }

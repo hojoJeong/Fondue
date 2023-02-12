@@ -24,7 +24,7 @@ class MyFundingListViewModel @Inject constructor(
     val ongoingFunding: LiveData<ViewState<List<MyFundingListUiModel>>> get() = _ongoingFunding
 
     private val _closedFunding = MutableLiveData<ViewState<List<MyFundingListUiModel>>>()
-    val closedFunding: LiveData<ViewState<List<MyFundingListUiModel>>> get() = _ongoingFunding
+    val closedFunding: LiveData<ViewState<List<MyFundingListUiModel>>> get() = _closedFunding
 
     fun getMyOngoingFunding() = viewModelScope.launch {
         _ongoingFunding.value = ViewState.Loading()

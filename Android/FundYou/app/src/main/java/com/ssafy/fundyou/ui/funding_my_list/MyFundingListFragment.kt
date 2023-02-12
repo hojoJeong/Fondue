@@ -43,6 +43,7 @@ class MyFundingListFragment :
 
     override fun initView() {
         myFundingViewModel.getMyOngoingFunding()
+        myFundingViewModel.getMyClosedFundingList()
     }
 
     override fun initViewModels() {
@@ -61,6 +62,7 @@ class MyFundingListFragment :
                         showNoOngoingFundingLayout()
                     } else {
                         onGoingFundingListAdapter.submitList(response.value)
+                        binding.rvProgressingFundingList.adapter = onGoingFundingListAdapter
                     }
                 }
                 is ViewState.Error -> {
@@ -72,7 +74,7 @@ class MyFundingListFragment :
 
 
     private fun initClosedFundingObserver() {
-        myFundingViewModel.ongoingFunding.observe(viewLifecycleOwner) { response ->
+        myFundingViewModel.closedFunding.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initOngoingFundingObserver: loading...")
@@ -83,8 +85,10 @@ class MyFundingListFragment :
                             root.visibility = View.VISIBLE
                             tvNoKeyword.text = "완료된 펀딩이 없습니다."
                         }
+                    }else{
+                        closedFundingListAdapter.submitList(response.value)
+                        binding.rvEndFundingList.adapter = closedFundingListAdapter
                     }
-                    closedFundingListAdapter.submitList(response.value)
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initOngoingFundingObserver: error... ${response.message}")
