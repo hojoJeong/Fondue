@@ -5,6 +5,7 @@ import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.item.dto.CustomDescriptionDto;
 import com.ssafy.fundyou1.item.entity.Description;
+import com.ssafy.fundyou1.item.dto.ItemResponseDto;
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.member.entity.Member;
 import lombok.*;
@@ -20,9 +21,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FundingItemDto {
-    private Long id;
-    private Item item;
-    private Long funding_id;
+    private Long fundingItemId;
+    private ItemResponseDto item;
+    private Long fundingId;
 
     // 총가격
     private int itemTotalPrice;
@@ -38,7 +39,7 @@ public class FundingItemDto {
     public static FundingItemDto createFundingItemDto(FundingItem fundingItem) {
         return new FundingItemDto(
                 fundingItem.getId(),
-                fundingItem.getItem(),
+                new ItemResponseDto(fundingItem.getItem(), false),
                 fundingItem.getFunding().getId(),
                 fundingItem.getItemTotalPrice(),
                 fundingItem.getCount(),
