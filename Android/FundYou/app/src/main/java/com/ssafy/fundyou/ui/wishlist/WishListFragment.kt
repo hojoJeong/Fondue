@@ -7,7 +7,8 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.datepicker.CalendarConstraints
+import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
@@ -16,8 +17,13 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentWishListBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.wishlist.model.WishListModel
+import com.ssafy.fundyou.util.addComma
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+import java.util.*
 
+@AndroidEntryPoint
 class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment_wish_list) {
 
     private lateinit var calendar: MaterialDatePicker<Pair<Long, Long>>

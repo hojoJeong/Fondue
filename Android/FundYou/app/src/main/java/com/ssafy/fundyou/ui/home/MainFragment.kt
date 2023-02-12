@@ -299,7 +299,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
             addLikeBtnClickListener { id ->
                 likeItemViewModel.addListItem(id)
-
             }
         }
         with(binding.rvMainRank) {
