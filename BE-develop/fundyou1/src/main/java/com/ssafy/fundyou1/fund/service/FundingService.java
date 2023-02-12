@@ -45,6 +45,8 @@ public class FundingService {
     private FundingRepository fundingRepository;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private FundingItemService fundingItemService;
 
     // 펀딩 개설
     @Transactional
@@ -149,8 +151,10 @@ public class FundingService {
 
             List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
 
+            int attendMemberCount = fundingItemService.countAttendMember(myOngoingFunding.getId());
+
             for(FundingItem fundingItem : fundingItemList){
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
                 fundingItemDtoList.add(fundingItemDto);
             }
@@ -183,10 +187,12 @@ public class FundingService {
 
             List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
 
+            int attendMemberCount = fundingItemService.countAttendMember(myClosedFunding.getId());
+
             for(FundingItem fundingItem : fundingItemList){
                 fundingItem.getItem().getDescriptions();
 
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
                 fundingItemDtoList.add(fundingItemDto);
             }

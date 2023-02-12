@@ -8,6 +8,7 @@ import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
+import com.ssafy.fundyou1.fund.repository.InvitedMemberRepository;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
@@ -28,6 +29,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingItemService {
+    private final InvitedMemberRepository invitedMemberRepository;
     @Autowired
     FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
@@ -80,9 +82,9 @@ public class FundingItemService {
     public List<FundingItemDto> getInvitedFundingItemList(Long fundingId) {
         List<FundingItem> invitedFundingItemList = fundingItemRepository.findByFundingId(fundingId);
         List<FundingItemDto> invitedFundingItemDtoList = new ArrayList<>();
-
+        int attendMemberCount = countAttendMember(fundingId);
         for(FundingItem fundingItem : invitedFundingItemList){
-            FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+            FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
             invitedFundingItemDtoList.add(fundingItemDto);
         }
@@ -91,7 +93,9 @@ public class FundingItemService {
 
     public FundingItemDto getFundingItem(Long fundingItemId) {
         FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
-        FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+        Long fundingId = fundingItem.getFunding().getId();
+        int attendMemberCount = countAttendMember(fundingId);
+        FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
 
         return fundingItemDto;
     }
@@ -108,5 +112,11 @@ public class FundingItemService {
         fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
 
         return "펀딩이 종료 되었습니다.";
+    }
+
+
+    public int countAttendMember(Long fundingId) {
+        int attendMemberCount = invitedMemberRepository.countAttendMember(fundingId);
+        return attendMemberCount;
     }
 }
