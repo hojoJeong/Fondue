@@ -31,7 +31,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
             wishListViewModel.deleteWishListItem(id)
         }
     }
-    private var endTime : Long = 0
+    private var endTime: Long = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -41,7 +41,6 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
 
     override fun initView() {
         wishListViewModel.getWishListItemList()
-        addFundingButtonEvent()
     }
 
     override fun initViewModels() {
@@ -63,14 +62,23 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                     if (response.value?.isNotEmpty() == true) {
                         binding.scvWishlist.visibility = View.VISIBLE
                         binding.btnWishlistStartFunding.visibility = View.VISIBLE
-                        binding.btnWishlistStartFunding.showAlignTop(makeBalloon(resources.getString(R.string.content_wishlist_balloon)))
+                        binding.btnWishlistStartFunding.showAlignTop(
+                            makeBalloon(
+                                resources.getString(
+                                    R.string.content_wishlist_balloon
+                                )
+                            )
+                        )
 
                         initWishListInfo(response.value!!)
-                        startFundingBtnListener()
+                        addFundingStartBtnListener()
                         initCalendar()
                         setFundingPeriod()
                     } else binding.lyEmptyWishList.root.visibility = View.VISIBLE
-                    Log.d(TAG, "wishListItemObserve: WishList Item Loading Success ${response.value}")
+                    Log.d(
+                        TAG,
+                        "wishListItemObserve: WishList Item Loading Success ${response.value}"
+                    )
                 }
                 is ViewState.Error -> {
                     Log.d(
@@ -82,16 +90,20 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         }
     }
 
-    private fun initAddFundingResultObserver(){
+    private fun initAddFundingResultObserver() {
         wishListViewModel.addFundingStatus.observe(viewLifecycleOwner) { response ->
-            when(response){
+            when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initAddFundingResultObserver: loading...")
                 }
                 is ViewState.Success -> {
                     // 내 펀딩 화면으로 이동
                     val fundingId = response.value!!
-                    navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(fundingId))
+                    navigate(
+                        WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(
+                            fundingId
+                        )
+                    )
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initAddFundingResultObserver: error... ${response.message}")
@@ -137,13 +149,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         }
     }
 
-    private fun addFundingButtonEvent(){
-        binding.btnWishlistStartFunding.setOnClickListener{
-            wishListViewModel.addFunding(endTime)
-        }
-    }
-
-    private fun makeBalloon(message : String): Balloon {
+    private fun makeBalloon(message: String): Balloon {
         val popUpMessage = Balloon.Builder(requireContext())
             .setWidth(BalloonSizeSpec.WRAP)
             .setHeight(BalloonSizeSpec.WRAP)
@@ -169,7 +175,8 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     private fun initCalendar() {
         binding.tvWishlistFundingPeriod.text = "날짜를 지정해주세요"
 
-        val calenderConstraint = CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
+        val calenderConstraint =
+            CalendarConstraints.Builder().setValidator(DateValidatorPointForward.now()).build()
 
         calendar = MaterialDatePicker.Builder.dateRangePicker()
             .setTitleText(R.string.title_wishlist_calendar)
@@ -205,10 +212,13 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     }
 
 
-    private fun startFundingBtnListener() {
+    private fun addFundingStartBtnListener() {
         binding.btnWishlistStartFunding.setOnClickListener {
-            if(endTime != 0L) wishListViewModel.addFunding(endTime)
-            else binding.btnWishlistStartFunding.showAlignTop(makeBalloon("기간을 설정해주세요!"))
+            if (binding.editFundingName.text.toString() == "") binding.editFundingName.showAlignTop(
+                makeBalloon("펀딩 제목을 입력해주세요!")
+            )
+            else if (endTime == 0L) binding.btnWishlistFundingPeriod.showAlignTop(makeBalloon("기간을 설정해주세요!"))
+            else wishListViewModel.addFunding(endTime, binding.editFundingName.text.toString())
         }
     }
 }

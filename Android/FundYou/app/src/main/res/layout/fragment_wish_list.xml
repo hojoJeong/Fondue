@@ -69,16 +69,44 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/dv_wishlist_under_item" />
 
+
+                <TextView
+                    android:id="@+id/tv_funding_title_set"
+                    style="@style/base_font_medium_16_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="펀딩 제목"
+                    app:layout_constraintStart_toStartOf="@+id/tv_wishlist_info_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_info_title" />
+
+                <EditText
+                    android:id="@+id/edit_funding_name"
+                    style="@style/base_font_medium_15_midnight_express"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="12dp"
+                    android:background="@drawable/bg_rect_hawks_blue_transparent_radius8_stroke1"
+                    android:hint="펀딩 제목을 입력해주세요."
+                    android:imeOptions="actionDone"
+                    android:inputType="text"
+                    android:paddingVertical="12dp"
+                    android:paddingStart="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_funding_title_set" />
+
                 <TextView
                     android:id="@+id/tv_wishlist_price_title"
                     style="@style/base_font_medium_16"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="28dp"
                     android:text="@string/title_wishlist_item_price"
                     android:textColor="@color/black"
-                    app:layout_constraintStart_toStartOf="@+id/tv_wishlist_info_title"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_wishlist_info_title" />
+                    app:layout_constraintStart_toStartOf="@+id/edit_funding_name"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_funding_name" />
 
                 <TextView
                     android:id="@+id/tv_wishlist_info_price"
@@ -148,6 +176,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/tv_wishlist_funding_period_title"
                     app:layout_constraintEnd_toEndOf="parent"
                     tools:text="2023.01.09 ~ 2023.02.06" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>

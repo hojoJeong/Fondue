@@ -24,5 +24,5 @@ internal data class ItemResponseDto(
     @SerializedName("category")
     val category: ItemCategoryResponseDto,
     @SerializedName("description")
-    val description: List<ItemDescriptionResponseDto>
+    val description: List<ItemDescriptionResponseDto>?
 )

@@ -67,6 +67,9 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.TEXT_CANCEL, "위시리스트")
                     setBottomNavigationVisibility(View.GONE)
                 }
+                R.id.myFundingListFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "내 퐁듀")
+                }
             }
         }
         binding.bnvMain.setupWithNavController(navController)
