@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 @ToString
 public class FundingResultMemberDto {
 
+    private Long memberId;
     private String username;
     private String profileImg;
     private int attendedPrice;
@@ -18,6 +19,7 @@ public class FundingResultMemberDto {
 
     @Builder
     public FundingResultMemberDto(Member member, int attendedPrice) {
+        this.memberId = member.getId();
         this.username = member.getUsername();
         this.profileImg = member.getProfileImg();
         this.attendedPrice = attendedPrice;

@@ -13,7 +13,7 @@
 
         <include
             android:id="@+id/ly_no_progressing_funding"
-            layout="@layout/content_no_progressing_funding"
+            layout="@layout/content_empty_wish_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="gone"

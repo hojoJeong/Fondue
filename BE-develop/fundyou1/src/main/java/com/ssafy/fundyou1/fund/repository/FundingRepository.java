@@ -15,11 +15,8 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
 
     Optional<Funding> findById(Long fundingId);
 
-    Funding findByIdAndMemberId(Long fundingId, Long memberId);
-
     @Query(value = "select * from funding fi where fi.member_id = :memberId and fi.funding_status = :status", nativeQuery = true)
     List<Funding> findAllByMemberIdAndByFundingStatus(@Param("memberId") Long memberId, @Param("status") boolean status);
-
 
     // 펀딩 status 값 변경
     @Modifying(clearAutomatically = true)
@@ -33,5 +30,6 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
     @Query(value = "select * from funding where funding.end_date < :nowDate", nativeQuery = true)
     List<Funding> findNeedUpdateFunding(@Param("nowDate") Long nowDate);
 
-
+    @Query(value = "select * from funding where funding.member_id = :memberId and funding.funding_status = true", nativeQuery = true)
+    Funding findMyOngoingFunding(@Param("memberId") Long memberId);
 }

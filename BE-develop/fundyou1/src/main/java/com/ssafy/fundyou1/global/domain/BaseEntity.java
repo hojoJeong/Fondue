@@ -1,6 +1,8 @@
 package com.ssafy.fundyou1.global.domain;
 
 import lombok.Getter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -15,18 +17,15 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
-    @CreatedDate
+    @CreationTimestamp
     @Column(name = "created_at", updatable = false, nullable = false)
     private LocalDateTime createdAt;
 
-    @LastModifiedBy
+    @UpdateTimestamp
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
     @Column(name = "deleted_at")
-    private LocalDateTime deletedAt;
+    private Long deletedAt;
 
-    public void saveDeletedTime() {
-        this.deletedAt = LocalDateTime.now();
-    }
 }

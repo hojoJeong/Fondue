@@ -63,6 +63,13 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.NO)
                     setBottomNavigationVisibility(View.GONE)
                 }
+                R.id.wishListFragment -> {
+                    setToolbarType(ToolbarType.TEXT_CANCEL, "위시리스트")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.myFundingListFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "내 퐁듀")
+                }
             }
         }
         binding.bnvMain.setupWithNavController(navController)
@@ -75,6 +82,7 @@ class MainActivity : AppCompatActivity() {
     private fun setToolbarType(type: ToolbarType, title: String = "") {
         toolbarClear()
         setToolbarTitle(title)
+        binding.lyToolbar.root.visibility = View.VISIBLE
         when (type) {
             ToolbarType.LOGO_WISH -> {
                 setToolbarLeft(ToolbarLeftImg.LOGO)
@@ -125,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             ToolbarRightImg.CANCEL -> {
-                with(binding.lyToolbar.ivLeftImg) {
+                with(binding.lyToolbar.ivRightImg) {
                     setImageResource(R.drawable.ic_cancel)
                     setOnClickListener {
                         navController.popBackStack()
@@ -135,8 +143,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun toolbarClear(){
-        with(binding.lyToolbar){
+    private fun toolbarClear() {
+        with(binding.lyToolbar) {
             ivLeftImg.setImageResource(0)
             tvTitle.text = ""
             ivRightImg.setImageResource(0)

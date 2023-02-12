@@ -14,7 +14,9 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MyFundingDto {
-    private Long id;
+    private Long fundingId;
+    private String fundingName;
+    private Long startDate;
     private Long endDate;
     private boolean fundingStatus;
     // 총가격
@@ -22,15 +24,17 @@ public class MyFundingDto {
     // 현재 펀딩된 가격
     private int currentFundingPrice;
     private int percentage;
-    private List<FundingItem> fundingItemList;
+    private List<FundingItemDto> fundingItemDtoList;
 
-    public MyFundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage, List<FundingItem> fundingItemList) {
-        this.id = funding.getId();
+    public MyFundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage, List<FundingItemDto> fundingItemDtoList) {
+        this.fundingId = funding.getId();
+        this.fundingName = funding.getFundingName();
+        this.startDate = funding.getStartDate();
         this.endDate = funding.getEndDate();
         this.fundingStatus = funding.isFundingStatus();
         this.totalPrice = totalPrice;
         this.currentFundingPrice = currentFundingPrice;
         this.percentage = percentage;
-        this.fundingItemList = fundingItemList;
+        this.fundingItemDtoList = fundingItemDtoList;
     }
 }

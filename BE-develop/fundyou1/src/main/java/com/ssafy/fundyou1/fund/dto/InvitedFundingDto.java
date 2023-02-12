@@ -17,8 +17,9 @@ public class InvitedFundingDto {
     private Long id;
     @JsonIgnore
     private Member member;
+    private String fundingName;
 
-//    private Long startDate; // due : 펀딩 시작 날짜
+    private Long startDate; // due : 펀딩 시작 날짜
 
     private Long endDate; // due : 펀딩 마감 날짜
     private boolean fundingStatus;
@@ -28,6 +29,8 @@ public class InvitedFundingDto {
     public InvitedFundingDto(Funding funding, int point){
         this.id = funding.getId();
         this.member = funding.getMember();
+        this.fundingName = funding.getFundingName();
+        this.startDate = funding.getStartDate();
         this.endDate = funding.getEndDate();
         this.fundingStatus = funding.isFundingStatus();
         this.fundingPoint = point;

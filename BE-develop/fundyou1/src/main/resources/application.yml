@@ -12,7 +12,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
 
-
 #  datasource:
 #    url: jdbc:mariadb://localhost:3306/fundyou
 #    driver-class-name: org.mariadb.jdbc.Driver
@@ -79,8 +78,8 @@ jwt:
     refresh-time: 604800016 # 7일
     issuer: fongyou
 
-
-
-
+firebase:
+  firebase-sdk-path: "firebase-adminsdk-cw4ut@fundyou-1674632553418.iam.gserviceaccount.com"
+  firebase_config_path: "firebase/fundyou-1674632553418-firebase-adminsdk-cw4ut-864cf0447d.json"
 
 
