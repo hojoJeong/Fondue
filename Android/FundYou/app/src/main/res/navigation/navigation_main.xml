@@ -73,6 +73,9 @@
             android:name="category_type"
             app:argType="string"
             app:nullable="false" />
+        <action
+            android:id="@+id/action_itemListFragment_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"

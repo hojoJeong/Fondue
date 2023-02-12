@@ -135,20 +135,24 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     private fun initItemListAdapter(itemList: List<ItemListModel>) {
-        val itemListAdapter = ItemListAdapter()
-        itemListAdapter.submitList(itemList)
+        val itemListAdapter = ItemListAdapter().apply {
+            submitList(itemList)
+            setHasStableIds(true)   //아이템 갱신 시 깜빡임 현상 방지
+            addLikeItemBtnClickListener { id ->
+                likeItemViewModel.addListItem(id)
+            }
+            addItemClickListener { id ->
+                navigate(ItemListFragmentDirections.actionItemListFragmentToItemDetailFragment(id))
+            }
 
-        itemListAdapter.setHasStableIds(true)   //아이템 갱신 시 깜빡임 현상 방지
-
+        }
         with(binding.rvItemList) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
 
-        itemListAdapter.addLikeItemBtnClickListener { id ->
-            likeItemViewModel.addListItem(id)
-        }
+
     }
 
     private fun initResultAddLikeItemObserve() {

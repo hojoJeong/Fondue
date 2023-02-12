@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -18,16 +19,17 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemDetailBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailDescriptionInfoAdapter
+import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel
+import com.ssafy.fundyou.ui.like.LikeItemViewModel
 import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.fragment_item_detail) {
-
+    private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
     private val relatedAdapter = ItemDetailRelatedAdapter().apply {
         addItemClickListener { itemId ->
             navigate(ItemDetailFragmentDirections.actionItemDetailFragmentSelf2(itemId))
@@ -37,7 +39,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
     private val itemDetailViewModel by viewModels<ItemDetailViewModel>()
     private val itemArgument by navArgs<ItemDetailFragmentArgs>()
-    private lateinit var dialog : ItemAddBottomSheetFragment
+    private lateinit var dialog: ItemAddBottomSheetFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -54,12 +56,14 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         addKakaoShareButtonEvent()
 
         addItemInWishList()
+        addLikeItemClickListener()
     }
 
     override fun initViewModels() {
         initItemDetailViewModel()
         initMainViewModel()
         initAddWishListObserve()
+        initResultAddLikeItemObserve()
     }
 
     private fun addItemInWishList() {
@@ -71,6 +75,28 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                 setItemInfo(binding.productInfo?.id?.toInt()!!, binding.productInfo?.price!!)
             }
             dialog.show(childFragmentManager, tag)
+        }
+    }
+
+    private fun addLikeItemClickListener() {
+        binding.btnItemLike.setOnClickListener {
+            likeItemViewModel.addListItem(itemArgument.itemId)
+        }
+    }
+
+    private fun initResultAddLikeItemObserve() {
+        likeItemViewModel.resultModifyListItem.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initResultAddLikeItemObserve: Add Like Item Loading...")
+                }
+                is ViewState.Success -> {
+                    itemDetailViewModel.getItemDetailInfo(itemArgument.itemId)
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initResultAddLikeItemObserve: Add like Item Error...${response.message}")
+                }
+            }
         }
     }
 
