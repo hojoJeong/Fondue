@@ -77,11 +77,13 @@ public class FundingItemService {
     }
 
 
+    @Transactional
     public List<FundingItemDto> getInvitedFundingItemList(Long fundingId) {
         List<FundingItem> invitedFundingItemList = fundingItemRepository.findByFundingId(fundingId);
         List<FundingItemDto> invitedFundingItemDtoList = new ArrayList<>();
 
         for(FundingItem fundingItem : invitedFundingItemList){
+            fundingItem.getItem().getDescriptions();
             FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
 
             invitedFundingItemDtoList.add(fundingItemDto);
