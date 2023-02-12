@@ -23,7 +23,7 @@ fun ProductItemModel.toItemDetailModel() = ItemDetailModel(
     title = this.title,
     isAr = this.isAr,
     isFavorite = this.isFavorite,
-    description = this.description.map { it.toItemDetailModel() },
+    description = this.description!!.map { it.toItemDetailModel() },
     brand = this.brand,
     category = this.category.categoryName
 )

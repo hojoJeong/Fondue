@@ -10,8 +10,8 @@ import com.ssafy.fundyou.databinding.ItemEndFundingListBinding
 import com.ssafy.fundyou.ui.adapter.diffutil.FundingItemModelDiffUtil
 import com.ssafy.fundyou.ui.funding_my.model.FundingItemModel
 
-class MyFundingEndListAdapter :
-    ListAdapter<FundingItemModel, MyFundingEndListAdapter.MyFundingEndListHolder>(
+class MyFundingItemEndListAdapter :
+    ListAdapter<FundingItemModel, MyFundingItemEndListAdapter.MyFundingEndListHolder>(
         FundingItemModelDiffUtil
     ) {
 

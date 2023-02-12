@@ -10,14 +10,14 @@ internal class AuthSharePreference(context: Context) {
     var accessToken: String?
         get() = prefs.getString("accessToken", null)
         set(value) {
-            Log.d("SP", "accessToken set: ${value}")
+            Log.d("SP", "JWT_ACCESS set: ${value}")
             prefs.edit().putString("accessToken", value).apply()
         }
 
     var refreshToken: String?
         get() = prefs.getString("refreshToken", null)
         set(value) {
-            Log.d("SP", "refreshToken set: ${value}")
+            Log.d("SP", "JWT_REFRESH set: ${value}")
             prefs.edit().putString("refreshToken", value).apply()
         }
 
