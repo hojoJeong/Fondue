@@ -30,7 +30,7 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
             "SET count = count + :itemCount " +
             "WHERE item_id = :itemId " +
             "AND member_id = :memberId", nativeQuery = true)
-    void updateAddCartItem( @Param("itemCount") int itemCount,@Param("itemId") Long itemId,@Param("memberId") Long memberId);
+    Integer updateAddCartItem( @Param("itemCount") int itemCount,@Param("itemId") Long itemId,@Param("memberId") Long memberId);
 
 
     // 장바구니에서 (회원 아이디, 아이템 아이디)로 아이템을 삭제한다.

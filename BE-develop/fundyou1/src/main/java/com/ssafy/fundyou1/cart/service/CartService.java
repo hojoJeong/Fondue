@@ -68,13 +68,12 @@ public class CartService {
 
     }
 
-    // 회원의 장바구니 아이템 개수를 추가하는 로직 -> 동일한 아이템이 있을 때
+    // 회원의 장바구니 아이템 개수를 추가하는 로직 -> 동일한 아이템이 있을 때 / 반환값: 업데이트한 값 반환
     @Transactional
-    public int updateAddCartItem(CartRequestDto cartRequestDto, Long memberId) {
+    public Integer updateAddCartItem(CartRequestDto cartRequestDto, Long memberId) {
         Long itemId = cartRequestDto.getItemId();
         int itemCount = cartRequestDto.getCount();
-        cartRepository.updateAddCartItem(itemCount,itemId, memberId);
-        return itemCount;
+        return  cartRepository.updateAddCartItem(itemCount,itemId, memberId);
     }
 
     // 장바구니 아이템 1개 찾는 로직 (회원아이디와 아이템 아이디)
