@@ -20,6 +20,6 @@ internal data class FundingResponseDto(
     val percentage: Int?,
     @SerializedName("totalPrice")
     val totalPrice: Int?,
-    @SerializedName("fundingItemDtoList")
+    @SerializedName("fundingItemResponseDtoList")
     val fundingItemList: List<FundingItemResponseDto>?
 )

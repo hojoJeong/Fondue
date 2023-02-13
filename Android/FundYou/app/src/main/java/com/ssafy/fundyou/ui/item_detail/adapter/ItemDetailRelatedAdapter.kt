@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemRelatedItemListBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
-import com.ssafy.fundyou.ui.adapter.diffutil.RelatedItemDiffUtil
+import com.ssafy.fundyou.ui.common.adapter.diffutil.ProductListDiffUtil
+import com.ssafy.fundyou.ui.common.adapter.diffutil.RelatedItemDiffUtil
 import com.ssafy.fundyou.ui.item_detail.model.RelatedItemModel
 
-class ItemDetailRelatedAdapter : ListAdapter<RelatedItemModel, ItemDetailRelatedAdapter.ItemDetailRelatedHolder>(RelatedItemDiffUtil){
+class ItemDetailRelatedAdapter : ListAdapter<RelatedItemModel, ItemDetailRelatedAdapter.ItemDetailRelatedHolder>(
+    RelatedItemDiffUtil
+){
 
     private lateinit var clickEvent : (Long) -> Unit
 

@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentPayBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.pay.model.FundingPayModel
 import java.text.DecimalFormat
 

@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.ui.funding_my_list.model
 
-import com.ssafy.fundyou.domain.model.funding.FundingItemModel
 import com.ssafy.fundyou.domain.model.funding.FundingTotalModel
 
 data class MyFundingListUiModel(

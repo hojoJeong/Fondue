@@ -8,6 +8,7 @@ import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
+import com.ssafy.fundyou1.fund.repository.FundingRepository;
 import com.ssafy.fundyou1.fund.repository.InvitedMemberRepository;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.member.entity.Member;
@@ -28,6 +29,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingItemService {
+    private final FundingRepository fundingRepository;
     @Autowired
     InvitedMemberRepository invitedMemberRepository;
     @Autowired
@@ -123,8 +125,17 @@ public class FundingItemService {
         // 펀딩 상품 종료
         fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
 
+        // 해당 펀딩에 모든 펀딩 상품이 종료될 경우 해당 펀딩 종료시킴
+        Long fundingId = fundingItemRepository.findByFundingItemId(fundingItemId).getFunding().getId();
+
+        // 모두 종료이면
+        if (!fundingItemRepository.findByFundingIdAndFundingItemStatus(fundingId, true)){
+            fundingRepository.updateStatus(fundingId, false);
+        }
+
+
         // 확인
-        // 펀딩 진행 중이면
+        // 펀딩 진행 중이면 (펀딩이 종료 안되었으면)
         if (fundingItemRepository.findByFundingItemId(fundingItemId).isFundingItemStatus()){
             return false;
         }else{
