@@ -57,7 +57,6 @@ public class ItemResponseDto {
     }
 
     // 커스텀 상세 목록 dto 데이터 변환 로직!
-
     public List<CustomDescriptionDto> changeDto(Item item){
         List<CustomDescriptionDto> desList = new ArrayList<>();
         for (Description des : item.getDescriptions()) {
