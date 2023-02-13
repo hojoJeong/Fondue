@@ -2,6 +2,7 @@ package com.ssafy.fundyou1.fund.service;
 
 import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemAttendedMemberResponseDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
@@ -103,9 +104,16 @@ public class FundingItemService {
         return fundingItemResponseDto;
     }
 
-    public List<FundingItemMember> getAttendMember(Long fundingItemId) {
+    public List<FundingItemAttendedMemberResponseDto> getAttendMember(Long fundingItemId) {
         List<FundingItemMember> fundingItemMemberList = fundingItemMemberRepository.findAllByFundingItemId(fundingItemId);
-        return fundingItemMemberList;
+
+        List<FundingItemAttendedMemberResponseDto> fundingItemAttendedMemberResponseDtoList = new ArrayList<>();
+
+        for (FundingItemMember fundingItemMember : fundingItemMemberList) {
+            FundingItemAttendedMemberResponseDto fundingItemAttendedMemberResponseDto = FundingItemAttendedMemberResponseDto.builder().id(fundingItemMember.getId()).senderName(fundingItemMember.getMember().getUsername()).fundingItemPrice(fundingItemMember.getFundingItemPrice()).message(fundingItemMember.getMessage()).build();
+            fundingItemAttendedMemberResponseDtoList.add(fundingItemAttendedMemberResponseDto);
+        }
+        return fundingItemAttendedMemberResponseDtoList;
     }
 
     @Transactional

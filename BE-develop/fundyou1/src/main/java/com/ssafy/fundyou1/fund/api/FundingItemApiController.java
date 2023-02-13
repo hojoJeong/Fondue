@@ -1,10 +1,7 @@
 package com.ssafy.fundyou1.fund.api;
 
 
-import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
-import com.ssafy.fundyou1.fund.dto.FundingIdDto;
-import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
-import com.ssafy.fundyou1.fund.dto.FundingItemIdDto;
+import com.ssafy.fundyou1.fund.dto.*;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
@@ -82,7 +79,7 @@ public class FundingItemApiController {
     // 해당 펀딩 상품에 참여한 멤버 (선물한 친구)
     @ApiOperation(value = "펀딩 상품 한개에 참여한 멤버 리스트", notes = "참여 멤버 정보(이름, 펀딩금액, 메세지) 리스트 반환")
     @PostMapping("/memberList")
-    public ResponseEntity<List<FundingItemMember>> getAttendMember(@RequestBody FundingItemIdDto fundingItemIdDto){
+    public ResponseEntity<List<FundingItemAttendedMemberResponseDto>> getAttendMember(@RequestBody FundingItemIdDto fundingItemIdDto){
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getAttendMember(fundingItemIdDto.getFunding_item_id()));
     }
 
