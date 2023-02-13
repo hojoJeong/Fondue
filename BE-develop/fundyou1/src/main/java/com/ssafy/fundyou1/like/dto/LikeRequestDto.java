@@ -15,7 +15,6 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class LikeRequestDto {
 
-    @NotNull(message = "아이템 아이디")
     private Long itemId;
 
 }

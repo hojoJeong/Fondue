@@ -3,13 +3,11 @@ package com.ssafy.fundyou1.like.dto;
 
 import com.ssafy.fundyou1.item.entity.Item;
 import com.ssafy.fundyou1.member.entity.Member;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
 
 @Getter
 @Setter
