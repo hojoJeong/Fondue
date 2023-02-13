@@ -38,7 +38,7 @@ public class LikeRestController {
 
         // 찜목록에 아이템이 있으면 -> 좋아요 취소 / 반환 값: 삭제된 개수 반환
         if(likeItem != null) {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "해당 아이템 찜 취소", likeService.deleteByLikeItemId(itemId)));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "해당 아이템 찜 취소", likeService.deleteLikeItemByMemberId(itemId)));
         }
         // 찜목록에 아이템이 없으면 -> 좋아요 추가 / 반환 값: 아이템 아이디
         else {

@@ -81,8 +81,8 @@ public class LikeService {
 
     // 사용자의 찜목록 아이템 삭제 (현재 회원 아이디, 아이템 아이디)
     @Transactional
-    public Integer deleteByLikeItemId(Long itemId) {
-        return likeRepository.deleteLikeItem(SecurityUtil.getCurrentMemberId(), itemId);
+    public Integer deleteLikeItemByMemberId(Long itemId) {
+        return likeRepository.deleteLikeItemByMemberId(SecurityUtil.getCurrentMemberId(), itemId);
     }
 
 }
