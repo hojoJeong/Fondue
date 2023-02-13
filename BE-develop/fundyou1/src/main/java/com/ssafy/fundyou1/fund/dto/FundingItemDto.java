@@ -47,7 +47,7 @@ public class FundingItemDto {
                 fundingItem.getItemTotalPrice(),
                 fundingItem.getCount(),
                 fundingItem.getCurrentFundingPrice(),
-                fundingItem.getFunding().isFundingStatus()
+                fundingItem.isFundingItemStatus()
         );
     }
 
