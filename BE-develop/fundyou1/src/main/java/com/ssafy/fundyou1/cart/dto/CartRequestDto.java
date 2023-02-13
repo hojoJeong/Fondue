@@ -14,10 +14,8 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class CartRequestDto {
 
-    @NotNull(message = "아이템 아이디를 넣어주세요")
     private Long itemId;
 
-    @Min(value = 1, message = "최소 1개 이상 담아주세요")
     private int count;
 
 }

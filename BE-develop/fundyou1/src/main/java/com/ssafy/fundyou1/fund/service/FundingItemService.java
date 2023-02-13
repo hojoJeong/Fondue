@@ -96,8 +96,6 @@ public class FundingItemService {
         return invitedFundingItemResponseDtoList;
     }
 
-
-    @Transactional
     public FundingItemResponseDto getFundingItem(Long fundingItemId) {
         FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
 

@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemSearchResultListBinding
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.adapter.diffutil.ProductListDiffUtil
+import com.ssafy.fundyou.ui.common.adapter.diffutil.ProductListDiffUtil
 import com.ssafy.fundyou.ui.search.model.SearchItemModel
 import org.apache.commons.lang3.builder.Diff
 

@@ -43,19 +43,26 @@ public class CartRestController {
     // 장바구니에 아이템을 추가
     @PostMapping(value = "/cart")
     public @ResponseBody
-    ResponseEntity  addCartItem(@RequestBody @Valid CartRequestDto cartRequestDto){
+    ResponseEntity addCartItem(@RequestBody @Valid CartRequestDto cartRequestDto){
 
         Long itemId = cartRequestDto.getItemId();
 
         Cart cart = cartService.findOneCartItem(SecurityUtil.getCurrentMemberId(), itemId);
         // 장바구니에 동일한 아이템이 있으면 장바구니 아이템 개수만 업데이트
         if (cart != null) {
-            int addcount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 업데이트", addcount));
+            // 요청이 양수일 때
+            if(cartRequestDto.getCount() >0){
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 업데이트",cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId())));
+            }
+            // 요청이 0일 때
+            else {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 변동이 없습니다",cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId())));
+            }
+            // 동일한 아이템이 없으면 장바구니에 아이템 등록해주기
         } else {
-            // 동일한 아이템이 없으면 아이템 추가해주기
+            // 반환값 장바구니 아이디
             Long cartId = cartService.addCart(cartRequestDto);
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 아이템 추가", cartId));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니에 아이템 등록", cartId));
         }
     }
 
@@ -74,11 +81,19 @@ public class CartRestController {
     @ApiOperation(value = "장바구니 아이템 삭제", notes = "<strong>장바구니 목록 id를 받아</strong> 장바구니 목록에서 아이템을 삭제한다.")
     public ResponseEntity deleteCartItem(@PathVariable Long itemId){
         try {
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", cartService.deleteByItemId(itemId)));
+            // 장바구니 아이템 찾기
+            Cart cart = cartService.findOneCartItem(SecurityUtil.getCurrentMemberId(), itemId);
+            // 장바구니 아이템이 있을때 삭제한 상품 개수 반환 -> 1
+            if (cart != null) {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 해당 아이템 삭제 완료", cartService.deleteByItemId(itemId)));
+            }
+            // 장바구니에 해당 아이템이 없을때 삭제한 상품 개수 반환 -> 0
+            else {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니에 해당 아이템이 없습니다", cartService.deleteByItemId(itemId)));
+            }
         } catch (Exception e){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "fail", null));
         }
-
     }
 
     // 장바구니 내부에서 아이템 개수 수정 (아이템 추가)
@@ -88,13 +103,12 @@ public class CartRestController {
 
         try {
             // 장바구니 내부에서 아이템 개수 추가
-            int addcount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", addcount ));
+            int itemCount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 아이템 개수 추가", itemCount ));
         } catch (Exception e){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "fail", null));
         }
 
     }
-
 
 }

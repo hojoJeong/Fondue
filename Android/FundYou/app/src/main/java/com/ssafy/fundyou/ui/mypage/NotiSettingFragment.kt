@@ -1,13 +1,10 @@
 package com.ssafy.fundyou.ui.mypage
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentNotiSettingBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 
 class NotiSettingFragment : BaseFragment<FragmentNotiSettingBinding>(R.layout.fragment_noti_setting) {
 
