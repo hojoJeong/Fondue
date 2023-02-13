@@ -1,6 +1,5 @@
 package com.ssafy.fundyou1.item.entity;
 
-import com.ssafy.fundyou1.category.entity.Category;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
