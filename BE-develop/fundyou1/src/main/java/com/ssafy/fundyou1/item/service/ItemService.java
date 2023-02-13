@@ -112,18 +112,23 @@ public class ItemService {
     public List<ItemResponseDto> matchFavoriteItem(List<Item> totalItemList, Long memberId){
         List<Like> likeItemList = likeRepository.findAllByMember_Id(memberId);
         List<ItemResponseDto> itemResponseDtoList = new ArrayList();
-        for(Item item : totalItemList){
-            Long itemId = item.getId();
-            if(likeItemList.size() != 0){
+        if(likeItemList.size() == 0){
+            for(Item item: totalItemList){
+                itemResponseDtoList.add(new ItemResponseDto(item, false));
+            }
+        }else{
+            for(Item item: totalItemList){
+                boolean flag = false;
                 for(Like likeItem: likeItemList){
-                    if(likeItem.getItem_id() == itemId){
+                    if(item.getId().equals(likeItem.getItem_id())){
+                        flag = true;
                         itemResponseDtoList.add(new ItemResponseDto(item, true));
-                    }else{
-                        itemResponseDtoList.add(new ItemResponseDto(item, false));
+                        break;
                     }
                 }
-            }else{
-                itemResponseDtoList.add(new ItemResponseDto(item, false));
+                if(flag == false){
+                    itemResponseDtoList.add(new ItemResponseDto(item, false));
+                }
             }
         }
         return itemResponseDtoList;
