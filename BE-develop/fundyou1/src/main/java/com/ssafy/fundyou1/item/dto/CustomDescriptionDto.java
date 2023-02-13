@@ -1,7 +1,5 @@
 package com.ssafy.fundyou1.item.dto;
 
-
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 // 커스텀 아이템 상세 목록 DTO
