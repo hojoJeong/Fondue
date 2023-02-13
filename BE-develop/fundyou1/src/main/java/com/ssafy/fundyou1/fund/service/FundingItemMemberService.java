@@ -24,24 +24,5 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingItemMemberService {
-    @Autowired
-    MemberRepository memberRepository;
-    @Autowired
-    FundingItemMemberRepository fundingItemMemberRepository;
-
-    // 펀딩 참여--------------------------------------------------------------------------------------------------
-    @Transactional
-    public FundingItemMember attendFunding(FundingItem fundingItem) {
-        // 사용자 정보
-        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
-
-
-        // 펀딩 참여
-        FundingItemMember fundingItemMember = FundingItemMember.builder().fundingItem(fundingItem).member(member.get()).build();
-        fundingItemMemberRepository.save(fundingItemMember);
-
-        return fundingItemMember;
-    }
-
 
 }
