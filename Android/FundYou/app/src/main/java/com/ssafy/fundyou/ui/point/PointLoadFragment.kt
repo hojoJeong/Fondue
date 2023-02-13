@@ -9,7 +9,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentPointLoadBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.point.model.PointModel
 
 class PointLoadFragment : BaseFragment<FragmentPointLoadBinding>(R.layout.fragment_point_load) {

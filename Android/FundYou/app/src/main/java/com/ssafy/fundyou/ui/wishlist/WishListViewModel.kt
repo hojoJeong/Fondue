@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.fundyou.common.SingleLiveEvent
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.domain.usecase.funding.AddFundingUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.AddWishListItemUseCase
@@ -30,7 +31,7 @@ class WishListViewModel @Inject constructor(
     val resultWishList: LiveData<ViewState<Int>>
         get() = _resultWishList
 
-    private val _addFundingStatus = MutableLiveData<ViewState<Long>>()
+    private val _addFundingStatus = SingleLiveEvent<ViewState<Long>>()
     val addFundingStatus: LiveData<ViewState<Long>> get() = _addFundingStatus
 
     fun getWishListItemList() = viewModelScope.launch {
@@ -44,12 +45,12 @@ class WishListViewModel @Inject constructor(
     }
 
     fun addFunding(endData : Long, fundingName : String) = viewModelScope.launch {
-        _addFundingStatus.value = ViewState.Loading()
+        _addFundingStatus.postValue(ViewState.Loading())
         try {
             val response = addFundingUseCase(endData, fundingName)
-            _addFundingStatus.value = ViewState.Success(response)
+            _addFundingStatus.postValue(ViewState.Success(response))
         } catch (e: Exception) {
-            _addFundingStatus.value = ViewState.Error(e.message)
+            _addFundingStatus.postValue(ViewState.Error(e.message))
         }
     }
 
