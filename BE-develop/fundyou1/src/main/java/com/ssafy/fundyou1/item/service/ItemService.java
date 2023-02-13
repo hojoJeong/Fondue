@@ -79,17 +79,17 @@ public class ItemService {
             return matchFavoriteItem(itemRepository.findAll(), SecurityUtil.getCurrentMemberId());
         }
     }
+
+    // 아이템 디테일(아이템 아이디로 찾기)
     @Transactional
-    // 상품 디테일
-    public ItemResponseDto itemDetail(Long id) {
-        Optional<Item> findItem = itemRepository.findById(id);
+    public ItemResponseDto getItemDetail(Long itemId) {
+        Optional<Item> itemDetail = itemRepository.findById(itemId);
         ItemResponseDto itemResponseDto = new ItemResponseDto();
-        if (findItem.isPresent()) {
-            Item item = findItem.get();
-            if(likeRepository.findLikeItem(item.getId(), SecurityUtil.getCurrentMemberId()) != null) {
-                itemResponseDto = new ItemResponseDto(item, true);
+        if (itemDetail.isPresent()) {
+            if(likeRepository.findLikeItem(itemDetail.get().getId(), SecurityUtil.getCurrentMemberId()) != null) {
+                itemResponseDto = new ItemResponseDto(itemDetail.get(), true);
             } else {
-                itemResponseDto = new ItemResponseDto(item, false);
+                itemResponseDto = new ItemResponseDto(itemDetail.get(), false);
             }
         }
         return itemResponseDto;
