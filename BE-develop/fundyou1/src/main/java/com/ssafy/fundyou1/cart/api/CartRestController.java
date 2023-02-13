@@ -96,8 +96,8 @@ public class CartRestController {
 
         try {
             // 장바구니 내부에서 아이템 개수 추가
-            int addCount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 아이템 개수 추가", addCount ));
+            int itemCount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 아이템 개수 추가", itemCount ));
         } catch (Exception e){
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "fail", null));
         }

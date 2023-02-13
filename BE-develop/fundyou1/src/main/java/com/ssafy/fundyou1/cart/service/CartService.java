@@ -72,9 +72,9 @@ public class CartService {
     @Transactional
     public int updateAddCartItem(CartRequestDto cartRequestDto, Long memberId) {
         Long itemId = cartRequestDto.getItemId();
-        int count = cartRequestDto.getCount();
-        cartRepository.updateAddCartItem(count,itemId, memberId);
-        return count;
+        int itemCount = cartRequestDto.getCount();
+        cartRepository.updateAddCartItem(itemCount,itemId, memberId);
+        return itemCount;
     }
 
     // 장바구니 아이템 1개 찾는 로직 (회원아이디와 아이템 아이디)

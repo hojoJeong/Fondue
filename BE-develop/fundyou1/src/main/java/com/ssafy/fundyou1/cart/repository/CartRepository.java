@@ -27,10 +27,10 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
     //업데이트: 장바구니에서 동일 아이템 개수를 더한다.(개수, 아이템아이디, 멤버아이디)
     @Modifying
     @Query(value="UPDATE cart " +
-            "SET count = count + :count " +
+            "SET count = count + :itemCount " +
             "WHERE item_id = :itemId " +
             "AND member_id = :memberId", nativeQuery = true)
-    void updateAddCartItem( @Param("count") int count,@Param("itemId") Long itemId,@Param("memberId") Long memberId);
+    void updateAddCartItem( @Param("itemCount") int itemCount,@Param("itemId") Long itemId,@Param("memberId") Long memberId);
 
 
     // 장바구니에서 (회원 아이디, 아이템 아이디)로 아이템을 삭제한다.
