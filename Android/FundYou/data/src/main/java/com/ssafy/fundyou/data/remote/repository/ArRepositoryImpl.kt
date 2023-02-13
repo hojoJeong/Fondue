@@ -1,7 +1,6 @@
 package com.ssafy.fundyou.data.remote.repository
 
 import com.ssafy.fundyou.data.remote.datasource.ar.ArDataSource
-import com.ssafy.fundyou.data.remote.datasource.ar.dto.ArImageSaveRequestDto
 import com.ssafy.fundyou.data.remote.mappers.toDomainModel
 import com.ssafy.fundyou.domain.model.ar.ArImageModel
 import com.ssafy.fundyou.domain.repository.ArRepository

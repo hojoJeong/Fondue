@@ -1,7 +1,6 @@
 package com.ssafy.fundyou.data.remote.datasource.ar
 
 import com.ssafy.fundyou.data.remote.datasource.ar.dto.ArImageResponseDto
-import com.ssafy.fundyou.data.remote.datasource.ar.dto.ArImageSaveRequestDto
 
 internal interface ArDataSource {
     suspend fun getArImageList(

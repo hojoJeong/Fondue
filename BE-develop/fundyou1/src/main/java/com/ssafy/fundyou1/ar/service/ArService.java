@@ -20,13 +20,13 @@ public class ArService {
     private ArModelRepository arModelRepository;
 
     @Transactional
-    public ArImage saveArImageUrl(ArImageSaveRequestDto arImageSaveRequestDto){
-        return arImageRepository.save(new ArImage(arImageSaveRequestDto));
+    public ArImage saveArImageUrl(Long fundingItemId, String url){
+        return arImageRepository.save(new ArImage(fundingItemId, url));
     }
 
     @Transactional
-    public List<ArImage> getArImageList(Long funding_id, Long item_id){
-        return arImageRepository.findArImageList(funding_id, item_id, SecurityUtil.getCurrentMemberId());
+    public List<ArImage> getArImageList(Long fundingItemId){
+        return arImageRepository.findArImageListByFundingItemId(fundingItemId);
     }
 
     @Transactional
