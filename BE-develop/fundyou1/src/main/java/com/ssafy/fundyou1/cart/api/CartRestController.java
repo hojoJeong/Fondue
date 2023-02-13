@@ -58,11 +58,11 @@ public class CartRestController {
             else {
                 return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 변동이 없습니다",cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId())));
             }
-            // 동일한 아이템이 없으면 아이템 추가해주기
+            // 동일한 아이템이 없으면 장바구니에 아이템 등록해주기
         } else {
             // 반환값 장바구니 아이디
             Long cartId = cartService.addCart(cartRequestDto);
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 아이템 추가", cartId));
+            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니에 아이템 등록", cartId));
         }
     }
 

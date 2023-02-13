@@ -31,7 +31,7 @@ public class CartService {
     CartRepository cartRepository;
 
 
-    // 장바구니에 아이쳄을 담는 로직 -> 동일한 아이템이 없을 때
+    // 장바구니에 아이템을 담는 로직 -> 동일한 아이템이 없을 때
     public Long addCart(CartRequestDto cartRequestDto) {
 
         Optional<Item> item = itemRepository.findById(cartRequestDto.getItemId()); //장바구니에 담을 아이템 조회
@@ -39,7 +39,7 @@ public class CartService {
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 조회
 
       // 동일한 아이템이 없으면 장바구니에 아이템 추가해주기
-        Cart createCart = Cart.createCart( member.get(), item.get(), cartRequestDto.getCount());
+        Cart createCart = Cart.createCart(member.get(), item.get(), cartRequestDto.getCount());
         cartRepository.save(createCart);
         return createCart.getId();
     }
