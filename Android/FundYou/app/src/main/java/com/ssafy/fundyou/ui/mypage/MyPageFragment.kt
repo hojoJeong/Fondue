@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.ui.mypage
 
 import android.content.ContentValues.TAG
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,9 +10,11 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMyPageBinding
 import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.login.LoginActivity
+import com.ssafy.fundyou.util.showSnackBar
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
-    private val userInfoViewModel by activityViewModels<UserInfoViewModel>()
+    private val mypageViewModel by activityViewModels<MyPageViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -20,27 +23,28 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
     }
 
     override fun initView() {
-        userInfoViewModel.getUserInfo()
+        mypageViewModel.getUserInfo()
         initClickListener()
         initLoadPointBtnListener()
     }
 
     override fun initViewModels() {
         initUserInfoObserve()
+        initResultLogoutObserve()
     }
 
     private fun initLoadPointBtnListener() {
         binding.btnMypagePoint.setOnClickListener {
             navigate(
                 MyPageFragmentDirections.actionMyPageFragmentToPointLoadFragment(
-                    userInfoViewModel.userInfo.value?.value?.point ?: 0
+                    mypageViewModel.userInfo.value?.value?.point ?: 0
                 )
             )
         }
     }
 
     private fun initUserInfoObserve() {
-        userInfoViewModel.userInfo.observe(viewLifecycleOwner) { response ->
+        mypageViewModel.userInfo.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initUserInfoObserve: UserInfo Loading...")
@@ -62,7 +66,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         notiSettingClickListener()
         privacyCickListener()
         termsOfServiceClickListener()
-        logoutCickListener()
+        logoutClickListener()
         invitedFondueClickListener()
         myFondueClickListener()
         favoriteClickListener()
@@ -110,8 +114,29 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
         }
     }
 
-    private fun logoutCickListener() {
+    private fun logoutClickListener() {
         binding.tvMypageLogout.setOnClickListener {
+            mypageViewModel.clearAuthPreference()
+        }
+    }
+
+    private fun initResultLogoutObserve(){
+        mypageViewModel.resultLogout.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initResultLogoutObserve: Logout Loading...")
+                }
+                is ViewState.Success -> {
+                    Log.d(TAG, "initResultLogoutObserve: Logout Success...")
+                    val intent = Intent(requireActivity(), LoginActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                    }
+                    startActivity(intent)
+                }
+                is ViewState.Error -> {
+                    requireView().showSnackBar("로그아웃에 실패했습니다. 잠시 후 다시 시도해주세요.")
+                }
+            }
         }
     }
 }

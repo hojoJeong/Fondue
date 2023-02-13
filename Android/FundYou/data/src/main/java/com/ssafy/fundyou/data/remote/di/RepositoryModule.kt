@@ -9,10 +9,6 @@ import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.user.UserRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.wishlist.WishListRemoteDataSource
 import com.ssafy.fundyou.data.remote.repository.*
-import com.ssafy.fundyou.data.remote.repository.AuthRepositoryImpl
-import com.ssafy.fundyou.data.remote.repository.ItemRepositoryImpl
-import com.ssafy.fundyou.data.remote.repository.SearchRepositoryImpl
-import com.ssafy.fundyou.data.remote.repository.UserRepositoryImpl
 import com.ssafy.fundyou.domain.repository.*
 import dagger.Module
 import dagger.Provides
@@ -48,8 +44,8 @@ internal object RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideUserRepository(userRemoteDataSource: UserRemoteDataSource): UserRepository =
-        UserRepositoryImpl(userRemoteDataSource)
+    fun provideUserRepository(userRemoteDataSource: UserRemoteDataSource, authSharePreference: AuthSharePreference): UserRepository =
+        UserRepositoryImpl(userRemoteDataSource, authSharePreference)
 
     @Provides
     @Singleton

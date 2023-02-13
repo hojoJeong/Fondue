@@ -160,6 +160,7 @@
             android:background="@drawable/bg_rect_white_smoke_round5_stroke0"
             android:text="@string/title_cancel_membership_btn_withdraw"
             android:textColor="@color/nobel"
+            android:enabled="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="1"

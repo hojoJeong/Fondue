@@ -9,7 +9,7 @@ import com.ssafy.fundyou.ui.base.BaseFragment
 import com.ssafy.fundyou.ui.mypage.model.UserInfoModel
 
 class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment_user_info) {
-    private val userInfoViewModel by activityViewModels<UserInfoViewModel>()
+    private val userInfoViewModel by activityViewModels<MyPageViewModel>()
     private lateinit var userInfo: UserInfoModel
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
