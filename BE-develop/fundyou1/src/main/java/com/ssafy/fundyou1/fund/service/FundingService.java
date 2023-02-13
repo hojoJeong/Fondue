@@ -144,18 +144,18 @@ public class FundingService {
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
 
-            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
+            List<FundingItemResponseDto> fundingItemResponseDtoList = new ArrayList<>();
 
 
 
             for(FundingItem fundingItem : fundingItemList){
                 int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
 
-                fundingItemDtoList.add(fundingItemDto);
+                fundingItemResponseDtoList.add(fundingItemResponseDto);
             }
 
-            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemResponseDtoList);
 
             myOngoingFundingListDto.add(myFundingDto);
         }
@@ -181,19 +181,19 @@ public class FundingService {
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myClosedFunding.getId());
 
-            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
+            List<FundingItemResponseDto> fundingItemResponseDtoList = new ArrayList<>();
 
             for(FundingItem fundingItem : fundingItemList){
                 int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
 
                 fundingItem.getItem().getDescriptions();
 
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
 
-                fundingItemDtoList.add(fundingItemDto);
+                fundingItemResponseDtoList.add(fundingItemResponseDto);
             }
 
-            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
+            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemResponseDtoList);
 
             myClosedFundingListDto.add(myFundingDto);
         }

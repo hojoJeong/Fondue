@@ -21,7 +21,7 @@ public class FundingItemMember {
     @JsonIgnore
     private FundingItem fundingItem;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     @JoinColumn(name="member_id")
     @JsonIgnore
     private Member member;
