@@ -28,7 +28,6 @@ internal class FundingRepositoryImpl @Inject constructor(
 
     override suspend fun getMyClosedFunding(): List<FundingTotalModel> {
         val response = fundingDataSource.getMyClosedFunding()
-        Log.d("TAG", "getMyClosedFunding: ${response}")
         return fundingDataSource.getMyClosedFunding().map { it.toDomainModel() }
     }
 
@@ -56,5 +55,9 @@ internal class FundingRepositoryImpl @Inject constructor(
     override suspend fun getFundingParticipateMessageList(fundingItemId: Long): List<FundingMessageModel> {
         val request = FundingItemIdRequestDto(fundingItemId)
         return fundingDataSource.getFundingItemParticipateList(request).map { it.toDomainModel() }
+    }
+
+    override suspend fun addOngoingFundingItem(): Long {
+        return fundingDataSource.addOngoingFundingItem()
     }
 }

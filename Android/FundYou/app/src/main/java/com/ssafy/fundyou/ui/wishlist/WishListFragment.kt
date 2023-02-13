@@ -4,6 +4,8 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.viewModels
@@ -17,6 +19,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentWishListBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
+import com.ssafy.fundyou.ui.common.dialog.CommonDialog
 import com.ssafy.fundyou.ui.wishlist.model.WishListModel
 import com.ssafy.fundyou.util.addComma
 import dagger.hilt.android.AndroidEntryPoint
@@ -49,8 +52,64 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
         wishListItemObserve()
         initWishListItemDeleteResultObserve()
         initAddFundingResultObserver()
+        initGoingFundingObserver()
+        initAddOngoingFundingItemObserver()
     }
 
+    private fun showFundingItemDialog() {
+        val dialog = CommonDialog(requireContext()).apply {
+            // 펀딩 추가
+            initDialog(title = "이미 진행중인 펀딩에 추가할까요?", content = "펀딩은 1개만 진행할 수 있어요.") {
+                wishListViewModel.addOngoingFunding()
+            }
+        }
+        dialog.show()
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.window?.setLayout(
+            WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+    }
+
+    private fun initAddOngoingFundingItemObserver() {
+        wishListViewModel.addOngoingFundingItemStatus.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initAddOngoingFundingItemObserver: loading...")
+                }
+                is ViewState.Success -> {
+                    navigate(
+                        WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(
+                            response.value!!
+                        )
+                    )
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initAddOngoingFundingItemObserver: error... ${response.message}")
+                }
+            }
+        }
+    }
+
+    private fun initGoingFundingObserver() {
+        wishListViewModel.checkOngoingFunding.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initGoingFundingObserver: loading...")
+                }
+                is ViewState.Success -> {
+                    if (response.value == true) showFundingItemDialog()
+                    else wishListViewModel.addFunding(
+                        endTime,
+                        binding.editFundingName.text.toString()
+                    )
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initGoingFundingObserver: error... ${response.value}")
+                }
+            }
+        }
+    }
 
     private fun wishListItemObserve() {
         wishListViewModel.wishListItem.observe(viewLifecycleOwner) { response ->
@@ -101,7 +160,8 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                 is ViewState.Success -> {
                     // 내 펀딩 화면으로 이동
                     val fundingId = response.value!!
-                    navigate(WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(
+                    navigate(
+                        WishListFragmentDirections.actionWishListFragmentToMyFundingFragment(
                             fundingId
                         )
                     )
@@ -219,7 +279,7 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
                 makeBalloon("펀딩 제목을 입력해주세요!")
             )
             else if (endTime == 0L) binding.btnWishlistFundingPeriod.showAlignTop(makeBalloon("기간을 설정해주세요!"))
-            else wishListViewModel.addFunding(endTime, binding.editFundingName.text.toString())
+            else wishListViewModel.checkOngoingFunding()
         }
     }
 }
