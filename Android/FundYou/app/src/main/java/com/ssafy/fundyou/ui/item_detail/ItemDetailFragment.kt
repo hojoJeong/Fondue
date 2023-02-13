@@ -24,12 +24,14 @@ import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel
 import com.ssafy.fundyou.ui.like.LikeItemViewModel
+import com.ssafy.fundyou.ui.splash.SplashViewModel
 import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.fragment_item_detail) {
     private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
+    private val splashViewModel by activityViewModels<SplashViewModel>()
     private val relatedAdapter = ItemDetailRelatedAdapter().apply {
         addItemClickListener { itemId ->
             navigate(ItemDetailFragmentDirections.actionItemDetailFragmentSelf2(itemId))
@@ -94,7 +96,10 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                     itemDetailViewModel.getItemDetailInfo(itemArgument.itemId)
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initResultAddLikeItemObserve: Add like Item Error...${response.message}")
+                    Log.d(
+                        TAG,
+                        "initResultAddLikeItemObserve: Add like Item Error...${response.message}"
+                    )
                 }
             }
         }
@@ -164,7 +169,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                 itemDetailInfo.brand,
                 itemDetailInfo.title,
                 itemDetailInfo.imgList[0],
-                1
+                itemDetailInfo.id.toInt()
             )
             sendKakaoLink(feed)
         }
@@ -209,7 +214,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                 } else if (sharingResult != null) {
                     Log.d(TAG, "카카오톡 공유 성공 ${sharingResult.intent}")
                     startActivity(sharingResult.intent)
-
                     // 카카오톡 공유에 성공했지만 아래 경고 메시지가 존재할 경우 일부 컨텐츠가 정상 동작하지 않을 수 있습니다.
                     Log.w(TAG, "Warning Msg: ${sharingResult.warningMsg}")
                     Log.w(TAG, "Argument Msg: ${sharingResult.argumentMsg}")
@@ -250,14 +254,15 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         FeedTemplate(
             content = Content(
                 title = title, description = description, imageUrl = imageUrl,
-                link = Link(mobileWebUrl = "https://play.google.com/store/apps/details?id=com.ssafy.funding")
+                link = Link(mobileWebUrl = "https://play.google.com/store/apps/details?id=com.ssafy.fundyou")
             ),
             buttons = listOf(
                 Button(
-                    title = "상품 확인해보기", link = Link(
+                    title = "상품 확인해보기...", link = Link(
                         androidExecutionParams = mapOf(
-                            "item_id" to itemId.toString(),
-                        )
+                            "item_id" to itemId.toString()
+                        ),
+                        iosExecutionParams = mapOf("item_id" to itemId.toString())
                     )
                 )
             )

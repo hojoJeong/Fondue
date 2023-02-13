@@ -1,21 +1,17 @@
 package com.ssafy.fundyou.ui.splash
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.ssafy.fundyou.common.ErrorMessage.AUTHORIZATION_ERROR
-import com.ssafy.fundyou.common.ErrorMessage.NO_TOKEN
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivitySplashBinding
 import com.ssafy.fundyou.ui.MainActivity
 import com.ssafy.fundyou.ui.login.LoginActivity
-import com.ssafy.fundyou.ui.login.LoginViewModel
+import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")
@@ -75,6 +71,10 @@ class SplashActivity : AppCompatActivity() {
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
+
+        val data = intent.data?.getQueryParameter("item_id")
+        Log.d(TAG, "startMainActivity: $data")
+        showToast("${data}")
         startActivity(intent)
     }
 

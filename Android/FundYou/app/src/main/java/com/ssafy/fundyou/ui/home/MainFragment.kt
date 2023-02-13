@@ -28,6 +28,7 @@ import com.ssafy.fundyou.ui.home.model.RandomItemModel
 import com.ssafy.fundyou.ui.home.model.RankingItemModel
 import com.ssafy.fundyou.ui.like.LikeItemViewModel
 import com.ssafy.fundyou.ui.search.SearchViewModel
+import com.ssafy.fundyou.ui.splash.SplashViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
@@ -41,6 +42,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     val MAX_PRICE = 1000000
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
+    private val splashViewModel by activityViewModels<SplashViewModel>()
     private val bannerImageList = mutableListOf<Int>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
@@ -58,6 +60,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         mainViewModel.getRankingItemList(CATEGORY_ALL, MIN_PRICE, MAX_PRICE)
         mainViewModel.getRandomItemList()
 
@@ -85,7 +88,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initFloatingBtn()
         initPopularSearch()
         initSearchClickEvent()
-
     }
 
     override fun initViewModels() {
@@ -327,7 +329,10 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     )
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initResultAddLikeItemObserve: Add Like Item Error...${response.message}")
+                    Log.d(
+                        TAG,
+                        "initResultAddLikeItemObserve: Add Like Item Error...${response.message}"
+                    )
                 }
             }
         }
@@ -407,6 +412,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
         }
     }
+
+
 
     override fun onResume() {
         super.onResume()
