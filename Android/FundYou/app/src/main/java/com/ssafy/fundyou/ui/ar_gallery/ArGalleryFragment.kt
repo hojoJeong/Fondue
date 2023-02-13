@@ -1,6 +1,5 @@
-package com.ssafy.fundyou.ui.arcore
+package com.ssafy.fundyou.ui.ar_gallery
 
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.View

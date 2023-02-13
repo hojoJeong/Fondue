@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.arcore
+package com.ssafy.fundyou.ui.ar_capture_confirm
 
 import android.graphics.Bitmap
 import android.os.Bundle
