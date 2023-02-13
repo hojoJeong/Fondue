@@ -49,7 +49,7 @@ public class SchedulerService {
         // 종료된 펀딩의 펀딩 아이템 status false로 변경
         for( Funding funding : fundingList) {
             fundingItemRepository.updateFundingItemStatusByFundingId(funding.getId(), false);
-
+        /**  특정 시간 마감된 펀딩 상태 변경 오류 확인 (FCM과 충돌인지 확인)
             // 펀딩 완료 푸시 알림 : 주최자
             firebaseCloudMessageService.sendMessageTo(funding.getMember().getId(), "펀딩 종료","이제 선물 받을 수 있어요!");
 
@@ -95,7 +95,8 @@ public class SchedulerService {
             else {
                 System.out.println("참여자가 없습니다");
             }
-        }
+         */
+         }
         System.out.println("펀딩 종료!");
     }
 
