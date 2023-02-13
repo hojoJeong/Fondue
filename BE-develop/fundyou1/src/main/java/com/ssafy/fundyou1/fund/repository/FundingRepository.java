@@ -1,6 +1,7 @@
 package com.ssafy.fundyou1.fund.repository;
 
 import com.ssafy.fundyou1.fund.entity.Funding;
+import com.ssafy.fundyou1.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -32,4 +33,5 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
 
     @Query(value = "select * from funding where funding.member_id = :memberId and funding.funding_status = true", nativeQuery = true)
     Funding findMyOngoingFunding(@Param("memberId") Long memberId);
+
 }
