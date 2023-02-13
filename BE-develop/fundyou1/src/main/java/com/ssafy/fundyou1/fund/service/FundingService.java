@@ -259,7 +259,7 @@ public class FundingService {
         // 장바구니 상품 가져오기
         List<Cart> foundCartList = cartRepository.findAllByMember_Id(member.get().getId());
 
-        // funding_item으로 변경하여 저장
+        // funding_item 으로 변경하여 저장
         for(Cart cart : foundCartList){
 
             // 이미 펀딩에 있는 아이템인지 확인

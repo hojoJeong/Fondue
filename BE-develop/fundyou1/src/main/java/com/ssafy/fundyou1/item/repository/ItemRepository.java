@@ -9,19 +9,14 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long> {
 
-    // 특정 아이템 불러오기
-    @Query(value = "SELECT * FROM item WHERE item.item_id = :id", nativeQuery = true)
-    Item findItemById(@Param("id") Long id);
 
     // 아이템 전체 조회 리스트
-
     List<Item> findAll();
 
     // 카테고리별 아이템 불러오기
@@ -63,15 +58,13 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
     Optional<Item> findById(Long itemId);
 
 
-    List<Item> findAllByIsFavorite(boolean b);
-
     @Query(value =
             "SELECT * " +
                     "FROM item " +
                     "WHERE item.category_id = :categoryId " +
                     "AND item.price BETWEEN :minPrice AND :maxPrice ",
             nativeQuery = true)
-    List<Item> findItemWithFilter(Long categoryId, Long minPrice, Long maxPrice);
+    List<Item> findItemWithFilter(@Param("categoryId")  Long categoryId, @Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice);
 
     @Query(value =
             "SELECT * " +
@@ -86,10 +79,10 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
                     "FROM item " +
                     "WHERE item.price BETWEEN :minPrice AND :maxPrice ",
             nativeQuery = true)
-    List<Item> findItemWithFilterNoCategory(Long minPrice, Long maxPrice);
+    List<Item> findItemWithFilterNoCategory(@Param("minPrice") Long minPrice, @Param("maxPrice") Long maxPrice);
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update item i set i.selling_count = i.selling_count + 1 where i.item_id = :itemId", nativeQuery = true)
+    @Query(value = "update item set selling_count = selling_count + 1 where item_id = :itemId", nativeQuery = true)
     void updateCountPlus(@Param("itemId") Long itemId);
 }
