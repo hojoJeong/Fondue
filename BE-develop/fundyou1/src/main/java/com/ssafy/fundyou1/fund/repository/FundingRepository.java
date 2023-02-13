@@ -15,7 +15,7 @@ public interface FundingRepository extends JpaRepository<Funding, Long> {
 
     Optional<Funding> findById(Long fundingId);
 
-    @Query(value = "select * from funding fi where fi.member_id = :memberId and fi.funding_status = :status", nativeQuery = true)
+    @Query(value = "select * from funding where member_id = :memberId and funding_status = :status", nativeQuery = true)
     List<Funding> findAllByMemberIdAndByFundingStatus(@Param("memberId") Long memberId, @Param("status") boolean status);
 
     // 펀딩 status 값 변경
