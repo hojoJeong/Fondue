@@ -3,17 +3,13 @@ package com.ssafy.fundyou.ui.funding_my_list
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.constraintlayout.solver.state.State.Constraint
-import androidx.constraintlayout.solver.state.State.PARENT
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
-import androidx.constraintlayout.widget.Constraints
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMyFundingListBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.funding_my_list.adapter.MyFundingListAdapter
 
 class MyFundingListFragment :
@@ -22,15 +18,19 @@ class MyFundingListFragment :
     private val myFundingViewModel by activityViewModels<MyFundingListViewModel>()
     private val onGoingFundingListAdapter = MyFundingListAdapter().apply {
         addClickEvent { fundingId ->
-            MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
-                fundingId
+            navigate(
+                MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
+                    fundingId
+                )
             )
         }
     }
     private val closedFundingListAdapter = MyFundingListAdapter().apply {
         addClickEvent { fundingId ->
-            MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
-                fundingId
+            navigate(
+                MyFundingListFragmentDirections.actionMyFundingListFragmentToMyFundingFragment(
+                    fundingId
+                )
             )
         }
     }
@@ -80,12 +80,12 @@ class MyFundingListFragment :
                     Log.d(TAG, "initOngoingFundingObserver: loading...")
                 }
                 is ViewState.Success -> {
-                    if(response.value?.isEmpty() == true){
-                        with(binding.lyNoClosedFunding){
+                    if (response.value?.isEmpty() == true) {
+                        with(binding.lyNoClosedFunding) {
                             root.visibility = View.VISIBLE
                             tvNoKeyword.text = "완료된 펀딩이 없습니다."
                         }
-                    }else{
+                    } else {
                         closedFundingListAdapter.submitList(response.value)
                         binding.rvEndFundingList.adapter = closedFundingListAdapter
                     }

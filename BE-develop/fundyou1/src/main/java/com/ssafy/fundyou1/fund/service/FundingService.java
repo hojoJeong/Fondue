@@ -95,46 +95,26 @@ public class FundingService {
         // 해당 펀딩(fundingId)의 펀딩 아이템 리스트 찾고
         List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(fundingId);
 
-        // { 펀딩 참여자: 펀딩 참여 금액 } 딕셔너리
-        HashMap<Long, Integer> memberAttendedPriceDict = new HashMap<Long, Integer>();
-
-        // 최종 결과 리스트 (memberId, username, profileImg, attendedPrice)
         List<FundingResultMemberDto> createdFundingResultMemberDtoList = new ArrayList<>();
 
         // 펀딩 아이템 리스트에 funding_item_member 찾기
-        for(FundingItem fundingItem : fundingItemList) {
-            // 해당 펀딩 아이템에 참여한 사람(distinct)
-            List<Long> attendedMemberId = fundingItemMemberRepository.findAllDistinctMemberIdByFundingItemId(fundingItem.getId());
+        for(FundingItem fundingItem : fundingItemList){
+            // 해당 펀딩 아이템에 참여한 사람
+            List<FundingItemMember> fundingItemMemberList = fundingItemMemberRepository.findAllByFundingItemId(fundingItem.getId());
 
-            for (Long memberId : attendedMemberId) {
+            for(FundingItemMember fundingItemMember : fundingItemMemberList){
                 // 펀딩 참여자
-                Member member = memberRepository.getReferenceById(memberId);
+                Member member = fundingItemMember.getMember();
 
-                int totalPrice = fundingItemMemberRepository.findSumByMemberIdAndFundingItemId(member.getId(), fundingItem.getId());
-
-                try {
-                    int beforePrice = memberAttendedPriceDict.get(memberId);
-                    memberAttendedPriceDict.put(memberId, beforePrice + totalPrice);
-                } catch (Exception e) {
-                    memberAttendedPriceDict.put(memberId, totalPrice);
-
+                if(!createdFundingResultMemberDtoList.contains(member)){
+                    int totalPrice = fundingItemMemberRepository.findSumByMemberIdAndFundingItemId(member.getId(), fundingItem.getId());
+                    FundingResultMemberDto fundingResultMemberDto = new FundingResultMemberDto(member, totalPrice);
+                    createdFundingResultMemberDtoList.add(fundingResultMemberDto);
                 }
             }
 
         }
 
-        for (Map.Entry<Long, Integer> entry : memberAttendedPriceDict.entrySet()) {
-            Long member_id = entry.getKey();
-            int attendedPrice = entry.getValue();
-
-            Member attendMember = memberRepository.getReferenceById(member_id);
-
-            FundingResultMemberDto fundingResultMemberDto = new FundingResultMemberDto(attendMember, attendedPrice);
-
-            createdFundingResultMemberDtoList.add(fundingResultMemberDto);
-        }
-
-        // 정렬
         Collections.sort(createdFundingResultMemberDtoList, new Comparator<FundingResultMemberDto>() {
             @Override
             public int compare(FundingResultMemberDto o1, FundingResultMemberDto o2) {
@@ -301,7 +281,7 @@ public class FundingService {
 
         }
 
-        AddFundingResponseDto addFundingDto = new AddFundingResponseDto(funding.getId());
+        AddFundingResponseDto addFundingDto = new AddFundingResponseDto();
         return addFundingDto;
     }
 }

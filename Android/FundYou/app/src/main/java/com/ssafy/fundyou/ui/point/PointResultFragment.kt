@@ -8,7 +8,7 @@ import androidx.fragment.app.activityViewModels
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentPointResultBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 
 class PointResultFragment :
     BaseFragment<FragmentPointResultBinding>(R.layout.fragment_point_result) {

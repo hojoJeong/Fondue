@@ -21,7 +21,6 @@ public class ProfileRestController {
     @Autowired
     MemberService memberService;
 
-
     // 내 프로필
 
     @GetMapping()

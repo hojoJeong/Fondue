@@ -17,4 +17,5 @@ internal interface WishListApiService {
 
     @DELETE("api/cartItem/{itemId}")
     suspend fun deleteWishListItem(@Path("itemId") itemId: Long) : BaseResultDto
+
 }

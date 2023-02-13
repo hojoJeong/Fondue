@@ -1,11 +1,15 @@
 package com.ssafy.fundyou.ui.wishlist
 
+import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ssafy.fundyou.common.SingleLiveEvent
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.domain.usecase.funding.AddFundingUseCase
+import com.ssafy.fundyou.domain.usecase.funding.AddItemOngoingFundingUseCase
+import com.ssafy.fundyou.domain.usecase.funding.GetMyOngoingFundingUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.AddWishListItemUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.DeleteWishListItemUseCase
 import com.ssafy.fundyou.domain.usecase.wishlist.GetWishListItemListUseCase
@@ -20,7 +24,9 @@ import javax.inject.Inject
 class WishListViewModel @Inject constructor(
     private val getWishListItemListUseCase: GetWishListItemListUseCase,
     private val deleteWishListItemUseCase: DeleteWishListItemUseCase,
-    private val addFundingUseCase: AddFundingUseCase
+    private val addFundingUseCase: AddFundingUseCase,
+    private val getMyOngoingFundingUseCase: GetMyOngoingFundingUseCase,
+    private val addItemOngoingFundingUseCase: AddItemOngoingFundingUseCase
 ) : ViewModel() {
     private val _wishListItem = MutableLiveData<ViewState<List<WishListModel>>>()
     val wishListItem: LiveData<ViewState<List<WishListModel>>>
@@ -30,8 +36,35 @@ class WishListViewModel @Inject constructor(
     val resultWishList: LiveData<ViewState<Int>>
         get() = _resultWishList
 
-    private val _addFundingStatus = MutableLiveData<ViewState<Long>>()
+    private val _checkOngoingFunding = SingleLiveEvent<ViewState<Boolean>>()
+    val checkOngoingFunding: LiveData<ViewState<Boolean>> get() = _checkOngoingFunding
+
+    private val _addFundingStatus = SingleLiveEvent<ViewState<Long>>()
     val addFundingStatus: LiveData<ViewState<Long>> get() = _addFundingStatus
+
+    private val _addOngoingFundingItemStatus = SingleLiveEvent<ViewState<Long>>()
+    val addOngoingFundingItemStatus: LiveData<ViewState<Long>> get() = _addOngoingFundingItemStatus
+
+    fun addOngoingFunding() = viewModelScope.launch {
+        _addOngoingFundingItemStatus.postValue(ViewState.Loading())
+        try {
+            val response = addItemOngoingFundingUseCase()
+            _addOngoingFundingItemStatus.postValue(ViewState.Success(response))
+        } catch (e: Exception) {
+            _addOngoingFundingItemStatus.postValue(ViewState.Error(e.message))
+        }
+    }
+
+    fun checkOngoingFunding() = viewModelScope.launch {
+        _checkOngoingFunding.postValue(ViewState.Loading())
+        try {
+            val response = getMyOngoingFundingUseCase()
+            if (response.isEmpty()) _checkOngoingFunding.postValue(ViewState.Success(false))
+            else _checkOngoingFunding.postValue(ViewState.Success(true))
+        } catch (e: Exception) {
+            _checkOngoingFunding.postValue(ViewState.Error(e.message))
+        }
+    }
 
     fun getWishListItemList() = viewModelScope.launch {
         _wishListItem.value = ViewState.Loading()
@@ -43,13 +76,13 @@ class WishListViewModel @Inject constructor(
         }
     }
 
-    fun addFunding(endData : Long, fundingName : String) = viewModelScope.launch {
-        _addFundingStatus.value = ViewState.Loading()
+    fun addFunding(endData: Long, fundingName: String) = viewModelScope.launch {
+        _addFundingStatus.postValue(ViewState.Loading())
         try {
             val response = addFundingUseCase(endData, fundingName)
-            _addFundingStatus.value = ViewState.Success(response)
+            _addFundingStatus.postValue(ViewState.Success(response))
         } catch (e: Exception) {
-            _addFundingStatus.value = ViewState.Error(e.message)
+            _addFundingStatus.postValue(ViewState.Error(e.message))
         }
     }
 

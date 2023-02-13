@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentMenbershipWithdrawalBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 
 class MembershipWithdrawalFragment :
     BaseFragment<FragmentMenbershipWithdrawalBinding>(R.layout.fragment_menbership_withdrawal) {
