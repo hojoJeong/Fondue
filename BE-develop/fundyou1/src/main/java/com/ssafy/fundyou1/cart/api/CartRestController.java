@@ -43,17 +43,24 @@ public class CartRestController {
     // 장바구니에 아이템을 추가
     @PostMapping(value = "/cart")
     public @ResponseBody
-    ResponseEntity  addCartItem(@RequestBody @Valid CartRequestDto cartRequestDto){
+    ResponseEntity addCartItem(@RequestBody @Valid CartRequestDto cartRequestDto){
 
         Long itemId = cartRequestDto.getItemId();
 
         Cart cart = cartService.findOneCartItem(SecurityUtil.getCurrentMemberId(), itemId);
         // 장바구니에 동일한 아이템이 있으면 장바구니 아이템 개수만 업데이트
         if (cart != null) {
-            int addCount = cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId());
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 업데이트", addCount));
-        } else {
+            // 요청이 양수일 때
+            if(cartRequestDto.getCount() >0){
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 업데이트",cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId())));
+            }
+            // 요청이 0일 때
+            else {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "아이템 개수 변동이 없습니다",cartService.updateAddCartItem(cartRequestDto, SecurityUtil.getCurrentMemberId())));
+            }
             // 동일한 아이템이 없으면 아이템 추가해주기
+        } else {
+            // 반환값 장바구니 아이디
             Long cartId = cartService.addCart(cartRequestDto);
             return ResponseEntity.status(200).body(BaseResponseBody.of(200, "장바구니 아이템 추가", cartId));
         }
