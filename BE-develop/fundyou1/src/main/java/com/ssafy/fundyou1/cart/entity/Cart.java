@@ -40,7 +40,7 @@ public class Cart {
         this.count = count;
     }
 
-    // 카트에 유저 할당하여 넣어줌
+    // 장바구니에 아이템 등록
     public static Cart createCart(Member member, Item item, int count) {
         Cart cart = new Cart();
         cart.setMember(member);
