@@ -1,7 +1,6 @@
 package com.ssafy.fundyou1.fund.dto;
 
 import com.ssafy.fundyou1.fund.entity.Funding;
-import com.ssafy.fundyou1.fund.entity.FundingItem;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +23,9 @@ public class MyFundingDto {
     // 현재 펀딩된 가격
     private int currentFundingPrice;
     private int percentage;
-    private List<FundingItemDto> fundingItemDtoList;
+    private List<FundingItemResponseDto> fundingItemResponseDtoList;
 
-    public MyFundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage, List<FundingItemDto> fundingItemDtoList) {
+    public MyFundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage, List<FundingItemResponseDto> fundingItemResponseDtoList) {
         this.fundingId = funding.getId();
         this.fundingName = funding.getFundingName();
         this.startDate = funding.getStartDate();
@@ -35,6 +34,6 @@ public class MyFundingDto {
         this.totalPrice = totalPrice;
         this.currentFundingPrice = currentFundingPrice;
         this.percentage = percentage;
-        this.fundingItemDtoList = fundingItemDtoList;
+        this.fundingItemResponseDtoList = fundingItemResponseDtoList;
     }
 }

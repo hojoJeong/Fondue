@@ -3,16 +3,13 @@ package com.ssafy.fundyou1.fund.api;
 
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingIdDto;
-import com.ssafy.fundyou1.fund.dto.FundingItemDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemIdDto;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.service.FundingItemService;
-import com.ssafy.fundyou1.fund.service.FundingService;
 import com.ssafy.fundyou1.global.dto.BaseResponseBody;
-import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
-import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
 import io.swagger.annotations.Api;
@@ -68,7 +65,7 @@ public class FundingItemApiController {
     // 펀딩 아이템 한개 찾기
     @ApiOperation(value = "펀딩 아이템 상세보기", notes = "펀딩 아이템 정보")
     @PostMapping()
-    public ResponseEntity<FundingItemDto> getFundingItem(@RequestBody FundingItemIdDto fundingItemIdDto){
+    public ResponseEntity<FundingItemResponseDto> getFundingItem(@RequestBody FundingItemIdDto fundingItemIdDto){
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getFundingItem(fundingItemIdDto.getFunding_item_id()));
     }
 
@@ -77,7 +74,7 @@ public class FundingItemApiController {
     // 특정 펀딩의 펀딩 아이템 리스트 (초대장으로 들어올 경우, 펀딩 통계 화면)
     @ApiOperation(value = "특정 펀딩의 아이템 리스트", notes = "펀딩 아이템 정보 리스트")
     @PostMapping("/list")
-    public ResponseEntity<List<FundingItemDto>> getInvitedFundingItemList(@RequestBody FundingIdDto fundingIdDto){
+    public ResponseEntity<List<FundingItemResponseDto>> getInvitedFundingItemList(@RequestBody FundingIdDto fundingIdDto){
         return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getInvitedFundingItemList(fundingIdDto.getFunding_id()));
     }
 
