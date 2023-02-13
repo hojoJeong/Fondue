@@ -4,10 +4,9 @@ import com.ssafy.fundyou.data.remote.datasource.ar.dto.ArImageResponseDto
 
 internal interface ArDataSource {
     suspend fun getArImageList(
-        fundingId: Long,
-        itemId: Long
+        fundingItemId: Long,
     ): List<ArImageResponseDto>
 
-    suspend fun saveArImage(request: ArImageSaveRequestDto): ArImageResponseDto
+    suspend fun saveArImage(fundingItemId: Long, url: String): ArImageResponseDto
 
 }

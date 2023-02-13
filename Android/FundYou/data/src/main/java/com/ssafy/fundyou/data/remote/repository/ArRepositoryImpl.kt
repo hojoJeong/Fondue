@@ -8,10 +8,11 @@ import javax.inject.Inject
 
 internal class ArRepositoryImpl @Inject constructor(private val arDataSource: ArDataSource) :
     ArRepository {
-    override suspend fun getArImageList(fundingId: Long, itemId: Long): List<ArImageModel> =
-        arDataSource.getArImageList(fundingId, itemId).map { it.toDomainModel() }
+    override suspend fun getArImageList(fundingItemId: Long): List<ArImageModel> =
+        arDataSource.getArImageList(fundingItemId).map { it.toDomainModel() }
 
 
-        override suspend fun saveArImage(fundingId: Long, itemId: Long, url: String): ArImageModel =
-            arDataSource.saveArImage(ArImageSaveRequestDto(fundingId, itemId, url)).toDomainModel()
-    }
+    override suspend fun saveArImage(fundingItemId: Long, url: String): ArImageModel =
+        arDataSource.saveArImage(fundingItemId, url).toDomainModel()
+
+}

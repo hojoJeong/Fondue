@@ -23,7 +23,7 @@ public class ArController {
     private ArService arService;
     // AR 이미지 url 저장 API
     @ApiOperation(value = "AR 사진 저장", notes ="AR 배치사진 URL을 저장합니다.")
-    @GetMapping("/img/save/{fundingItem_id}/{url}")
+    @GetMapping("/img/save/{fundingItemId}/{url}")
     public ResponseEntity<ArImage> saveArImageUrl(@PathVariable Long fundingItem_id, @PathVariable String url){
         return ResponseEntity.status(HttpStatus.OK).body(arService.saveArImageUrl(fundingItem_id, url));
     }
@@ -41,9 +41,9 @@ public class ArController {
     }
 
     @ApiOperation(value = "AR 모델 가져오기", notes = "아이템 아이디로 AR 모델을 가져옵니다.")
-    @GetMapping("/model/{item_id}")
-    public ResponseEntity<ArModel> getArModel(@PathVariable Long item_id){
-        return ResponseEntity.status(HttpStatus.OK).body(arService.getArModel(item_id));
+    @GetMapping("/model/{itemId}")
+    public ResponseEntity<ArModel> getArModel(@PathVariable Long itemId){
+        return ResponseEntity.status(HttpStatus.OK).body(arService.getArModel(itemId));
     }
 
 

@@ -56,7 +56,7 @@
             android:value="required" />
 
         <activity
-            android:name=".ui.arcore.ArActivity"
+            android:name=".ui.ar.ArActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
 
