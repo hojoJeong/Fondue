@@ -2,15 +2,13 @@ package com.ssafy.fundyou1.fund.service;
 
 import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
-import com.ssafy.fundyou1.fund.dto.FundingItemDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
-import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.InvitedMemberRepository;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
-import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
@@ -46,7 +44,7 @@ public class FundingItemService {
 
     // 펀딩 참여(돈 보내기)
     @Transactional
-    public FundingItemDto attendFunding(AttendFundingDto attendFundingDto) {
+    public FundingItemResponseDto attendFunding(AttendFundingDto attendFundingDto) {
         // 사용자 정보
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회;
 
@@ -81,28 +79,28 @@ public class FundingItemService {
 
 
     @Transactional
-    public List<FundingItemDto> getInvitedFundingItemList(Long fundingId) {
+    public List<FundingItemResponseDto> getInvitedFundingItemList(Long fundingId) {
         List<FundingItem> invitedFundingItemList = fundingItemRepository.findByFundingId(fundingId);
-        List<FundingItemDto> invitedFundingItemDtoList = new ArrayList<>();
+        List<FundingItemResponseDto> invitedFundingItemResponseDtoList = new ArrayList<>();
 
         for(FundingItem fundingItem : invitedFundingItemList){
             fundingItem.getItem().getDescriptions();
             int attendMemberCount = countAttendMember(fundingItem.getId());
-            FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
+            FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
 
-            invitedFundingItemDtoList.add(fundingItemDto);
+            invitedFundingItemResponseDtoList.add(fundingItemResponseDto);
         }
-        return invitedFundingItemDtoList;
+        return invitedFundingItemResponseDtoList;
     }
 
-    public FundingItemDto getFundingItem(Long fundingItemId) {
+    public FundingItemResponseDto getFundingItem(Long fundingItemId) {
         FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
 
         int attendMemberCount = countAttendMember(fundingItemId);
 
-        FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem, attendMemberCount);
+        FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
 
-        return fundingItemDto;
+        return fundingItemResponseDto;
     }
 
     public List<FundingItemMember> getAttendMember(Long fundingItemId) {
