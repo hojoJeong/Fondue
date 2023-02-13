@@ -5,7 +5,6 @@ import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.fund.dto.*;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
@@ -302,5 +301,15 @@ public class FundingService {
         }
 
         return funding.getId();
+    }
+
+    @Transactional
+    public HostInfoResponseDto getHostInfo(Long fundingId) {
+        Funding funding = fundingRepository.getReferenceById(fundingId);
+
+        Member member = funding.getMember();
+
+        HostInfoResponseDto hostInfoResponseDto = new HostInfoResponseDto(member, funding.getFundingName());
+        return  hostInfoResponseDto;
     }
 }

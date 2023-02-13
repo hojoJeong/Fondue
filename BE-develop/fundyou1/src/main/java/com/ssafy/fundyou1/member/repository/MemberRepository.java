@@ -21,7 +21,6 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     boolean existsByLoginId(String loginId);
 
-    Member findByUsername(String username);
 
     // point 차감
     @Transactional
