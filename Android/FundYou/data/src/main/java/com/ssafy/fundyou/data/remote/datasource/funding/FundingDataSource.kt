@@ -14,4 +14,6 @@ internal interface FundingDataSource {
     suspend fun getFundingItemList(fundingIdRequestDto: FundingIdRequestDto) : List<FundingItemResponseDto>
     suspend fun terminateFundingItem(fundingItemIdRequestDto: FundingItemIdRequestDto) : Boolean
     suspend fun getFundingStatisticsList(fundingIdRequestDto: FundingIdRequestDto) : List<FundingStatisticsResponseDto>
+    suspend fun getFundingItem(fundingItemIdRequest : FundingItemIdRequestDto) : FundingItemResponseDto
+    suspend fun getFundingItemParticipateList(fundingItemIdRequestDto: FundingItemIdRequestDto) : List<FundingItemParticipateResponseDto>
 }

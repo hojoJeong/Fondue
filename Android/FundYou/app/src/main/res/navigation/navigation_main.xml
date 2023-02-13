@@ -140,14 +140,6 @@
     </fragment>
 
     <fragment
-        android:id="@+id/fundingParticipationFragment"
-        android:name="com.ssafy.fundyou.ui.funding_my.FundingParticipationFragment"
-        android:label="FundingParticipationFragment">
-        <argument
-            android:name="funding_item_id"
-            app:argType="integer" />
-    </fragment>
-    <fragment
         android:id="@+id/cancelMenbershipFragment"
         android:name="com.ssafy.fundyou.ui.mypage.MembershipWithdrawalFragment"
         android:label="CancelMenbershipFragment">
@@ -258,9 +250,22 @@
             android:name="fundingId"
             app:argType="long"
             app:nullable="false" />
+
         <action
-            android:id="@+id/action_myFundingDetailFragment_to_fundingParticipationFragment"
-            app:destination="@id/fundingParticipationFragment" />
+            android:id="@+id/action_myFundingDetailFragment_to_myFundingItemDetailFragment"
+            app:destination="@id/myFundingItemDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myFundingItemDetailFragment"
+        android:name="com.ssafy.fundyou.ui.funding_my_item_detail.MyFundingItemDetailFragment"
+        android:label="MyFundingItemDetailFragment" >
+
+        <argument
+            android:name="fundingItemId"
+            app:argType="long"
+            app:nullable="false"/>
+
     </fragment>
 
 

@@ -55,8 +55,8 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.TEXT, "펀딩 통계")
                     setBottomNavigationVisibility(View.GONE)
                 }
-                R.id.fundingParticipationFragment -> {
-                    setToolbarType(ToolbarType.TEXT_CANCEL, "주문 상세")
+                R.id.myFundingItemDetailFragment -> {
+                    setToolbarType(ToolbarType.TEXT_CANCEL, "펀딩 상세")
                     setBottomNavigationVisibility(View.GONE)
                 }
                 R.id.searchResultFragment -> {

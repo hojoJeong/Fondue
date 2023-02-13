@@ -15,10 +15,15 @@ class FundingItemStateAdapter :
         FundingItemStateDiffUtil
     ) {
 
+    private lateinit var clickEvent : (Long) -> Unit
+
     inner class FundingItemStateHolder(private val binding: ItemMyFundingStateListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: FundingItemStateUiModel) {
             binding.fundingStateItem = item
+            binding.btnParticipate.setOnClickListener {
+                clickEvent.invoke(item.id)
+            }
         }
     }
 
@@ -31,6 +36,10 @@ class FundingItemStateAdapter :
 
     override fun onBindViewHolder(holder: FundingItemStateHolder, position: Int) {
         holder.bind(currentList[position])
+    }
+
+    fun addButtonClickListener(event : (Long) -> Unit){
+        this.clickEvent = event
     }
 
     object FundingItemStateDiffUtil : DiffUtil.ItemCallback<FundingItemStateUiModel>() {

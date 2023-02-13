@@ -29,4 +29,10 @@ internal class FundingDataSourceImpl @Inject constructor(
 
     override suspend fun getFundingStatisticsList(fundingIdRequestDto: FundingIdRequestDto) =
         fundingApiService.getFundingStatistics(fundingIdRequestDto)
+
+    override suspend fun getFundingItem(fundingItemIdRequest: FundingItemIdRequestDto) =
+        fundingApiService.getFundingItem(fundingItemIdRequest)
+
+    override suspend fun getFundingItemParticipateList(fundingItemIdRequestDto: FundingItemIdRequestDto) =
+        fundingApiService.getFundingParticipateList(fundingItemIdRequestDto)
 }

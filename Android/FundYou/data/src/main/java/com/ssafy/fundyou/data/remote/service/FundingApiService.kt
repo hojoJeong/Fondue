@@ -38,4 +38,14 @@ internal interface FundingApiService {
     suspend fun getFundingStatistics(
         @Body fundingId: FundingIdRequestDto
     ) : List<FundingStatisticsResponseDto>
+
+    @POST("/fundingItem")
+    suspend fun getFundingItem(
+        @Body fundingItemIdRequestDto: FundingItemIdRequestDto
+    ) : FundingItemResponseDto
+
+    @POST("/fundingItem/memberList")
+    suspend fun getFundingParticipateList(
+        @Body fundingItemIdRequestDto: FundingItemIdRequestDto
+    ) : List<FundingItemParticipateResponseDto>
 }

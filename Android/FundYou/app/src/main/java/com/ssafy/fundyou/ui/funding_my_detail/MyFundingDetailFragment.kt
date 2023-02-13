@@ -26,7 +26,11 @@ class MyFundingDetailFragment :
     private val args by navArgs<MyFundingDetailFragmentArgs>()
     private val myFundingDetailViewModel by viewModels<MyFundingDetailViewModel>()
     private val participateUserAdapter = FundingParticipateUserAdapter()
-    private val itemStateAdapter = FundingItemStateAdapter()
+    private val itemStateAdapter = FundingItemStateAdapter().apply {
+        addButtonClickListener { fundingItemId ->
+            navigate(MyFundingDetailFragmentDirections.actionMyFundingDetailFragmentToMyFundingItemDetailFragment(fundingItemId))
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,15 +73,15 @@ class MyFundingDetailFragment :
     private fun initFundingItemObserver() {
         myFundingDetailViewModel.fundingItemList.observe(viewLifecycleOwner) { response ->
             when (response) {
-                is ViewState.Error -> {
+                is ViewState.Loading -> {
                     Log.d(TAG, "initFundingItemObserver: loading..")
                 }
-                is ViewState.Loading -> {
+                is ViewState.Success -> {
                     itemStateAdapter.submitList(response.value ?: emptyList())
                     binding.rvFundingItemDetail.adapter = itemStateAdapter
                 }
-                is ViewState.Success -> {
-                    Log.d(TAG, "initFundingItemObserver: error... ${response.value}")
+                is ViewState.Error -> {
+                    Log.d(TAG, "initFundingItemObserver: error... ${response.message}")
                 }
             }
         }

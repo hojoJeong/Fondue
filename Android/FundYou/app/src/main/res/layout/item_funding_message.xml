@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="message"
-            type="com.ssafy.fundyou.ui.funding_my.model.FundingParticipateModel" />
+            name="participateMessage"
+            type="com.ssafy.fundyou.ui.funding_my_item_detail.model.MyFundingParticipateMessageModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="7dp"
-            android:text="@{message.userName}"
+            android:text="@{participateMessage.senderName}"
             app:layout_constraintBottom_toBottomOf="@id/tv_from_title"
             app:layout_constraintStart_toEndOf="@id/tv_from_title"
             tools:text="홍길님" />
@@ -48,7 +48,7 @@
             android:layout_marginEnd="22dp"
             android:layout_marginBottom="22dp"
             android:background="@drawable/bg_rect_solitude_transparent_radius0_stroke1_no_top_left_right"
-            android:text="@{message.message}"
+            android:text="@{participateMessage.message}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@id/tv_from_title"

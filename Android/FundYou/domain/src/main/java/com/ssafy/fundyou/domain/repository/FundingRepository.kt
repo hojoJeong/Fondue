@@ -1,9 +1,6 @@
 package com.ssafy.fundyou.domain.repository
 
-import com.ssafy.fundyou.domain.model.funding.FundingInfoModel
-import com.ssafy.fundyou.domain.model.funding.FundingItemInfoModel
-import com.ssafy.fundyou.domain.model.funding.FundingStatisticsModel
-import com.ssafy.fundyou.domain.model.funding.FundingTotalModel
+import com.ssafy.fundyou.domain.model.funding.*
 
 interface FundingRepository {
     suspend fun getFundingInfo(fundingId : Long) : FundingInfoModel
@@ -13,4 +10,6 @@ interface FundingRepository {
     suspend fun getFundingItemList(fundingId : Long) : List<FundingItemInfoModel>
     suspend fun terminateFundingItem(fundingItemId : Long) : Boolean
     suspend fun getFundingStatistics(fundingId : Long) : List<FundingStatisticsModel>
+    suspend fun getFundingItem(fundingItemId : Long) : FundingItemInfoModel
+    suspend fun getFundingParticipateMessageList(fundingItemId : Long) : List<FundingMessageModel>
 }

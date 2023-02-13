@@ -4,7 +4,6 @@ import com.ssafy.fundyou.domain.model.funding.FundingItemInfoModel
 
 data class FundingItemStateUiModel(
     val id : Long,
-    val fundingId : Long,
     val brand : String,
     val img : String,
     val title : String,
@@ -13,8 +12,7 @@ data class FundingItemStateUiModel(
 )
 
 fun FundingItemInfoModel.toFundingItemStateUiModel() = FundingItemStateUiModel(
-    id = this.info.id,
-    fundingId = this.id,
+    id = this.id,
     brand = this.info.brand,
     img = this.info.img[0],
     title = this.info.title,
