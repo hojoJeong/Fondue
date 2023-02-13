@@ -8,6 +8,9 @@
         <variable
             name="participateUserModel"
             type="com.ssafy.fundyou.ui.funding_my_detail.model.FundingParticipateUserUiModel" />
+        <variable
+            name="ranking"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,7 +18,7 @@
         android:layout_marginBottom="12dp"
         android:layout_height="wrap_content">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_funding_category"
             android:layout_width="70dp"
             android:layout_height="70dp"
@@ -24,7 +27,15 @@
             app:layout_constraintTop_toTopOf="parent"
             app:setItemImage="@{participateUserModel.participateUserProfileImg}" />
 
-
+        <View
+            android:id="@+id/view_ranking"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_margin="4dp"
+            app:rankingColor="@{ranking}"
+            android:background="@drawable/bg_rect_franch_rose_transparent_radius4_stroke1"
+            app:layout_constraintEnd_toEndOf="@id/iv_funding_category"
+            app:layout_constraintBottom_toBottomOf="@id/iv_funding_category"/>
 
         <LinearLayout
             android:id="@+id/ly_funding_info"

@@ -113,14 +113,6 @@ class MyFundingDetailFragment :
         participateUserAdapter.submitList(fundingStateList)
     }
 
-    private fun initFundingRankingList() {
-
-    }
-
-    private fun initFundingStateList() {
-
-    }
-
     private fun initFundingPieChart(participateUserList: List<FundingParticipateUserUiModel>) {
         // 파이차트에 들어갈 자료들
         val pieEntries = arrayListOf<PieEntry>()

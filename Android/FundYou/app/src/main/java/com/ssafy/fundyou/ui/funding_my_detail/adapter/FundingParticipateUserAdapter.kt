@@ -17,6 +17,7 @@ class FundingParticipateUserAdapter : ListAdapter<FundingParticipateUserUiModel,
     inner class FundingParticipateUserHolder(private val binding : ItemFundingParticipateListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : FundingParticipateUserUiModel){
             binding.participateUserModel = item
+            binding.ranking = adapterPosition
         }
     }
 

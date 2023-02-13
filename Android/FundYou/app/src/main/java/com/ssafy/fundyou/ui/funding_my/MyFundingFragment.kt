@@ -123,9 +123,18 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     }
 
     private fun initOngoingFundingItemList() {
-        ongoingFundingItemAdapter.submitList(null)
-        ongoingFundingItemAdapter.submitList(myFundingItem.myFundingOngoingList)
-        binding.rvProgressingFundingList.adapter = ongoingFundingItemAdapter
+        if (myFundingItem.myFundingOngoingList.isEmpty()) {
+            with(binding) {
+                tvProgressingFundingTitle.visibility = View.GONE
+                rvProgressingFundingList.visibility = View.GONE
+            }
+        } else {
+            binding.tvProgressingFundingTitle.visibility = View.VISIBLE
+            binding.rvProgressingFundingList.visibility = View.VISIBLE
+            ongoingFundingItemAdapter.submitList(null)
+            ongoingFundingItemAdapter.submitList(myFundingItem.myFundingOngoingList)
+            binding.rvProgressingFundingList.adapter = ongoingFundingItemAdapter
+        }
     }
 
     private fun initClosedFundingItemList() {
@@ -135,6 +144,8 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
                 rvEndFundingList.visibility = View.GONE
             }
         } else {
+            binding.tvEndFundingTitle.visibility = View.VISIBLE
+            binding.rvEndFundingList.visibility = View.VISIBLE
             closedFundingItemAdapter.submitList(null)
             closedFundingItemAdapter.submitList(myFundingItem.myFundingClosedList)
             binding.rvEndFundingList.adapter = closedFundingItemAdapter
