@@ -12,4 +12,5 @@ interface FundingRepository {
     suspend fun getFundingStatistics(fundingId : Long) : List<FundingStatisticsModel>
     suspend fun getFundingItem(fundingItemId : Long) : FundingItemInfoModel
     suspend fun getFundingParticipateMessageList(fundingItemId : Long) : List<FundingMessageModel>
+    suspend fun addOngoingFundingItem() : Long
 }

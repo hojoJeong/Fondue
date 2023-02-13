@@ -24,7 +24,7 @@ class CommonDialog(context : Context) : Dialog(context) {
         initButtonEvent()
     }
 
-    fun initDialog(id : Long, title : String, content : String, event : (Long) -> Unit){
+    fun initDialog(id : Long = 0, title : String, content : String, event : (Long) -> Unit){
         this.id = id
         positiveButtonClickEvent = event
         this.title = title

@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/base_vertical_margin"
-                    android:layout_marginBottom="@dimen/base_vertical_margin"
+                    android:layout_marginBottom="60dp"
                     android:text="@string/title_wishlist_funding_period"
                     android:textColor="@color/black"
                     app:layout_constraintBottom_toBottomOf="parent"
