@@ -56,10 +56,9 @@ public class Member extends BaseEntity {
     private Authority authority;
 
 
-    @OneToOne(mappedBy = "member",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "like_id")
+    @OneToMany(mappedBy = "member",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private Like like; //찜 정보
+    private List<Like> likes; //찜 정보
 
     @JsonIgnore
     @OneToMany(mappedBy = "member")
