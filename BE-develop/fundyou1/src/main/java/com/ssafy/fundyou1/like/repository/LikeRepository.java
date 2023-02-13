@@ -21,16 +21,16 @@ public interface LikeRepository extends JpaRepository<Like,Long> {
     // 찜 목록 아이템 삭제
 
     @Modifying
-    @Query(value="DELETE FROM likes li " +
-            "WHERE li.member_id = :memberId " +
-            "AND li.item_id = :id" ,nativeQuery = true)
+    @Query(value="DELETE FROM likes " +
+            "WHERE member_id = :memberId " +
+            "AND item_id = :id" ,nativeQuery = true)
     Integer deleteLikeItem(@Param("memberId") Long memberId, @Param("id") Long id);
 
     // 찜 아이템 찾기 ( 아이템 아이디, 회원 아이디)
     @Query(value="SELECT * " +
-            "FROM likes li " +
-            "WHERE li.item_id = :id " +
-            "AND li.member_id = :memberId", nativeQuery = true)
+            "FROM likes " +
+            "WHERE item_id = :id " +
+            "AND member_id = :memberId", nativeQuery = true)
     Like findLikeItem(@Param("id") Long id, @Param("memberId") Long memberId);
 
 
