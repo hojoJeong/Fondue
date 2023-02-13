@@ -67,8 +67,6 @@ public class LikeService {
     public List<ItemResponseDto> findLikeByMemberId(Long memberId) {
         List<Like> findLikeItems = likeRepository.findAllByMember_Id(memberId);
 
-        List<Item> findAllItems = itemRepository.findAll();
-
         if ( findLikeItems.size() != 0) {
             List<ItemResponseDto> likeItemResponse = new ArrayList<>();
             for (Like like : findLikeItems) {

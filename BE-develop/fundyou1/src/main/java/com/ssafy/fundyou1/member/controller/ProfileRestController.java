@@ -1,6 +1,7 @@
 package com.ssafy.fundyou1.member.controller;
 
 
+import com.ssafy.fundyou1.global.security.SecurityUtil;
 import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.service.MemberService;
 import io.swagger.annotations.*;
@@ -24,7 +25,7 @@ public class ProfileRestController {
 
     @GetMapping()
     public ResponseEntity<MemberResponseDto> getMyMemberInfo() {
-        return ResponseEntity.ok(memberService.getMyInfo());
+        return ResponseEntity.ok(memberService.findByMemberId(SecurityUtil.getCurrentMemberId()));
     }
 
 

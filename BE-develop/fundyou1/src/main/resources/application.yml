@@ -37,9 +37,9 @@ spring:
 #      ddl-auto: update
 #      auto_quote_keyword: true
 #    defer-datasource-initialization: true
-#  h2:
-#    console:
-#      enabled: true
+  h2:
+    console:
+      enabled: true
 
   logging:
     level:
