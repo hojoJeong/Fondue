@@ -23,4 +23,7 @@ public interface FundingItemMemberRepository extends JpaRepository<FundingItemMe
 
     @Query(value = "select count(*) from (select distinct member_id from funding_item_member where funding_item_id = :fundingItemId) as funding_item_member",nativeQuery = true)
     int countAttendMember(@Param("fundingItemId") Long fundingItemId);
+
+    @Query(value = "select distinct member_id from funding_item_member where funding_item_id = :fundingItemId ", nativeQuery = true)
+    List<Long> findAllDistinctMemberIdByFundingItemId(@Param("fundingItemId") Long fundingItemId);
 }
