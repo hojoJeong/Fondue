@@ -301,7 +301,7 @@ public class FundingService {
 
         }
 
-        AddFundingResponseDto addFundingDto = new AddFundingResponseDto();
+        AddFundingResponseDto addFundingDto = new AddFundingResponseDto(funding.getId());
         return addFundingDto;
     }
 }
