@@ -266,7 +266,7 @@ public class FundingService {
 
     }
 
-    public AddFundingResponseDto addFundingItem() {
+    public Long addFundingItem() {
         // 사용자 정보
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
@@ -301,7 +301,6 @@ public class FundingService {
 
         }
 
-        AddFundingResponseDto addFundingDto = new AddFundingResponseDto(funding.getId());
-        return addFundingDto;
+        return funding.getId();
     }
 }

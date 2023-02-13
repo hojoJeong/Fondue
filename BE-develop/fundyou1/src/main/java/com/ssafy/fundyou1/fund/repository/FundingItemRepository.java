@@ -1,8 +1,6 @@
 package com.ssafy.fundyou1.fund.repository;
 
-import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.item.entity.Item;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -61,4 +59,7 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
     @Modifying(clearAutomatically = true)
     @Query(value = "update funding_item set count = count + :count, item_total_price = item_total_price + (:itemPrice * :count) where item_id = :itemId and funding_id = :fundingId", nativeQuery = true)
     void addFundingItem(@Param("fundingId") Long fundingId, @Param("itemId") Long itemId, @Param("count") int count, @Param("itemPrice") int itemPrice);
+
+    @Query(value = "select case when count(*) = 1 then 'true' else 'false' end from funding_item where funding_id = :fundingId and funding_item_status = :status", nativeQuery = true)
+    boolean findByFundingIdAndFundingItemStatus(@Param("fundingId") Long fundingId, @Param("status") boolean status);
 }
