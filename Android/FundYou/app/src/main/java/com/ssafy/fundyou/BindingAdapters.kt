@@ -213,7 +213,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setFullSizeImage")
-    fun ImageView.setFullSizeImage(imgSrc : String?){
+    fun ImageView.setFullSizeImage(imgSrc: String?) {
         Glide.with(context)
             .load(imgSrc)
             .override(Target.SIZE_ORIGINAL)
@@ -222,21 +222,53 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("setFundingSequence")
-    fun TextView.setFundingSequence(sequence : Int){
+    fun TextView.setFundingSequence(sequence: Int) {
         text = "${sequence}째 펀딩"
     }
 
     @JvmStatic
     @BindingAdapter(value = ["startDate", "endDate"])
-    fun TextView.setStartToEndDate(start : Long, end : Long){
+    fun TextView.setStartToEndDate(start: Long, end: Long) {
         val simpleDateFormat = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA)
         text = "${simpleDateFormat.format(start)}~${simpleDateFormat.format(end)}"
     }
 
     @JvmStatic
     @BindingAdapter("styleByStatus")
-    fun TextView.setStyleByStatus(status : Boolean){
-        if(status) this.setTextAppearance(R.style.base_font_bold_20_franch_rose)
+    fun TextView.setStyleByStatus(status: Boolean) {
+        if (status) this.setTextAppearance(R.style.base_font_bold_20_franch_rose)
         else this.setTextAppearance(R.style.base_font_bold_20_matter_horn)
+    }
+
+    @JvmStatic
+    @BindingAdapter("deadLine")
+    fun TextView.setDeadLine(deadLine: Int) {
+        this.text = if (deadLine < 0) "마감" else "D-${deadLine}"
+    }
+
+    @JvmStatic
+    @BindingAdapter("participateTextStyle")
+    fun TextView.setParticipateTextStyle(status: Boolean) {
+        if (status) setTextAppearance(R.style.base_font_medium_12_tomato)
+        else setTextAppearance(R.style.base_font_medium_12_matter_horn)
+        // includeFontPadding이 적용안됨, 추가로 더 해줘야함
+        this.includeFontPadding = false
+    }
+
+    @JvmStatic
+    @BindingAdapter("itemCount")
+    fun TextView.setItemCount(count: Int) {
+        text = "(${count})"
+    }
+
+    @JvmStatic
+    @BindingAdapter("rankingColor")
+    fun View.setRankingColor(ranking: Int) {
+        when (ranking) {
+            0 -> setBackgroundColor(context.getColorNoTheme(R.color.franch_rose))
+            1 -> setBackgroundColor(context.getColorNoTheme(R.color.golden_yellow))
+            2 -> setBackgroundColor(context.getColorNoTheme(R.color.pig_pink))
+            else -> setBackgroundColor(context.getColorNoTheme(R.color.grey))
+        }
     }
 }

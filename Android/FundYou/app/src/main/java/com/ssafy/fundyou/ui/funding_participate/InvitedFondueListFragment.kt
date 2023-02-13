@@ -5,7 +5,7 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentInvitedFondueListBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingListModel
 
 class InvitedFondueListFragment : BaseFragment<FragmentInvitedFondueListBinding>(R.layout.fragment_invited_fondue_list) {

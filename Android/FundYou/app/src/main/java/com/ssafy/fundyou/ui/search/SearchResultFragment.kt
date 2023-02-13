@@ -10,13 +10,10 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentSearchResultBinding
-import com.ssafy.fundyou.domain.model.item.ProductItemModel
-import com.ssafy.fundyou.ui.base.BaseFragment
-import com.ssafy.fundyou.ui.home.MainViewModel
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchResultAdapter
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
-import kotlin.math.max
 
 @AndroidEntryPoint
 class SearchResultFragment :
