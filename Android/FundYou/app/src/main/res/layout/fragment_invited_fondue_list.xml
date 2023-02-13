@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.funding_participate.InvitedFondueListFragment">
+    tools:context=".ui.funding_invited_list.InvitedFondueListFragment">
 
     <HorizontalScrollView
         android:id="@+id/hscv_invited_fondue_list"

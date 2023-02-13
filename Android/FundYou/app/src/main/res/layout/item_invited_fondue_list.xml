@@ -6,7 +6,7 @@
     <data>
         <variable
             name="funding_item"
-            type="com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingListModel" />
+            type="com.ssafy.fundyou.ui.funding_participate.model.FundingParticipateListModel" />
     </data>
 
     <androidx.cardview.widget.CardView
