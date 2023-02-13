@@ -13,12 +13,9 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
-import androidx.fragment.app.Fragment
-import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 
-import androidx.navigation.fragment.NavHostFragment
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
@@ -33,7 +30,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException

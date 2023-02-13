@@ -14,6 +14,8 @@ internal data class FundingItemResponseDto(
     val fundingId : Long,
     @SerializedName("fundingItemId")
     val id : Long?,
+    @SerializedName("attendMemberCount")
+    val participateCount : Int?,
     @SerializedName("item")
     val itemInfo : ItemResponseDto
 )

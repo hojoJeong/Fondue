@@ -12,7 +12,7 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentItemListBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.item_list.adapter.ItemListAdapter
 import com.ssafy.fundyou.ui.item_list.model.ItemListModel
 
