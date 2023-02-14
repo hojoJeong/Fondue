@@ -34,6 +34,7 @@ internal fun FundingResponseDto.toDomainModel() = FundingTotalModel(
 internal fun FundingItemResponseDto.toDomainModel() = FundingItemInfoModel(
     id = this.id ?: -1,
     itemCount = count ?: 0,
+    fundingHostUserName = this.fundingHostUserName ?: "",
     currentFundingPrice = currentFundingPrice ?: 0,
     status = fundingItemStatus ?: false,
     participantsCount = this.participateCount ?: 0,

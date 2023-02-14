@@ -211,16 +211,19 @@
     </fragment>
     <fragment
         android:id="@+id/payResultFragment"
-        android:name="com.ssafy.fundyou.ui.pay.PayResultFragment"
+        android:name="com.ssafy.fundyou.ui.pay_result.PayResultFragment"
         android:label="PayResultFragment">
+
         <argument
-            android:name="state"
-            app:argType="string"
+            android:name="payResultInfo"
+            app:argType="com.ssafy.fundyou.ui.pay_result.model.PayResultUiModel"
             app:nullable="false" />
+
         <argument
-            android:name="payinfo"
-            app:argType="com.ssafy.fundyou.ui.pay.model.FundingPayModel"
-            app:nullable="false" />
+            android:name="payPrice"
+            app:argType="String"
+            app:nullable="false"/>
+
         <action
             android:id="@+id/action_payResultFragment_to_invitedFondueFragment"
             app:destination="@id/fundingParticipateFragment"

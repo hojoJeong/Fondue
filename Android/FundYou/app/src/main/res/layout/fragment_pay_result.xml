@@ -2,9 +2,14 @@
 <layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="item"
-            type="com.ssafy.fundyou.ui.pay.model.FundingPayModel" />
+            type="com.ssafy.fundyou.ui.pay_result.model.PayResultUiModel" />
+
+        <variable
+            name="fundingPrice"
+            type="String" />
 
     </data>
 
@@ -12,113 +17,116 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.pay.PaySuccessFragment"
-        android:padding="@dimen/base_vertical_margin">
+        android:padding="@dimen/base_vertical_margin"
+        tools:context=".ui.pay.PaySuccessFragment">
 
         <TextView
             android:id="@+id/tv_pay_result_title"
+            style="@style/base_font_medium_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text='@{item.username + "님의 퐁듀를\n완료했습니다."}'
-            style="@style/base_font_medium_16"
-            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:text='@{item.fundingHostUserName + "님의 퐁듀를\n완료했습니다."}'
             android:textAlignment="center"
-            android:layout_marginTop="@dimen/base_vertical_margin"/>
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/iv_pay_result_item"
             android:layout_width="136dp"
             android:layout_height="136dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pay_result_title"
             android:layout_marginTop="40dp"
-            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"/>
+            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pay_result_title" />
 
         <TextView
             android:id="@+id/tv_pay_result_brand"
+            style="@style/base_font_medium_14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_pay_result_item"
-            android:text='@{item.brand ?? "결제를 실패하였습니다."}'
-            tools:text="삼성"
-            style="@style/base_font_medium_14"
+            android:layout_marginTop="10dp"
+            android:text="@{item.payState ? item.brand : `결제를 실패하였습니다.`}"
             android:textColor="@color/nobel"
-            android:layout_marginTop="10dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_pay_result_item"
+            tools:text="삼성" />
+
         <TextView
             android:id="@+id/tv_pay_result_name"
+            style="@style/base_font_medium_16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pay_result_brand"
-            android:text='@{item.name ?? "결제 수단 확인 후, 다시 시도해주세요."}'
-            tools:text="비스포크 냉장고"
-            style="@style/base_font_medium_16"
+            android:layout_marginTop="10dp"
+            android:text="@{item.payState ? item.title : `결제 수단 확인 후, 다시 시도해주세요.`}"
             android:textColor="@color/black"
-            android:layout_marginTop="10dp"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pay_result_brand"
+            tools:text="비스포크 냉장고" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cstl_pay_result"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
+            android:background="@drawable/bg_rect_black_black_round0_stroke0"
             android:paddingBottom="6dp"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pay_result_name"
-            android:background="@drawable/bg_rect_black_black_round0_stroke0">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_pay_result_name">
+
             <TextView
                 android:id="@+id/tv_pay_result_percent"
+                style="@style/base_font_bold_16_black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text='@{item.percent+"%"}'
-                tools:text="100%"
-                style="@style/base_font_bold_16_black"
+                app:percentage="@{item.percentage}"
                 android:textColor="@color/black"
                 android:textSize="26sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="100%" />
+
             <TextView
                 android:id="@+id/tv_pay_result_item_price"
+                style="@style/base_font_medium_14"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/tv_pay_result_percent"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_pay_result_percent"
-                app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_result_percent"
-                tools:text="총 63,000원"
-                android:text='@{"총 "+item.price+"원"}'
-                style="@style/base_font_medium_14"
+                android:layout_marginStart="10dp"
+                android:text='@{"총 "+item.currentFundingPrice+"원"}'
                 android:textColor="@color/nobel"
-                android:layout_marginStart="10dp"/>
+                app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_result_percent"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_pay_result_percent"
+                app:layout_constraintStart_toEndOf="@+id/tv_pay_result_percent"
+                tools:text="총 63,000원" />
 
             <TextView
                 android:id="@+id/tv_pay_result_funding_price"
+                style="@style/base_font_medium_16"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text='@{"+"+fundingPrice}'
+                android:textColor="@color/raven"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_pay_result_item_price"
-                tools:text="+13,000"
-                android:text='@{"+"+item.fundingPrice}'
-                style="@style/base_font_medium_16"
-                android:textColor="@color/raven"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:text="+13,000" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_pay_result_btn"
+            style="@style/base_font_bold_16"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:background="@drawable/bg_rect_arapawa_round5_stroke0"
             android:text="확인"
-            style="@style/base_font_bold_16"
             android:textColor="@color/white"
-            android:background="@drawable/bg_rect_arapawa_round5_stroke0"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

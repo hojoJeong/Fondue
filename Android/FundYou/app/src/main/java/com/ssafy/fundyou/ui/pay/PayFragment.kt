@@ -6,44 +6,88 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextWatcher
 import android.text.style.ForegroundColorSpan
+import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentPayBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
-import com.ssafy.fundyou.ui.pay.model.FundingPayModel
+import com.ssafy.fundyou.ui.pay.model.FundingPayItemUiModel
+import com.ssafy.fundyou.util.addComma
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 
 @AndroidEntryPoint
 class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
-    private lateinit var payItem: FundingPayModel
+
     private var fundingPrice = 0
+    private lateinit var payItemUiModel: FundingPayItemUiModel
+    private var userBalance = 0
+
+    private val payViewModel by viewModels<PayViewModel>()
+    private val argument by navArgs<PayFragmentArgs>()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
 
     override fun initView() {
-        initFundingItemView()
-        countMessageLength()
-        setFundingPrice()
-        initFundingBtnListener()
-        initLoadingPointBtnClickListener()
+        payViewModel.getFundingItem(argument.fundingItemId)
     }
 
     override fun initViewModels() {
+        initFundingPayItemObserver()
+        initUserPointObserver()
+        initFundingPayObserver()
+    }
 
+    private fun initFundingPayItemObserver() {
+        payViewModel.fundingItem.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    payItemUiModel = response.value!!
+                    binding.item = payItemUiModel
+                    payViewModel.getPayUserInfo()
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initFundingPayItemObserver: ${response.message}")
+                }
+            }
+        }
+    }
+
+    private fun initUserPointObserver() {
+        payViewModel.userInfo.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    binding.user = response.value!!
+                    userBalance = response.value!!.userBalance
+                    initFundingItemView()
+                    countMessageLength()
+                    setFundingPrice()
+                    initFundingBtnListener()
+                    initLoadingPointBtnClickListener()
+                }
+                is ViewState.Error -> {
+
+                }
+            }
+        }
     }
 
     private fun initFundingItemView() {
-        //TODO(임시 데이터 추가)
-        payItem =
-            FundingPayModel("이수용", R.drawable.bg_banner_ssafylogo2, "삼성", "비스포크 냉장고", 100000, 60000, 80, 20000, 10000)
-
-        binding.item = payItem
         val content = "남은 금액 전부 펀딩"
         val builder = SpannableStringBuilder(content)
         builder.setSpan(
@@ -56,16 +100,16 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
     }
 
     private fun countMessageLength() {
-            binding.editPayInputInfoMessage.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+        binding.editPayInputInfoMessage.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                    val textCount = s?.length ?: 0
-                    binding.tvPayInputInfoMessageIndicator.text = "$textCount / 50"
-                }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                val textCount = s?.length ?: 0
+                binding.tvPayInputInfoMessageIndicator.text = "$textCount / 50"
+            }
 
-                override fun afterTextChanged(s: Editable?) {}
-            })
+            override fun afterTextChanged(s: Editable?) {}
+        })
 
     }
 
@@ -73,16 +117,16 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
         val editText = binding.editPayFundingPrice
         val fundingBtn = binding.btnPayFunding
 
-        editText.addTextChangedListener(object : TextWatcher{
+        editText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if(s?.length!! > 0){
-                    if(s.toString().toInt() <= payItem.balance){
+                if (s?.length!! > 0) {
+                    if (s.toString().toInt() <= payItemUiModel.fundingBalancePrice) {
                         fundingPrice = editText.text.toString().toInt()
                         fundingBtn.text = "${DecimalFormat("#,##0").format(fundingPrice)}원 펀딩하기"
                     } else {
-                        fundingPrice = payItem.balance
+                        fundingPrice = payItemUiModel.fundingBalancePrice
                         setTextFundingEditTextAndBtn(fundingPrice)
                     }
                 } else {
@@ -90,46 +134,74 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
                     fundingBtn.text = "펀딩하기"
                 }
             }
+
             override fun afterTextChanged(s: Editable?) {}
         })
 
         binding.btnPayFundingAll.setOnClickListener {
-            fundingPrice = payItem.balance
+            fundingPrice = payItemUiModel.fundingBalancePrice
             setTextFundingEditTextAndBtn(fundingPrice)
         }
         binding.btnPayFunding10000.setOnClickListener {
-            fundingPrice = if (payItem.balance > fundingPrice + 10000) fundingPrice + 10000 else payItem.balance
+            fundingPrice =
+                if (payItemUiModel.fundingBalancePrice > fundingPrice + 10000) fundingPrice + 10000 else payItemUiModel.fundingBalancePrice
             setTextFundingEditTextAndBtn(fundingPrice)
 
         }
         binding.btnPayFunding50000.setOnClickListener {
-            fundingPrice = if (payItem.balance > fundingPrice + 50000) fundingPrice + 50000 else payItem.balance
+            fundingPrice =
+                if (payItemUiModel.fundingBalancePrice > fundingPrice + 50000) fundingPrice + 50000 else payItemUiModel.fundingBalancePrice
             setTextFundingEditTextAndBtn(fundingPrice)
         }
     }
 
-    private fun setTextFundingEditTextAndBtn(fundingPrice: Int){
+    private fun setTextFundingEditTextAndBtn(fundingPrice: Int) {
         binding.btnPayFunding.text = "${DecimalFormat("#,##0").format(fundingPrice)}원 펀딩하기"
         binding.editPayFundingPrice.setText(fundingPrice.toString())
     }
 
-    private fun initFundingBtnListener(){
-        //TODO(임시 state 코드)
-        val result = "fail"
-        val payResult = ViewState.Success(result)
-        binding.btnPayFunding.setOnClickListener {
-            if(binding.editPayFundingPrice.text.isEmpty() || binding.editPayInputInfoSender.text.isEmpty()){
-                Snackbar.make(requireView(), "필수 항목 입력을 확인해주세요", Snackbar.LENGTH_SHORT).show()
-            } else {
-                navigate(PayFragmentDirections.actionPayFragmentToPayResultFragment(payResult.value!!, payItem))
+    private fun initFundingPayObserver() {
+        payViewModel.attendFundingItem.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    navigate(
+                        PayFragmentDirections.actionPayFragmentToPayResultFragment(
+                            response.value!!,
+                            addComma(fundingPrice)
+                        )
+                    )
+                }
+                is ViewState.Error -> {
+
+                }
             }
         }
     }
 
-    private fun initLoadingPointBtnClickListener(){
-        binding.btnLayoutPayLoad.setOnClickListener {
-            /** 잔여 포인트 임시 */
-            navigate(PayFragmentDirections.actionPayFragmentToPointLoadFragment(10000))
+    private fun initFundingBtnListener() {
+        binding.btnPayFunding.setOnClickListener {
+            if (binding.editPayFundingPrice.text.isEmpty() || binding.editPayInputInfoSender.text.isEmpty()) {
+                Snackbar.make(requireView(), "필수 항목 입력을 확인해주세요", Snackbar.LENGTH_SHORT).show()
+            } else {
+                payViewModel.attendFundingItem(
+                    payItemUiModel.fundingItemId,
+                    binding.editPayInputInfoMessage.text.toString(),
+                    fundingPrice
+                )
+            }
         }
+    }
+
+    private fun initLoadingPointBtnClickListener() {
+        binding.btnLayoutPayLoad.setOnClickListener {
+            navigate(PayFragmentDirections.actionPayFragmentToPointLoadFragment(userBalance))
+        }
+    }
+
+    companion object {
+        private const val TAG = "PayFragment..."
     }
 }

@@ -7,6 +7,8 @@ import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
 import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSourceImpl
+import com.ssafy.fundyou.data.remote.datasource.pay.PayRemoteDataSource
+import com.ssafy.fundyou.data.remote.datasource.pay.PayRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.search.SearchRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.user.UserRemoteDataSource
@@ -54,4 +56,10 @@ internal object DataSourceModule {
     @Singleton
     fun provideFundingRemoteDataSource(fundingApiService: FundingApiService): FundingDataSource =
         FundingDataSourceImpl(fundingApiService)
+
+    @Provides
+    @Singleton
+    fun providePayRemoteDataSource(payApiService: PayApiService) : PayRemoteDataSource = PayRemoteDataSourceImpl(
+        payApiService
+    )
 }
