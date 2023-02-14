@@ -60,9 +60,9 @@ public class FundingApiController {
 
     // 초대 받은 펀딩 리스트 확인
     @ApiOperation(value = "초대 받은 펀딩 리스트 확인", notes = "해당 펀딩에 대한 값 반환")
-    @GetMapping("/invitedList")
-    public ResponseEntity<List<InvitedFundingDto>> getInvitedFundingDtoList() {
-        return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingDtoList());
+    @GetMapping("/invitedList/{status}")
+    public ResponseEntity<List<InvitedFundingDto>> getInvitedFundingDtoList(@PathVariable Integer status) {
+        return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingDtoList(status));
     }
 
 
