@@ -12,4 +12,7 @@ public interface ArImageRepository extends JpaRepository<ArImage, Long> {
 
     @Query(value = "SELECT * FROM ar_image where funding_item_id = :fundingItemId", nativeQuery = true)
     List<ArImage> findArImageListByFundingItemId(@Param("fundingItemId") Long fundingItemId);
+
+    @Query(value = "SELECT url FROM ar_image where funding_item_id = :fundingItemId", nativeQuery = true)
+    List<String> findArUrlListByFundingItemId(@Param("fundingItemId") Long fundingItemId);
 }
