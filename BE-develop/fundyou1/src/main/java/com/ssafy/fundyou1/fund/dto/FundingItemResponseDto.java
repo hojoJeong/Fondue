@@ -25,6 +25,7 @@ public class FundingItemResponseDto {
 
     private boolean fundingItemStatus;
 
+
     @Builder
     public static FundingItemResponseDto createFundingItemDto(FundingItem fundingItem, int attendMemberCount) {
         return new FundingItemResponseDto(
