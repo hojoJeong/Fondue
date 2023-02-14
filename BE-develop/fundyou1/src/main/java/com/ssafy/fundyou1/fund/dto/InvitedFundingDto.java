@@ -15,10 +15,9 @@ import javax.persistence.*;
 public class InvitedFundingDto {
 
     private Long id;
-    @JsonIgnore
-    private Member member;
-    private String fundingName;
 
+    private String userName;
+    private String profileImg;
     private Long startDate; // due : 펀딩 시작 날짜
 
     private Long endDate; // due : 펀딩 마감 날짜
@@ -28,8 +27,8 @@ public class InvitedFundingDto {
 
     public InvitedFundingDto(Funding funding, int point){
         this.id = funding.getId();
-        this.member = funding.getMember();
-        this.fundingName = funding.getFundingName();
+        this.userName = funding.getMember().getUsername();
+        this.profileImg = funding.getMember().getProfileImg();
         this.startDate = funding.getStartDate();
         this.endDate = funding.getEndDate();
         this.fundingStatus = funding.isFundingStatus();

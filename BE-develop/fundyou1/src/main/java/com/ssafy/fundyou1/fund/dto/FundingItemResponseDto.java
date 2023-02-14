@@ -4,6 +4,8 @@ import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.item.dto.ItemResponseDto;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -24,9 +26,10 @@ public class FundingItemResponseDto {
     private int currentFundingPrice;
 
     private boolean fundingItemStatus;
+    private List<String> arImgList;
 
     @Builder
-    public static FundingItemResponseDto createFundingItemDto(FundingItem fundingItem, int attendMemberCount) {
+    public static FundingItemResponseDto createFundingItemDto(FundingItem fundingItem, int attendMemberCount, List<String> arImgList) {
         return new FundingItemResponseDto(
                 fundingItem.getId(),
                 new ItemResponseDto(fundingItem.getItem(), false),
@@ -35,7 +38,8 @@ public class FundingItemResponseDto {
                 fundingItem.getItemTotalPrice(),
                 fundingItem.getCount(),
                 fundingItem.getCurrentFundingPrice(),
-                fundingItem.isFundingItemStatus()
+                fundingItem.isFundingItemStatus(),
+                arImgList
         );
     }
 

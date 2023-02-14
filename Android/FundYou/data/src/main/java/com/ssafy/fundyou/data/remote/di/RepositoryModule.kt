@@ -2,6 +2,7 @@ package com.ssafy.fundyou.data.remote.di
 
 import com.ssafy.fundyou.data.local.prefs.AuthSharePreference
 import com.ssafy.fundyou.data.local.prefs.SearchKeywordPreference
+import com.ssafy.fundyou.data.remote.datasource.ar.ArDataSource
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
 import com.ssafy.fundyou.data.remote.datasource.item.ItemRemoteDataSource
@@ -66,4 +67,8 @@ internal object RepositoryModule {
     @Singleton
     fun providePayRepository(payRemoteDataSource: PayRemoteDataSource): PayRepository =
         PayRepositoryImpl(payRemoteDataSource)
+
+    @Provides
+    @Singleton
+    fun provideArRepository(arDataSource: ArDataSource): ArRepository = ArRepositoryImpl(arDataSource)
 }

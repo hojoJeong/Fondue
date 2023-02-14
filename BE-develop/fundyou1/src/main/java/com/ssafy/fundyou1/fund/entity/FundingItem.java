@@ -47,6 +47,7 @@ public class FundingItem {
     // 참여자 수
     private int participantsCount;
 
+
     public static FundingItem createFundingItem(Funding funding, Item item, int count){
         FundingItem fundingItem = new FundingItem();
         fundingItem.setItem(item);

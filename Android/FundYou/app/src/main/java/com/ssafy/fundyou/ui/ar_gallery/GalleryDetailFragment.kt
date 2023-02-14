@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.arcore
+package com.ssafy.fundyou.ui.ar_gallery
 
 import android.os.Bundle
 import android.util.Log
@@ -12,18 +12,11 @@ import com.ssafy.fundyou.ui.common.BaseFragment
 
 class GalleryDetailFragment : BaseFragment<FragmentGalleryDetailBinding>(R.layout.fragment_gallery_detail) {
 
-    private val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
-    private val storageRef = storage.reference
     private val args: GalleryDetailFragmentArgs by navArgs()
 
     override fun initView() {
-        val url = (args.arg1)
-        storageRef.child(url).downloadUrl.addOnSuccessListener {
-            Log.d("suyong", "download success!!")
-            Glide.with(requireContext()).load(it).into(binding.imgArDetail)
-        }.addOnFailureListener {
-            Log.d("suyong", "test: download failed!")
-        }
+        val url = (args.url)
+        Glide.with(requireContext()).load(url).into(binding.imgArDetail)
     }
 
     override fun initViewModels() {

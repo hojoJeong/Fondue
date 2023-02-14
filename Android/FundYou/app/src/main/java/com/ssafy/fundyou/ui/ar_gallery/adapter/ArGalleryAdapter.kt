@@ -1,16 +1,15 @@
-package com.ssafy.fundyou.ui.arcore.adapter
+package com.ssafy.fundyou.ui.ar_gallery.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemArGalleryListBinding
+import com.ssafy.fundyou.ui.ar_gallery.model.ArImageUIModel
 
-class ArGalleryAdapter : ListAdapter<String, ArGalleryAdapter.ViewHolder>(ItemUrlDiffUtil) {
+class ArGalleryAdapter : ListAdapter<ArImageUIModel, ArGalleryAdapter.ViewHolder>(ItemUrlDiffUtil) {
     private lateinit var itemClickListener: ItemClickListener
     private lateinit var itemDownloadEvent : (String, ItemArGalleryListBinding) -> Unit
 
@@ -30,7 +29,7 @@ class ArGalleryAdapter : ListAdapter<String, ArGalleryAdapter.ViewHolder>(ItemUr
         ItemArGalleryListBinding.inflate(LayoutInflater.from(parent.context),parent,false))
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(currentList[position])
+        holder.bind(currentList[position].url)
     }
 
     inner class ViewHolder(private val binding: ItemArGalleryListBinding) :
@@ -49,12 +48,12 @@ class ArGalleryAdapter : ListAdapter<String, ArGalleryAdapter.ViewHolder>(ItemUr
         }
     }
 
-    object ItemUrlDiffUtil : DiffUtil.ItemCallback<String>(){
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+    object ItemUrlDiffUtil : DiffUtil.ItemCallback<ArImageUIModel>(){
+        override fun areItemsTheSame(oldItem: ArImageUIModel, newItem: ArImageUIModel): Boolean {
+            return oldItem.url == newItem.url
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: ArImageUIModel, newItem: ArImageUIModel): Boolean {
             return oldItem == newItem
         }
     }

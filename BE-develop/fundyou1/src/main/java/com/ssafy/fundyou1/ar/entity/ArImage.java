@@ -20,22 +20,13 @@ public class ArImage {
     @Column(name = "arimage_id")
     private Long id;
 
-    @Column(name = "funding_id")
-    private Long funding_id;
-
-    @Column(name = "member_id")
-    private Long member_id;
-
-    @Column(name = "item_id")
-    private Long item_id;
-
+    @Column(name = "funding_item_id")
+    private Long funding_item_id;
     @Column(name = "url")
     private String url;
 
-    public ArImage(ArImageSaveRequestDto arImageSaveRequestDto){
-        this.funding_id = arImageSaveRequestDto.getFunding_id();
-        this.member_id = SecurityUtil.getCurrentMemberId();
-        this.item_id = arImageSaveRequestDto.getItem_id();
-        this.url = arImageSaveRequestDto.getUrl();
+    public ArImage(Long funding_item_id, String url){
+        this.funding_item_id = funding_item_id;
+        this.url = url;
     }
 }
