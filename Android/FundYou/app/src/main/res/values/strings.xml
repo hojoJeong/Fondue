@@ -144,4 +144,12 @@
         <item>기타</item>
     </string-array>
 
+    <!-- FireStorage -->
+    <string name="fire_storage_url_prefix">
+        https://firebasestorage.googleapis.com/v0/b/fundyou-1674632553418.appspot.com/o/
+    </string>
+    <string name="fire_storage_url_suffix">
+        \?alt=media
+    </string>
+
 </resources>

@@ -136,6 +136,9 @@
         <action
             android:id="@+id/action_myFundingFragment_to_myFundingDetailFragment"
             app:destination="@id/myFundingDetailFragment" />
+        <action
+            android:id="@+id/action_myFundingFragment_to_arGalleryFragment2"
+            app:destination="@id/arGalleryFragment" />
 
     </fragment>
 
@@ -259,13 +262,66 @@
     <fragment
         android:id="@+id/myFundingItemDetailFragment"
         android:name="com.ssafy.fundyou.ui.funding_my_item_detail.MyFundingItemDetailFragment"
-        android:label="MyFundingItemDetailFragment" >
+        android:label="MyFundingItemDetailFragment">
 
         <argument
             android:name="fundingItemId"
             app:argType="long"
-            app:nullable="false"/>
+            app:nullable="false" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/arGalleryFragment"
+        android:name="com.ssafy.fundyou.ui.ar_gallery.ArGalleryFragment"
+        android:label="ArGalleryFragment">
+        <argument
+            android:name="fundingItemId"
+            app:argType="long"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_arGalleryFragment_to_arFragment"
+            app:destination="@id/arFragment" />
+        <action
+            android:id="@+id/action_arGalleryFragment_to_galleryDetailFragment"
+            app:destination="@id/galleryDetailFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/arFragment"
+        android:name="com.ssafy.fundyou.ui.ar.ArFragment"
+        android:label="ArFragment">
+        <argument
+            android:name="fundingItemId"
+            app:argType="long"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_arFragment_to_arCaptureFragment"
+            app:destination="@id/arCaptureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/arCaptureFragment"
+        android:name="com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureFragment"
+        android:label="ArCaptureFragment">
+        <argument
+            android:name="fundingItemId"
+            app:argType="long"
+            app:nullable="false" />
+        <argument
+            android:name="bitmap"
+            app:argType="android.graphics.Bitmap"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_arCaptureFragment_to_arGalleryFragment"
+            app:destination="@id/arGalleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryDetailFragment"
+        android:name="com.ssafy.fundyou.ui.ar_gallery.GalleryDetailFragment"
+        android:label="GalleryDetailFragment">
+        <argument
+            android:name="url"
+            app:argType="string"
+            app:nullable="false" />
     </fragment>
 
 

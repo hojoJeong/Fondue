@@ -12,14 +12,16 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentArGalleryBinding
 import com.ssafy.fundyou.databinding.ItemArGalleryListBinding
-import com.ssafy.fundyou.ui.ar.adapter.ArGalleryAdapter
+import com.ssafy.fundyou.ui.ar_gallery.adapter.ArGalleryAdapter
+import com.ssafy.fundyou.ui.ar_gallery.model.ArImageUIModel
 import com.ssafy.fundyou.ui.common.BaseFragment
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragment_ar_gallery) {
     private val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
     private val storageRef = storage.reference
-
+    private val arGalleryFragmentArgs: ArGalleryFragmentArgs by navArgs()
     private val arGalleryViewModel by viewModels<ArGalleryViewModel>()
 
     private val galleryAdapter: ArGalleryAdapter = ArGalleryAdapter().apply {
@@ -27,7 +29,7 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
         addItemClickListener(object : ArGalleryAdapter.ItemClickListener{
             override fun onItemClicked(addMode: Boolean, url: String) {
                 if(addMode){
-                    navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToArFragment())
+                    navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToArFragment(arGalleryFragmentArgs.fundingItemId))
                 }else{
                     navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToGalleryDetailFragment(url))
                 }
@@ -35,12 +37,8 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
         })
     }
     private fun test(url :String, itemBinding: ItemArGalleryListBinding) {
-        storageRef.child(url).downloadUrl.addOnSuccessListener {
-            Log.d("suyong", "download success!!")
-            Glide.with(requireContext()).load(it).into(itemBinding.image)
-        }.addOnFailureListener {
-            Log.d("suyong", "test: download failed!")
-        }
+        Log.d("TAG", "test: url")
+        Glide.with(requireContext()).load(url).into(itemBinding.image)
     }
 
     override fun initView() {
@@ -48,12 +46,12 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
 
         binding.apply {
             rcvGallery.apply {
-                adapter = galleryAdapter
                 layoutManager = GridLayoutManager(requireContext(), 2)
+                adapter = galleryAdapter
             }
         }
+        arGalleryViewModel.getArImageList(arGalleryFragmentArgs.fundingItemId);
         // 서버에서 파일 경로를 받아올 예정
-        galleryAdapter.submitList(listOf("20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg"))
     }
 
     override fun initViewModels() {
@@ -64,20 +62,24 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
 
     private fun initArImageListObserver(){
         arGalleryViewModel.arImageList.observe(viewLifecycleOwner){ response ->
             when(response){
                 is ViewState.Loading -> {
-                    Log.d("TAG", "initArImageListObserver: loading...")
+                    Log.d("suyong", "initArImageListObserver: loading...")
                 }
                 is ViewState.Success -> {
                     val result = response.value ?: emptyList()
-
+                    result as MutableList
+                    result.add(0, ArImageUIModel(0, ""))
+                    Log.d("TAG", "initArImageListObserver: success!")
+                    galleryAdapter.submitList(result)
                 }
                 is ViewState.Error -> {
-                    Log.d("TAG", "initArImageListObserver: error.. ${response.message}")
+                    Log.d("suyong", "initArImageListObserver: error.. ${response.message}")
                 }
             }
         }

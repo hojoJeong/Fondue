@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.ui.ar_gallery
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +17,6 @@ import javax.inject.Inject
 @HiltViewModel
 class ArGalleryViewModel @Inject constructor(
     private val getArImageListUseCase: GetArImageListUseCase,
-    private val saveArImageUseCase: SaveArImageUseCase
 ): ViewModel(){
     private val _arImageList = SingleLiveEvent<ViewState<List<ArImageUIModel>>>()
     val arImageList: LiveData<ViewState<List<ArImageUIModel>>> get() = _arImageList
@@ -24,6 +24,7 @@ class ArGalleryViewModel @Inject constructor(
     fun getArImageList(fundingItemId: Long) = viewModelScope.launch {
         _arImageList.postValue(ViewState.Loading())
         try {
+            Log.d("TAG", "getArImageList: ")
             val response =
                 getArImageListUseCase(fundingItemId).map { it.toArImageUIModel() }
             _arImageList.postValue(ViewState.Success(response))

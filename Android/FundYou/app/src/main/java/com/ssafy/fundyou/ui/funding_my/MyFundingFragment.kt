@@ -36,6 +36,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         super.onViewCreated(view, savedInstanceState)
         initView()
         initViewModels()
+        binding.tvArCheck.setOnClickListener { navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment2(1078)) }
     }
 
     override fun initView() {
