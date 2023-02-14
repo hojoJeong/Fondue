@@ -83,6 +83,10 @@ class MainActivity : AppCompatActivity() {
                     binding.lyToolbar.root.visibility = View.GONE
                     setBottomNavigationVisibility(View.GONE)
                 }
+                R.id.favoriteFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "찜 목록")
+                    setBottomNavigationVisibility(View.VISIBLE)
+                }
             }
         }
         binding.bnvMain.setupWithNavController(navController)

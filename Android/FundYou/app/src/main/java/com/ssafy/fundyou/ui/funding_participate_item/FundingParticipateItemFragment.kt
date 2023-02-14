@@ -88,7 +88,7 @@ class FundingParticipateItemFragment :
         val popUpMessage = Balloon.Builder(requireContext())
             .setWidth(BalloonSizeSpec.WRAP)
             .setHeight(BalloonSizeSpec.WRAP)
-            .setText("${argument.userName}님이 등록한 AR 사진입니다.")
+            .setText("${argument.userName}님이\n등록한 AR 사진입니다.")
             .setTextColorResource(R.color.white)
             .setTextTypeface(ResourcesCompat.getFont(requireContext(), R.font.notosanskr_medium)!!)
             .setTextSize(13f)

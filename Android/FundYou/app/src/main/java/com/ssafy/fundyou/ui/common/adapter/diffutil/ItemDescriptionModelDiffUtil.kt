@@ -8,7 +8,7 @@ object ItemDescriptionModelDiffUtil : DiffUtil.ItemCallback<ItemDetailDescriptio
         oldItem: ItemDetailDescriptionModel,
         newItem: ItemDetailDescriptionModel
     ): Boolean {
-        return oldItem.type == newItem.type
+        return oldItem.value == newItem.value
     }
 
     override fun areContentsTheSame(
