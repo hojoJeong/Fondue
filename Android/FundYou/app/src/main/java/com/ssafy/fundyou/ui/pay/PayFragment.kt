@@ -14,8 +14,10 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentPayBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.pay.model.FundingPayModel
+import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 
+@AndroidEntryPoint
 class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
     private lateinit var payItem: FundingPayModel
     private var fundingPrice = 0

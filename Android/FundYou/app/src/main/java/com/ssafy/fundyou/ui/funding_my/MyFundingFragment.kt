@@ -29,7 +29,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         }
     }
     private val closedFundingItemAdapter = MyFundingItemListAdapter()
-    private val myPageViewModel by activityViewModels<MyPageViewModel>()
+    private val myPageViewModel by viewModels<MyPageViewModel>()
     private val args by navArgs<MyFundingFragmentArgs>()
     private val myFundingViewModel by viewModels<MyFundingViewModel>()
     private lateinit var myFundingInfo: MyFundingInfoUiModel
@@ -44,18 +44,22 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     override fun initView() {
         myFundingViewModel.getFundingInfo(args.fundingId)
         addMyFundingDetailEvent()
-        shareFundingBtnClickListener()
     }
 
     override fun initViewModels() {
         initMyFundingInfObserver()
         initMyFundingItemListObserver()
         initTerminateFundingItemObserver()
+        initMyPageUserInfoObserver()
     }
 
     private fun terminateFundingItemEvent(id: Long, status: Boolean) {
         if (!status) myFundingViewModel.terminateFundingItem(id)
-        else showTerminateFundingItemDialog(id, title = "펀딩을 중단하시겠어요?", content = "이미 펀딩된 금액만 포인트로 들어와요")
+        else showTerminateFundingItemDialog(
+            id,
+            title = "펀딩을 중단하시겠어요?",
+            content = "이미 펀딩된 금액만 포인트로 들어와요"
+        )
     }
 
     private fun showTerminateFundingItemDialog(id: Long, title: String, content: String) {
@@ -72,9 +76,9 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         )
     }
 
-    private fun initTerminateFundingItemObserver(){
-        myFundingViewModel.terminateFundingItemStatus.observe(viewLifecycleOwner) {response ->
-            when(response){
+    private fun initTerminateFundingItemObserver() {
+        myFundingViewModel.terminateFundingItemStatus.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initTerminateFundingItemObserver: loading...")
                 }
@@ -85,6 +89,22 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
                 }
                 is ViewState.Error -> {
 
+                }
+            }
+        }
+    }
+
+    private fun initMyPageUserInfoObserver() {
+        myPageViewModel.userInfo.observe(viewLifecycleOwner) { response ->
+            when(response){
+                is ViewState.Loading ->{
+                    Log.d(TAG, "initMyPageUserInfoObserver: loading...")
+                }
+                is ViewState.Success -> {
+                    shareFundingBtnClickListener()
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initMyPageUserInfoObserver: error ${response.message}")
                 }
             }
         }
@@ -127,6 +147,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     }
 
     private fun initOngoingFundingItemList() {
+        myPageViewModel.getUserInfo()
         if (myFundingItem.myFundingOngoingList.isEmpty()) {
             with(binding) {
                 tvProgressingFundingTitle.visibility = View.GONE
@@ -158,16 +179,21 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
 
     private fun addMyFundingDetailEvent() {
         binding.tvFundingDetail.setOnClickListener {
-            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToMyFundingDetailFragment(args.fundingId))
+            navigate(
+                MyFundingFragmentDirections.actionMyFundingFragmentToMyFundingDetailFragment(
+                    args.fundingId
+                )
+            )
         }
     }
 
-    private fun shareFundingBtnClickListener(){
+    private fun shareFundingBtnClickListener() {
         val kakaoMessageTool = KakaoMessageTool(requireContext())
         val myFundingInfo = myFundingViewModel.myFundingInfo.value?.value
-        val myFundingImage = myFundingViewModel.myFundingItem.value?.value?.myFundingOngoingList!![0].img
+        val myFundingImage =
+            myFundingViewModel.myFundingItem.value?.value?.myFundingOngoingList!![0].img
 
-        binding.ivFundingShare.setOnClickListener{
+        binding.ivFundingShare.setOnClickListener {
             val feed = kakaoMessageTool.makeFeed(
                 "${myPageViewModel.userInfo.value?.value?.userName}님의 퐁듀를 확인해보세요!",
                 "D-${myFundingInfo?.deadLine}",

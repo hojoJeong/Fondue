@@ -1,19 +1,19 @@
 package com.ssafy.fundyou.ui.common.adapter.diffutil
 
 import androidx.recyclerview.widget.DiffUtil
-import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingListModel
+import com.ssafy.fundyou.ui.funding_invited_list.model.FundingParticipateListModel
 
-object InvitedFundingListModelDiffUtil : DiffUtil.ItemCallback<InvitedFundingListModel>(){
+object InvitedFundingListModelDiffUtil : DiffUtil.ItemCallback<FundingParticipateListModel>(){
     override fun areItemsTheSame(
-        oldItem: InvitedFundingListModel,
-        newItem: InvitedFundingListModel
+        oldItem: FundingParticipateListModel,
+        newItem: FundingParticipateListModel
     ): Boolean {
         return oldItem.id == newItem.id
     }
 
     override fun areContentsTheSame(
-        oldItem: InvitedFundingListModel,
-        newItem: InvitedFundingListModel
+        oldItem: FundingParticipateListModel,
+        newItem: FundingParticipateListModel
     ): Boolean {
         return oldItem == newItem
     }

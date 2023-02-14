@@ -1,6 +1,6 @@
-package com.ssafy.fundyou.ui.funding_participate.model
+package com.ssafy.fundyou.ui.funding_invited_list.model
 
-data class InvitedFundingListModel(
+data class FundingParticipateListModel(
     val id: Long,
     val userName: String,
     val participate: Boolean,

@@ -8,12 +8,8 @@
         <import type="android.view.View" />
 
         <variable
-            name="state"
-            type="String" />
-
-        <variable
             name="fundingItem"
-            type="com.ssafy.fundyou.ui.funding_my.model.MyFundingItemInfoUiModel" />
+            type="com.ssafy.fundyou.ui.funding_participate.model.FundingParticipateItemUiModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,8 +19,8 @@
 
         <ImageView
             android:id="@+id/iv_funding_img"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:layout_marginStart="@dimen/base_horizontal_margin"
             android:layout_marginTop="12dp"
             android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
@@ -34,7 +30,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/iv_funding_ar"
-            style="@style/base_font_medium_14"
+            style="@style/base_font_medium_12"
             android:layout_width="40dp"
             android:layout_height="22dp"
             android:layout_marginEnd="10dp"
@@ -46,7 +42,7 @@
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/iv_funding_img"
             app:layout_constraintEnd_toEndOf="@+id/iv_funding_img"
-            app:setArVisibility="@{fundingItem.isAr}"
+            app:setArVisibility="@{fundingItem.arRegistered}"
             tools:visibility="visible" />
 
         <TextView
@@ -70,36 +66,55 @@
             android:layout_marginStart="14dp"
             android:layout_marginTop="2dp"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:maxEms="13"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="@{fundingItem.title}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_funding_img"
             app:layout_constraintTop_toBottomOf="@id/tv_brand"
-            tools:text="상품명 입력 영역입니다." />
+            tools:text="상품명 입력 영역입니123123123123213123123다." />
+
+        <TextView
+            android:id="@+id/tv_possible_funding_price_title"
+            style="@style/base_font_medium_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="펀딩 가능 금액"
+            android:textColor="@color/franch_rose"
+            android:visibility="@{fundingItem.status ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
+            app:layout_constraintStart_toEndOf="@id/tv_item_price"
+            app:layout_constraintTop_toTopOf="@id/tv_item_price" />
 
         <TextView
             android:id="@+id/tv_item_price"
-            style="@style/base_font_medium_12_raven"
+            style="@style/base_font_bold_16_midnight_express"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            app:addCommaText="@{fundingItem.totalPrice}"
+            app:addCommaText="@{fundingItem.possibleFundingPrice}"
             app:layout_constraintStart_toStartOf="@id/tv_item_name"
             app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_funding"
-            style="@style/base_font_medium_16_white"
+            style="@style/base_font_medium_14_white"
             android:layout_width="0dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintHorizontal_bias="1.0"
             android:layout_height="wrap_content"
+            android:minHeight="1dp"
             android:layout_marginStart="14dp"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
             android:background="@drawable/bg_rect_transparent_midnight_express_radius8_stroke0"
+            android:text="펀딩 하기"
             android:visibility="@{fundingItem.status ? View.VISIBLE : View.INVISIBLE}"
-            app:fundingStateType="@{fundingItem.percentage == 100}"
-            app:layout_constraintBottom_toBottomOf="@id/iv_funding_img"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_funding_img"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/iv_funding_img"
-            app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_price"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
