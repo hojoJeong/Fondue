@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.fund.service;
 
+import com.ssafy.fundyou1.ar.repository.ArImageRepository;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.fund.dto.*;
@@ -25,6 +26,7 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingService {
+    private final ArImageRepository arImageRepository;
     @Autowired
     private FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
@@ -169,7 +171,8 @@ public class FundingService {
 
             for(FundingItem fundingItem : fundingItemList){
                 int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
-                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
+                List<String> arUrlList = arImageRepository.findArUrlListByFundingItemId(fundingItem.getId());
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arUrlList);
 
                 fundingItemResponseDtoList.add(fundingItemResponseDto);
             }
@@ -207,7 +210,9 @@ public class FundingService {
 
                 fundingItem.getItem().getDescriptions();
 
-                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
+                List<String> arUrlList = arImageRepository.findArUrlListByFundingItemId(fundingItem.getId());
+
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arUrlList);
 
                 fundingItemResponseDtoList.add(fundingItemResponseDto);
             }

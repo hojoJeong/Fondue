@@ -45,4 +45,7 @@ internal object ServiceModule {
     @Singleton
     fun provideFundingApiService(@AuthInterceptorClient retrofit: Retrofit) : FundingApiService = retrofit.create(FundingApiService::class.java)
 
+    @Provides
+    @Singleton
+    fun provideArApiService(@AuthInterceptorClient retrofit: Retrofit) : ArApiService = retrofit.create(ArApiService::class.java)
 }

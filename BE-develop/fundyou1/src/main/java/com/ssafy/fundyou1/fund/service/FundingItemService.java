@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.fund.service;
 
+import com.ssafy.fundyou1.ar.repository.ArImageRepository;
 import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemAttendedMemberResponseDto;
@@ -29,6 +30,7 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingItemService {
+    private final ArImageRepository arImageRepository;
     private final FundingRepository fundingRepository;
     @Autowired
     InvitedMemberRepository invitedMemberRepository;
@@ -89,19 +91,21 @@ public class FundingItemService {
         for(FundingItem fundingItem : invitedFundingItemList){
             fundingItem.getItem().getDescriptions();
             int attendMemberCount = countAttendMember(fundingItem.getId());
-            FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
+            List<String> arImgList = arImageRepository.findArUrlListByFundingItemId(fundingItem.getId());
+            FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arImgList);
 
             invitedFundingItemResponseDtoList.add(fundingItemResponseDto);
         }
         return invitedFundingItemResponseDtoList;
     }
 
+    @Transactional
     public FundingItemResponseDto getFundingItem(Long fundingItemId) {
         FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
-
+        fundingItem.getFunding();
         int attendMemberCount = countAttendMember(fundingItemId);
-
-        FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
+        List<String> arImgList = arImageRepository.findArUrlListByFundingItemId(fundingItemId);
+        FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arImgList);
 
         return fundingItemResponseDto;
     }

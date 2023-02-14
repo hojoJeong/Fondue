@@ -1,21 +1,26 @@
-package com.ssafy.fundyou.ui.arcore
+package com.ssafy.fundyou.ui.ar_gallery
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentArGalleryBinding
 import com.ssafy.fundyou.databinding.ItemArGalleryListBinding
-import com.ssafy.fundyou.ui.arcore.adapter.ArGalleryAdapter
+import com.ssafy.fundyou.ui.ar.adapter.ArGalleryAdapter
 import com.ssafy.fundyou.ui.common.BaseFragment
 
 
 class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragment_ar_gallery) {
     private val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
     private val storageRef = storage.reference
+
+    private val arGalleryViewModel by viewModels<ArGalleryViewModel>()
 
     private val galleryAdapter: ArGalleryAdapter = ArGalleryAdapter().apply {
         addItemDownLoadEvent { url, binding -> test(url, binding) }
@@ -39,6 +44,8 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
     }
 
     override fun initView() {
+        arGalleryViewModel.getArImageList(1)
+
         binding.apply {
             rcvGallery.apply {
                 adapter = galleryAdapter
@@ -49,11 +56,30 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
         galleryAdapter.submitList(listOf("20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg","20230203_054855_suyong.jpg"))
     }
 
-    override fun initViewModels() {}
+    override fun initViewModels() {
+        initArImageListObserver()
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+    }
+
+    private fun initArImageListObserver(){
+        arGalleryViewModel.arImageList.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d("TAG", "initArImageListObserver: loading...")
+                }
+                is ViewState.Success -> {
+                    val result = response.value ?: emptyList()
+
+                }
+                is ViewState.Error -> {
+                    Log.d("TAG", "initArImageListObserver: error.. ${response.message}")
+                }
+            }
+        }
     }
 }

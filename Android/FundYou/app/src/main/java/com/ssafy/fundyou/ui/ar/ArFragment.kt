@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.arcore
+package com.ssafy.fundyou.ui.ar
 
 import android.app.Activity
 import android.app.ActivityManager

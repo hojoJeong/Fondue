@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/arFragment"
-        android:name="com.ssafy.fundyou.ui.arcore.ArFragment"
+        android:name="com.ssafy.fundyou.ui.ar.ArFragment"
         android:label="ArFragment" >
         <action
             android:id="@+id/action_arFragment_to_arCaptureFragment"
@@ -15,7 +15,7 @@
     </fragment>
     <fragment
         android:id="@+id/arGalleryFragment"
-        android:name="com.ssafy.fundyou.ui.arcore.ArGalleryFragment"
+        android:name="com.ssafy.fundyou.ui.ar_gallery.ArGalleryFragment"
         android:label="ArGalleryFragment" >
         <action
             android:id="@+id/action_arGalleryFragment_to_arFragment"
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/arCaptureFragment"
-        android:name="com.ssafy.fundyou.ui.arcore.ArCaptureFragment"
+        android:name="com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureFragment"
         android:label="fragment_ar_capture"
         tools:layout="@layout/fragment_ar_capture">
         <argument
@@ -40,7 +40,7 @@
     </fragment>
     <fragment
         android:id="@+id/galleryDetailFragment"
-        android:name="com.ssafy.fundyou.ui.arcore.GalleryDetailFragment"
+        android:name="com.ssafy.fundyou.ui.ar_gallery.GalleryDetailFragment"
         android:label="fragment_gallery_detail"
         tools:layout="@layout/fragment_gallery_detail" >
         <action

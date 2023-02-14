@@ -53,7 +53,7 @@ public class FundingApiController {
     // 초대 받은 펀딩 데이터 베이스에 저장하기
     @ApiOperation(value = "링크로 초대받은 펀딩 값 데이터 베이스에 저장", notes = "링크로 초대받은 펀딩 값 데이터 베이스에 저장, 리턴값: 저장된 멤버 & 펀딩 값 반환")
     @PostMapping("/getInvited")
-    public ResponseEntity<InvitedMember> storeInvitedFunding(@RequestBody InvitedMemberDto invitedMemberDto){
+    public ResponseEntity<Long> storeInvitedFunding(@RequestBody InvitedMemberDto invitedMemberDto){
         return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.storeInvitedFunding(invitedMemberDto));
     }
 
