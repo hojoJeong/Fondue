@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.domain.repository
 
-import android.util.proto.ProtoOutputStream
 import com.ssafy.fundyou.domain.model.item.ProductItemModel
 
 interface ItemRepository {
@@ -12,5 +11,5 @@ interface ItemRepository {
     suspend fun getItemByPrice(categoryId: Int, minPrice: Int, maxPrice: Int): List<ProductItemModel>
     suspend fun getKeywordItemList(keyword : String, minPrice : Int, maxPrice : Int) : List<ProductItemModel>
     suspend fun getItemDetailInfo(itemId : Long) : ProductItemModel
-    suspend fun addLikeItem(itemId: Long)
+    suspend fun addLikeItem(itemId: Long) : Int
 }

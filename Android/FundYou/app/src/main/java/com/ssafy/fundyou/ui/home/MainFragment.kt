@@ -17,15 +17,16 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.ui.common.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.common.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
+import com.ssafy.fundyou.ui.home.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainRankingItemAdapter
 import com.ssafy.fundyou.ui.home.model.MainCategoryModel
 import com.ssafy.fundyou.ui.home.model.RandomItemModel
 import com.ssafy.fundyou.ui.home.model.RankingItemModel
+import com.ssafy.fundyou.ui.like.LikeItemViewModel
 import com.ssafy.fundyou.ui.search.SearchViewModel
 import com.ssafy.fundyou.util.view.RecyclerViewItemDecorator
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,18 +36,21 @@ import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
-    val CATEGORY_ALL = 0
-    val MIN_PRICE = 0
-    val MAX_PRICE = 1000000
     private val mainViewModel by activityViewModels<MainViewModel>()
-
+    private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
     private val bannerImageList = mutableListOf<Int>()
     private var currentBannerPosition = 0
     private lateinit var job: Job
 
     private val searchViewModel by viewModels<SearchViewModel>()
     private val popularSearchAdapter = PopularSearchKeywordAdapter().apply {
-        addItemClickEvent { MainFragmentDirections.actionMainFragmentToSearchResultFragment(it) }
+        addItemClickEvent {
+            navigate(
+                MainFragmentDirections.actionMainFragmentToSearchResultFragment(
+                    it
+                )
+            )
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +66,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mainViewModel.getRandomItemList()
+        initRankingItem()
+
         initView()
         initViewModels()
     }
@@ -75,14 +82,13 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initFloatingBtn()
         initPopularSearch()
         initSearchClickEvent()
-        mainViewModel.getRankingItemList(CATEGORY_ALL, MIN_PRICE, MAX_PRICE)
-        mainViewModel.getRandomItemList()
     }
 
     override fun initViewModels() {
         initRankingItemObserve()
         initRandomItemObserve()
         initSearchViewModel()
+//        initResultAddLikeItemObserve()
     }
 
     private fun initBanner() {
@@ -198,7 +204,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             with(mainViewModel) {
                 setCategory(categoryId)
                 getRankingItemList(
-                    rankingCategoryId.value ?: CATEGORY_ALL,
+                    rankingCategoryId.value ?: Companion.CATEGORY_ALL,
                     rankingMinPrice.value ?: MIN_PRICE,
                     rankingMaxPrice.value ?: MAX_PRICE
                 )
@@ -222,18 +228,12 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 override fun onStartTrackingTouch(slider: RangeSlider) {}
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
-                    with(mainViewModel) {
-                        setPrice(minPrice * 10000, maxPrice * 10000)
-                        getRankingItemList(
-                            rankingCategoryId.value ?: CATEGORY_ALL,
-                            rankingMinPrice.value ?: MIN_PRICE,
-                            rankingMaxPrice.value ?: MAX_PRICE
-                        )
-                        Log.d(
-                            TAG,
-                            "onStopTrackingTouch 가격 설정 : ${mainViewModel.rankingMaxPrice.value}, ${mainViewModel.rankingMinPrice.value}"
-                        )
-                    }
+                    mainViewModel.setPrice(minPrice * 10000, maxPrice * 10000)
+                    initRankingItem()
+                    Log.d(
+                        TAG,
+                        "onStopTrackingTouch 가격 설정 : ${mainViewModel.rankingMaxPrice.value}, ${mainViewModel.rankingMinPrice.value}"
+                    )
                 }
             })
         }
@@ -247,6 +247,9 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                 }
                 is ViewState.Success -> {
                     initRankingItemAdapter(response.value ?: emptyList())
+                    if (response.value!!.isEmpty()) {
+                        binding.lyMainNoItem.root.visibility = View.VISIBLE
+                    }
                 }
                 is ViewState.Error -> {
                     Log.d(
@@ -279,22 +282,34 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     private fun initRankingItemAdapter(rankingItemList: List<RankingItemModel>) {
         val rankingItemAdapter = MainRankingItemAdapter()
-        rankingItemAdapter.submitList(rankingItemList)
-        rankingItemAdapter.addItemClickListener { id ->
-            navigate(MainFragmentDirections.actionMainFragmentToItemDetailFragment(id))
+        with(rankingItemAdapter) {
+            submitList(rankingItemList)
+            addItemClickListener { id ->
+                navigate(MainFragmentDirections.actionMainFragmentToItemDetailFragment(id))
+            }
+            addLikeBtnClickListener { id ->
+                likeItemViewModel.addListItem(id)
+            }
         }
+
+        rankingItemAdapter.setHasStableIds(true)
+
+        rankingItemAdapter.setHasStableIds(true)
         with(binding.rvMainRank) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = rankingItemAdapter
         }
+
     }
 
     private fun initRandomItemAdapter(randomItemList: List<RandomItemModel>) {
         val randomAdapter = MainRandomItemAdapter()
         val spanCount = 3
         randomAdapter.submitList(randomItemList)
-
+        randomAdapter.addItemClickListener { id ->
+            navigate(MainFragmentDirections.actionMainFragmentToItemDetailFragment(id))
+        }
         with(binding.rvMainRandom) {
             layoutManager =
                 GridLayoutManager(requireContext(), spanCount, GridLayoutManager.VERTICAL, false)
@@ -362,6 +377,15 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
     }
 
+    private fun initRankingItem() {
+        mainViewModel.getRankingItemList(
+            mainViewModel.rankingCategoryId.value ?: CATEGORY_ALL,
+            mainViewModel.rankingMinPrice.value ?: MIN_PRICE,
+            mainViewModel.rankingMaxPrice.value ?: MAX_PRICE
+        )
+    }
+
+
     override fun onResume() {
         super.onResume()
         setJobForBanner()
@@ -374,5 +398,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     companion object {
         private const val TAG = "MainFragment..."
+        private const val CATEGORY_ALL = 0
+        private const val MIN_PRICE = 0
+        private const val MAX_PRICE = 1000000
     }
 }

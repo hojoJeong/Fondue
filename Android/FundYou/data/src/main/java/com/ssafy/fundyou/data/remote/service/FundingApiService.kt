@@ -53,4 +53,14 @@ internal interface FundingApiService {
 
     @POST("/funding/add")
     suspend fun addOngoingFundingItem() : Long
+
+    @POST("/funding/hostInfo")
+    suspend fun getFundingHostInfo(
+        @Body fundingId : FundingIdRequestDto
+    ) : FundingHostInfoResponseDto
+
+    @POST("/funding/getInvited")
+    suspend fun saveFundingInfo(
+        @Body fundingId : FundingIdRequestDto2
+    ) : FundingSaveResponseDto
 }

@@ -76,6 +76,16 @@
             app:layout_constraintTop_toBottomOf="@id/tv_brand"
             tools:text="상품명 입력 영역입니다." />
 
+        <TextView
+            android:id="@+id/tv_item_price"
+            style="@style/base_font_medium_12_raven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:addCommaText="@{fundingItem.totalPrice}"
+            app:layout_constraintStart_toStartOf="@id/tv_item_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_funding"
             style="@style/base_font_medium_16_white"
@@ -99,10 +109,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/base_horizontal_margin"
             android:layout_marginTop="13dp"
-            app:styleByStatus="@{fundingItem.status}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_funding_img"
             app:percentage="@{fundingItem.percentage}"
+            app:styleByStatus="@{fundingItem.status}"
             tools:text="100%" />
 
         <TextView
@@ -111,8 +121,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:background="@{fundingItem.status ? @drawable/bg_transparent_tomato_trans_20_radius4_stroke0 : @drawable/bg_rect_transparent_matter_horn_trans_20_radius4_stroke0}"
-            android:paddingHorizontal="4dp"
             android:minHeight="0dp"
+            android:paddingHorizontal="4dp"
             android:paddingVertical="2dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_funding_progress"
             app:layout_constraintStart_toEndOf="@id/tv_funding_progress"

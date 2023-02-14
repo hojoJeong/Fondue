@@ -94,6 +94,10 @@ class LoginActivity : AppCompatActivity() {
                                 callback = kakaoLoginCallback
                             )
                         } else if (token != null) {
+                            UserApiClient.instance.loginWithKakaoAccount(
+                                this@LoginActivity,
+                                callback = kakaoLoginCallback
+                            )
                             Log.i(TAG, "카카오톡으로 로그인 성공 ${token.accessToken}")
                         }
                     }

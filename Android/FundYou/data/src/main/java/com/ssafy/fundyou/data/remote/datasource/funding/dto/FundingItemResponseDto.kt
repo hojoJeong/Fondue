@@ -5,17 +5,19 @@ import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemResponseDto
 
 internal data class FundingItemResponseDto(
     @SerializedName("count")
-    val count : Int?,
+    val count: Int?,
     @SerializedName("currentFundingPrice")
-    val currentFundingPrice : Int?,
+    val currentFundingPrice: Int?,
     @SerializedName("fundingItemStatus")
-    val fundingItemStatus : Boolean?,
+    val fundingItemStatus: Boolean?,
     @SerializedName("fundingId")
-    val fundingId : Long,
+    val fundingId: Long,
     @SerializedName("fundingItemId")
-    val id : Long?,
+    val id: Long?,
+    @SerializedName("arImgList")
+    var arImgList: List<String>?,
     @SerializedName("attendMemberCount")
-    val participateCount : Int?,
+    val participateCount: Int?,
     @SerializedName("item")
-    val itemInfo : ItemResponseDto
+    val itemInfo: ItemResponseDto
 )

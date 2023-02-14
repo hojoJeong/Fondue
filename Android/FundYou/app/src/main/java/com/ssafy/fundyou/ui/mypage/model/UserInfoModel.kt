@@ -11,7 +11,8 @@ data class UserInfoModel(
   val userName: String,
   val status: Boolean,
   val profileImg: String,
-  val point: Int
+  val point: Int,
+  val email: String
 ) : Parcelable
 
 fun UserInfoDomainModel.toUiModel() = UserInfoModel(
@@ -20,5 +21,6 @@ fun UserInfoDomainModel.toUiModel() = UserInfoModel(
   userName = this.userName,
   status = this.status,
   profileImg = this.profileImg,
-  point = this.point
+  point = this.point,
+  email = this.email
 )

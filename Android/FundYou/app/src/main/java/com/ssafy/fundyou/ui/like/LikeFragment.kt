@@ -19,17 +19,19 @@ class LikeFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_fav
         initView()
         initViewModels()
     }
+
     override fun initView() {
         likeItemViewModel.getLikeItemList()
     }
 
     override fun initViewModels() {
         initFavoriteItemObserve()
+        initResultModifyLikeItemObserve()
     }
 
-    private fun initFavoriteItemObserve(){
-        likeItemViewModel.likeItemList.observe(viewLifecycleOwner){ response ->
-            when(response){
+    private fun initFavoriteItemObserve() {
+        likeItemViewModel.likeItemList.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initFavoriteItemList: Favorite Item List Loading...")
                 }
@@ -37,18 +39,47 @@ class LikeFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_fav
                     initFavoriteItemListAdapter(response.value ?: emptyList())
                 }
                 is ViewState.Error -> {
-                    Log.d(TAG, "initFavoriteItemList: Favorite Item List Loading Error...${response.message}")
+                    Log.d(
+                        TAG,
+                        "initFavoriteItemList: Favorite Item List Loading Error...${response.message}"
+                    )
                 }
             }
         }
     }
 
-    private fun initFavoriteItemListAdapter(itemList: List<LikeItemModel>){
+    private fun initResultModifyLikeItemObserve(){
+        likeItemViewModel.resultModifyListItem.observe(viewLifecycleOwner){ response ->
+            when(response){
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initResultModifyLikeItemObserve: Remove Like Item Loading...")
+                }
+                is ViewState.Success -> {
+                    likeItemViewModel.getLikeItemList()
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initResultModifyLikeItemObserve: Remove Like Item Error...${response.message}")
+                }
+            }
+        }
+    }
+
+    private fun initFavoriteItemListAdapter(itemList: List<LikeItemModel>) {
         val itemListAdapter = LikeItemListAdapter()
-        itemListAdapter.submitList(itemList)
-        with(binding.rvFavorite){
-            layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        with(itemListAdapter) {
+            submitList(itemList)
+            addItemClickLIstener { id ->
+                navigate(LikeFragmentDirections.actionFavoriteFragmentToItemDetailFragment(id))
+            }
+            addRemoveItemBtnClickListener { id ->
+                likeItemViewModel.addListItem(id)
+            }
+        }
+        with(binding.rvFavorite) {
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
+
     }
 }

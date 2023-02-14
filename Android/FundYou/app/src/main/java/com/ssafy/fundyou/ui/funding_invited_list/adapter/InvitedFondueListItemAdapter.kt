@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.funding_participate
+package com.ssafy.fundyou.ui.funding_invited_list.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -8,14 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemInvitedFondueListBinding
 import com.ssafy.fundyou.ui.common.adapter.diffutil.InvitedFundingListModelDiffUtil
-import com.ssafy.fundyou.ui.funding_participate.model.InvitedFundingListModel
+import com.ssafy.fundyou.ui.funding_invited_list.model.FundingParticipateListModel
 
-class InvitedFondueListItemAdapter : ListAdapter<InvitedFundingListModel, InvitedFondueListItemAdapter.InvitedFondueItemHolder>(
+class InvitedFondueListItemAdapter : ListAdapter<FundingParticipateListModel, InvitedFondueListItemAdapter.InvitedFondueItemHolder>(
     InvitedFundingListModelDiffUtil
 ){
-    private lateinit var clickListener : (InvitedFundingListModel) -> Unit
+    private lateinit var clickListener : (FundingParticipateListModel) -> Unit
     inner class InvitedFondueItemHolder(private val binding: ItemInvitedFondueListBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(item: InvitedFundingListModel){
+        fun bind(item: FundingParticipateListModel){
             binding.fundingItem = item
             binding.cdvItemInvitedFondue.setOnClickListener {
                 clickListener.invoke(item)
@@ -32,7 +32,7 @@ class InvitedFondueListItemAdapter : ListAdapter<InvitedFundingListModel, Invite
         holder.bind(getItem(position))
     }
 
-    fun fundingItemClickListener(fundingItem: (InvitedFundingListModel) -> Unit){
+    fun fundingItemClickListener(fundingItem: (FundingParticipateListModel) -> Unit){
         clickListener = fundingItem
     }
 }

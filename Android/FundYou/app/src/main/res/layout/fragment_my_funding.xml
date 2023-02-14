@@ -38,20 +38,6 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tv_ar_check"
-                    style="@style/base_font_medium_14_franch_rose"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="6dp"
-                    android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:text="AR로 확인하기"
-                    app:layout_constraintBottom_toBottomOf="@id/tv_d_day"
-                    app:layout_constraintStart_toEndOf="@id/tv_d_day"
-                    app:layout_constraintTop_toTopOf="@id/tv_d_day" />
-
-                <TextView
                     android:id="@+id/tv_funding_detail"
                     style="@style/base_font_medium_14_midnight_express"
                     android:layout_width="wrap_content"

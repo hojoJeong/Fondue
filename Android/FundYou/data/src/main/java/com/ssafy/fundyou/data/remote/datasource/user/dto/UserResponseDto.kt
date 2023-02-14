@@ -19,5 +19,8 @@ internal data class UserResponseDto(
     val profileImg: String,
 
     @SerializedName("point")
-    val point: Int
+    val point: Int,
+
+    @SerializedName("mail")
+    val email: String
 )

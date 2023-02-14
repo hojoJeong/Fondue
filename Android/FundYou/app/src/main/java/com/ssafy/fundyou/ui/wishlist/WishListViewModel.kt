@@ -28,8 +28,8 @@ class WishListViewModel @Inject constructor(
     private val getMyOngoingFundingUseCase: GetMyOngoingFundingUseCase,
     private val addItemOngoingFundingUseCase: AddItemOngoingFundingUseCase
 ) : ViewModel() {
-    private val _wishListItem = MutableLiveData<ViewState<List<WishListModel>>>()
-    val wishListItem: LiveData<ViewState<List<WishListModel>>>
+    private val _wishListItem = SingleLiveEvent<ViewState<List<WishListModel>>>()
+    val wishListItem: SingleLiveEvent<ViewState<List<WishListModel>>>
         get() = _wishListItem
 
     private val _resultWishList = MutableLiveData<ViewState<Int>>()
@@ -67,12 +67,12 @@ class WishListViewModel @Inject constructor(
     }
 
     fun getWishListItemList() = viewModelScope.launch {
-        _wishListItem.value = ViewState.Loading()
+        _wishListItem.postValue(ViewState.Loading())
         try {
             val response = getWishListItemListUseCase()
-            _wishListItem.value = ViewState.Success(response.map { it.toUiModel() })
+            _wishListItem.postValue(ViewState.Success(response.map { it.toUiModel() }))
         } catch (e: Exception) {
-            _wishListItem.value = ViewState.Error(e.message)
+            _wishListItem.postValue(ViewState.Error(e.message))
         }
     }
 
