@@ -13,7 +13,7 @@ import java.util.List;
 @Repository
 public interface FundingItemMemberRepository extends JpaRepository<FundingItemMember, Long> {
 
-    @Query(value = "select sum(funding_item_price) from funding_item_member fim where fim.member_id = :memberId and (fim.funding_item_id in :fundingItemIdList) ",nativeQuery = true)
+    @Query(value = "select NVL(sum(funding_item_price), 0) from funding_item_member fim where fim.member_id = :memberId and (fim.funding_item_id in :fundingItemIdList) ",nativeQuery = true)
     int findAllByMemberIdAndFundingItemList(@Param("memberId") Long memberId, @Param("fundingItemIdList") List<Long> fundingItemIdList);
 
     List<FundingItemMember> findAllByFundingItemId(Long id);

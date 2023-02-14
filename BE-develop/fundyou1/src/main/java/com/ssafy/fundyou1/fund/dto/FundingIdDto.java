@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class FundingIdDto {
-    Long funding_id;
+    Long fundingId;
 }

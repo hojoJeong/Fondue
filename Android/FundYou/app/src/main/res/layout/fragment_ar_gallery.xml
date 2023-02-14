@@ -6,7 +6,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.arcore.ArGalleryFragment">
+        tools:context=".ui.ar_gallery.ArGalleryFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_gallery"

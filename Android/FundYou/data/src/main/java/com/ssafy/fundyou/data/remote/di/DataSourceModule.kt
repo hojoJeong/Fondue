@@ -1,6 +1,8 @@
 package com.ssafy.fundyou.data.remote.di
 
 
+import com.ssafy.fundyou.data.remote.datasource.ar.ArDataSource
+import com.ssafy.fundyou.data.remote.datasource.ar.ArDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSource
 import com.ssafy.fundyou.data.remote.datasource.auth.AuthRemoteDataSourceImpl
 import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
@@ -54,4 +56,8 @@ internal object DataSourceModule {
     @Singleton
     fun provideFundingRemoteDataSource(fundingApiService: FundingApiService): FundingDataSource =
         FundingDataSourceImpl(fundingApiService)
+
+    @Provides
+    @Singleton
+    fun provideArRemoteDataSource(arApiService: ArApiService): ArDataSource = ArDataSourceImpl(arApiService)
 }

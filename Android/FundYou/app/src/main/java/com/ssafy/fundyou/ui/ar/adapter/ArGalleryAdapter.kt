@@ -1,8 +1,6 @@
-package com.ssafy.fundyou.ui.arcore.adapter
+package com.ssafy.fundyou.ui.ar.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
