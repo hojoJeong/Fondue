@@ -5,6 +5,7 @@ import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemAttendedMemberResponseDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
+import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
@@ -92,7 +93,7 @@ public class FundingItemService {
             fundingItem.getItem().getDescriptions();
             int attendMemberCount = countAttendMember(fundingItem.getId());
             List<String> arImgList = arImageRepository.findArUrlListByFundingItemId(fundingItem.getId());
-            FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arImgList);
+            FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arImgList, fundingItem.getFunding().getMember().getUsername());
 
             invitedFundingItemResponseDtoList.add(fundingItemResponseDto);
         }
@@ -102,10 +103,10 @@ public class FundingItemService {
     @Transactional
     public FundingItemResponseDto getFundingItem(Long fundingItemId) {
         FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
-        fundingItem.getFunding();
+        String hostName = fundingItem.getFunding().getMember().getUsername();
         int attendMemberCount = countAttendMember(fundingItemId);
         List<String> arImgList = arImageRepository.findArUrlListByFundingItemId(fundingItemId);
-        FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arImgList);
+        FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arImgList, hostName);
 
         return fundingItemResponseDto;
     }

@@ -21,6 +21,7 @@ import java.util.List;
 @Setter
 @EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor
+@ToString
 public class Funding {
 
     @Id
@@ -67,7 +68,6 @@ public class Funding {
         funding.startDate = startDate;
         funding.endDate = endDate;
         funding.fundingStatus = true;
-
         return funding;
     }
 
