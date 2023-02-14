@@ -9,7 +9,7 @@ import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.ssafy.fundyou.R
@@ -17,6 +17,7 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentPayBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.pay.model.FundingPayItemUiModel
+import com.ssafy.fundyou.ui.point.PointViewModel
 import com.ssafy.fundyou.util.addComma
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
@@ -28,7 +29,8 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
     private lateinit var payItemUiModel: FundingPayItemUiModel
     private var userBalance = 0
 
-    private val payViewModel by viewModels<PayViewModel>()
+    private val payViewModel by activityViewModels<PayViewModel>()
+    private val pointViewModel by activityViewModels<PointViewModel>()
     private val argument by navArgs<PayFragmentArgs>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -39,6 +41,8 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
 
     override fun initView() {
         payViewModel.getFundingItem(argument.fundingItemId)
+        payViewModel.setFundingItemId(argument.fundingItemId)
+        Log.d(TAG, "initView: ${payViewModel.fundingItemId.value}")
     }
 
     override fun initViewModels() {
@@ -197,6 +201,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
 
     private fun initLoadingPointBtnClickListener() {
         binding.btnLayoutPayLoad.setOnClickListener {
+            pointViewModel.setBeforeFragment("pay")
             navigate(PayFragmentDirections.actionPayFragmentToPointLoadFragment(userBalance))
         }
     }

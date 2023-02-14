@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.ui.pay
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.SingleLiveEvent
@@ -33,6 +34,10 @@ class PayViewModel @Inject constructor(
     private val _attendFundingItem = SingleLiveEvent<ViewState<PayResultUiModel>>()
     val attendFundingItem: LiveData<ViewState<PayResultUiModel>> get() = _attendFundingItem
 
+    private val _fundingItemId = MutableLiveData<Long>()
+    val fundingItemId: LiveData<Long>
+        get() = _fundingItemId
+
     fun attendFundingItem(fundingItemId: Long, message: String, point: Int) =
         viewModelScope.launch {
             _attendFundingItem.postValue(ViewState.Loading())
@@ -63,5 +68,9 @@ class PayViewModel @Inject constructor(
         } catch (e: Exception) {
             _userInfo.postValue(ViewState.Error(e.message))
         }
+    }
+
+    fun setFundingItemId(fundingId: Long){
+        _fundingItemId.value = fundingId
     }
 }
