@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.data.local.prefs
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.util.Log
 
@@ -21,7 +22,14 @@ internal class AuthSharePreference(context: Context) {
             prefs.edit().putString("refreshToken", value).apply()
         }
 
-    fun clearAuthPreference() {
-        prefs.edit().clear().apply()
+    fun clearAuthPreference() : Boolean {
+        return try{
+            prefs.edit().clear().apply()
+            Log.d(TAG, "clearAuthPreference: Logout Success. accessToken : $accessToken,  refreshToken : $refreshToken")
+            true
+        } catch (e:Exception){
+            Log.d(TAG, "clearAuthPreference: Logout Fail : ${e.message}")
+            false
+        }
     }
 }

@@ -24,6 +24,9 @@
         <action
             android:id="@+id/action_mainFragment_to_searchResultFragment"
             app:destination="@id/searchResultFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_FundingParticipateFragment"
+            app:destination="@id/fundingParticipateFragment" />
     </fragment>
 
     <fragment
@@ -73,6 +76,9 @@
             android:name="category_type"
             app:argType="string"
             app:nullable="false" />
+        <action
+            android:id="@+id/action_itemListFragment_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/myPageFragment"
@@ -124,7 +130,11 @@
     <fragment
         android:id="@+id/favoriteFragment"
         android:name="com.ssafy.fundyou.ui.like.LikeFragment"
-        android:label="FavoriteFragment" />
+        android:label="FavoriteFragment" >
+        <action
+            android:id="@+id/action_favoriteFragment_to_itemDetailFragment"
+            app:destination="@id/itemDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/myFundingFragment"
         android:name="com.ssafy.fundyou.ui.funding_my.MyFundingFragment"
@@ -158,24 +168,40 @@
     </fragment>
     <fragment
         android:id="@+id/invitedFondueListFragment"
-        android:name="com.ssafy.fundyou.ui.funding_participate.InvitedFondueListFragment"
+        android:name="com.ssafy.fundyou.ui.funding_invited_list.InvitedFondueListFragment"
         android:label="InvitedFondueFragment">
+
         <action
             android:id="@+id/action_invitedFondueListFragment_to_invitedFondueFragment"
-            app:destination="@id/invitedFondueFragment" />
+            app:destination="@id/fundingParticipateFragment" />
     </fragment>
     <fragment
-        android:id="@+id/invitedFondueFragment"
-        android:name="com.ssafy.fundyou.ui.funding_participate.InvitedFondueFragment"
+        android:id="@+id/fundingParticipateFragment"
+        android:name="com.ssafy.fundyou.ui.funding_participate.FundingParticipateFragment"
         android:label="InvitedFondueFragment">
+
+        <argument
+            android:name="fundingId"
+            app:argType="long"
+            app:nullable="false" />
+
         <action
             android:id="@+id/action_invitedFondueFragment_to_payFragment"
             app:destination="@id/payFragment" />
+        <action
+            android:id="@+id/action_FundingParticipateFragment_to_fundingParticipateItemFragment"
+            app:destination="@id/fundingParticipateItemFragment" />
     </fragment>
     <fragment
         android:id="@+id/payFragment"
         android:name="com.ssafy.fundyou.ui.pay.PayFragment"
         android:label="PayFragment">
+
+        <argument
+            android:name="fundingItemId"
+            app:nullable="false"
+            app:argType="long"/>
+
         <action
             android:id="@+id/action_payFragment_to_payResultFragment"
             app:destination="@id/payResultFragment" />
@@ -197,7 +223,7 @@
             app:nullable="false" />
         <action
             android:id="@+id/action_payResultFragment_to_invitedFondueFragment"
-            app:destination="@id/invitedFondueFragment"
+            app:destination="@id/fundingParticipateFragment"
             app:popUpTo="@id/invitedFondueListFragment"
             app:popUpToInclusive="false" />
     </fragment>
@@ -264,7 +290,23 @@
         <argument
             android:name="fundingItemId"
             app:argType="long"
-            app:nullable="false"/>
+            app:nullable="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/fundingParticipateItemFragment"
+        android:name="com.ssafy.fundyou.ui.funding_participate_item.FundingParticipateItemFragment"
+        android:label="FundingParticipateItemFragment">
+
+        <argument
+            android:name="fundingItemId"
+            app:argType="long"
+            app:nullable="false" />
+
+        <argument
+            android:name="userName"
+            app:argType="string"
+            app:nullable="false" />
+
 
     </fragment>
 

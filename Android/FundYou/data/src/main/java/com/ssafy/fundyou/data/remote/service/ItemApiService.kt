@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.data.remote.service
 
+import com.ssafy.fundyou.data.remote.datasource.BaseResultDto
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemResponseDto
 import com.ssafy.fundyou.data.remote.datasource.item.dto.ItemSearchRequestDto
 import retrofit2.http.Body
@@ -41,5 +42,5 @@ internal interface ItemApiService {
     suspend fun getItemDetailInfo(@Path("id") itemId: Long): ItemResponseDto
 
     @POST("/favorite/like/{id}")
-    suspend fun addLikeItem(@Path("id") itemId: Long)
+    suspend fun addLikeItem(@Path("id") itemId: Long) : BaseResultDto
 }

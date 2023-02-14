@@ -4,16 +4,19 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMyFundingBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
+import com.ssafy.fundyou.ui.common.KakaoMessageTool
 import com.ssafy.fundyou.ui.common.dialog.CommonDialog
 import com.ssafy.fundyou.ui.funding_my.adapter.MyFundingItemListAdapter
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingInfoUiModel
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingItemListUiModel
+import com.ssafy.fundyou.ui.mypage.MyPageViewModel
 import com.ssafy.fundyou.util.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +29,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         }
     }
     private val closedFundingItemAdapter = MyFundingItemListAdapter()
-
+    private val myPageViewModel by viewModels<MyPageViewModel>()
     private val args by navArgs<MyFundingFragmentArgs>()
     private val myFundingViewModel by viewModels<MyFundingViewModel>()
     private lateinit var myFundingInfo: MyFundingInfoUiModel
@@ -47,11 +50,16 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         initMyFundingInfObserver()
         initMyFundingItemListObserver()
         initTerminateFundingItemObserver()
+        initMyPageUserInfoObserver()
     }
 
     private fun terminateFundingItemEvent(id: Long, status: Boolean) {
         if (!status) myFundingViewModel.terminateFundingItem(id)
-        else showTerminateFundingItemDialog(id, title = "펀딩을 중단하시겠어요?", content = "이미 펀딩된 금액만 포인트로 들어와요")
+        else showTerminateFundingItemDialog(
+            id,
+            title = "펀딩을 중단하시겠어요?",
+            content = "이미 펀딩된 금액만 포인트로 들어와요"
+        )
     }
 
     private fun showTerminateFundingItemDialog(id: Long, title: String, content: String) {
@@ -68,9 +76,9 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         )
     }
 
-    private fun initTerminateFundingItemObserver(){
-        myFundingViewModel.terminateFundingItemStatus.observe(viewLifecycleOwner) {response ->
-            when(response){
+    private fun initTerminateFundingItemObserver() {
+        myFundingViewModel.terminateFundingItemStatus.observe(viewLifecycleOwner) { response ->
+            when (response) {
                 is ViewState.Loading -> {
                     Log.d(TAG, "initTerminateFundingItemObserver: loading...")
                 }
@@ -81,6 +89,22 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
                 }
                 is ViewState.Error -> {
 
+                }
+            }
+        }
+    }
+
+    private fun initMyPageUserInfoObserver() {
+        myPageViewModel.userInfo.observe(viewLifecycleOwner) { response ->
+            when(response){
+                is ViewState.Loading ->{
+                    Log.d(TAG, "initMyPageUserInfoObserver: loading...")
+                }
+                is ViewState.Success -> {
+                    shareFundingBtnClickListener()
+                }
+                is ViewState.Error -> {
+                    Log.d(TAG, "initMyPageUserInfoObserver: error ${response.message}")
                 }
             }
         }
@@ -123,6 +147,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     }
 
     private fun initOngoingFundingItemList() {
+        myPageViewModel.getUserInfo()
         if (myFundingItem.myFundingOngoingList.isEmpty()) {
             with(binding) {
                 tvProgressingFundingTitle.visibility = View.GONE
@@ -154,7 +179,29 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
 
     private fun addMyFundingDetailEvent() {
         binding.tvFundingDetail.setOnClickListener {
-            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToMyFundingDetailFragment(args.fundingId))
+            navigate(
+                MyFundingFragmentDirections.actionMyFundingFragmentToMyFundingDetailFragment(
+                    args.fundingId
+                )
+            )
+        }
+    }
+
+    private fun shareFundingBtnClickListener() {
+        val kakaoMessageTool = KakaoMessageTool(requireContext())
+        val myFundingInfo = myFundingViewModel.myFundingInfo.value?.value
+        val myFundingImage =
+            myFundingViewModel.myFundingItem.value?.value?.myFundingOngoingList!![0].img
+
+        binding.ivFundingShare.setOnClickListener {
+            val feed = kakaoMessageTool.makeFeed(
+                "${myPageViewModel.userInfo.value?.value?.userName}님의 퐁듀를 확인해보세요!",
+                "D-${myFundingInfo?.deadLine}",
+                myFundingImage,
+                "상품 확인해보기",
+                "funding_id", myFundingInfo?.id!!
+            )
+            kakaoMessageTool.sendKakaoLink(feed)
         }
     }
 

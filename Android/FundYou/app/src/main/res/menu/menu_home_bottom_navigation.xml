@@ -18,7 +18,7 @@
         app:showAsAction="always" />
     <!-- 찜 구현 후 id 수정 -->
     <item
-        android:id="@+id/itemDetailFragment"
+        android:id="@+id/favoriteFragment"
         android:icon="@drawable/sc_check_favorite"
         android:title="찜"
         app:showAsAction="always" />

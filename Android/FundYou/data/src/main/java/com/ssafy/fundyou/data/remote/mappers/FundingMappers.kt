@@ -38,6 +38,7 @@ internal fun FundingItemResponseDto.toDomainModel() = FundingItemInfoModel(
     status = fundingItemStatus ?: false,
     participantsCount = this.participateCount ?: 0,
     itemPrice = this.itemInfo.price * (this.count ?: 0),
+    arImgList = this.arImgList ?: emptyList(),
     info = this.itemInfo.toDomainModel()
 )
 
@@ -53,4 +54,10 @@ internal fun FundingItemParticipateResponseDto.toDomainModel() = FundingMessageM
     senderName = this.senderName ?: "",
     message = this.message ?: "",
     fundingPrice = this.fundingItemPrice ?: -1
+)
+
+internal fun FundingHostInfoResponseDto.toDomainModel() = FundingHostInfoModel(
+    fundingName = this.fundingName ?: "",
+    fundingHostName = this.hostName ?: "",
+    fundingHostProfileImg = this.profileImg ?: ""
 )

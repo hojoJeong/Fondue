@@ -35,6 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="@dimen/base_horizontal_margin"
             tools:text="ssafy@naver.com"
+            android:text="@{user.email}"
             style="@style/base_font_medium_16"
             android:textColor="@color/nobel"/>
         <com.google.android.material.divider.MaterialDivider

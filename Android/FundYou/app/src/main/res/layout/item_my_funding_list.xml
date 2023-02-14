@@ -52,11 +52,11 @@
 
         <TextView
             android:id="@+id/tv_funding_progress"
+            style="@style/base_font_bold_20_franch_rose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="18dp"
             app:layout_constraintStart_toStartOf="parent"
-            style="@style/base_font_bold_20_franch_rose"
             app:layout_constraintTop_toBottomOf="@id/rv_funding_item_img"
             app:percentage="@{fundingItem.percentage}"
             app:styleByStatus="@{fundingItem.status}"
