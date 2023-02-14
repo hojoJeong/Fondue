@@ -15,13 +15,18 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentFundingParticipateItemBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.funding_participate_item.model.FundingParticipateItemDetailUiModel
+import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailDescriptionInfoAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class FundingParticipateItemFragment :
     BaseFragment<FragmentFundingParticipateItemBinding>(R.layout.fragment_funding_participate_item) {
 
     private val argument by navArgs<FundingParticipateItemFragmentArgs>()
     private val fundingParticipateItemViewModel by viewModels<FundingParticipateItemViewModel>()
+    private val itemDetailDescriptionInfoAdapter = ItemDetailDescriptionInfoAdapter()
     private lateinit var fundingItemInfo : FundingParticipateItemDetailUiModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,7 +36,6 @@ class FundingParticipateItemFragment :
     }
 
     override fun initView() {
-        initItemImgAdapter()
         fundingParticipateItemViewModel.getFundingParticipateItem(argument.fundingItemId)
     }
 
@@ -43,7 +47,6 @@ class FundingParticipateItemFragment :
         val itemAdapter = ItemDetailImgAdapter()
         // 상품 이미지 임시 리스트
         itemAdapter.addItemImgList(fundingItemInfo.itemImgList)
-
         val imageListSize = fundingItemInfo.itemImgList.size
 
         binding.tvItemImgPage.text = "1 / $imageListSize"
@@ -68,8 +71,11 @@ class FundingParticipateItemFragment :
                 }
                 is ViewState.Success -> {
                     fundingItemInfo = response.value!!
-                    if(fundingItemInfo.arRegistered) binding.tvIsAr.showAlignTop(makeBalloon())
                     binding.fundingItem = fundingItemInfo
+                    if(fundingItemInfo.arRegistered) binding.tvIsAr.showAlignTop(makeBalloon())
+                    initItemImgAdapter()
+                    binding.rvItemInfo.adapter = itemDetailDescriptionInfoAdapter
+                    itemDetailDescriptionInfoAdapter.submitList(fundingItemInfo.itemInfo.description)
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initFundingParticipateItemObserver: error... ${response.message}")

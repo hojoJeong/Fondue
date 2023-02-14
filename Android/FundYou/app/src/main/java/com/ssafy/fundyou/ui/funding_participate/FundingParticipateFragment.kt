@@ -21,10 +21,10 @@ class FundingParticipateFragment :
     private lateinit var userName : String
     private val fundingItemAdapter = FundingParticipateItemAdapter().apply {
         addFundingButtonEvent { fundingItemId ->
-            FundingParticipateFragmentDirections.actionInvitedFondueFragmentToPayFragment(fundingItemId)
+            navigate(FundingParticipateFragmentDirections.actionInvitedFondueFragmentToPayFragment(fundingItemId))
         }
         addItemClickButtonEvent {fundingItemId ->
-            FundingParticipateFragmentDirections.actionFundingParticipateFragmentToFundingParticipateItemFragment(fundingItemId, userName)
+            navigate(FundingParticipateFragmentDirections.actionFundingParticipateFragmentToFundingParticipateItemFragment(fundingItemId, userName))
         }
     }
 
