@@ -61,6 +61,6 @@ internal interface FundingApiService {
 
     @POST("/funding/getInvited")
     suspend fun saveFundingInfo(
-        @Body fundingId : FundingIdRequestDto2
+        @Body fundingId : FundingIdRequestDto
     ) : FundingSaveResponseDto
 }

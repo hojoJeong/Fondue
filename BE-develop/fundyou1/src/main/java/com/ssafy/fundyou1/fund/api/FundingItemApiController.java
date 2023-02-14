@@ -72,7 +72,7 @@ public class FundingItemApiController {
     @ApiOperation(value = "특정 펀딩의 아이템 리스트", notes = "펀딩 아이템 정보 리스트")
     @PostMapping("/list")
     public ResponseEntity<List<FundingItemResponseDto>> getInvitedFundingItemList(@RequestBody FundingIdDto fundingIdDto){
-        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getInvitedFundingItemList(fundingIdDto.getFunding_id()));
+        return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.getInvitedFundingItemList(fundingIdDto.getFundingId()));
     }
 
 

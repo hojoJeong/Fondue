@@ -53,7 +53,7 @@ public class FundingApiController {
     // 초대 받은 펀딩 데이터 베이스에 저장하기
     @ApiOperation(value = "링크로 초대받은 펀딩 값 데이터 베이스에 저장", notes = "링크로 초대받은 펀딩 값 데이터 베이스에 저장, 리턴값: 저장된 멤버 & 펀딩 값 반환")
     @PostMapping("/getInvited")
-    public ResponseEntity<InvitedMember> storeInvitedFunding(@RequestBody InvitedMemberDto invitedMemberDto){
+    public ResponseEntity<Long> storeInvitedFunding(@RequestBody InvitedMemberDto invitedMemberDto){
         return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.storeInvitedFunding(invitedMemberDto));
     }
 
@@ -70,7 +70,8 @@ public class FundingApiController {
     @ApiOperation(value = "펀딩 한개 정보", notes = "해당 펀딩에 대한 값 반환")
     @PostMapping()
     public ResponseEntity<FundingDto> getFundingInfo(@RequestBody FundingIdDto fundingIdDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getFundingInfo(fundingIdDto.getFunding_id()));
+        System.out.println(fundingIdDto);
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getFundingInfo(fundingIdDto.getFundingId()));
     }
 
 
@@ -79,7 +80,7 @@ public class FundingApiController {
     @ApiOperation(value = "펀딩 통계 (멤버별)", notes = "펀딩 참여 멤버의 펀딩 참여 금액 - 펀딩 금액 큰 순서")
     @PostMapping("/statistics")
     public ResponseEntity<List<FundingResultMemberDto>> fundingResultMemberDtoList(@RequestBody FundingIdDto fundingIdDto){
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.fundingResultMemberDtoList(fundingIdDto.getFunding_id()));
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.fundingResultMemberDtoList(fundingIdDto.getFundingId()));
     }
 
 
@@ -103,7 +104,7 @@ public class FundingApiController {
     @PostMapping("/terminate")
     @ApiOperation(value = "펀딩 종료", notes = "반환값 true")
     public ResponseEntity<Boolean> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingIdDto.getFunding_id()));
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingIdDto.getFundingId()));
     }
 
 
@@ -124,7 +125,7 @@ public class FundingApiController {
     @PostMapping("/hostInfo")
     @ResponseBody
     public ResponseEntity<HostInfoResponseDto> getHostInfo(@RequestBody FundingIdDto fundingIdDto){
-        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getHostInfo(fundingIdDto.getFunding_id()));
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getHostInfo(fundingIdDto.getFundingId()));
 
     }
 
