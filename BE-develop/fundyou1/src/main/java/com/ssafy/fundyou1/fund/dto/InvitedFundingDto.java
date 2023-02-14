@@ -18,8 +18,6 @@ public class InvitedFundingDto {
 
     private String userName;
     private String profileImg;
-    private String fundingName;
-
     private Long startDate; // due : 펀딩 시작 날짜
 
     private Long endDate; // due : 펀딩 마감 날짜
@@ -31,7 +29,6 @@ public class InvitedFundingDto {
         this.id = funding.getId();
         this.userName = funding.getMember().getUsername();
         this.profileImg = funding.getMember().getProfileImg();
-        this.fundingName = funding.getFundingName();
         this.startDate = funding.getStartDate();
         this.endDate = funding.getEndDate();
         this.fundingStatus = funding.isFundingStatus();

@@ -16,13 +16,16 @@ class MyFundingItemListAdapter :
     ) {
 
     private lateinit var clickEvent: (Long, Boolean) -> Unit
-
+    private lateinit var arButtonClickEvent: (Long) -> Unit
     inner class MyFundingListHolder(private val binding: ItemMyFundingItemListBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MyFundingItemInfoUiModel) {
             binding.fundingItem = item
             binding.btnFunding.setOnClickListener {
                 clickEvent.invoke(item.fundingItemId, item.status)
+            }
+            binding.ivFundingAr.setOnClickListener {
+                arButtonClickEvent.invoke(item.fundingItemId)
             }
         }
     }
@@ -42,5 +45,8 @@ class MyFundingItemListAdapter :
 
     fun addClickEvent(event: (Long, Boolean) -> Unit) {
         this.clickEvent = event
+    }
+    fun addArButtonClickEvent(event: (Long) -> Unit){
+        this.arButtonClickEvent = event
     }
 }
