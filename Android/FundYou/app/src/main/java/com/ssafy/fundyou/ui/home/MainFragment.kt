@@ -295,8 +295,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         }
 
         rankingItemAdapter.setHasStableIds(true)
-
-        rankingItemAdapter.setHasStableIds(true)
         with(binding.rvMainRank) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

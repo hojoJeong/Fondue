@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.data.remote.repository
 
-import android.util.Log
 import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingCreateRequestDto
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingIdRequestDto
@@ -70,4 +69,7 @@ internal class FundingRepositoryImpl @Inject constructor(
         val request = FundingIdRequestDto2(fundingId)
         return fundingDataSource.saveFundingInfo(request).id
     }
+
+    override suspend fun getFundingParticipateList(status: Int): List<FundingParticipateModel> =
+        fundingDataSource.getFundingParticipateList(status).map { it.toDomainModel() }
 }

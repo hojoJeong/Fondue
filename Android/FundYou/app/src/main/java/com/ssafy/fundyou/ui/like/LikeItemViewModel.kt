@@ -40,7 +40,7 @@ class LikeItemViewModel @Inject constructor(
         try {
             val response = addListItemUseCase(itemId)
             _resultModifyLikeItem.postValue(ViewState.Success(response))
-        } catch (e: Exception){
+        } catch (e: Exception) {
             _resultModifyLikeItem.postValue(ViewState.Error(e.message))
         }
     }
