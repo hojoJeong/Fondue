@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.util.Pair
 import androidx.fragment.app.viewModels
@@ -40,6 +40,12 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            Log.d(TAG, "makeBalloon: back")
+            popBackStack()
+        }
+
         initView()
         initViewModels()
     }
@@ -230,6 +236,8 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
             .setDismissWhenClicked(true)
             .setDismissWhenOverlayClicked(true)
             .setDismissWhenTouchOutside(true)
+            .setLifecycleOwner(this)
+            .setAutoDismissDuration(3000)
         return popUpMessage.build()
     }
 

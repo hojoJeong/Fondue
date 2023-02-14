@@ -6,5 +6,6 @@ data class UserInfoDomainModel(
     val userName: String,
     val status: Boolean,
     val profileImg: String,
-    val point: Int
+    val point: Int,
+    val email: String
 )

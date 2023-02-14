@@ -1,29 +1,21 @@
 package com.ssafy.fundyou
 
-import android.content.ContentValues.TAG
 import android.graphics.Typeface
-import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ForegroundColorSpan
 import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
-import com.ssafy.fundyou.ui.funding_my_list.adapter.MyFundingListImgAdapter
 import com.ssafy.fundyou.util.addComma
 import com.ssafy.fundyou.util.getColorNoTheme
 import java.text.DecimalFormat
@@ -109,8 +101,8 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter("checkFundingParticipate")
-    fun Chip.setFundingParticipateButtonType(state: Boolean) {
-        if (state) {
+    fun Chip.setFundingParticipateButtonType(fundingPoint: Int) {
+        if (fundingPoint > 0) {
             this.text = "참여"
             this.setChipBackgroundColorResource(R.color.cornflower_blue)
         } else {
@@ -270,5 +262,11 @@ object BindingAdapters {
             2 -> setBackgroundColor(context.getColorNoTheme(R.color.pig_pink))
             else -> setBackgroundColor(context.getColorNoTheme(R.color.grey))
         }
+    }
+
+    @JvmStatic
+    @BindingAdapter(value = ["fundingHostUserName", "fundingName"])
+    fun TextView.setFundingTitle(fundingHostUserName : String, fundingName : String){
+        text = "${fundingHostUserName}님의\n${fundingName}에 참여해주세요!"
     }
 }

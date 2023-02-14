@@ -1,15 +1,12 @@
 package com.ssafy.fundyou.data.remote.service
 
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.*
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingCreateRequestDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingIdRequestDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemResponseDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingResponseDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingSimpleResponseDto
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import retrofit2.http.Path
 
-internal interface FundingApiService {
+internal interface  FundingApiService {
     @POST("/funding")
     suspend fun getFundingInfo(
         @Body fundingId: FundingIdRequestDto
@@ -53,4 +50,17 @@ internal interface FundingApiService {
 
     @POST("/funding/add")
     suspend fun addOngoingFundingItem() : Long
+
+    @POST("/funding/hostInfo")
+    suspend fun getFundingHostInfo(
+        @Body fundingId : FundingIdRequestDto
+    ) : FundingHostInfoResponseDto
+
+    @POST("/funding/getInvited")
+    suspend fun saveFundingInfo(
+        @Body fundingId : FundingIdRequestDto
+    ) : FundingSaveResponseDto
+
+    @GET("/funding/invitedList/{status}")
+    suspend fun getFundingParticipateList(@Path("status") status: Int) : List<FundingParticipateResponseDto>
 }

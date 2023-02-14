@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="fundingHostInfo"
+            type="com.ssafy.fundyou.ui.funding_participate.model.FundingHostUiModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.funding_participate.FundingParticipateFragment">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                style="@style/base_font_medium_16"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                app:collapsedTitleGravity="start"
+                app:collapsedTitleTextAppearance="@style/base_font_medium_16_white"
+                android:switchTextAppearance="@style/base_font_medium_16_white"
+                app:collapsedTitleTextColor="@color/white"
+                app:contentScrim="@color/razzmatazz"
+                app:expandedTitleTextAppearance="@style/expandedBarTextStyle"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:title="펀딩하기">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:background="@color/razzmatazz"
+                    android:paddingBottom="50dp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/iv_invited_fondue_profile"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/bg_banner_ssafylogo3"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_invited_fondue_message"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:setItemImage="@{fundingHostInfo.userProfileImg}" />
+
+                    <TextView
+                        android:id="@+id/tv_invited_fondue_message"
+                        style="@style/base_font_medium_16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        app:fundingHostUserName="@{fundingHostInfo.userName ?? `fff`}"
+                        app:fundingName="@{fundingHostInfo.fundingName ?? `fff`}"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_invited_fondue_profile"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/iv_invited_fondue_profile"
+                        app:layout_constraintTop_toTopOf="@+id/iv_invited_fondue_profile" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/razzmatazz"
+                    android:minHeight="?attr/actionBarSize">
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/btn_invited_fondue_back"
+                        android:layout_width="10dp"
+                        android:layout_height="20dp"
+                        android:background="@drawable/ic_baseline_arrow_back_ios_24"
+                        android:backgroundTint="@color/white" />
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <LinearLayout
+            android:id="@+id/ly_item"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_invited_fondue"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:nestedScrollingEnabled="true"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+        </LinearLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

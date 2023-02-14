@@ -18,6 +18,10 @@ class PointViewModel @Inject constructor(private val loadPointUseCase: LoadPoint
     val loadingPoint: LiveData<Int>
         get() = _loadingPoint
 
+    private val _beforeFragment = MutableLiveData<String>()
+    val beforeFragment: LiveData<String>
+        get() = _beforeFragment
+
     fun setPoint(point: Int){
         _loadingPoint.value = point
     }
@@ -35,5 +39,9 @@ class PointViewModel @Inject constructor(private val loadPointUseCase: LoadPoint
         } catch (e: Exception){
             _resultLoad.value = ViewState.Error(e.message)
         }
+    }
+
+    fun setBeforeFragment(fragment: String){
+        _beforeFragment.value = fragment
     }
 }

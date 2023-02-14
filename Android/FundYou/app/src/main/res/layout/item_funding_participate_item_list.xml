@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="fundingItem"
+            type="com.ssafy.fundyou.ui.funding_participate.model.FundingParticipateItemUiModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cstl_funding_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_funding_img"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setItemImage="@{fundingItem.img}" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/iv_funding_ar"
+            style="@style/base_font_medium_12"
+            android:layout_width="40dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/title_AR_btn"
+            android:textColor="@color/razzmatazz"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_funding_img"
+            app:layout_constraintEnd_toEndOf="@+id/iv_funding_img"
+            app:setArVisibility="@{fundingItem.arRegistered}"
+            tools:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tv_brand"
+            style="@style/base_font_medium_12_link_water"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:text="@{fundingItem.brand}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_funding_img"
+            app:layout_constraintTop_toTopOf="@id/iv_funding_img"
+            tools:text="브랜드 입력 영역입니다." />
+
+        <TextView
+            android:id="@+id/tv_item_name"
+            style="@style/base_font_medium_14_midnight_express"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:maxEms="13"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:text="@{fundingItem.title}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_funding_img"
+            app:layout_constraintTop_toBottomOf="@id/tv_brand"
+            tools:text="상품명 입력 영역입니123123123123213123123다." />
+
+        <TextView
+            android:id="@+id/tv_possible_funding_price_title"
+            style="@style/base_font_medium_12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:text="펀딩 가능 금액"
+            android:textColor="@color/franch_rose"
+            android:visibility="@{fundingItem.status ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_item_price"
+            app:layout_constraintStart_toEndOf="@id/tv_item_price"
+            app:layout_constraintTop_toTopOf="@id/tv_item_price" />
+
+        <TextView
+            android:id="@+id/tv_item_price"
+            style="@style/base_font_bold_16_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            app:addCommaText="@{fundingItem.possibleFundingPrice}"
+            app:layout_constraintStart_toStartOf="@id/tv_item_name"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_name" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_funding"
+            style="@style/base_font_medium_14_white"
+            android:layout_width="0dp"
+            android:paddingVertical="6dp"
+            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_height="wrap_content"
+            android:minHeight="1dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:background="@drawable/bg_rect_transparent_midnight_express_radius8_stroke0"
+            android:text="펀딩 하기"
+            android:visibility="@{fundingItem.status ? View.VISIBLE : View.INVISIBLE}"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_funding_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_funding_img"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_price"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/tv_funding_progress"
+            style="@style/base_font_bold_20_franch_rose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginTop="13dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_funding_img"
+            app:percentage="@{fundingItem.percentage}"
+            app:styleByStatus="@{fundingItem.status}"
+            tools:text="100%" />
+
+        <TextView
+            android:id="@+id/tv_funding_participant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:background="@{fundingItem.status ? @drawable/bg_transparent_tomato_trans_20_radius4_stroke0 : @drawable/bg_rect_transparent_matter_horn_trans_20_radius4_stroke0}"
+            android:minHeight="0dp"
+            android:paddingHorizontal="4dp"
+            android:paddingVertical="2dp"
+            app:layout_constraintBottom_toBottomOf="@id/tv_funding_progress"
+            app:layout_constraintStart_toEndOf="@id/tv_funding_progress"
+            app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
+            app:participate="@{fundingItem.participateCount}"
+            app:participateTextStyle="@{fundingItem.status}"
+            tools:text="3명 참여" />
+
+        <ProgressBar
+            android:id="@+id/pb_funding"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="12dp"
+            android:progress="@{fundingItem.percentage}"
+            android:progressDrawable="@{fundingItem.status ? @drawable/bg_progress_funding : @drawable/bg_progress_end_funding}"
+            android:scaleY="0.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_funding_progress"
+            app:layout_constraintVertical_bias="0.0"
+            tools:progress="30" />
+
+        <TextView
+            android:id="@+id/tv_total"
+            style="@style/base_font_bold_14_echo_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="2dp"
+            android:text="총"
+            app:layout_constraintBottom_toBottomOf="@id/tv_total_funding"
+            app:layout_constraintEnd_toStartOf="@id/tv_total_funding"
+            app:layout_constraintTop_toTopOf="@id/tv_total_funding" />
+
+        <TextView
+            android:id="@+id/tv_total_funding"
+            style="@style/base_font_bold_14_echo_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            app:addCommaText="@{fundingItem.currentFundingPrice}"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_funding_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
+            tools:text="60,000" />
+
+        <View
+            android:id="@+id/div_item"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="12dp"
+            android:background="@color/solitude"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/pb_funding" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

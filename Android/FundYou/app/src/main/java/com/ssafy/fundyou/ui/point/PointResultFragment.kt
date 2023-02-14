@@ -4,15 +4,18 @@ import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentPointResultBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
+import com.ssafy.fundyou.ui.pay.PayViewModel
 
 class PointResultFragment :
     BaseFragment<FragmentPointResultBinding>(R.layout.fragment_point_result) {
     private val pointViewModel by activityViewModels<PointViewModel>()
+    private val payViewModel by activityViewModels<PayViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -20,6 +23,7 @@ class PointResultFragment :
     }
 
     override fun initView() {
+
         initBtnClickListener()
     }
 
@@ -28,7 +32,7 @@ class PointResultFragment :
     }
 
     private fun initResultObserve() {
-        pointViewModel.resultLoad.observe(viewLifecycleOwner){
+        pointViewModel.resultLoad.observe(viewLifecycleOwner) {
             val response = pointViewModel.resultLoad.value!!
             Log.d(TAG, "initResultObserve: ${response.value}")
             when (response) {
@@ -48,8 +52,35 @@ class PointResultFragment :
     }
 
     private fun initBtnClickListener() {
-        binding.btnPointResult.setOnClickListener {
-            navigate(PointResultFragmentDirections.actionPointResultFragmentToMainFragment())
+        when (pointViewModel.beforeFragment.value) {
+            "mypage" -> {
+                requireActivity().onBackPressedDispatcher.addCallback(this) {
+                    navigate(PointResultFragmentDirections.actionPointResultFragmentToMyPageFragment())
+                }
+                binding.btnPointResult.setOnClickListener {
+                    navigate(PointResultFragmentDirections.actionPointResultFragmentToMyPageFragment())
+                }
+            }
+            "pay" -> {
+                val fundingItemId = payViewModel.fundingItemId.value
+                Log.d(TAG, "initBtnClickListener: $fundingItemId")
+                requireActivity().onBackPressedDispatcher.addCallback(this) {
+                    navigate(
+                        PointResultFragmentDirections.actionPointResultFragmentToPayFragment(
+                            fundingItemId ?: 0
+                        )
+                    )
+                }
+
+                binding.btnPointResult.setOnClickListener {
+
+                    navigate(
+                        PointResultFragmentDirections.actionPointResultFragmentToPayFragment(
+                            fundingItemId ?: 0
+                        )
+                    )
+                }
+            }
         }
     }
 }

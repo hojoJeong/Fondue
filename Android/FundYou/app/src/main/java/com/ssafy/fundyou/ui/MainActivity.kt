@@ -2,6 +2,7 @@ package com.ssafy.fundyou.ui
 
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
@@ -9,7 +10,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityMainBinding
+import com.ssafy.fundyou.ui.home.MainFragmentDirections
+import com.ssafy.fundyou.ui.home.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,12 +22,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
+    private var itemFlag = false
+    private var fundingId: String? = ""
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
         initNavigation()
+        initFragmentByDeepLink()
+        initSaveFundingInfoObserver()
     }
 
     private fun initNavigation() {
@@ -69,6 +78,14 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.myFundingListFragment -> {
                     setToolbarType(ToolbarType.TEXT, "내 퐁듀")
+                }
+                R.id.fundingParticipateFragment -> {
+                    binding.lyToolbar.root.visibility = View.GONE
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.favoriteFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "찜 목록")
+                    setBottomNavigationVisibility(View.VISIBLE)
                 }
             }
         }
@@ -155,8 +172,42 @@ class MainActivity : AppCompatActivity() {
         binding.lyToolbar.tvTitle.text = title
     }
 
-    companion object {
-        private const val TAG = "MainActivity..."
+    private fun initFragmentByDeepLink() {
+        val itemId = intent.getStringExtra("item_id")
+        val getFundingId = intent.getStringExtra("funding_id")
+        fundingId = getFundingId
+        if (!itemFlag) {
+            if (itemId != null) {
+                navController.navigate(
+                    MainFragmentDirections.actionMainFragmentToItemDetailFragment(
+                        itemId.toLong()
+                    )
+                )
+            } else if (getFundingId != null) {
+                mainViewModel.saveFundingInfo(getFundingId.toLong())
+            }
+        }
+        itemFlag = true
+    }
+
+    private fun initSaveFundingInfoObserver() {
+        mainViewModel.savedFundingId.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    navController.navigate(
+                        MainFragmentDirections.actionMainFragmentToFundingParticipateFragment(
+                            fundingId?.toLong()!!
+                        )
+                    )
+                }
+                is ViewState.Error -> {
+
+                }
+            }
+        }
     }
 }
 

@@ -13,7 +13,8 @@ data class MyFundingItemInfoUiModel(
     val percentage: Int,
     val participateCount: Int,
     val currentFundingPrice: Int,
-    val isAr : Boolean
+    val isAr : Boolean,
+    val totalPrice : Int
 )
 
 fun FundingItemInfoModel.toMyFundingItemUiModel() = MyFundingItemInfoUiModel(
@@ -25,5 +26,6 @@ fun FundingItemInfoModel.toMyFundingItemUiModel() = MyFundingItemInfoUiModel(
     percentage = ((this.currentFundingPrice.toDouble() / this.itemPrice.toDouble()) * 100).roundToInt(),
     participateCount = this.participantsCount,
     currentFundingPrice = this.currentFundingPrice,
-    isAr = this.info.isAr
+    isAr = this.info.isAr,
+    totalPrice = this.itemPrice
 )

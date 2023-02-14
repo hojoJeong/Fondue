@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.pay
+package com.ssafy.fundyou.ui.pay_result
 
 import android.os.Bundle
 import android.view.View
@@ -10,44 +10,44 @@ import com.ssafy.fundyou.databinding.FragmentPayResultBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 
 class PayResultFragment : BaseFragment<FragmentPayResultBinding>(R.layout.fragment_pay_result) {
-    private val payResult : PayResultFragmentArgs by navArgs()
+    private val payResult: PayResultFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
     }
+
     override fun initView() {
         checkState()
     }
 
     override fun initViewModels() {
+
     }
 
-    private fun checkState(){
-        when(payResult.state){
-            "success" -> {
-                initSuccessView()
-            }
-            "fail" -> {
-                initFailView()
-            }
-        }
+    private fun checkState() {
+        if (payResult.payResultInfo.payState) initSuccessView()
+        else initFailView()
     }
 
-    private fun initSuccessView(){
-        with(binding){
-            item = payResult.payinfo
+    private fun initSuccessView() {
+        with(binding) {
+            item = payResult.payResultInfo
             btnPayResultBtn.setOnClickListener {
-                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment())
+                navigate(
+                    PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment(
+                        0
+                    )
+                )
             }
         }
 
-        requireActivity().onBackPressedDispatcher.addCallback(this){
-                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment())
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment(0))
         }
     }
 
-    private fun initFailView(){
-        with(binding){
+    private fun initFailView() {
+        with(binding) {
             tvPayResultTitle.visibility = View.INVISIBLE
             cstlPayResult.visibility = View.GONE
             tvPayResultBrand.textSize = 20f

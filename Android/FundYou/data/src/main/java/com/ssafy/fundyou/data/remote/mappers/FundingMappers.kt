@@ -1,9 +1,6 @@
 package com.ssafy.fundyou.data.remote.mappers
 
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.*
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemResponseDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingResponseDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingSimpleResponseDto
 import com.ssafy.fundyou.domain.model.funding.*
 
 internal fun FundingSimpleResponseDto.toDomainModel() = FundingInfoModel(
@@ -34,10 +31,12 @@ internal fun FundingResponseDto.toDomainModel() = FundingTotalModel(
 internal fun FundingItemResponseDto.toDomainModel() = FundingItemInfoModel(
     id = this.id ?: -1,
     itemCount = count ?: 0,
+    fundingHostUserName = this.fundingHostUserName ?: "",
     currentFundingPrice = currentFundingPrice ?: 0,
     status = fundingItemStatus ?: false,
     participantsCount = this.participateCount ?: 0,
     itemPrice = this.itemInfo.price * (this.count ?: 0),
+    arImgList = this.arImgList ?: emptyList(),
     info = this.itemInfo.toDomainModel()
 )
 
@@ -53,4 +52,20 @@ internal fun FundingItemParticipateResponseDto.toDomainModel() = FundingMessageM
     senderName = this.senderName ?: "",
     message = this.message ?: "",
     fundingPrice = this.fundingItemPrice ?: -1
+)
+
+internal fun FundingHostInfoResponseDto.toDomainModel() = FundingHostInfoModel(
+    fundingName = this.fundingName ?: "",
+    fundingHostName = this.hostName ?: "",
+    fundingHostProfileImg = this.profileImg ?: ""
+)
+
+internal fun FundingParticipateResponseDto.toDomainModel() = FundingParticipateModel(
+    id = this.id,
+    fundingHostName = this.fundingHostName,
+    fundingStatus = this.fundingStatus,
+    startDate = this.startDate,
+    endDate = this.endDate,
+    fundingPoint = this.fundingPoint,
+    fundingHostProfile = this.fundingHostProfile
 )

@@ -8,70 +8,78 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.funding_participate.InvitedFondueListFragment">
+    tools:context=".ui.funding_invited_list.InvitedFondueListFragment"
+    android:paddingVertical="@dimen/base_vertical_margin"
+    >
 
-    <HorizontalScrollView
-        android:id="@+id/hscv_invited_fondue_list"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tv_funding_participate_ongoing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/rv_invited_fondue_item_list_ongoing"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginStart="@dimen/base_horizontal_margin"
+        android:text="진행 중인 퐁듀"
+        style="@style/base_font_bold_16_black"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_invited_fondue_item_list_ongoing"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="@dimen/base_vertical_margin"
-        android:scrollbars="none">
-
-        <com.google.android.material.chip.ChipGroup
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:singleSelection="true"
-            app:singleLine="true"
-            android:layout_gravity="end"
-            >
-            <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_ongoing_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/custom_chip"
-                app:chipStrokeWidth="1dp"
-                android:checked="true"
-                android:text="@string/content_invited_fondue_category_ongoing"
-                android:layout_marginStart="@dimen/base_vertical_item_list"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_done_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/custom_chip"
-                app:chipStrokeWidth="1dp"
-                android:text="@string/content_invited_fondue_category_done"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_join_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/custom_chip"
-                app:chipStrokeWidth="1dp"
-                android:text="@string/content_invited_fondue_category_join"/>
-            <com.google.android.material.chip.Chip
-                android:id="@+id/btn_invited_fondue_category_non_join_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/custom_chip"
-                app:chipStrokeWidth="1dp"
-                android:text="@string/content_invited_fondue_category_non_join"
-                android:layout_marginEnd="@dimen/base_vertical_item_list"/>
-
-        </com.google.android.material.chip.ChipGroup>
-    </HorizontalScrollView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_invited_fondue_item_list"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:paddingHorizontal="@dimen/base_vertical_item_list"
+        app:layout_constraintTop_toBottomOf="@+id/tv_funding_participate_ongoing"
+        app:layout_constraintBottom_toTopOf="@+id/tv_funding_participate_done"
+        android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+        android:layout_marginTop="@dimen/base_vertical_margin"/>
+    <include
+        android:visibility="gone"
+        android:id="@+id/ly_funding_participate_no_ongoing_item"
+        layout="@layout/content_no_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hscv_invited_fondue_list"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_funding_participate_ongoing"
+        app:layout_constraintBottom_toTopOf="@+id/tv_funding_participate_done"
+        android:layout_marginVertical="50dp"/>
+
+    <TextView
+        android:id="@+id/tv_funding_participate_done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@+id/tv_funding_participate_ongoing"
+        app:layout_constraintTop_toBottomOf="@+id/rv_invited_fondue_item_list_ongoing"
+        app:layout_constraintBottom_toTopOf="@+id/rv_funding_participate_item_list_done"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:text="종료된 퐁듀"
+        style="@style/base_font_bold_16_black"
+        android:layout_marginTop="50dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_funding_participate_item_list_done"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_funding_participate_done"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginHorizontal="@dimen/base_horizontal_margin"
         android:layout_marginTop="@dimen/base_vertical_margin"/>
+
+    <include
+        android:visibility="gone"
+        android:id="@+id/ly_funding_participate_no_done_item"
+        layout="@layout/content_no_item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_funding_participate_done"
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginVertical="50dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
