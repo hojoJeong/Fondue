@@ -25,6 +25,10 @@ class LikeItemViewModel @Inject constructor(
     val resultModifyListItem: LiveData<ViewState<Int>>
         get() = _resultModifyLikeItem
 
+    private var _statusInit = false
+    val statusInit: Boolean
+        get() = _statusInit
+
     fun getLikeItemList() = viewModelScope.launch {
         _likeItemList.postValue(ViewState.Loading())
         try {
@@ -43,6 +47,10 @@ class LikeItemViewModel @Inject constructor(
         } catch (e: Exception) {
             _resultModifyLikeItem.postValue(ViewState.Error(e.message))
         }
+    }
+
+    fun setStatusInitTrue(){
+        _statusInit = true
     }
 
 }
