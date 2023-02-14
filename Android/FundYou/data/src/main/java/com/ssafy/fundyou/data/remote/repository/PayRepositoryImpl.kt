@@ -1,7 +1,9 @@
 package com.ssafy.fundyou.data.remote.repository
 
 import com.ssafy.fundyou.data.remote.datasource.pay.PayRemoteDataSource
-import com.ssafy.fundyou.domain.model.funding.FundingItemInfoModel
+import com.ssafy.fundyou.data.remote.datasource.pay.dto.PayAttendRequestDto
+import com.ssafy.fundyou.data.remote.mappers.toDomainModel
+import com.ssafy.fundyou.domain.model.pay.PayAttendModel
 import com.ssafy.fundyou.domain.repository.PayRepository
 import javax.inject.Inject
 
@@ -12,7 +14,9 @@ internal class PayRepositoryImpl @Inject constructor(
         fundingItemId: Long,
         message: String,
         point: Int
-    ): FundingItemInfoModel {
-        TODO("Not yet implemented")
+    ): PayAttendModel {
+        val request = PayAttendRequestDto(fundingItemId,message,point)
+        val response = payRemoteDataSource.attendFundingItem(request)
+        return response.toDomainModel()
     }
 }

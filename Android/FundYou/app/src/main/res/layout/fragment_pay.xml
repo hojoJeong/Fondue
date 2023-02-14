@@ -102,7 +102,7 @@
                     android:textSize="22sp"
                     app:layout_constraintStart_toStartOf="@+id/tv_pay_gift_item_title"
                     app:layout_constraintTop_toBottomOf="@+id/iv_pay_gift_item"
-                    app:setBalanceFundingPrice="@{item.fundingBalancePrice + `원 남았어요`}"
+                    app:setBalanceFundingPrice="@{item.fundingBalancePrice}"
                     tools:text="10,000원 남았어요" />
 
                 <EditText

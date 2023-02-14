@@ -1,10 +1,11 @@
 package com.ssafy.fundyou.ui.pay_result.model
 
-import com.ssafy.fundyou.domain.model.funding.FundingItemInfoModel
+import android.os.Parcelable
 import com.ssafy.fundyou.domain.model.pay.PayAttendModel
-import com.ssafy.fundyou.ui.pay.model.toFundingPayItemUiModel
+import kotlinx.parcelize.Parcelize
 import kotlin.math.roundToInt
 
+@Parcelize
 data class PayResultUiModel(
     val fundingItemId: Long,
     val message: String,
@@ -16,7 +17,7 @@ data class PayResultUiModel(
     val currentFundingPrice: Int,
     val percentage: Int,
     val itemTotalPrice: Int
-)
+) : Parcelable
 
 fun PayAttendModel.toPayResultUiModel() = PayResultUiModel(
     fundingItemId = this.fundingItemInfoModel?.id ?: -1,

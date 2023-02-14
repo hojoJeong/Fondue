@@ -94,20 +94,21 @@ class InvitedFondueListFragment :
     private fun initFundingListAdapter(ongoing: Boolean, fundingList: List<FundingParticipateListUiModel>) {
         val fundingAdapter = FundingParticipateListItemAdapter().apply {
             submitList(fundingList)
-            fundingItemClickListener { id ->
-                navigate(
-                    InvitedFondueListFragmentDirections.actionInvitedFondueListFragmentToInvitedFondueFragment(
-                        id
-                    )
-                )
-            }
         }
+
         when(ongoing){
             true -> {
                 with(binding.rvInvitedFondueItemListOngoing) {
                     layoutManager =
                         GridLayoutManager(requireContext(), SPAN_COUNT, GridLayoutManager.VERTICAL, false)
                     adapter = fundingAdapter
+                }
+                fundingAdapter.fundingItemClickListener { id ->
+                    navigate(
+                        InvitedFondueListFragmentDirections.actionInvitedFondueListFragmentToInvitedFondueFragment(
+                            id
+                        )
+                    )
                 }
             }
             false -> {

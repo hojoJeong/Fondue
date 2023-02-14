@@ -227,7 +227,7 @@
 
         <argument
             android:name="payPrice"
-            app:argType="String"
+            app:argType="string"
             app:nullable="false"/>
 
         <action
