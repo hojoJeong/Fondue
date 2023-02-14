@@ -283,7 +283,8 @@
             app:destination="@id/arFragment" />
         <action
             android:id="@+id/action_arGalleryFragment_to_galleryDetailFragment"
-            app:destination="@id/galleryDetailFragment" />
+            app:destination="@id/galleryDetailFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
 
     </fragment>
     <fragment
@@ -312,7 +313,10 @@
             app:nullable="false" />
         <action
             android:id="@+id/action_arCaptureFragment_to_arGalleryFragment"
-            app:destination="@id/arGalleryFragment" />
+            app:destination="@id/arGalleryFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@id/arGalleryFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/galleryDetailFragment"

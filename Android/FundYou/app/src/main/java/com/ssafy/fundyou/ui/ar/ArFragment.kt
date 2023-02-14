@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 
 import com.google.ar.core.Anchor
@@ -51,11 +52,14 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         arFragment = childFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
-        binding.btnCapture.setOnClickListener {
-            it.visibility = View.INVISIBLE
-            getBitmapFromView(requireView().findViewById(R.id.arFragment)) {
-                convertBMPtoPNG(it)
+        binding.apply {
+            btnCapture.setOnClickListener {
+                getBitmapFromView(requireView().findViewById(R.id.arFragment)) {
+                    convertBMPtoPNG(it)
+                }
             }
+            btnCapture.isEnabled = false
+            btnCapture.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.grey)
         }
     }
 
@@ -104,7 +108,10 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             .thenAccept { modelRenderable ->
                 Toast.makeText(context, "Model built!", Toast.LENGTH_SHORT).show()
                 renderable = modelRenderable
-
+                with(binding.btnCapture){
+                    backgroundTintList = null
+                    isEnabled = true
+                }
                 // ARCore 평면을 탭하면 호출됩니다.
                 arFragment!!.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane?, motionEvent: MotionEvent? ->
                     val anchor = hitResult.createAnchor()

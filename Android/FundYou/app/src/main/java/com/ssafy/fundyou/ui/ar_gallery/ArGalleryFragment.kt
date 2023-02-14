@@ -42,16 +42,13 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
     }
 
     override fun initView() {
-        arGalleryViewModel.getArImageList(1)
-
         binding.apply {
             rcvGallery.apply {
                 layoutManager = GridLayoutManager(requireContext(), 2)
                 adapter = galleryAdapter
             }
         }
-        arGalleryViewModel.getArImageList(arGalleryFragmentArgs.fundingItemId);
-        // 서버에서 파일 경로를 받아올 예정
+        arGalleryViewModel.getArImageList(arGalleryFragmentArgs.fundingItemId)
     }
 
     override fun initViewModels() {
