@@ -44,11 +44,6 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     private lateinit var renderable: ModelRenderable
     private val arFragmentArgs: ArFragmentArgs by navArgs()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initFirebase()
-    }
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         arFragment = childFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
@@ -69,6 +64,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initFirebase()
     }
 
     /** Firebase Storage에서 가져올 데이터 초기화 */
@@ -167,7 +163,6 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     /** view에 표시된 픽셀을 비트맵으로 복사 */
     @RequiresApi(Build.VERSION_CODES.O)
     fun getBitmapFromView(view: View, callback: (Bitmap?) -> Unit) {
-        Log.d("suyong", "starting capture")
         // 비트맵 생성
         val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
 
