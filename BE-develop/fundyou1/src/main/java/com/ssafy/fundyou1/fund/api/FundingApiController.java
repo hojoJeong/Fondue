@@ -70,7 +70,6 @@ public class FundingApiController {
     @ApiOperation(value = "펀딩 한개 정보", notes = "해당 펀딩에 대한 값 반환")
     @PostMapping()
     public ResponseEntity<FundingDto> getFundingInfo(@RequestBody FundingIdDto fundingIdDto) {
-        System.out.println(fundingIdDto);
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.getFundingInfo(fundingIdDto.getFundingId()));
     }
 

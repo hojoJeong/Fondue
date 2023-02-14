@@ -53,7 +53,7 @@ public class FundingItemApiController {
             // 남은 펀딩 금액 보다 큰 금액을 펀딩하려는 경우
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "가능한 펀딩 금액을 초과했습니다.", null));
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(fundingItemService.attendFunding(attendFundingDto));
+            return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "펀딩 성공", fundingItemService.attendFunding(attendFundingDto)));
         }
 
     }
