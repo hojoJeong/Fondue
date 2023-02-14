@@ -9,7 +9,7 @@ data class RankingItemModel(
     val price: Int,
     val img: String,
     val isAr: Boolean,
-    val isFavorite: Boolean
+    var isFavorite: Boolean
 )
 
 fun ProductItemModel.toRankingModel() = RankingItemModel(

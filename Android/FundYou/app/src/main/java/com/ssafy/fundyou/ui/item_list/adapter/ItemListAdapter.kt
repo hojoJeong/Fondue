@@ -20,6 +20,16 @@ class ItemListAdapter : ListAdapter<ItemListModel, ItemListAdapter.ItemListViewH
                 favoriteVisibility = true
                 ivItemListProductFavorite.setOnClickListener {
                     addLikeItemEvent.invoke(item.id)
+                    when(item.isFavorite){
+                        true -> {
+                            ivItemListProductFavorite.setImageResource(R.drawable.ic_favorite_line)
+                            item.isFavorite = false
+                        }
+                        false -> {
+                            ivItemListProductFavorite.setImageResource(R.drawable.ic_favorite)
+                            item.isFavorite = true
+                        }
+                    }
                 }
                 root.setOnClickListener {
                     itemClickEvent.invoke(item.id)

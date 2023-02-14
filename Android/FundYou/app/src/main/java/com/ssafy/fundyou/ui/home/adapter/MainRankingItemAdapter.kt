@@ -30,15 +30,21 @@ class MainRankingItemAdapter :
 
                 ivItemListProductFavorite.setOnClickListener {
                     addLikeItem.invoke(item.id)
+                    when(item.isFavorite){
+                        true -> {
+                            ivItemListProductFavorite.setImageResource(R.drawable.ic_favorite_line)
+                            item.isFavorite = false
+                        }
+                        false -> {
+                            ivItemListProductFavorite.setImageResource(R.drawable.ic_favorite)
+                            item.isFavorite = true
+                        }
+                    }
                 }
             }
         }
     }
 
-    //아이템 갱신 시 깜빡임 현상 방지
-    override fun getItemId(position: Int): Long {
-        return getItem(position).id
-    }
 
     fun addItemClickListener(itemId: (Long) -> Unit) {
         clickListener = itemId

@@ -28,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
         initNavigation()
-//        initDeepLink()
         initFragmentByDeepLink()
     }
 
