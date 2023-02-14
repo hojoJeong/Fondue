@@ -107,6 +107,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                     initItemListAdapter(response.value ?: emptyList())
                     if (response.value!!.isEmpty()) {
                         binding.lyItemListNoContent.root.visibility = View.VISIBLE
+                        binding.lyItemListNoContent.tvNoKeyword.text = "조회된 상품이 없습니다."
                     }
                 }
                 is ViewState.Error -> {

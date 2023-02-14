@@ -17,8 +17,8 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.ui.common.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.common.BaseFragment
+import com.ssafy.fundyou.ui.common.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainRandomItemAdapter
@@ -246,9 +246,11 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     Log.d(TAG, "initRankingItemObserve: Ranking Item Loading...")
                 }
                 is ViewState.Success -> {
+                    binding.lyMainNoItem.root.visibility = View.GONE
                     initRankingItemAdapter(response.value ?: emptyList())
                     if (response.value!!.isEmpty()) {
                         binding.lyMainNoItem.root.visibility = View.VISIBLE
+                        binding.lyMainNoItem.tvNoKeyword.text = "조회된 상품이 없습니다."
                     }
                 }
                 is ViewState.Error -> {
