@@ -8,6 +8,8 @@ internal data class FundingItemResponseDto(
     val count: Int?,
     @SerializedName("currentFundingPrice")
     val currentFundingPrice: Int?,
+    @SerializedName("hostName")
+    val fundingHostUserName : String?,
     @SerializedName("fundingItemStatus")
     val fundingItemStatus: Boolean?,
     @SerializedName("fundingId")
