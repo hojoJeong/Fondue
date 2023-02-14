@@ -74,13 +74,13 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun invitedFondueClickListener() {
         binding.ivMypageInvitedFondue.setOnClickListener {
-            navigate(MyPageFragmentDirections.actionMyPageFragmentToInvitedFondueFragment())
+            navigate(MyPageFragmentDirections.actionMyPageFragmentToFundingParticipateListFragment())
         }
     }
 
     private fun myFondueClickListener() {
         binding.ivMypageMyfondue.setOnClickListener {
-
+            navigate(MyPageFragmentDirections.actionMyPageFragmentToMyFundingListFragment())
         }
     }
 

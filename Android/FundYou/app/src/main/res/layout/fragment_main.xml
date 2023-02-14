@@ -260,6 +260,7 @@
                     app:layout_constraintStart_toStartOf="@+id/rv_main_category"
                     app:layout_constraintTop_toBottomOf="@+id/dv_main_under_sld"
                     app:layout_constraintBottom_toTopOf="@+id/tv_main_random_title"
+                    android:visibility="gone"
                     />
 
                 <TextView

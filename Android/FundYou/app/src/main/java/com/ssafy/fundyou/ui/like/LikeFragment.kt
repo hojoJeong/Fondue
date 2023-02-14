@@ -36,7 +36,14 @@ class LikeFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_fav
                     Log.d(TAG, "initFavoriteItemList: Favorite Item List Loading...")
                 }
                 is ViewState.Success -> {
-                    initFavoriteItemListAdapter(response.value ?: emptyList())
+                    if(response.value?.isEmpty()!!){
+                        binding.lyFavoriteNoItem.tvNoKeyword.text = "찜한 상품이 없습니다."
+                        binding.lyFavoriteNoItem.root.visibility = View.VISIBLE
+                        initFavoriteItemListAdapter(emptyList())
+                    } else {
+                        binding.lyFavoriteNoItem.root.visibility = View.GONE
+                        initFavoriteItemListAdapter(response.value ?: emptyList())
+                    }
                 }
                 is ViewState.Error -> {
                     Log.d(

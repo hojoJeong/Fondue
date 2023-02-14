@@ -1,9 +1,6 @@
 package com.ssafy.fundyou.data.remote.mappers
 
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.*
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemResponseDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingResponseDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingSimpleResponseDto
 import com.ssafy.fundyou.domain.model.funding.*
 
 internal fun FundingSimpleResponseDto.toDomainModel() = FundingInfoModel(
@@ -61,4 +58,14 @@ internal fun FundingHostInfoResponseDto.toDomainModel() = FundingHostInfoModel(
     fundingName = this.fundingName ?: "",
     fundingHostName = this.hostName ?: "",
     fundingHostProfileImg = this.profileImg ?: ""
+)
+
+internal fun FundingParticipateResponseDto.toDomainModel() = FundingParticipateModel(
+    id = this.id,
+    fundingHostName = this.fundingHostName,
+    fundingStatus = this.fundingStatus,
+    startDate = this.startDate,
+    endDate = this.endDate,
+    fundingPoint = this.fundingPoint,
+    fundingHostProfile = this.fundingHostProfile
 )
