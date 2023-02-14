@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.ItemInvitedFondueListBinding
 import com.ssafy.fundyou.ui.common.adapter.diffutil.InvitedFundingListModelDiffUtil
-import com.ssafy.fundyou.ui.funding_invited_list.FundingParticipateListModel
+import com.ssafy.fundyou.ui.funding_invited_list.model.FundingParticipateListModel
 
 class InvitedFondueListItemAdapter : ListAdapter<FundingParticipateListModel, InvitedFondueListItemAdapter.InvitedFondueItemHolder>(
     InvitedFundingListModelDiffUtil

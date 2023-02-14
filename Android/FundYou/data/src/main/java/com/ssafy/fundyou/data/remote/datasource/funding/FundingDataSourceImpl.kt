@@ -39,4 +39,5 @@ internal class FundingDataSourceImpl @Inject constructor(
     override suspend fun addOngoingFundingItem() = fundingApiService.addOngoingFundingItem()
 
     override suspend fun getFundingHostInfo(fundingIdRequestDto: FundingIdRequestDto) = fundingApiService.getFundingHostInfo(fundingIdRequestDto)
+    override suspend fun saveFundingInfo(fundingIdRequestDto: FundingIdRequestDto2) = fundingApiService.saveFundingInfo(fundingIdRequestDto)
 }

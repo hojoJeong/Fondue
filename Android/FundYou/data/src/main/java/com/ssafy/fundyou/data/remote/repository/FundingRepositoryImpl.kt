@@ -4,6 +4,7 @@ import android.util.Log
 import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingCreateRequestDto
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingIdRequestDto
+import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingIdRequestDto2
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemIdRequestDto
 import com.ssafy.fundyou.data.remote.mappers.toDomainModel
 import com.ssafy.fundyou.domain.model.funding.*
@@ -27,7 +28,6 @@ internal class FundingRepositoryImpl @Inject constructor(
         fundingDataSource.getMyOngoingFunding().map { it.toDomainModel() }
 
     override suspend fun getMyClosedFunding(): List<FundingTotalModel> {
-        val response = fundingDataSource.getMyClosedFunding()
         return fundingDataSource.getMyClosedFunding().map { it.toDomainModel() }
     }
 
@@ -64,5 +64,10 @@ internal class FundingRepositoryImpl @Inject constructor(
     override suspend fun getFundingHostInfo(fundingId: Long): FundingHostInfoModel {
         val request = FundingIdRequestDto(fundingId)
         return fundingDataSource.getFundingHostInfo(request).toDomainModel()
+    }
+
+    override suspend fun saveFundingInfo(fundingId: Long): Long {
+        val request = FundingIdRequestDto2(fundingId)
+        return fundingDataSource.saveFundingInfo(request).id
     }
 }

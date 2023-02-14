@@ -10,9 +10,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityMainBinding
 import com.ssafy.fundyou.ui.home.MainFragmentDirections
-import com.ssafy.fundyou.ui.splash.SplashViewModel
+import com.ssafy.fundyou.ui.home.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navController: NavController
     private lateinit var navHostFragment: NavHostFragment
     private var itemFlag = false
+    private var fundingId: String? = ""
+    private val mainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initNavigation()
         initFragmentByDeepLink()
+        initSaveFundingInfoObserver()
     }
 
     private fun initNavigation() {
@@ -166,7 +170,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragmentByDeepLink() {
         val itemId = intent.getStringExtra("item_id")
-        val fundingId = intent.getStringExtra("funding_id")
+        val getFundingId = intent.getStringExtra("funding_id")
+        fundingId = getFundingId
         if (!itemFlag) {
             if (itemId != null) {
                 navController.navigate(
@@ -174,16 +179,31 @@ class MainActivity : AppCompatActivity() {
                         itemId.toLong()
                     )
                 )
-            } else if (fundingId != null) {
-                navController.navigate(
-                    MainFragmentDirections.actionMainFragmentToFundingParticipateFragment(
-                        fundingId.toLong()
-                    )
-                )
+            } else if (getFundingId != null) {
+                mainViewModel.saveFundingInfo(getFundingId.toLong())
             }
         }
-
         itemFlag = true
+    }
+
+    private fun initSaveFundingInfoObserver() {
+        mainViewModel.savedFundingId.observe(this) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+                    navController.navigate(
+                        MainFragmentDirections.actionMainFragmentToFundingParticipateFragment(
+                            fundingId?.toLong()!!
+                        )
+                    )
+                }
+                is ViewState.Error -> {
+
+                }
+            }
+        }
     }
 }
 

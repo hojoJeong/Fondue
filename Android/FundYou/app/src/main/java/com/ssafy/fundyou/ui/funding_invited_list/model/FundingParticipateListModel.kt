@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.funding_invited_list
+package com.ssafy.fundyou.ui.funding_invited_list.model
 
 data class FundingParticipateListModel(
     val id: Long,
