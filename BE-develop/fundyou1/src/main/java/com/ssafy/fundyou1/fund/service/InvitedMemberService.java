@@ -46,19 +46,24 @@ public class InvitedMemberService {
 
     // 초대 받은 펀딩 저장 (== 초대 된 Member 저장)
     @Transactional
-    public InvitedMember storeInvitedFunding(InvitedMemberDto invitedMemberDto) {
+    public Long storeInvitedFunding(InvitedMemberDto invitedMemberDto) {
         // 사용자 정보
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
-
 
         // 펀딩 찾기
         Funding funding = fundingRepository.getReferenceById(invitedMemberDto.getFundingId());
 
-        // 참여 멤버 기록 만들기
-        InvitedMember invitedMember = InvitedMember.builder().member(member.get()).funding(funding).build();
-        invitedMemberRepository.save(invitedMember);
+        // 이미 저장 되었는지 확인
+        Boolean alreadyStore = invitedMemberRepository.checkExistByMemberIdAndFundingId(member.get().getId(), funding.getId());
 
-        return invitedMember;
+        // 저장한 값이 없으면
+        if (!alreadyStore){
+            // 참여 멤버 기록 만들기
+            InvitedMember invitedMember = InvitedMember.builder().member(member.get()).funding(funding).build();
+            invitedMemberRepository.save(invitedMember);
+        }
+
+        return funding.getId();
 
     }
 
@@ -68,6 +73,7 @@ public class InvitedMemberService {
     public List<InvitedFundingDto> getInvitedFundingDtoList() {
         // 사용자 정보
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
+
 
         // 초대받은 펀딩 리스트 찾기
         List<InvitedMember> invitedFundingList = invitedMemberRepository.findAllByMemberId(member.get().getId());
