@@ -245,4 +245,30 @@ object BindingAdapters {
     fun TextView.setDeadLine(deadLine: Int) {
         this.text = if (deadLine < 0) "마감" else "D-${deadLine}"
     }
+
+    @JvmStatic
+    @BindingAdapter("participateTextStyle")
+    fun TextView.setParticipateTextStyle(status: Boolean) {
+        if (status) setTextAppearance(R.style.base_font_medium_12_tomato)
+        else setTextAppearance(R.style.base_font_medium_12_matter_horn)
+        // includeFontPadding이 적용안됨, 추가로 더 해줘야함
+        this.includeFontPadding = false
+    }
+
+    @JvmStatic
+    @BindingAdapter("itemCount")
+    fun TextView.setItemCount(count: Int) {
+        text = "(${count})"
+    }
+
+    @JvmStatic
+    @BindingAdapter("rankingColor")
+    fun View.setRankingColor(ranking: Int) {
+        when (ranking) {
+            0 -> setBackgroundColor(context.getColorNoTheme(R.color.franch_rose))
+            1 -> setBackgroundColor(context.getColorNoTheme(R.color.golden_yellow))
+            2 -> setBackgroundColor(context.getColorNoTheme(R.color.pig_pink))
+            else -> setBackgroundColor(context.getColorNoTheme(R.color.grey))
+        }
+    }
 }

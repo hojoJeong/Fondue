@@ -17,8 +17,8 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.ui.adapter.PopularSearchKeywordAdapter
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
+import com.ssafy.fundyou.ui.common.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainCategoryAdapter
 import com.ssafy.fundyou.ui.home.adapter.MainRandomItemAdapter
@@ -74,7 +74,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initView()
         initViewModels()
     }
@@ -206,6 +205,7 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
 
             val categoryId = resources.getStringArray(R.array.category_num)
                 .indexOf(checkedCategory.text.toString())
+
             with(mainViewModel) {
                 setCategory(categoryId)
                 getRankingItemList(
@@ -412,8 +412,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
             }
         }
     }
-
-
 
     override fun onResume() {
         super.onResume()

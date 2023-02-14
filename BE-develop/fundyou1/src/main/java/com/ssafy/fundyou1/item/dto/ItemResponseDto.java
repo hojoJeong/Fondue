@@ -4,7 +4,6 @@ package com.ssafy.fundyou1.item.dto;
 import com.ssafy.fundyou1.category.entity.Category;
 import com.ssafy.fundyou1.item.entity.Description;
 import com.ssafy.fundyou1.item.entity.Item;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -14,6 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class ItemResponseDto {
 
     private Long itemId;
@@ -56,7 +56,6 @@ public class ItemResponseDto {
     }
 
     // 커스텀 상세 목록 dto 데이터 변환 로직!
-
     public List<CustomDescriptionDto> changeDto(Item item){
         List<CustomDescriptionDto> desList = new ArrayList<>();
         for (Description des : item.getDescriptions()) {

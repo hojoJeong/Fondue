@@ -99,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/base_horizontal_margin"
             android:layout_marginTop="13dp"
+            app:styleByStatus="@{fundingItem.status}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_funding_img"
             app:percentage="@{fundingItem.percentage}"
@@ -106,17 +107,18 @@
 
         <TextView
             android:id="@+id/tv_funding_participant"
-            style="@style/base_font_medium_12_tomato"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="6dp"
             android:background="@{fundingItem.status ? @drawable/bg_transparent_tomato_trans_20_radius4_stroke0 : @drawable/bg_rect_transparent_matter_horn_trans_20_radius4_stroke0}"
             android:paddingHorizontal="4dp"
+            android:minHeight="0dp"
             android:paddingVertical="2dp"
             app:layout_constraintBottom_toBottomOf="@id/tv_funding_progress"
             app:layout_constraintStart_toEndOf="@id/tv_funding_progress"
             app:layout_constraintTop_toTopOf="@id/tv_funding_progress"
             app:participate="@{fundingItem.participateCount}"
+            app:participateTextStyle="@{fundingItem.status}"
             tools:text="3명 참여" />
 
         <ProgressBar

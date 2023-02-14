@@ -2,14 +2,15 @@ package com.ssafy.fundyou1.fund.service;
 
 import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
-import com.ssafy.fundyou1.fund.dto.FundingItemDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemAttendedMemberResponseDto;
+import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
-import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
+import com.ssafy.fundyou1.fund.repository.FundingRepository;
+import com.ssafy.fundyou1.fund.repository.InvitedMemberRepository;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
-import com.ssafy.fundyou1.member.dto.response.MemberResponseDto;
 import com.ssafy.fundyou1.member.entity.Member;
 import com.ssafy.fundyou1.member.repository.MemberRepository;
 import com.ssafy.fundyou1.member.service.MemberService;
@@ -28,6 +29,9 @@ import java.util.Optional;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingItemService {
+    private final FundingRepository fundingRepository;
+    @Autowired
+    InvitedMemberRepository invitedMemberRepository;
     @Autowired
     FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
@@ -43,7 +47,7 @@ public class FundingItemService {
 
     // 펀딩 참여(돈 보내기)
     @Transactional
-    public FundingItemDto attendFunding(AttendFundingDto attendFundingDto) {
+    public FundingItemResponseDto attendFunding(AttendFundingDto attendFundingDto) {
         // 사용자 정보
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회;
 
@@ -77,36 +81,71 @@ public class FundingItemService {
     }
 
 
-    public List<FundingItemDto> getInvitedFundingItemList(Long fundingId) {
+    @Transactional
+    public List<FundingItemResponseDto> getInvitedFundingItemList(Long fundingId) {
         List<FundingItem> invitedFundingItemList = fundingItemRepository.findByFundingId(fundingId);
-        List<FundingItemDto> invitedFundingItemDtoList = new ArrayList<>();
+        List<FundingItemResponseDto> invitedFundingItemResponseDtoList = new ArrayList<>();
 
         for(FundingItem fundingItem : invitedFundingItemList){
-            FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+            fundingItem.getItem().getDescriptions();
+            int attendMemberCount = countAttendMember(fundingItem.getId());
+            FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
 
-            invitedFundingItemDtoList.add(fundingItemDto);
+            invitedFundingItemResponseDtoList.add(fundingItemResponseDto);
         }
-        return invitedFundingItemDtoList;
+        return invitedFundingItemResponseDtoList;
     }
 
-    public FundingItemDto getFundingItem(Long fundingItemId) {
+    public FundingItemResponseDto getFundingItem(Long fundingItemId) {
         FundingItem fundingItem = fundingItemRepository.getReferenceById(fundingItemId);
-        FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
 
-        return fundingItemDto;
+        int attendMemberCount = countAttendMember(fundingItemId);
+
+        FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
+
+        return fundingItemResponseDto;
     }
 
-    public List<FundingItemMember> getAttendMember(Long fundingItemId) {
+    public List<FundingItemAttendedMemberResponseDto> getAttendMember(Long fundingItemId) {
         List<FundingItemMember> fundingItemMemberList = fundingItemMemberRepository.findAllByFundingItemId(fundingItemId);
-        return fundingItemMemberList;
+
+        List<FundingItemAttendedMemberResponseDto> fundingItemAttendedMemberResponseDtoList = new ArrayList<>();
+
+        for (FundingItemMember fundingItemMember : fundingItemMemberList) {
+            FundingItemAttendedMemberResponseDto fundingItemAttendedMemberResponseDto = FundingItemAttendedMemberResponseDto.builder().id(fundingItemMember.getId()).senderName(fundingItemMember.getMember().getUsername()).fundingItemPrice(fundingItemMember.getFundingItemPrice()).message(fundingItemMember.getMessage()).build();
+            fundingItemAttendedMemberResponseDtoList.add(fundingItemAttendedMemberResponseDto);
+        }
+        return fundingItemAttendedMemberResponseDtoList;
     }
 
     @Transactional
-    public String terminateFundingItem(Long fundingItemId) {
+    public Boolean terminateFundingItem(Long fundingItemId) {
 
         // 펀딩 상품 종료
         fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
 
-        return "펀딩이 종료 되었습니다.";
+        // 해당 펀딩에 모든 펀딩 상품이 종료될 경우 해당 펀딩 종료시킴
+        Long fundingId = fundingItemRepository.findByFundingItemId(fundingItemId).getFunding().getId();
+
+        // 모두 종료이면
+        if (!fundingItemRepository.findByFundingIdAndFundingItemStatus(fundingId, true)){
+            fundingRepository.updateStatus(fundingId, false);
+        }
+
+
+        // 확인
+        // 펀딩 진행 중이면 (펀딩이 종료 안되었으면)
+        if (fundingItemRepository.findByFundingItemId(fundingItemId).isFundingItemStatus()){
+            return false;
+        }else{
+            return true;
+        }
+
+    }
+
+
+    public int countAttendMember(Long fundingItemId) {
+        int attendMemberCount = fundingItemMemberRepository.countAttendMember(fundingItemId);
+        return attendMemberCount;
     }
 }

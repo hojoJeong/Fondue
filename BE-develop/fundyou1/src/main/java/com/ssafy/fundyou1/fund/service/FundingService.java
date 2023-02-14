@@ -5,7 +5,6 @@ import com.ssafy.fundyou1.cart.repository.CartRepository;
 import com.ssafy.fundyou1.fund.dto.*;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
-import com.ssafy.fundyou1.fund.entity.FundingItemMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
@@ -26,7 +25,8 @@ import java.util.*;
 @Slf4j
 @RequiredArgsConstructor
 public class FundingService {
-    private final FundingItemMemberRepository fundingItemMemberRepository;
+    @Autowired
+    private FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
     private ItemRepository itemRepository;
     @Autowired
@@ -39,6 +39,8 @@ public class FundingService {
     private FundingRepository fundingRepository;
     @Autowired
     private MemberService memberService;
+    @Autowired
+    private FundingItemService fundingItemService;
 
     // 펀딩 개설
     @Transactional
@@ -92,26 +94,46 @@ public class FundingService {
         // 해당 펀딩(fundingId)의 펀딩 아이템 리스트 찾고
         List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(fundingId);
 
+        // { 펀딩 참여자: 펀딩 참여 금액 } 딕셔너리
+        HashMap<Long, Integer> memberAttendedPriceDict = new HashMap<Long, Integer>();
+
+        // 최종 결과 리스트 (memberId, username, profileImg, attendedPrice)
         List<FundingResultMemberDto> createdFundingResultMemberDtoList = new ArrayList<>();
 
         // 펀딩 아이템 리스트에 funding_item_member 찾기
-        for(FundingItem fundingItem : fundingItemList){
-            // 해당 펀딩 아이템에 참여한 사람
-            List<FundingItemMember> fundingItemMemberList = fundingItemMemberRepository.findAllByFundingItemId(fundingItem.getId());
+        for(FundingItem fundingItem : fundingItemList) {
+            // 해당 펀딩 아이템에 참여한 사람(distinct)
+            List<Long> attendedMemberId = fundingItemMemberRepository.findAllDistinctMemberIdByFundingItemId(fundingItem.getId());
 
-            for(FundingItemMember fundingItemMember : fundingItemMemberList){
+            for (Long memberId : attendedMemberId) {
                 // 펀딩 참여자
-                Member member = fundingItemMember.getMember();
+                Member member = memberRepository.getReferenceById(memberId);
 
-                if(!createdFundingResultMemberDtoList.contains(member)){
-                    int totalPrice = fundingItemMemberRepository.findSumByMemberIdAndFundingItemId(member.getId(), fundingItem.getId());
-                    FundingResultMemberDto fundingResultMemberDto = new FundingResultMemberDto(member, totalPrice);
-                    createdFundingResultMemberDtoList.add(fundingResultMemberDto);
+                int totalPrice = fundingItemMemberRepository.findSumByMemberIdAndFundingItemId(member.getId(), fundingItem.getId());
+
+                try {
+                    int beforePrice = memberAttendedPriceDict.get(memberId);
+                    memberAttendedPriceDict.put(memberId, beforePrice + totalPrice);
+                } catch (Exception e) {
+                    memberAttendedPriceDict.put(memberId, totalPrice);
+
                 }
             }
 
         }
 
+        for (Map.Entry<Long, Integer> entry : memberAttendedPriceDict.entrySet()) {
+            Long member_id = entry.getKey();
+            int attendedPrice = entry.getValue();
+
+            Member attendMember = memberRepository.getReferenceById(member_id);
+
+            FundingResultMemberDto fundingResultMemberDto = new FundingResultMemberDto(attendMember, attendedPrice);
+
+            createdFundingResultMemberDtoList.add(fundingResultMemberDto);
+        }
+
+        // 정렬
         Collections.sort(createdFundingResultMemberDtoList, new Comparator<FundingResultMemberDto>() {
             @Override
             public int compare(FundingResultMemberDto o1, FundingResultMemberDto o2) {
@@ -141,16 +163,18 @@ public class FundingService {
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myOngoingFunding.getId());
 
-            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
+            List<FundingItemResponseDto> fundingItemResponseDtoList = new ArrayList<>();
+
+
 
             for(FundingItem fundingItem : fundingItemList){
+                int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
 
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
-
-                fundingItemDtoList.add(fundingItemDto);
+                fundingItemResponseDtoList.add(fundingItemResponseDto);
             }
 
-            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemResponseDtoList);
 
             myOngoingFundingListDto.add(myFundingDto);
         }
@@ -176,17 +200,19 @@ public class FundingService {
 
             List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(myClosedFunding.getId());
 
-            List<FundingItemDto> fundingItemDtoList = new ArrayList<>();
+            List<FundingItemResponseDto> fundingItemResponseDtoList = new ArrayList<>();
 
             for(FundingItem fundingItem : fundingItemList){
+                int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
+
                 fundingItem.getItem().getDescriptions();
 
-                FundingItemDto fundingItemDto = FundingItemDto.createFundingItemDto(fundingItem);
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount);
 
-                fundingItemDtoList.add(fundingItemDto);
+                fundingItemResponseDtoList.add(fundingItemResponseDto);
             }
 
-            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemDtoList);
+            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemResponseDtoList);
 
             myClosedFundingListDto.add(myFundingDto);
         }
@@ -214,19 +240,32 @@ public class FundingService {
 
     // 펀딩 종료 버튼 클릭
     @Transactional
-    public String terminateFunding(Long fundingId) {
+    public Boolean terminateFunding(Long fundingId) {
 
         // 펀딩 종료
         fundingRepository.updateStatus(fundingId, false);
 
+        // 펀딩 종료가 안된 경우
+        if (fundingRepository.getReferenceById(fundingId).isFundingStatus()){
+            return false;
+        }
+
         // 펀딩 상품 종료
         fundingItemRepository.updateFundingItemStatusByFundingId(fundingId, false);
+        List<FundingItem> fundingItemList = fundingItemRepository.findByFundingId(fundingId);
 
-        return "펀딩이 종료 되었습니다.";
+        for (FundingItem fundingItem : fundingItemList) {
+            // 펀딩 아이템 종료가 안된 경우
+            if (fundingItem.isFundingItemStatus()){
+                return false;
+            }
+        }
+
+        return true;
 
     }
 
-    public AddFundingResponseDto addFundingItem() {
+    public Long addFundingItem() {
         // 사용자 정보
         Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
 
@@ -239,7 +278,7 @@ public class FundingService {
         // 장바구니 상품 가져오기
         List<Cart> foundCartList = cartRepository.findAllByMember_Id(member.get().getId());
 
-        // funding_item으로 변경하여 저장
+        // funding_item 으로 변경하여 저장
         for(Cart cart : foundCartList){
 
             // 이미 펀딩에 있는 아이템인지 확인
@@ -261,7 +300,16 @@ public class FundingService {
 
         }
 
-        AddFundingResponseDto addFundingDto = new AddFundingResponseDto();
-        return addFundingDto;
+        return funding.getId();
+    }
+
+    @Transactional
+    public HostInfoResponseDto getHostInfo(Long fundingId) {
+        Funding funding = fundingRepository.getReferenceById(fundingId);
+
+        Member member = funding.getMember();
+
+        HostInfoResponseDto hostInfoResponseDto = new HostInfoResponseDto(member, funding.getFundingName());
+        return  hostInfoResponseDto;
     }
 }

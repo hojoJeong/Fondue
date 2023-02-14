@@ -12,14 +12,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "likes")
-@Entity
+@Entity @ToString
 public class Like {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "likes_id")
     private Long id;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -33,13 +32,12 @@ public class Like {
         this.item_id = item_id;
     }
 
-    // 찜 목록에 회원을 할당하여 넣는다.
+    // 찜 목록에 아이템을 등록한다.
     public static Like createLike(Member member, Long item_id) {
         Like like = new Like();
         like.setMember(member);
         like.setItem_id(item_id);
         return like;
     }
-
 
 }

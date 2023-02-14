@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentFavoriteBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 
 class LikeFragment : BaseFragment<FragmentFavoriteBinding>(R.layout.fragment_favorite) {
     private val likeItemViewModel by activityViewModels<LikeItemViewModel>()

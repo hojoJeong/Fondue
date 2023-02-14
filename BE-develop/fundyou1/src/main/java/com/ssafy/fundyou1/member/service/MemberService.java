@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 
@@ -30,15 +31,23 @@ public class MemberService {
                 .map(MemberResponseDto::of)
                 .orElseThrow(() -> new RuntimeException("로그인 유저 정보가 없습니다."));
     }
+
+    public MemberResponseDto findByMemberId(Long memberId) {
+        return memberRepository.findByMemberId(SecurityUtil.getCurrentMemberId())
+                .map(MemberResponseDto::of)
+                .orElseThrow(() -> new RuntimeException("유저 정보 없음"));
+    }
+
     @Transactional
     public Integer chargePoint(Long point) {
         return memberRepository.chargePoint(point, SecurityUtil.getCurrentMemberId());
     }
 
     public Integer withdrawMembership() {
-        return memberRepository.withdrawMembership(SecurityUtil.getCurrentMemberId(), System.currentTimeMillis());
+        return memberRepository.withdrawMembership(SecurityUtil.getCurrentMemberId(), LocalDateTime.now());
     }
-    public Optional<Member> findByLoginId(String login_id){
+
+    public Optional<Member> findByLoginId(String login_id) {
         return memberRepository.findByLoginId(login_id);
     }
 }

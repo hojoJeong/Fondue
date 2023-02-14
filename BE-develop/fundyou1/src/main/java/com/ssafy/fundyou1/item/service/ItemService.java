@@ -79,17 +79,17 @@ public class ItemService {
             return matchFavoriteItem(itemRepository.findAll(), SecurityUtil.getCurrentMemberId());
         }
     }
+
+    // 아이템 디테일(아이템 아이디로 찾기)
     @Transactional
-    // 상품 디테일
-    public ItemResponseDto itemDetail(Long id) {
-        Optional<Item> findItem = itemRepository.findById(id);
+    public ItemResponseDto getItemDetail(Long itemId) {
+        Optional<Item> itemDetail = itemRepository.findById(itemId);
         ItemResponseDto itemResponseDto = new ItemResponseDto();
-        if (findItem.isPresent()) {
-            Item item = findItem.get();
-            if(likeRepository.findLikeItem(item.getId(), SecurityUtil.getCurrentMemberId()) != null) {
-                itemResponseDto = new ItemResponseDto(item, true);
+        if (itemDetail.isPresent()) {
+            if(likeRepository.findLikeItem(itemDetail.get().getId(), SecurityUtil.getCurrentMemberId()) != null) {
+                itemResponseDto = new ItemResponseDto(itemDetail.get(), true);
             } else {
-                itemResponseDto = new ItemResponseDto(item, false);
+                itemResponseDto = new ItemResponseDto(itemDetail.get(), false);
             }
         }
         return itemResponseDto;
@@ -112,18 +112,23 @@ public class ItemService {
     public List<ItemResponseDto> matchFavoriteItem(List<Item> totalItemList, Long memberId){
         List<Like> likeItemList = likeRepository.findAllByMember_Id(memberId);
         List<ItemResponseDto> itemResponseDtoList = new ArrayList();
-        for(Item item : totalItemList){
-            Long itemId = item.getId();
-            if(likeItemList.size() != 0){
+        if(likeItemList.size() == 0){
+            for(Item item: totalItemList){
+                itemResponseDtoList.add(new ItemResponseDto(item, false));
+            }
+        }else{
+            for(Item item: totalItemList){
+                boolean flag = false;
                 for(Like likeItem: likeItemList){
-                    if(likeItem.getItem_id() == itemId){
+                    if(item.getId().equals(likeItem.getItem_id())){
+                        flag = true;
                         itemResponseDtoList.add(new ItemResponseDto(item, true));
-                    }else{
-                        itemResponseDtoList.add(new ItemResponseDto(item, false));
+                        break;
                     }
                 }
-            }else{
-                itemResponseDtoList.add(new ItemResponseDto(item, false));
+                if(flag == false){
+                    itemResponseDtoList.add(new ItemResponseDto(item, false));
+                }
             }
         }
         return itemResponseDtoList;

@@ -8,16 +8,19 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
+    @Query(value = "select * from member where member_id = :memberId", nativeQuery = true)
+    Optional<Member> findByMemberId(@Param("memberId") Long memberId);
+
     Optional<Member> findByLoginId(String loginId);
 
     boolean existsByLoginId(String loginId);
 
-    Member findByUsername(String username);
 
     // point 차감
     @Transactional
@@ -32,5 +35,5 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
     @Transactional
     @Modifying
     @Query(value = "update member set member_status = false, deleted_at = :currentTime where member_id = :currentMemberId",nativeQuery = true)
-    Integer withdrawMembership(@Param("currentMemberId") Long currentMemberId, @Param("currentTime") Long currentTime);
+    Integer withdrawMembership(@Param("currentMemberId") Long currentMemberId, @Param("currentTime") LocalDateTime currentTime);
 }

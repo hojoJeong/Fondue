@@ -1,8 +1,6 @@
 package com.ssafy.fundyou.ui
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,10 +10,8 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ssafy.fundyou.R
-import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityMainBinding
 import com.ssafy.fundyou.ui.home.MainFragmentDirections
-import com.ssafy.fundyou.ui.login.LoginActivity
 import com.ssafy.fundyou.ui.splash.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -32,7 +28,8 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setContentView(binding.root)
         initNavigation()
-        initDeepLink()
+//        initDeepLink()
+        initFragmentByDeepLink()
     }
 
     private fun initNavigation() {
@@ -60,12 +57,12 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.TEXT, "나의 펀딩")
                     setBottomNavigationVisibility(View.GONE)
                 }
-                R.id.fundingDetailFragment -> {
+                R.id.myFundingDetailFragment -> {
                     setToolbarType(ToolbarType.TEXT, "펀딩 통계")
                     setBottomNavigationVisibility(View.GONE)
                 }
-                R.id.fundingParticipationFragment -> {
-                    setToolbarType(ToolbarType.TEXT_CANCEL, "주문 상세")
+                R.id.myFundingItemDetailFragment -> {
+                    setToolbarType(ToolbarType.TEXT_CANCEL, "펀딩 상세")
                     setBottomNavigationVisibility(View.GONE)
                 }
                 R.id.searchResultFragment -> {
@@ -164,47 +161,23 @@ class MainActivity : AppCompatActivity() {
         binding.lyToolbar.tvTitle.text = title
     }
 
-    private fun initDeepLink(){
-        splashViewModel.getLocalAccessToken()
-        splashViewModel.accessToken.observe(this) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    Log.d(TAG, "initDeepLink: Get AccessToken For DeepLink Loading...")
-                }
-                is ViewState.Success -> {
-                    splashViewModel.getJWTByRefreshToken()
-                }
-                is ViewState.Error -> {
-                    startLoginActivity()
-                }
-            }
-        }
+    private fun initFragmentByDeepLink() {
+        val itemId = intent.getStringExtra("item_id")
+        val fundingId = intent.getStringExtra("funding_id")
 
-        splashViewModel.refreshJWT.observe(this) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    Log.d(TAG, "initDeepLink: Get RefreshToken For DeepLink Loading...")
-                }
-                is ViewState.Success -> {
-                    Log.d(TAG, "initDeepLink: accessToken : ${splashViewModel.accessToken}\nrefeshToken : ${splashViewModel.refreshJWT}")
-                    if(intent.action == Intent.ACTION_VIEW){
-                        val itemId = intent.data?.getQueryParameter("item_id")?.toLong()
-                        navController.navigate(MainFragmentDirections.actionMainFragmentToItemDetailFragment(itemId ?: 1))
-                    }
-                }
-                is ViewState.Error -> {
-                    Log.d(TAG, "initDeepLink: accessToken : ${splashViewModel.accessToken}\nrefeshToken : ${splashViewModel.refreshJWT}")
-                    startLoginActivity()
-                }
-            }
+        if (itemId != null) {
+            navController.navigate(
+                MainFragmentDirections.actionMainFragmentToItemDetailFragment(
+                    itemId.toLong()
+                )
+            )
+        } else if (fundingId != null) {
+            navController.navigate(
+                MainFragmentDirections.actionMainFragmentToInvitedFondueFragment(
+                    fundingId.toLong()
+                )
+            )
         }
-    }
-
-    private fun startLoginActivity() {
-        val intent = Intent(this, LoginActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-        startActivity(intent)
     }
 
     companion object {

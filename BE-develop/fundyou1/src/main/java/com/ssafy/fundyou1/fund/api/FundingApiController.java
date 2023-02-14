@@ -65,6 +65,7 @@ public class FundingApiController {
         return ResponseEntity.status(HttpStatus.OK).body(invitedMemberService.getInvitedFundingDtoList());
     }
 
+
     // 펀딩 한개 정보 (내펀딩 상세보기 상단 부분)
     @ApiOperation(value = "펀딩 한개 정보", notes = "해당 펀딩에 대한 값 반환")
     @PostMapping()
@@ -89,6 +90,7 @@ public class FundingApiController {
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.getMyOngoingFundingList());
     }
 
+
     // 내 마감된 펀딩 리스트
     @PostMapping("/myClosedList")
     @ApiOperation(value = "나의 마감된 펀딩 리스트", notes = "나의 마감된 펀딩 리스트")
@@ -99,8 +101,8 @@ public class FundingApiController {
 
     // 펀딩 종료
     @PostMapping("/terminate")
-    @ApiOperation(value = "펀딩 종료", notes = "반환값 미정")
-    public ResponseEntity<String> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
+    @ApiOperation(value = "펀딩 종료", notes = "반환값 true")
+    public ResponseEntity<Boolean> terminateFunding(@RequestBody FundingIdDto fundingIdDto) {
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.terminateFunding(fundingIdDto.getFunding_id()));
     }
 
@@ -109,11 +111,22 @@ public class FundingApiController {
     @ApiOperation(value = "펀딩 중 펀딩에 아이템 추가", notes = "반환값: 펀딩 아이템이 추가되었습니다")
     @PostMapping("/add")
     @ResponseBody
-    public ResponseEntity<AddFundingResponseDto> addFundingItem() {
+    public ResponseEntity<Long> addFundingItem() {
 
         // 펀딩 아이템 추가
         return ResponseEntity.status(HttpStatus.OK).body(fundingService.addFundingItem());
 
     }
+
+
+    // 초대받은 특정 펀딩 상단부분(주최자 정보)
+    @ApiOperation(value = "초대받은 펀딩 주최장 정보", notes = "초대받은 특정 펀딩 상단부분(주최자 정보)")
+    @PostMapping("/hostInfo")
+    @ResponseBody
+    public ResponseEntity<HostInfoResponseDto> getHostInfo(@RequestBody FundingIdDto fundingIdDto){
+        return ResponseEntity.status(HttpStatus.OK).body(fundingService.getHostInfo(fundingIdDto.getFunding_id()));
+
+    }
+
 
 }

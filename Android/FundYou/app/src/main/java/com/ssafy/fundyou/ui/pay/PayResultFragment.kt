@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentPayResultBinding
-import com.ssafy.fundyou.ui.base.BaseFragment
+import com.ssafy.fundyou.ui.common.BaseFragment
 
 class PayResultFragment : BaseFragment<FragmentPayResultBinding>(R.layout.fragment_pay_result) {
     private val payResult : PayResultFragmentArgs by navArgs()
@@ -37,12 +37,12 @@ class PayResultFragment : BaseFragment<FragmentPayResultBinding>(R.layout.fragme
         with(binding){
             item = payResult.payinfo
             btnPayResultBtn.setOnClickListener {
-                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment())
+                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment(0))
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this){
-                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment())
+                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment(0))
         }
     }
 
