@@ -271,4 +271,10 @@ object BindingAdapters {
             else -> setBackgroundColor(context.getColorNoTheme(R.color.grey))
         }
     }
+
+    @JvmStatic
+    @BindingAdapter(value = ["fundingHostUserName", "fundingName"])
+    fun TextView.setFundingTitle(userName : String, fundingName : String){
+        text = "${userName}님의\n${fundingName}에 참여해주세요!"
+    }
 }

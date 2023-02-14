@@ -18,4 +18,5 @@ internal interface FundingDataSource {
     suspend fun getFundingItem(fundingItemIdRequest : FundingItemIdRequestDto) : FundingItemResponseDto
     suspend fun getFundingItemParticipateList(fundingItemIdRequestDto: FundingItemIdRequestDto) : List<FundingItemParticipateResponseDto>
     suspend fun addOngoingFundingItem() : Long
+    suspend fun getFundingHostInfo(fundingIdRequestDto: FundingIdRequestDto) : FundingHostInfoResponseDto
 }

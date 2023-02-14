@@ -37,12 +37,12 @@ class PayResultFragment : BaseFragment<FragmentPayResultBinding>(R.layout.fragme
         with(binding){
             item = payResult.payinfo
             btnPayResultBtn.setOnClickListener {
-                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment())
+                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment(1))
             }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(this){
-                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment())
+                navigate(PayResultFragmentDirections.actionPayResultFragmentToInvitedFondueFragment(1))
         }
     }
 

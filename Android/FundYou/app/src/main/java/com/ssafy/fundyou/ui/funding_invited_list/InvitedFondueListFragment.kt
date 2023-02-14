@@ -1,61 +1,35 @@
 package com.ssafy.fundyou.ui.funding_invited_list
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
+import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentInvitedFondueListBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
-import com.ssafy.fundyou.ui.funding_participate.model.FundingParticipateListModel
+import com.ssafy.fundyou.ui.funding_participate.FundingParticipateViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InvitedFondueListFragment : BaseFragment<FragmentInvitedFondueListBinding>(R.layout.fragment_invited_fondue_list) {
-    private val itemList = mutableListOf<FundingParticipateListModel>()
-    private val currentCategory = ""
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
+
     override fun initView() {
-        initInvitedFondueCategory()
-        initInvitedFondueList()
+
     }
 
     override fun initViewModels() {
-    }
-
-    private fun initInvitedFondueCategory(){
 
     }
 
-    private fun initInvitedFondueList(){
-        //TODO(임시 데이터 추가)
-        with(itemList){
-            clear()
-            add(FundingParticipateListModel(0, "김싸피", true, false, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", false, false, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", true, true, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", false, true, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", true, false, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", false, false, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", true, true, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", false, true, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", true, false, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", false, false, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", true, true, "2023.01.01 ~ 2023.02.01",1000))
-            add(FundingParticipateListModel(0, "김싸피", false, true, "2023.01.01 ~ 2023.02.01",1000))
-
-        }
-
-        val invitedFondueAdapter = InvitedFondueListItemAdapter()
-        invitedFondueAdapter.submitList(itemList)
-        invitedFondueAdapter.fundingItemClickListener { item ->
-            navigate(InvitedFondueListFragmentDirections.actionInvitedFondueListFragmentToInvitedFondueFragment())
-        }
-        with(binding.rvInvitedFondueItemList){
-            layoutManager = GridLayoutManager(requireContext(), 2, GridLayoutManager.VERTICAL, false)
-            adapter = invitedFondueAdapter
-        }
-
+    companion object{
+        private const val TAG = "InvitedFondueListFragme"
     }
-
 }

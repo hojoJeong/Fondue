@@ -60,4 +60,9 @@ internal class FundingRepositoryImpl @Inject constructor(
     override suspend fun addOngoingFundingItem(): Long {
         return fundingDataSource.addOngoingFundingItem()
     }
+
+    override suspend fun getFundingHostInfo(fundingId: Long): FundingHostInfoModel {
+        val request = FundingIdRequestDto(fundingId)
+        return fundingDataSource.getFundingHostInfo(request).toDomainModel()
+    }
 }

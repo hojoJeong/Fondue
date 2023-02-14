@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.common.adapter
+package com.ssafy.fundyou.ui.home.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

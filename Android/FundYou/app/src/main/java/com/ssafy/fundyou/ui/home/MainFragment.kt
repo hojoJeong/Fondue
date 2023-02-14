@@ -17,7 +17,7 @@ import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMainBinding
-import com.ssafy.fundyou.ui.common.adapter.MainRandomItemAdapter
+import com.ssafy.fundyou.ui.home.adapter.MainRandomItemAdapter
 import com.ssafy.fundyou.ui.common.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.home.adapter.MainBannerAdapter

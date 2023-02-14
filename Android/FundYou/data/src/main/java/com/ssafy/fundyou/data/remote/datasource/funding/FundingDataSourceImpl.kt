@@ -1,8 +1,8 @@
 package com.ssafy.fundyou.data.remote.datasource.funding
 
+import com.ssafy.fundyou.data.remote.datasource.funding.dto.*
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingCreateRequestDto
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingIdRequestDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemIdRequestDto
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingResponseDto
 import com.ssafy.fundyou.data.remote.service.FundingApiService
 import javax.inject.Inject
@@ -37,4 +37,6 @@ internal class FundingDataSourceImpl @Inject constructor(
         fundingApiService.getFundingParticipateList(fundingItemIdRequestDto)
 
     override suspend fun addOngoingFundingItem() = fundingApiService.addOngoingFundingItem()
+
+    override suspend fun getFundingHostInfo(fundingIdRequestDto: FundingIdRequestDto) = fundingApiService.getFundingHostInfo(fundingIdRequestDto)
 }
