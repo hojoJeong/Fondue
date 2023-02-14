@@ -15,9 +15,10 @@ import com.ssafy.fundyou.databinding.FragmentArCaptureBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.item_list.ItemListFragmentArgs
 import com.ssafy.fundyou.util.getFormattedCurrentTime
+import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 
-
+@AndroidEntryPoint
 class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragment_ar_capture) {
     private lateinit var bitmap: Bitmap
     private val arCaptureViewModel by viewModels<ArCaptureViewModel>()
@@ -25,6 +26,7 @@ class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragme
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initViewModels()
     }
 
     override fun initView() {
@@ -57,8 +59,6 @@ class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragme
             .addOnFailureListener {
                 it.printStackTrace()
             }.addOnSuccessListener {
-                Toast.makeText(requireContext(), "Image upload Success!!!", Toast.LENGTH_SHORT)
-                    .show()
                 val url = getString(R.string.fire_storage_url_prefix) + imgPath + getString(R.string.fire_storage_url_suffix)
                 arCaptureViewModel.saveArImage(arCaptureFragmentArgs.fundingItemId, url)
             }.addOnProgressListener {

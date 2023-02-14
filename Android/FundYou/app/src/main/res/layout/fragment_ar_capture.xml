@@ -21,9 +21,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginBottom="48dp"
-            android:text="save"
-            android:background="@drawable/ic_baseline_check_circle_outline_24"
-            android:backgroundTint="@color/ar_gradient"
+            android:background="@drawable/ic_gradient_check"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -34,8 +32,10 @@
             android:layout_height="wrap_content"
             android:indeterminate="true"
             android:visibility="gone"
+            app:indicatorColor="@color/razzmatazz"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:indicatorSize="64dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

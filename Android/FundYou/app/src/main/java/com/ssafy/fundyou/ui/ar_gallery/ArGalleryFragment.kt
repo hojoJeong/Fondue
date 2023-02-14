@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragment_ar_gallery) {
     private val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
-    private val storageRef = storage.reference
+
     private val arGalleryFragmentArgs: ArGalleryFragmentArgs by navArgs()
     private val arGalleryViewModel by viewModels<ArGalleryViewModel>()
 

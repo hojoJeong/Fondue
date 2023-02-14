@@ -27,6 +27,9 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         addClickEvent { fundingItemId, status ->
             terminateFundingItemEvent(fundingItemId, status)
         }
+        addArButtonClickEvent { fundingItemId ->
+            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(fundingItemId))
+        }
     }
     private val closedFundingItemAdapter = MyFundingItemListAdapter()
     private val myPageViewModel by viewModels<MyPageViewModel>()

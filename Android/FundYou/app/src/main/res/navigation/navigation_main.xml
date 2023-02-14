@@ -147,7 +147,7 @@
             android:id="@+id/action_myFundingFragment_to_myFundingDetailFragment"
             app:destination="@id/myFundingDetailFragment" />
         <action
-            android:id="@+id/action_myFundingFragment_to_arGalleryFragment2"
+            android:id="@+id/action_myFundingFragment_to_arGalleryFragment"
             app:destination="@id/arGalleryFragment" />
 
     </fragment>
@@ -351,7 +351,6 @@
         <argument
             android:name="url"
             app:argType="string"
-            app:nullable="false" />
             app:nullable="false" />
     </fragment>
     <fragment
