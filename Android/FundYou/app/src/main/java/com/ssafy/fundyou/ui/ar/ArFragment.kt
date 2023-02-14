@@ -15,6 +15,8 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.navArgs
 
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
@@ -30,6 +32,7 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArBinding
+import com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureFragmentArgs
 import com.ssafy.fundyou.ui.common.BaseFragment
 import java.io.File
 import java.io.FileOutputStream
@@ -39,20 +42,19 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
 
     private var arFragment: ArFragment? = null
     private lateinit var renderable: ModelRenderable
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initFirebase()
-    }
+    private val arFragmentArgs: ArFragmentArgs by navArgs()
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         arFragment = childFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
-        binding.btnCapture.setOnClickListener {
-            it.visibility = View.INVISIBLE
-            getBitmapFromView(requireView().findViewById(R.id.arFragment)) {
-                convertBMPtoPNG(it)
+        binding.apply {
+            btnCapture.setOnClickListener {
+                getBitmapFromView(requireView().findViewById(R.id.arFragment)) {
+                    convertBMPtoPNG(it)
+                }
             }
+            btnCapture.isEnabled = false
+            btnCapture.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.grey)
         }
     }
 
@@ -62,6 +64,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+        initFirebase()
     }
 
     /** Firebase Storage에서 가져올 데이터 초기화 */
@@ -101,7 +104,10 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             .thenAccept { modelRenderable ->
                 Toast.makeText(context, "Model built!", Toast.LENGTH_SHORT).show()
                 renderable = modelRenderable
-
+                with(binding.btnCapture){
+                    backgroundTintList = null
+                    isEnabled = true
+                }
                 // ARCore 평면을 탭하면 호출됩니다.
                 arFragment!!.setOnTapArPlaneListener { hitResult: HitResult, plane: Plane?, motionEvent: MotionEvent? ->
                     val anchor = hitResult.createAnchor()
@@ -157,7 +163,6 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     /** view에 표시된 픽셀을 비트맵으로 복사 */
     @RequiresApi(Build.VERSION_CODES.O)
     fun getBitmapFromView(view: View, callback: (Bitmap?) -> Unit) {
-        Log.d("suyong", "starting capture")
         // 비트맵 생성
         val bitmap = Bitmap.createBitmap(view.width, view.height, Bitmap.Config.ARGB_8888)
 
@@ -186,7 +191,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
         }
     }
 
-    /** 비트맵 -> png파일로 저장 및 공유*/
+    /** 비트맵 -> png파일로 저장 */
     private fun convertBMPtoPNG(bitmap: Bitmap?) {
         try {
             Log.d("suyong", "sharing picture")
@@ -202,20 +207,8 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             /* bitmap -> png */
             bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
-            navigate(ArFragmentDirections.actionArFragmentToArCaptureFragment(bitmap!!))
+            navigate(ArFragmentDirections.actionArFragmentToArCaptureFragment(bitmap = bitmap!!, fundingItemId = arFragmentArgs.fundingItemId))
 
-
-            /* share */
-//            val newFile = File(cachePath, "image.png")
-//            val contentUri =
-//                FileProvider.getUriForFile(requireContext(), "com.example.arcoresceneform", newFile)
-//
-//            val sharingIntent = Intent(Intent.ACTION_SEND)
-//            sharingIntent.apply {
-//                type = "image/png"
-//                putExtra(Intent.EXTRA_STREAM, contentUri)
-//            }
-//            startActivity(Intent.createChooser(sharingIntent, "share image"))
         } catch (e: IOException) {
             Log.d("suyong", "faild to sharing")
             e.printStackTrace()

@@ -1,10 +1,8 @@
 package com.ssafy.fundyou.data.remote.repository
 
-import android.util.Log
 import com.ssafy.fundyou.data.remote.datasource.funding.FundingDataSource
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingCreateRequestDto
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingIdRequestDto
-import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingIdRequestDto2
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemIdRequestDto
 import com.ssafy.fundyou.data.remote.mappers.toDomainModel
 import com.ssafy.fundyou.domain.model.funding.*
@@ -67,7 +65,7 @@ internal class FundingRepositoryImpl @Inject constructor(
     }
 
     override suspend fun saveFundingInfo(fundingId: Long): Long {
-        val request = FundingIdRequestDto2(fundingId)
+        val request = FundingIdRequestDto(fundingId)
         return fundingDataSource.saveFundingInfo(request).id
     }
 }
