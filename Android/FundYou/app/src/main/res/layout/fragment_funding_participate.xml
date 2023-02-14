@@ -17,7 +17,8 @@
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$Behavior">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 style="@style/base_font_medium_16"
@@ -25,11 +26,13 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white"
                 app:collapsedTitleGravity="start"
+                app:collapsedTitleTextAppearance="@style/base_font_medium_16_white"
+                android:switchTextAppearance="@style/base_font_medium_16_white"
                 app:collapsedTitleTextColor="@color/white"
                 app:contentScrim="@color/razzmatazz"
                 app:expandedTitleTextAppearance="@style/expandedBarTextStyle"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
-                app:title="test">
+                app:title="펀딩하기">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -56,8 +59,8 @@
                         android:layout_marginStart="10dp"
                         android:textColor="@color/white"
                         android:textSize="16sp"
-                        app:fundingHostUserName="@{fundingHostInfo.userProfileImg}"
-                        app:fundingName="@{fundingHostInfo.fundingName}"
+                        app:fundingHostUserName="@{fundingHostInfo.userName ?? `fff`}"
+                        app:fundingName="@{fundingHostInfo.fundingName ?? `fff`}"
                         app:layout_constraintBottom_toBottomOf="@+id/iv_invited_fondue_profile"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/iv_invited_fondue_profile"
@@ -86,6 +89,8 @@
             android:id="@+id/rv_invited_fondue"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

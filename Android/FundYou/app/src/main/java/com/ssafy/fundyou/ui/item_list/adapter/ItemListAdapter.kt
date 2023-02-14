@@ -11,17 +11,26 @@ import com.ssafy.fundyou.databinding.ItemListProductBinding
 import com.ssafy.fundyou.ui.item_list.model.ItemListModel
 
 class ItemListAdapter : ListAdapter<ItemListModel, ItemListAdapter.ItemListViewHolder>(ItemListDiffUtil()){
-    private lateinit var likeItemId : (Long) -> Unit
+    private lateinit var itemClickEvent: (Long) -> Unit
+    private lateinit var addLikeItemEvent : (Long) -> Unit
     inner class ItemListViewHolder(private val binding: ItemListProductBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: ItemListModel){
             with(binding){
                 product = item
                 favoriteVisibility = true
                 ivItemListProductFavorite.setOnClickListener {
-                    likeItemId.invoke(item.id)
+                    addLikeItemEvent.invoke(item.id)
+                }
+                root.setOnClickListener {
+                    itemClickEvent.invoke(item.id)
                 }
             }
         }
+    }
+
+    //아이템 갱신 시 깜빡임 현상 방지
+    override fun getItemId(position: Int): Long {
+        return getItem(position).id
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemListViewHolder {
@@ -33,8 +42,12 @@ class ItemListAdapter : ListAdapter<ItemListModel, ItemListAdapter.ItemListViewH
         holder.bind(getItem(position))
     }
 
-    fun addLikeItem(id: (Long) -> Unit){
-        likeItemId = id
+    fun addLikeItemBtnClickListener(id: (Long) -> Unit){
+        addLikeItemEvent = id
+    }
+
+    fun addItemClickListener(id: (Long) -> Unit) {
+        itemClickEvent = id
     }
 
 

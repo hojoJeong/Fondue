@@ -58,6 +58,6 @@ internal fun FundingItemParticipateResponseDto.toDomainModel() = FundingMessageM
 
 internal fun FundingHostInfoResponseDto.toDomainModel() = FundingHostInfoModel(
     fundingName = this.fundingName ?: "",
-    fundingHostName = this.fundingName ?: "",
+    fundingHostName = this.hostName ?: "",
     fundingHostProfileImg = this.profileImg ?: ""
 )

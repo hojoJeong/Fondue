@@ -10,7 +10,9 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentFundingParticipateBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.funding_participate.adapter.FundingParticipateItemAdapter
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FundingParticipateFragment :
     BaseFragment<FragmentFundingParticipateBinding>(R.layout.fragment_funding_participate) {
 
@@ -19,6 +21,9 @@ class FundingParticipateFragment :
     private lateinit var userName : String
     private val fundingItemAdapter = FundingParticipateItemAdapter().apply {
         addFundingButtonEvent { fundingItemId ->
+            FundingParticipateFragmentDirections.actionInvitedFondueFragmentToPayFragment(fundingItemId)
+        }
+        addItemClickButtonEvent {fundingItemId ->
             FundingParticipateFragmentDirections.actionFundingParticipateFragmentToFundingParticipateItemFragment(fundingItemId, userName)
         }
     }
@@ -64,6 +69,7 @@ class FundingParticipateFragment :
                 }
                 is ViewState.Success -> {
                     fundingItemAdapter.submitList(response.value)
+                    binding.rvInvitedFondue.adapter = fundingItemAdapter
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initFundingParticipateItemListObserver: error ${response.message}")

@@ -15,9 +15,11 @@ import com.ssafy.fundyou.databinding.FragmentItemListBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.item_list.adapter.ItemListAdapter
 import com.ssafy.fundyou.ui.item_list.model.ItemListModel
+import com.ssafy.fundyou.ui.like.LikeItemViewModel
 
 class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment_item_list) {
     private val itemListViewModel by activityViewModels<ItemListViewModel>()
+    private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
     private val categoryType: ItemListFragmentArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         initItemListObserve()
         initCategoryObserve()
         initPriceObserve()
+        initResultAddLikeItemObserve()
     }
 
     private fun initCategory() {
@@ -94,7 +97,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
 
     private fun initCategoryObserve() {
         itemListViewModel.categoryId.observe(viewLifecycleOwner) { categoryId ->
-            if(categoryId == 0){
+            if (categoryId == 0) {
                 itemListViewModel.getAllItemList()
             } else {
                 itemListViewModel.getCategoryItemList(categoryId)
@@ -109,7 +112,11 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                     Log.d(TAG, "initItemList: ItemList Loading...")
                 }
                 is ViewState.Success -> {
+                    binding.lyItemListNoContent.root.visibility = View.GONE
                     initItemListAdapter(response.value ?: emptyList())
+                    if (response.value!!.isEmpty()) {
+                        binding.lyItemListNoContent.root.visibility = View.VISIBLE
+                    }
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initItemList: ItemList Loading Error...${response.message}")
@@ -118,26 +125,52 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         }
     }
 
-    private fun initPriceObserve(){
-        itemListViewModel.sumPrice.observe(viewLifecycleOwner){
+    private fun initPriceObserve() {
+        itemListViewModel.sumPrice.observe(viewLifecycleOwner) {
             val categoryId = itemListViewModel.categoryId.value ?: 0
             val min = itemListViewModel.minPrice.value ?: 0
-            val max = itemListViewModel.maxPrice.value?: 1000000
+            val max = itemListViewModel.maxPrice.value ?: 1000000
             itemListViewModel.getItemByPrice(categoryId, min, max)
         }
     }
 
     private fun initItemListAdapter(itemList: List<ItemListModel>) {
-        val itemListAdapter = ItemListAdapter()
-        itemListAdapter.submitList(itemList)
-        binding.rvItemList.apply {
+        val itemListAdapter = ItemListAdapter().apply {
+            submitList(itemList)
+            setHasStableIds(true)   //아이템 갱신 시 깜빡임 현상 방지
+            addLikeItemBtnClickListener { id ->
+                likeItemViewModel.addListItem(id)
+            }
+            addItemClickListener { id ->
+                navigate(ItemListFragmentDirections.actionItemListFragmentToItemDetailFragment(id))
+            }
+
+        }
+        with(binding.rvItemList) {
             layoutManager =
                 LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             adapter = itemListAdapter
         }
 
-        itemListAdapter.addLikeItem { id ->
-            itemListViewModel.addLikeItem(id)
+
+    }
+
+    private fun initResultAddLikeItemObserve() {
+        likeItemViewModel.resultModifyListItem.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is ViewState.Loading -> {
+                    Log.d(TAG, "initResultAddLikeItemObserve: Add Like Item Loading...")
+                }
+                is ViewState.Success -> {
+                    itemListViewModel.getAllItemList()
+                }
+                is ViewState.Error -> {
+                    Log.d(
+                        TAG,
+                        "initResultAddLikeItemObserve: Add Like Item Error...${response.message}"
+                    )
+                }
+            }
         }
     }
 }

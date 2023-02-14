@@ -13,12 +13,17 @@ import com.ssafy.fundyou.ui.funding_participate.model.FundingParticipateItemUiMo
 class FundingParticipateItemAdapter : ListAdapter<FundingParticipateItemUiModel, FundingParticipateItemAdapter.FundingParticipateItemHolder>(FundingParticipateItemDiffUtil){
 
     private lateinit var fundingClickEvent : (Long) -> Unit
+    private lateinit var itemClickEvent : (Long) -> Unit
 
     inner class FundingParticipateItemHolder(private val binding : ItemFundingParticipateItemListBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : FundingParticipateItemUiModel){
             binding.fundingItem = item
+            
             binding.btnFunding.setOnClickListener {
                 fundingClickEvent.invoke(item.id)
+            }
+            binding.cstlFundingItem.setOnClickListener {
+                itemClickEvent.invoke(item.id)
             }
         }
     }
@@ -36,6 +41,10 @@ class FundingParticipateItemAdapter : ListAdapter<FundingParticipateItemUiModel,
 
     fun addFundingButtonEvent(event : (Long) -> Unit){
         fundingClickEvent = event
+    }
+
+    fun addItemClickButtonEvent(event : (Long) -> Unit){
+        itemClickEvent = event
     }
 
     object FundingParticipateItemDiffUtil : DiffUtil.ItemCallback<FundingParticipateItemUiModel>(){

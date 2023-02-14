@@ -274,7 +274,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter(value = ["fundingHostUserName", "fundingName"])
-    fun TextView.setFundingTitle(userName : String, fundingName : String){
-        text = "${userName}님의\n${fundingName}에 참여해주세요!"
+    fun TextView.setFundingTitle(fundingHostUserName : String, fundingName : String){
+        text = "${fundingHostUserName}님의\n${fundingName}에 참여해주세요!"
     }
 }
