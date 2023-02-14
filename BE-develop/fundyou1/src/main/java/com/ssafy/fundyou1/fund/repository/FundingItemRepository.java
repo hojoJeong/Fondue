@@ -34,11 +34,11 @@ public interface FundingItemRepository extends JpaRepository<FundingItem, Long> 
 
     List<FundingItem> findByFundingId(Long fundingId);
 
-    @Query(value = "select sum(item_total_price) from funding_item where funding_id = :fundingId", nativeQuery = true)
+    @Query(value = "select nvl(sum(item_total_price), 0) from funding_item where funding_id = :fundingId", nativeQuery = true)
     Integer sumTotalPriceByFundingId(@Param("fundingId") Long fundingId);
 
 
-    @Query(value = "select sum(current_funding_price) from funding_item where funding_id = :fundingId", nativeQuery = true)
+    @Query(value = "select NVL(sum(current_funding_price), 0) from funding_item where funding_id = :fundingId", nativeQuery = true)
     Integer sumCurrentFundingPriceByFundingId(@Param("fundingId") Long fundingId);
 
     @Modifying(clearAutomatically = true)
