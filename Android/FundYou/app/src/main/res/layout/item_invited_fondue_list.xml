@@ -6,7 +6,7 @@
     <data>
         <variable
             name="funding_item"
-            type="com.ssafy.fundyou.ui.funding_invited_list.model.FundingParticipateListModel" />
+            type="com.ssafy.fundyou.ui.funding_invited_list.model.FundingParticipateListUiModel" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -25,14 +25,15 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/iv_item_invited_fondue_profile"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_invited_fondue_name"
-            android:src="@drawable/bg_banner_ssafylogo"/>
+            app:setItemImage="@{funding_item.fundingHostProfile}"
+            tools:src="@drawable/bg_banner_ssafylogo3"/>
 
         <TextView
             android:id="@+id/tv_item_invited_fondue_name"
@@ -41,7 +42,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/iv_item_invited_fondue_profile"
-            android:text='@{"from."+funding_item.userName+"님"}'
+            android:text='@{"from."+funding_item.fundingHostName+"님"}'
             tools:text="from.김싸피"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_invited_fondue_period"
@@ -56,7 +57,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_item_invited_fondue_name"
             app:layout_constraintBottom_toTopOf="@+id/btn_item_invited_fondue_join_or_not"
-            android:text='@{funding_item.date}'
+            app:startDate = "@{funding_item.startDate}"
+            app:endDate = "@{funding_item.endDate}"
             android:textSize="10sp"
             android:textColor="@color/nobel"
             android:singleLine="true"
@@ -74,7 +76,7 @@
             android:textColor="@color/white"
             tools:backgroundTint="@color/cornflower_blue"
             android:layout_marginEnd="10sp"
-            app:checkFundingParticipate="@{funding_item.participate}"
+            app:checkFundingParticipate="@{funding_item.fundingPoint}"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintBottom_toTopOf="@+id/tv_item_invited_fondue_pay"
             app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +92,7 @@
             android:textSize="12sp"
             android:textAlignment="center"
             tools:backgroundTint="@color/heliotrope"
-            app:checkFundingEnd="@{funding_item.end}"
+            app:checkFundingEnd="@{funding_item.fundingStatus}"
             app:layout_constraintStart_toEndOf="@+id/btn_item_invited_fondue_join_or_not"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/btn_item_invited_fondue_join_or_not"
@@ -104,7 +106,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_item_invited_fondue_ongoing_or_done"
-            app:setPrice="@{funding_item.fundingPrice}"
+            app:setPrice="@{funding_item.fundingPoint}"
             style="@style/base_font_medium_16"
             tools:text="20,000원 펀딩"
             android:textSize="14sp"

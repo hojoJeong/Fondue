@@ -68,4 +68,7 @@ internal class FundingRepositoryImpl @Inject constructor(
         val request = FundingIdRequestDto(fundingId)
         return fundingDataSource.saveFundingInfo(request).id
     }
+
+    override suspend fun getFundingParticipateList(status: Int): List<FundingParticipateModel> =
+        fundingDataSource.getFundingParticipateList(status).map { it.toDomainModel() }
 }
