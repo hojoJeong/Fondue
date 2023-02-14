@@ -206,6 +206,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     private fun sendKakaoLink(feed: FeedTemplate) {
         if (ShareClient.instance.isKakaoTalkSharingAvailable(requireContext())) {
             // 카카오톡으로 카카오톡 공유 가능
+
             ShareClient.instance.shareDefault(
                 requireContext(), feed
             ) { sharingResult, error ->
@@ -244,6 +245,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         }
     }
 
+
     /**
      * 카카오톡 공유하기 Feed 생성
      * @param1: title - Feed에 넣을 제목
@@ -261,8 +263,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                     title = "상품 확인해보기...", link = Link(
                         androidExecutionParams = mapOf(
                             "item_id" to itemId.toString()
-                        ),
-                        iosExecutionParams = mapOf("item_id" to itemId.toString())
+                        )
                     )
                 )
             )
