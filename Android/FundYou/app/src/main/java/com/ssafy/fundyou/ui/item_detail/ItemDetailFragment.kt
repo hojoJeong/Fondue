@@ -51,14 +51,13 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         addKakaoShareButtonEvent()
 
         addItemInWishList()
-        addLikeItemClickListener()
     }
 
     override fun initViewModels() {
         initItemDetailViewModel()
         initMainViewModel()
         initAddWishListObserve()
-        initResultAddLikeItemObserve()
+//        initResultAddLikeItemObserve()
     }
 
     private fun addItemInWishList() {
@@ -74,8 +73,21 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
     }
 
     private fun addLikeItemClickListener() {
+        var likeStatus = itemDetailViewModel.itemDetailInfo.value?.value?.isFavorite
+        Log.d(TAG, "addLikeItemClickListener: $likeStatus")
         binding.btnItemLike.setOnClickListener {
             likeItemViewModel.addListItem(itemArgument.itemId)
+            likeStatus = when(likeStatus){
+                true -> {
+                    binding.btnItemLike.setImageResource(R.drawable.ic_favorite_line)
+                    false
+                }
+                else -> {
+                    binding.btnItemLike.setImageResource(R.drawable.ic_favorite)
+                    true
+                }
+            }
+            Log.d(TAG, "addLikeItemClickListener 좋아요 누른 후 : $likeStatus")
         }
     }
 
@@ -148,6 +160,7 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
                     initItemImgAdapter()
                     initItemDetailAdapter()
+                    addLikeItemClickListener()
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initViewModels: Error...")

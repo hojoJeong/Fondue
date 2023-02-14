@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.SimpleItemAnimator
 import com.google.android.material.chip.Chip
 import com.google.android.material.slider.RangeSlider
 import com.ssafy.fundyou.R
@@ -20,15 +21,15 @@ import com.ssafy.fundyou.ui.like.LikeItemViewModel
 class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment_item_list) {
     private val itemListViewModel by activityViewModels<ItemListViewModel>()
     private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
-    private val categoryType: ItemListFragmentArgs by navArgs()
+    private val categoryArg: ItemListFragmentArgs by navArgs()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d(TAG, "onViewCreated: ${categoryType.categoryType}")
+        Log.d(TAG, "onViewCreated: ${categoryArg.categoryType}")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        initItem()
         initView()
         initViewModels()
     }
@@ -42,26 +43,20 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
         initItemListObserve()
         initCategoryObserve()
         initPriceObserve()
-        initResultAddLikeItemObserve()
     }
 
     private fun initCategory() {
         var categoryId =
-            resources.getStringArray(R.array.category_num).indexOf(categoryType.categoryType)
+            resources.getStringArray(R.array.category_num).indexOf(categoryArg.categoryType)
         val categoryGroup = binding.chipgItemListCategory
         val hScrollView = binding.hscvItemListCategory
-        if (resources.getStringArray(R.array.category_num).contains(categoryType.categoryType)) {
-            val category = categoryGroup.getChildAt(categoryId) as Chip
-            category.isChecked = true
-            hScrollView.post {
-                hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
-            }
-            if (categoryId == 0) {
-                itemListViewModel.getAllItemList()
-            } else {
-                itemListViewModel.setCategory(categoryId)
-            }
+        val category = categoryGroup.getChildAt(categoryId) as Chip
+        category.isChecked = true
+        hScrollView.post {
+            hScrollView.smoothScrollTo(category.x.toInt(), category.y.toInt())
         }
+        itemListViewModel.setCategory(categoryId)
+
 
         /** 카테고리 체크 변화 시 서버 통신 **/
         categoryGroup.setOnCheckedStateChangeListener { group, _ ->
@@ -74,8 +69,8 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
     }
 
     private fun initPriceRange() {
-        var minPrice = 0
-        var maxPrice = 0
+        var minPrice = MIN_PRICE
+        var maxPrice = MAX_PRICE
         with(binding.sldItemList) {
             addOnChangeListener { slider, _, _ ->
                 val sliderValueList = slider.values
@@ -88,7 +83,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
                 override fun onStartTrackingTouch(slider: RangeSlider) {}
 
                 override fun onStopTrackingTouch(slider: RangeSlider) {
-                    /* 가격 변경 시 서버 통신 */
+                    /** 가격 변경 시 서버 통신 */
                     itemListViewModel.setPrice(minPrice * 10000, maxPrice * 10000)
                 }
             })
@@ -97,11 +92,7 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
 
     private fun initCategoryObserve() {
         itemListViewModel.categoryId.observe(viewLifecycleOwner) { categoryId ->
-            if (categoryId == 0) {
-                itemListViewModel.getAllItemList()
-            } else {
-                itemListViewModel.getCategoryItemList(categoryId)
-            }
+            initItem()
         }
     }
 
@@ -127,17 +118,13 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
 
     private fun initPriceObserve() {
         itemListViewModel.sumPrice.observe(viewLifecycleOwner) {
-            val categoryId = itemListViewModel.categoryId.value ?: 0
-            val min = itemListViewModel.minPrice.value ?: 0
-            val max = itemListViewModel.maxPrice.value ?: 1000000
-            itemListViewModel.getItemByPrice(categoryId, min, max)
+            initItem()
         }
     }
 
     private fun initItemListAdapter(itemList: List<ItemListModel>) {
         val itemListAdapter = ItemListAdapter().apply {
             submitList(itemList)
-            setHasStableIds(true)   //아이템 갱신 시 깜빡임 현상 방지
             addLikeItemBtnClickListener { id ->
                 likeItemViewModel.addListItem(id)
             }
@@ -152,25 +139,22 @@ class ItemListFragment : BaseFragment<FragmentItemListBinding>(R.layout.fragment
             adapter = itemListAdapter
         }
 
-
+        val animator = binding.rvItemList.itemAnimator
+        if (animator is SimpleItemAnimator) {
+            animator.supportsChangeAnimations = false
+        }
     }
 
-    private fun initResultAddLikeItemObserve() {
-        likeItemViewModel.resultModifyListItem.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    Log.d(TAG, "initResultAddLikeItemObserve: Add Like Item Loading...")
-                }
-                is ViewState.Success -> {
-                    itemListViewModel.getAllItemList()
-                }
-                is ViewState.Error -> {
-                    Log.d(
-                        TAG,
-                        "initResultAddLikeItemObserve: Add Like Item Error...${response.message}"
-                    )
-                }
-            }
-        }
+    private fun initItem() {
+        val categoryId = itemListViewModel.categoryId.value ?: CATEGORY_ALL
+        val min = itemListViewModel.minPrice.value ?: MIN_PRICE
+        val max = itemListViewModel.maxPrice.value ?: MAX_PRICE
+        itemListViewModel.getItemByPrice(categoryId, min, max)
+    }
+
+    companion object {
+        private const val CATEGORY_ALL = 0
+        private const val MIN_PRICE = 0
+        private const val MAX_PRICE = 1000000
     }
 }
