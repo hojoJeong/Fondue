@@ -39,7 +39,7 @@ public class FundingItemApiController {
     // 펀딩 참여(돈 보내기)
     @ApiOperation(value = "펀딩 참여(돈 보내기)", notes = "참여한 펀딩 아이템 정보")
     @PostMapping("/attend")
-    public ResponseEntity attendFunding(@RequestBody AttendFundingDto attendFundingDto) {
+    public ResponseEntity<BaseResponseBody> attendFunding(@RequestBody AttendFundingDto attendFundingDto) {
 
         FundingItem fundingItem = fundingItemRepository.findByFundingItemId(attendFundingDto.getFundingItemId());
         int restFundingPrice = fundingItem.getItemTotalPrice() - fundingItem.getCurrentFundingPrice();
@@ -48,12 +48,12 @@ public class FundingItemApiController {
 
 
         if (holdMoney < attendFundingDto.getPoint()) {
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "잔액이 부족합니다.", null));
+            return ResponseEntity.ok(BaseResponseBody.of(403, "잔액이 부족합니다.", null));
         } else if (restFundingPrice < attendFundingDto.getPoint()) {
             // 남은 펀딩 금액 보다 큰 금액을 펀딩하려는 경우
-            return ResponseEntity.status(403).body(BaseResponseBody.of(403, "가능한 펀딩 금액을 초과했습니다.", null));
+            return ResponseEntity.ok(BaseResponseBody.of(403, "가능한 펀딩 금액을 초과했습니다.", null));
         } else {
-            return ResponseEntity.status(HttpStatus.OK).body(BaseResponseBody.of(200, "펀딩 성공", fundingItemService.attendFunding(attendFundingDto)));
+            return ResponseEntity.ok(BaseResponseBody.of(200, "펀딩 성공", fundingItemService.attendFunding(attendFundingDto)));
         }
 
     }
