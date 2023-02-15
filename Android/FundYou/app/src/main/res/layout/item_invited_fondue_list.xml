@@ -67,11 +67,11 @@
 
         <com.google.android.material.chip.Chip
             android:id="@+id/btn_item_invited_fondue_join_or_not"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             style="@style/base_font_bold_16"
             tools:text="참여"
-            android:textSize="12sp"
+            android:autoSizeTextType="uniform"
             android:textAlignment="center"
             android:textColor="@color/white"
             tools:backgroundTint="@color/cornflower_blue"
@@ -85,11 +85,11 @@
             android:clickable="false"/>
         <com.google.android.material.chip.Chip
             android:id="@+id/btn_item_invited_fondue_ongoing_or_done"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:textColor="@color/white"
             style="@style/base_font_bold_16"
-            android:textSize="12sp"
+            android:autoSizeTextType="uniform"
             android:textAlignment="center"
             tools:backgroundTint="@color/heliotrope"
             app:checkFundingEnd="@{funding_item.fundingStatus}"

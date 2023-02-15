@@ -33,151 +33,21 @@
             android:layout_marginEnd="@dimen/base_horizontal_margin"
             android:track="@drawable/bg_switch"
             android:thumb="@drawable/bg_switch_thumb"/>
-        
+
         <TextView
-            android:id="@+id/tv_noti_setting_under_all"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:id="@+id/tv_noti_setting_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
+            android:breakStrategy="high_quality"
             app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/content_notisetting_info"
+            android:layout_margin="@dimen/base_horizontal_margin"
             app:layout_constraintTop_toBottomOf="@+id/swbtn_noti_setting_all"
-            app:layout_constraintBottom_toTopOf="@+id/swbtn_noti_setting_message"
-            android:layout_marginVertical="@dimen/base_vertical_item_list"
-            android:background="@color/white_smoke"
-            android:text="@string/title_notisetting_detail"
-            style="@style/base_font_bold_16"
-            android:textColor="@color/black"
-            android:gravity="bottom"
-            android:paddingStart="@dimen/base_horizontal_margin"
-            android:paddingBottom="6dp"/>
+            style="@style/base_font_medium_14"
+            android:textColor="@color/raven"/>
 
 
-        <TextView
-            android:id="@+id/tv_noti_setting_message_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tv_noti_setting_all_title"
-            app:layout_constraintTop_toBottomOf="@id/tv_noti_setting_under_all"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_message"
-            android:text="@string/title_notisetting_message"
-            style="@style/base_font_medium_16"
-            android:textColor="@color/black"/>
-
-        <Switch
-            android:id="@+id/swbtn_noti_setting_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_noti_setting_under_all"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_message"
-            android:layout_marginEnd="@dimen/base_horizontal_margin"
-            android:track="@drawable/bg_switch"
-            android:thumb="@drawable/bg_switch_thumb"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dv_noti_setting_under_message"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/base_vertical_item_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swbtn_noti_setting_message"
-            app:layout_constraintBottom_toTopOf="@+id/swbtn_noti_setting_funding"/>
-
-        <TextView
-            android:id="@+id/tv_noti_setting_funding_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tv_noti_setting_all_title"
-            app:layout_constraintTop_toBottomOf="@id/dv_noti_setting_under_message"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_funding"
-            android:text="@string/title_notisetting_funding"
-            style="@style/base_font_medium_16"
-            android:textColor="@color/black"/>
-
-        <Switch
-            android:id="@+id/swbtn_noti_setting_funding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dv_noti_setting_under_message"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_funding"
-            android:layout_marginEnd="@dimen/base_horizontal_margin"
-            android:track="@drawable/bg_switch"
-            android:thumb="@drawable/bg_switch_thumb"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dv_noti_setting_under_funding"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/base_vertical_item_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swbtn_noti_setting_funding"
-            app:layout_constraintBottom_toTopOf="@+id/swbtn_noti_setting_funding_close"/>
-
-        <TextView
-            android:id="@+id/tv_noti_setting_funding_close_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tv_noti_setting_all_title"
-            app:layout_constraintTop_toBottomOf="@id/dv_noti_setting_under_funding"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_funding_close"
-            android:text="@string/title_notisetting_funding_close"
-            style="@style/base_font_medium_16"
-            android:textColor="@color/black"/>
-
-        <Switch
-            android:id="@+id/swbtn_noti_setting_funding_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dv_noti_setting_under_funding"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_funding_close"
-            android:layout_marginEnd="@dimen/base_horizontal_margin"
-            android:track="@drawable/bg_switch"
-            android:thumb="@drawable/bg_switch_thumb"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dv_noti_setting_under_funding_close"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/base_vertical_item_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swbtn_noti_setting_funding_close"
-            app:layout_constraintBottom_toTopOf="@id/swbtn_noti_setting_funding_close_deadline"/>
-
-        <TextView
-            android:id="@+id/tv_noti_setting_funding_close_deadline_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/tv_noti_setting_all_title"
-            app:layout_constraintTop_toBottomOf="@id/dv_noti_setting_under_funding_close"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_funding_close_deadline"
-            android:text="@string/title_notisetting_funding_close_deadline"
-            style="@style/base_font_medium_16"
-            android:textColor="@color/black"/>
-
-        <Switch
-            android:id="@+id/swbtn_noti_setting_funding_close_deadline"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dv_noti_setting_under_funding_close"
-            app:layout_constraintBottom_toTopOf="@+id/dv_noti_setting_under_funding_close_deadline"
-            android:layout_marginEnd="@dimen/base_horizontal_margin"
-            android:track="@drawable/bg_switch"
-            android:thumb="@drawable/bg_switch_thumb"/>
-
-        <com.google.android.material.divider.MaterialDivider
-            android:id="@+id/dv_noti_setting_under_funding_close_deadline"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/base_vertical_item_list"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/swbtn_noti_setting_funding_close_deadline"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

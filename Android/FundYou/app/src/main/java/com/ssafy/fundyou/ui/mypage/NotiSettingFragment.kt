@@ -21,16 +21,8 @@ class NotiSettingFragment : BaseFragment<FragmentNotiSettingBinding>(R.layout.fr
 
     private fun initSwtich(){
         binding.swbtnNotiSettingAll.setOnCheckedChangeListener { buttonView, isChecked ->  
-
+            /** 알림 설정 서버 통신 */
         }
-        
-        binding.swbtnNotiSettingMessage.setOnCheckedChangeListener { buttonView, isChecked ->  }
-
-        binding.swbtnNotiSettingFunding.setOnCheckedChangeListener { buttonView, isChecked ->  }
-        
-        binding.swbtnNotiSettingFundingClose.setOnCheckedChangeListener { buttonView, isChecked ->  }
-        
-        binding.swbtnNotiSettingFundingCloseDeadline.setOnCheckedChangeListener { buttonView, isChecked ->  }
     }
 
 }
