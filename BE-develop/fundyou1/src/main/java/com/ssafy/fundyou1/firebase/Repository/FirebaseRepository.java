@@ -14,7 +14,12 @@ public interface FirebaseRepository extends JpaRepository<FirebaseToken, Long> {
     Optional<FirebaseToken> findByMemberId(Long memberId);
 
     @Modifying
-    @Query(value = "update firebase_token set firebase_token.target_token = :targetToken where firebase_token.member_id = :id", nativeQuery = true)
-    void updateFirebase(@Param("id") Long id, @Param("targetToken") String targetToken);
+    @Query(value = "update firebase_token set token = :targetToken where member_id = :memberId", nativeQuery = true)
+    Integer updateFirebase(@Param("memberId") Long memberId, @Param("targetToken") String targetToken);
+
+
+    @Modifying
+    @Query(value = "update firebase_token set status = :status where member_id = :memberId", nativeQuery = true)
+    Integer changeFirebaseStatus(@Param("memberId") Long memberId, @Param("status") Boolean status);
 
 }
