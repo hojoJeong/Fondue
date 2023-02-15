@@ -47,6 +47,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     private var arFragment: ArFragment? = null
     private lateinit var renderable: ModelRenderable
     private val arGalleryFragmentViewModel by activityViewModels<ArGalleryViewModel>()
+    private val arFragmentArgs by navArgs<ArFragmentArgs>()
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         arFragment = childFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
@@ -67,18 +68,23 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
-        initFirebase()
+        if(arFragmentArgs.itemId == null){
+            initFirebase(arGalleryFragmentViewModel.itemId.toString())
+        }else{
+            initFirebase(arFragmentArgs.itemId!!)
+            binding.btnCapture.visibility = View.GONE
+        }
     }
 
     /** Firebase Storage에서 가져올 데이터 초기화 */
-    private fun initFirebase() {
+    private fun initFirebase(itemId: String) {
         FirebaseApp.initializeApp(requireContext())
         val storage = FirebaseStorage.getInstance()
         // 파이어베이스 저장소에서 파일명으로 가져옴
-        val modelRef = storage.reference.child("${arGalleryFragmentViewModel.itemId}.glb")
-        Log.d("TAG", "initFirebase: ${arGalleryFragmentViewModel.itemId}.glb")
+        val modelRef = storage.reference.child("$itemId.glb")
+        Log.d("TAG", "initFirebase: $itemId.glb")
         // prefix_{itemId}.glb라는 빈파일 생성
-        val file = File.createTempFile("prefix_${arGalleryFragmentViewModel.itemId}", "glb")
+        val file = File.createTempFile("prefix_$itemId", "glb")
         // StorageReference에서 file에 파일을 비동기식으로 다운로드.
         writeFileFromFirebase(modelRef, file)
     }
