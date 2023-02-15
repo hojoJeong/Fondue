@@ -13,6 +13,7 @@ import android.os.Handler
 import android.os.Looper
 import android.util.Log
 import android.view.*
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
@@ -105,8 +106,10 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             .setSource(context, renderableSource)
             .setRegistryId(file.path).build()
             .thenAccept { modelRenderable ->
-                Snackbar.make(requireView(), "화면을 터치해서 배치하세요!", Snackbar.LENGTH_SHORT)
-                    .show()
+                with(Snackbar.make(requireView(), "화면을 터치해서 상품을 배치하세요!", Snackbar.LENGTH_SHORT)) {
+                    view.textAlignment = TextView.TEXT_ALIGNMENT_CENTER
+                    show()
+                }
                 renderable = modelRenderable
                 with(binding.btnCapture){
                     backgroundTintList = null
