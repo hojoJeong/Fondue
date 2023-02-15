@@ -7,24 +7,21 @@ import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.domain.usecase.fcm.GetNotificationSettingStatusUseCase
 import com.ssafy.fundyou.domain.usecase.fcm.UpdateNotificationSettingStatusUseCase
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class FcmViewModel @Inject constructor(
     private val getNotificationSettingStatusUseCase: GetNotificationSettingStatusUseCase,
     private val updateNotificationSettingStatusUseCase: UpdateNotificationSettingStatusUseCase,
 ) : ViewModel() {
-
-    private val _resultAddFcmToken = MutableLiveData<ViewState<String>>()
-    val resultAddFcmToken: LiveData<ViewState<String>>
-        get() = _resultAddFcmToken
-
     private val _notiStatus = MutableLiveData<ViewState<Int>>()
     val notiStatus: LiveData<ViewState<Int>>
         get() = _notiStatus
 
-    private val _resultUpdateNotiSetting = MutableLiveData<ViewState<String>>()
-    val resultUpdateNotiSetting: LiveData<ViewState<String>>
+    private val _resultUpdateNotiSetting = MutableLiveData<ViewState<Int>>()
+    val resultUpdateNotiSetting: LiveData<ViewState<Int>>
         get() = _resultUpdateNotiSetting
 
     fun getNotificationStatus() = viewModelScope.launch {
@@ -41,6 +38,7 @@ class FcmViewModel @Inject constructor(
         _resultUpdateNotiSetting.value = ViewState.Loading()
         try {
             updateNotificationSettingStatusUseCase()
+            _resultUpdateNotiSetting.value = ViewState.Success(0)
         } catch (e: Exception){
             _resultUpdateNotiSetting.value = ViewState.Error(e.message)
         }
