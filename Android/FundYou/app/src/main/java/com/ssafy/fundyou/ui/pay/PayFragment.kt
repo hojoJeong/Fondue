@@ -179,7 +179,8 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
                     )
                 }
                 is ViewState.Error -> {
-                    if (response.message == "잔액이 부족합니다.") {
+                    Log.d(TAG, "initFundingPayObserver: error... ${response.message}")
+                    if (response.value?.message == "잔액이 부족합니다.") {
                         navigate(PayFragmentDirections.actionPayFragmentToPayResultFragment(response.value!!, addComma(fundingPrice)))
                     }
                 }

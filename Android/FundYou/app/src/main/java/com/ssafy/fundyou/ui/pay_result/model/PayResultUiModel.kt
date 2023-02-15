@@ -30,6 +30,6 @@ fun PayAttendModel.toPayResultUiModel() = PayResultUiModel(
     brand = this.fundingItemInfoModel?.info?.brand ?: "",
     title = this.fundingItemInfoModel?.info?.title ?: "",
     currentFundingPrice = this.fundingItemInfoModel?.currentFundingPrice ?: -1,
-    percentage = getFundingPercentage(this.fundingItemInfoModel?.currentFundingPrice ?: 0, this.fundingItemInfoModel?.itemTotalPrice ?: 0),
+    percentage = getFundingPercentage(this.fundingItemInfoModel?.currentFundingPrice ?: 0, this.fundingItemInfoModel?.itemTotalPrice ?: 1),
     itemTotalPrice = this.fundingItemInfoModel?.itemTotalPrice ?: 0
 )

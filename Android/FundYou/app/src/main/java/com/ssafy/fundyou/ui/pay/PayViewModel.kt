@@ -41,13 +41,12 @@ class PayViewModel @Inject constructor(
     fun attendFundingItem(fundingItemId: Long, message: String, point: Int) =
         viewModelScope.launch {
             _attendFundingItem.postValue(ViewState.Loading())
-            val response =
-                attendFundingItemUseCase(fundingItemId, message, point).toPayResultUiModel()
             try {
+                val response =
+                    attendFundingItemUseCase(fundingItemId, message, point).toPayResultUiModel()
                 _attendFundingItem.postValue(ViewState.Success(response))
             } catch (e: Exception) {
-                if(response.message == "잔액이 부족합니다.")
-                _attendFundingItem.postValue(ViewState.Error(message = "잔액이 부족합니다.", response))
+                _attendFundingItem.postValue(ViewState.Error(e.message))
             }
         }
 

@@ -20,7 +20,7 @@ fun FundingItemInfoModel.toFundingPayItemUiModel() = FundingPayItemUiModel(
     img = this.info.img[0],
     brand = this.info.brand,
     title = this.info.title,
-    itemPrice = this.itemTotalPrice * this.itemCount,
-    fundingBalancePrice = (this.itemTotalPrice * this.itemCount) - this.currentFundingPrice,
+    itemPrice = this.itemTotalPrice,
+    fundingBalancePrice = (this.itemTotalPrice) - this.currentFundingPrice,
     percentage = getFundingPercentage(this.currentFundingPrice, this.itemTotalPrice)
 )

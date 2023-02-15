@@ -26,7 +26,7 @@ fun FundingItemInfoModel.toMyFundingItemDetailUiModel() = MyFundingItemDetailUiM
     itemOrderCount = this.itemCount,
     currentFundingPrice = this.currentFundingPrice,
     status = this.status,
-    itemTotalPrice = this.itemTotalPrice * this.itemCount,
+    itemTotalPrice = this.itemTotalPrice,
     percentage =  getFundingPercentage(this.currentFundingPrice, this.itemTotalPrice)
 )
 

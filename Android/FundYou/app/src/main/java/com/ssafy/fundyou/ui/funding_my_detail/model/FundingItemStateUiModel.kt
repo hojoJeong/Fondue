@@ -17,5 +17,5 @@ fun FundingItemInfoModel.toFundingItemStateUiModel() = FundingItemStateUiModel(
     img = this.info.img[0],
     title = this.info.title,
     currentFundingPrice = this.currentFundingPrice,
-    itemTotalPrice = this.itemTotalPrice * this.itemCount
+    itemTotalPrice = this.itemTotalPrice
 )

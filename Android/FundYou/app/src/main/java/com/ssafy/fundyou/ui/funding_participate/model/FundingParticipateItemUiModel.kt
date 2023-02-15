@@ -21,7 +21,7 @@ data class FundingParticipateItemUiModel(
 fun FundingItemInfoModel.toFundingParticipateItemUiModel() = FundingParticipateItemUiModel(
     id = this.id,
     arRegistered = this.arImgList.isNotEmpty(),
-    possibleFundingPrice = (this.itemTotalPrice * this.itemCount) - this.currentFundingPrice,
+    possibleFundingPrice = this.itemTotalPrice - this.currentFundingPrice,
     status = this.status,
     img = this.info.img[0],
     brand = this.info.brand,

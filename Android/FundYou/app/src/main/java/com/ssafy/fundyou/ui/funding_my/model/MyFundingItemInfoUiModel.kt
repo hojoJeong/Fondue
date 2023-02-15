@@ -29,5 +29,5 @@ fun FundingItemInfoModel.toMyFundingItemUiModel() = MyFundingItemInfoUiModel(
     participateCount = this.participantsCount,
     currentFundingPrice = this.currentFundingPrice,
     isAr = this.info.isAr,
-    totalPrice = this.itemTotalPrice * this.itemCount
+    totalPrice = this.itemTotalPrice
 )
