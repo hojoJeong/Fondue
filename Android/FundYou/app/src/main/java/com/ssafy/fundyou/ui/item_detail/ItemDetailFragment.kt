@@ -87,25 +87,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         }
     }
 
-    private fun initResultAddLikeItemObserve() {
-        likeItemViewModel.resultModifyListItem.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    Log.d(TAG, "initResultAddLikeItemObserve: Add Like Item Loading...")
-                }
-                is ViewState.Success -> {
-                    itemDetailViewModel.getItemDetailInfo(itemArgument.itemId)
-                }
-                is ViewState.Error -> {
-                    Log.d(
-                        TAG,
-                        "initResultAddLikeItemObserve: Add like Item Error...${response.message}"
-                    )
-                }
-            }
-        }
-    }
-
     private fun initMainViewModel() {
         itemDetailViewModel.relatedItemList.observe(viewLifecycleOwner) { response ->
             when (response) {

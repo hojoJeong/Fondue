@@ -6,8 +6,10 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
+import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ssafy.fundyou.R
@@ -113,6 +115,34 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.BACK_TEXT, "회원탈퇴")
                     setBottomNavigationVisibility(View.GONE)
                 }
+                R.id.arGalleryFragment -> {
+                    setToolbarType(ToolbarType.BACK_TEXT, "AR 등록")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.galleryDetailFragment -> {
+                    setToolbarType(ToolbarType.NO)
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.arCaptureFragment -> {
+                    setToolbarType(ToolbarType.BACK_TEXT, "캡처 결과")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.arFragment -> {
+                    setToolbarType(ToolbarType.NO)
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.fundingParticipateItemFragment -> {
+                    setToolbarType(ToolbarType.BACK_TEXT, "상품 상세")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.payFragment -> {
+                    setToolbarType(ToolbarType.TEXT_CANCEL, "펀딩하기")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.payResultFragment -> {
+                    setToolbarType(ToolbarType.TEXT_CANCEL, "펀딩 결과")
+                    setBottomNavigationVisibility(View.GONE)
+                }
             }
         }
     }
@@ -121,11 +151,23 @@ class MainActivity : AppCompatActivity() {
         binding.bnvMain.visibility = visibility
     }
 
-    private fun initBottomNavigation(){
+    private fun initBottomNavigation() {
         binding.bnvMain.setupWithNavController(navController)
-        binding.bnvMain.setOnItemReselectedListener { item ->
-            val reselectedDestinationId = item.itemId
-            navController.popBackStack(reselectedDestinationId, inclusive = false)
+
+        binding.bnvMain.apply {
+            navController.let { navController ->
+                NavigationUI.setupWithNavController(
+                    this,
+                    navController
+                )
+                setOnItemSelectedListener { item ->
+                    NavigationUI.onNavDestinationSelected(item, navController)
+                    true
+                }
+                setOnItemReselectedListener {
+                    navController.popBackStack(destinationId = it.itemId, inclusive = false)
+                }
+            }
         }
     }
 
