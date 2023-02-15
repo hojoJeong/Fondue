@@ -15,7 +15,10 @@ internal class SearchKeywordPreference(context: Context) {
 
     /** SharePreference에 데이터 저장 */
     fun addKeyword(value: String) {
-        val baseList = getKeywordList()
+        val baseList = getKeywordList().toMutableList()
+        if(baseList.contains(value)){
+            baseList.remove(value)
+        }
         val jsonArray = JSONArray()
 
         jsonArray.put(value)

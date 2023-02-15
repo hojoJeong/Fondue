@@ -45,11 +45,8 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
     private val searchViewModel by viewModels<SearchViewModel>()
     private val popularSearchAdapter = PopularSearchKeywordAdapter().apply {
         addItemClickEvent {
-            navigate(
-                MainFragmentDirections.actionMainFragmentToSearchResultFragment(
-                    it
-                )
-            )
+            navigate(MainFragmentDirections.actionMainFragmentToSearchResultFragment(it))
+            searchViewModel.addSearchKeywordList(it)
         }
     }
 
@@ -88,7 +85,6 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
         initRankingItemObserve()
         initRandomItemObserve()
         initSearchViewModel()
-//        initResultAddLikeItemObserve()
     }
 
     private fun initBanner() {
@@ -372,6 +368,20 @@ class MainFragment : BaseFragment<FragmentMainBinding>(R.layout.fragment_main) {
                     Log.d(
                         TAG, "initGetPopularKeywordListObserve: Error... ${response.message}"
                     )
+                }
+            }
+        }
+
+        searchViewModel.searchKeywordList.observe(viewLifecycleOwner) {response ->
+            when(response){
+                is ViewState.Loading -> {
+
+                }
+                is ViewState.Success -> {
+
+                }
+                is ViewState.Error -> {
+
                 }
             }
         }
