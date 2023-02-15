@@ -4,7 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
+//테스트 커밋 주석
 @Entity
 @Getter
 @Setter
