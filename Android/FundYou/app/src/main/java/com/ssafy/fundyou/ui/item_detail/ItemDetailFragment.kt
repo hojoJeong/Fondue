@@ -24,14 +24,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.fragment_item_detail) {
     private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
-    private val splashViewModel by activityViewModels<SplashViewModel>()
     private val relatedAdapter = ItemDetailRelatedAdapter().apply {
         addItemClickListener { itemId ->
             navigate(ItemDetailFragmentDirections.actionItemDetailFragmentSelf2(itemId))
         }
     }
     private lateinit var itemDetailInfo: ItemDetailModel
-
     private val itemDetailViewModel by viewModels<ItemDetailViewModel>()
     private val itemArgument by navArgs<ItemDetailFragmentArgs>()
     private lateinit var dialog: ItemAddBottomSheetFragment
@@ -57,7 +55,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         initItemDetailViewModel()
         initMainViewModel()
         initAddWishListObserve()
-//        initResultAddLikeItemObserve()
     }
 
     private fun addItemInWishList() {

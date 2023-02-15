@@ -27,11 +27,12 @@
             app:layout_constraintTop_toTopOf="parent"
             app:setItemImage="@{participateUserModel.participateUserProfileImg}" />
 
-        <View
+        <ImageView
             android:id="@+id/view_ranking"
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:layout_margin="4dp"
+            android:clipToOutline="true"
             app:rankingColor="@{ranking}"
             android:background="@drawable/bg_rect_franch_rose_transparent_radius4_stroke1"
             app:layout_constraintEnd_toEndOf="@id/iv_funding_category"

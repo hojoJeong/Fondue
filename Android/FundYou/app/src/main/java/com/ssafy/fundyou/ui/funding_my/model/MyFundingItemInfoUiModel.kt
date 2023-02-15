@@ -23,9 +23,9 @@ fun FundingItemInfoModel.toMyFundingItemUiModel() = MyFundingItemInfoUiModel(
     brand = this.info.brand,
     title = this.info.title,
     status = this.status,
-    percentage = ((this.currentFundingPrice.toDouble() / this.itemPrice.toDouble()) * 100).roundToInt(),
+    percentage = ((this.currentFundingPrice.toDouble() / (this.itemPrice.toDouble() * this.itemCount.toDouble()) * 100)).roundToInt(),
     participateCount = this.participantsCount,
     currentFundingPrice = this.currentFundingPrice,
     isAr = this.info.isAr,
-    totalPrice = this.itemPrice
+    totalPrice = this.itemPrice * this.itemCount
 )

@@ -19,7 +19,7 @@ class MyFundingItemMessageAdapter :
     inner class MyFundingItemMessageHolder(private val binding: ItemFundingMessageBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: MyFundingParticipateMessageModel) {
-
+            binding.participateMessage = item
         }
     }
 

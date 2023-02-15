@@ -74,6 +74,7 @@ class FundingParticipateItemFragment :
                     binding.fundingItem = fundingItemInfo
                     if(fundingItemInfo.arRegistered) binding.tvIsAr.showAlignTop(makeBalloon())
                     initItemImgAdapter()
+
                     binding.rvItemInfo.adapter = itemDetailDescriptionInfoAdapter
                     itemDetailDescriptionInfoAdapter.submitList(fundingItemInfo.itemInfo.description)
                 }

@@ -20,12 +20,12 @@ fun FundingItemInfoModel.toFundingParticipateItemUiModel() = FundingParticipateI
     id = this.id,
     arRegistered = this.arImgList.isNotEmpty(),
     possibleFundingPrice = this.itemPrice - this.currentFundingPrice,
-    status = this.status or (this.itemPrice - this.currentFundingPrice == 0),
+    status = this.status,
     img = this.info.img[0],
     brand = this.info.brand,
     title = this.info.title,
     currentFundingPrice = this.currentFundingPrice,
     participateCount = this.participantsCount,
-    percentage = ((this.currentFundingPrice.toDouble() / this.itemPrice.toDouble()) * 100).roundToInt(),
+    percentage = ((this.currentFundingPrice.toDouble() / (this.itemPrice.toDouble() * this.itemCount.toDouble())) * 100).roundToInt(),
 )
 
