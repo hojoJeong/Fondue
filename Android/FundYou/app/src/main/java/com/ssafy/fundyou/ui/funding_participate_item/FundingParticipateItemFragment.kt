@@ -3,6 +3,7 @@ package com.ssafy.fundyou.ui.funding_participate_item
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.ViewGroup
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
@@ -76,10 +77,7 @@ class FundingParticipateItemFragment :
                     initItemImgAdapter()
 
                     val itemDetailDescriptionInfoAdapter = ItemDetailDescriptionInfoAdapter()
-                    binding.rvItemInfo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-                    binding.rvItemInfo.setHasFixedSize(false)
                     binding.rvItemInfo.adapter = itemDetailDescriptionInfoAdapter
-                    
                     itemDetailDescriptionInfoAdapter.submitList(fundingItemInfo.itemInfo.description)
                 }
                 is ViewState.Error -> {
