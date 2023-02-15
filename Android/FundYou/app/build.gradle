@@ -11,14 +11,7 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('C:\\Users\\SSAFY\\Documents\\카카오톡 받은 파일\\fondue_key.jks')
-            storePassword 'fondue202'
-            keyAlias 'key0'
-            keyPassword 'fondue202'
-        }
-    }
+
     namespace 'com.ssafy.fundyou'
     compileSdk 33
 
@@ -85,6 +78,7 @@ dependencies {
 
     //glide
     implementation (libs.glide)
+    implementation 'com.google.firebase:firebase-messaging-ktx:23.1.1'
     annotationProcessor (libs.glide.compiler)
     implementation 'com.google.ar.sceneform:rendering:1.17.1'
     testImplementation libs.junit

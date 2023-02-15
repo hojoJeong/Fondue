@@ -9,7 +9,7 @@ data class FundingItemInfoModel(
     val currentFundingPrice : Int,
     val status : Boolean,
     val participantsCount : Int,
-    val itemPrice : Int,
+    val itemTotalPrice : Int,
     val arImgList : List<String>,
     val info : ProductItemModel
 )

@@ -168,7 +168,7 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
         payViewModel.attendFundingItem.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is ViewState.Loading -> {
-
+                    Log.d(TAG, "initFundingPayObserver: loading...")
                 }
                 is ViewState.Success -> {
                     navigate(
@@ -179,7 +179,10 @@ class PayFragment : BaseFragment<FragmentPayBinding>(R.layout.fragment_pay) {
                     )
                 }
                 is ViewState.Error -> {
-
+                    Log.d(TAG, "initFundingPayObserver: error... ${response.message}")
+                    if (response.value?.message == "잔액이 부족합니다.") {
+                        navigate(PayFragmentDirections.actionPayFragmentToPayResultFragment(response.value!!, addComma(fundingPrice)))
+                    }
                 }
             }
         }
