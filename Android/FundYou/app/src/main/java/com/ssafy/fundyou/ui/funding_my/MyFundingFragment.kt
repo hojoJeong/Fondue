@@ -27,11 +27,15 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         addClickEvent { fundingItemId, status ->
             terminateFundingItemEvent(fundingItemId, status)
         }
-        addArButtonClickEvent { fundingItemId ->
-            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(fundingItemId))
+        addArButtonClickEvent { fundingItemId, itemId ->
+            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(fundingItemId, itemId))
         }
     }
-    private val closedFundingItemAdapter = MyFundingItemListAdapter()
+    private val closedFundingItemAdapter = MyFundingItemListAdapter().apply {
+        addArButtonClickEvent { fundingItemId, itemId ->
+            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(fundingItemId, itemId))
+        }
+    }
     private val myPageViewModel by viewModels<MyPageViewModel>()
     private val args by navArgs<MyFundingFragmentArgs>()
     private val myFundingViewModel by viewModels<MyFundingViewModel>()

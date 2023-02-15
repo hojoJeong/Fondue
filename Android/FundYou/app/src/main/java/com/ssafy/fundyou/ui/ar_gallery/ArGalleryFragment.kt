@@ -3,6 +3,7 @@ package com.ssafy.fundyou.ui.ar_gallery
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,6 +13,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentArGalleryBinding
 import com.ssafy.fundyou.databinding.ItemArGalleryListBinding
+import com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureViewModel
 import com.ssafy.fundyou.ui.ar_gallery.adapter.ArGalleryAdapter
 import com.ssafy.fundyou.ui.ar_gallery.model.ArImageUIModel
 import com.ssafy.fundyou.ui.common.BaseFragment
@@ -19,17 +21,14 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragment_ar_gallery) {
-    private val storage = FirebaseStorage.getInstance("gs://fundyou-1674632553418.appspot.com/")
-
     private val arGalleryFragmentArgs: ArGalleryFragmentArgs by navArgs()
-    private val arGalleryViewModel by viewModels<ArGalleryViewModel>()
-
+    private val arGalleryViewModel by activityViewModels<ArGalleryViewModel>()
     private val galleryAdapter: ArGalleryAdapter = ArGalleryAdapter().apply {
         addItemDownLoadEvent { url, binding -> test(url, binding) }
         addItemClickListener(object : ArGalleryAdapter.ItemClickListener{
             override fun onItemClicked(addMode: Boolean, url: String) {
                 if(addMode){
-                    navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToArFragment(arGalleryFragmentArgs.fundingItemId))
+                    navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToArFragment())
                 }else{
                     navigate(ArGalleryFragmentDirections.actionArGalleryFragmentToGalleryDetailFragment(url))
                 }
@@ -48,11 +47,15 @@ class ArGalleryFragment : BaseFragment<FragmentArGalleryBinding>(R.layout.fragme
                 adapter = galleryAdapter
             }
         }
-        arGalleryViewModel.getArImageList(arGalleryFragmentArgs.fundingItemId)
+
     }
 
     override fun initViewModels() {
+        Log.d("TAG", "initViewModels: ${arGalleryFragmentArgs.fundingItemId}")
+        if(arGalleryFragmentArgs.fundingItemId != 0L) arGalleryViewModel.fundingItemId = arGalleryFragmentArgs.fundingItemId
+        if(arGalleryFragmentArgs.itemId != 0L) arGalleryViewModel.itemId = arGalleryFragmentArgs.itemId
         initArImageListObserver()
+        arGalleryViewModel.getArImageList(arGalleryViewModel.fundingItemId)
     }
 
 
