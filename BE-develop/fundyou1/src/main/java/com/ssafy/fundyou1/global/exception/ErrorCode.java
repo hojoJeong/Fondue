@@ -12,7 +12,7 @@ public enum ErrorCode {
     //item
     ITEM_TITLE_BRAND_DUPLICATED(HttpStatus.CONFLICT, "아이템 제목이랑 브랜드가 겹쳐요", "I01"),
 
-
+    MEMBER_STATUS_IS_FALSE(HttpStatus.CONFLICT, "탈퇴된 계정입니다.", "M01")
     ;
     private final HttpStatus httpStatus;
     private final String message;

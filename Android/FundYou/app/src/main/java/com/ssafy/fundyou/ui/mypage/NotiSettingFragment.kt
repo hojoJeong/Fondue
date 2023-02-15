@@ -13,6 +13,7 @@ class NotiSettingFragment : BaseFragment<FragmentNotiSettingBinding>(R.layout.fr
         initView()
     }
     override fun initView() {
+        initSwtich()
     }
 
     override fun initViewModels() {
@@ -20,7 +21,7 @@ class NotiSettingFragment : BaseFragment<FragmentNotiSettingBinding>(R.layout.fr
 
     private fun initSwtich(){
         binding.swbtnNotiSettingAll.setOnCheckedChangeListener { buttonView, isChecked ->  
-            //TODO("스위치 클릭 처리")
+
         }
         
         binding.swbtnNotiSettingMessage.setOnCheckedChangeListener { buttonView, isChecked ->  }

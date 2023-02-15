@@ -25,7 +25,7 @@ public class MyFundingDto {
     private int percentage;
     private List<FundingItemResponseDto> fundingItemResponseDtoList;
 
-    public MyFundingDto(Funding funding, int totalPrice, int currentFundingPrice, int percentage, List<FundingItemResponseDto> fundingItemResponseDtoList) {
+    public MyFundingDto(Funding funding, int totalPrice, int currentFundingPrice, List<FundingItemResponseDto> fundingItemResponseDtoList) {
         this.fundingId = funding.getId();
         this.fundingName = funding.getFundingName();
         this.startDate = funding.getStartDate();
@@ -33,7 +33,7 @@ public class MyFundingDto {
         this.fundingStatus = funding.isFundingStatus();
         this.totalPrice = totalPrice;
         this.currentFundingPrice = currentFundingPrice;
-        this.percentage = percentage;
+        this.percentage = (currentFundingPrice * 100 / totalPrice);
         this.fundingItemResponseDtoList = fundingItemResponseDtoList;
     }
 }

@@ -172,12 +172,12 @@ public class FundingService {
             for(FundingItem fundingItem : fundingItemList){
                 int attendMemberCount = fundingItemService.countAttendMember(fundingItem.getId());
                 List<String> arUrlList = arImageRepository.findArUrlListByFundingItemId(fundingItem.getId());
-                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arUrlList);
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arUrlList, fundingItem.getFunding().getMember().getUsername());
 
                 fundingItemResponseDtoList.add(fundingItemResponseDto);
             }
 
-            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemResponseDtoList);
+            MyFundingDto myFundingDto = new MyFundingDto(myOngoingFunding, totalPrice, currentFundingPrice, fundingItemResponseDtoList);
 
             myOngoingFundingListDto.add(myFundingDto);
         }
@@ -212,12 +212,12 @@ public class FundingService {
 
                 List<String> arUrlList = arImageRepository.findArUrlListByFundingItemId(fundingItem.getId());
 
-                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arUrlList);
+                FundingItemResponseDto fundingItemResponseDto = FundingItemResponseDto.createFundingItemDto(fundingItem, attendMemberCount, arUrlList, fundingItem.getFunding().getMember().getUsername());
 
                 fundingItemResponseDtoList.add(fundingItemResponseDto);
             }
 
-            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100, fundingItemResponseDtoList);
+            MyFundingDto myFundingDto = new MyFundingDto(myClosedFunding, totalPrice, currentFundingPrice, fundingItemResponseDtoList);
 
             myClosedFundingListDto.add(myFundingDto);
         }
@@ -236,9 +236,16 @@ public class FundingService {
 
         int currentFundingPrice = fundingItemRepository.sumCurrentFundingPriceByFundingId(funding.getId());
 
-        FundingDto fundingDto = new FundingDto(funding, totalPrice, currentFundingPrice, (currentFundingPrice / totalPrice) * 100);
 
-        return fundingDto;
+        if (totalPrice == 0){
+            FundingDto fundingDto = new FundingDto(funding, totalPrice, currentFundingPrice, 100);
+            return fundingDto;
+        }else{
+            FundingDto fundingDto = new FundingDto(funding, totalPrice, currentFundingPrice, (currentFundingPrice * 100 / totalPrice));
+            return fundingDto;
+        }
+
+
     }
 
 

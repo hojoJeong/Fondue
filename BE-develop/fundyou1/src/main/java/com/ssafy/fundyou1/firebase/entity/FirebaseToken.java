@@ -20,10 +20,13 @@ public class FirebaseToken {
 
     private String token;
 
+    private Boolean status;
+
 
     @Builder
-    public FirebaseToken(Long memberId, String targetToken) {
+    public FirebaseToken(Long memberId, String targetToken, Boolean status) {
         this.memberId = memberId;
-        this.token = token;
+        this.token = targetToken;
+        this.status = status;
     }
 }

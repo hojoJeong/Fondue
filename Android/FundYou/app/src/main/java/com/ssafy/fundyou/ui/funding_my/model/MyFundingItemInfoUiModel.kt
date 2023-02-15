@@ -14,11 +14,13 @@ data class MyFundingItemInfoUiModel(
     val participateCount: Int,
     val currentFundingPrice: Int,
     val isAr : Boolean,
-    val totalPrice : Int
+    val totalPrice : Int,
+    val itemId: Long
 )
 
 fun FundingItemInfoModel.toMyFundingItemUiModel() = MyFundingItemInfoUiModel(
     fundingItemId = this.id,
+    itemId = this.info.id,
     img = this.info.img[0],
     brand = this.info.brand,
     title = this.info.title,

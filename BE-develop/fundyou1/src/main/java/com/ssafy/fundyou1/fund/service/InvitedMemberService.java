@@ -70,13 +70,10 @@ public class InvitedMemberService {
 
     // 초대받은 펀딩 리스트 불러오기
     @Transactional
-    public List<InvitedFundingDto> getInvitedFundingDtoList() {
-        // 사용자 정보
-        Optional<Member> member = memberRepository.findById(SecurityUtil.getCurrentMemberId()); // 현재 로그인한 회원 엔티티 조회
-
+    public List<InvitedFundingDto> getInvitedFundingDtoList(Integer status) {
 
         // 초대받은 펀딩 리스트 찾기
-        List<InvitedMember> invitedFundingList = invitedMemberRepository.findAllByMemberId(member.get().getId());
+        List<InvitedMember> invitedFundingList = invitedMemberRepository.findAllByMemberId(SecurityUtil.getCurrentMemberId());
 
 
         // 커스텀한 초대받은 펀딩 리스트
@@ -91,13 +88,17 @@ public class InvitedMemberService {
             List<Long> fundingItemIdList = fundingItemRepository.findIdListByFundingId(funding.getId());
 
             // 해당 펀딩에서 지불한 총 금액 구하기
-            int payTotalPoint = fundingItemMemberRepository.findAllByMemberIdAndFundingItemList(member.get().getId(), fundingItemIdList);
+            int payTotalPoint = fundingItemMemberRepository.findAllByMemberIdAndFundingItemList(SecurityUtil.getCurrentMemberId(), fundingItemIdList);
 
             // 펀딩에 내가 지불한 금액 커스텀 하기
             InvitedFundingDto invitedFundingDto = new InvitedFundingDto(funding, payTotalPoint);
 
             // 커스텀 값 리스트에 추가
-            invitedFundingDtoList.add(invitedFundingDto);
+            if (status == 0 && invitedFundingDto.isFundingStatus()){
+                invitedFundingDtoList.add(invitedFundingDto);
+            } else if (status == 1 && !invitedFundingDto.isFundingStatus()) {
+                invitedFundingDtoList.add(invitedFundingDto);
+            }
         }
 
         return invitedFundingDtoList;

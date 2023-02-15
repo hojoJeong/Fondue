@@ -23,6 +23,7 @@ class PointLoadFragment : BaseFragment<FragmentPointLoadBinding>(R.layout.fragme
     }
 
     override fun initView() {
+        pointViewModel.setPoint(0)
         binding.point = PointModel(userPoint.balancePoint, userPoint.balancePoint)
         initPointInput()
         btnClickListener()

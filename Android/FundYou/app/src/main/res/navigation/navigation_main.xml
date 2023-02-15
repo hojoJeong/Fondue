@@ -315,6 +315,10 @@
             android:name="fundingItemId"
             app:argType="long"
             app:nullable="false" />
+        <argument
+            android:name="itemId"
+            app:argType="long"
+            app:nullable="false" />
         <action
             android:id="@+id/action_arGalleryFragment_to_arFragment"
             app:destination="@id/arFragment" />
@@ -328,10 +332,7 @@
         android:id="@+id/arFragment"
         android:name="com.ssafy.fundyou.ui.ar.ArFragment"
         android:label="ArFragment">
-        <argument
-            android:name="fundingItemId"
-            app:argType="long"
-            app:nullable="false" />
+
         <action
             android:id="@+id/action_arFragment_to_arCaptureFragment"
             app:destination="@id/arCaptureFragment" />
@@ -340,10 +341,7 @@
         android:id="@+id/arCaptureFragment"
         android:name="com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureFragment"
         android:label="ArCaptureFragment">
-        <argument
-            android:name="fundingItemId"
-            app:argType="long"
-            app:nullable="false" />
+
         <argument
             android:name="bitmap"
             app:argType="android.graphics.Bitmap"

@@ -16,7 +16,9 @@ import android.view.*
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.snackbar.Snackbar
 
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
@@ -33,6 +35,7 @@ import com.google.firebase.storage.StorageReference
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArBinding
 import com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureFragmentArgs
+import com.ssafy.fundyou.ui.ar_gallery.ArGalleryViewModel
 import com.ssafy.fundyou.ui.common.BaseFragment
 import java.io.File
 import java.io.FileOutputStream
@@ -42,8 +45,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
 
     private var arFragment: ArFragment? = null
     private lateinit var renderable: ModelRenderable
-    private val arFragmentArgs: ArFragmentArgs by navArgs()
-
+    private val arGalleryFragmentViewModel by activityViewModels<ArGalleryViewModel>()
     @RequiresApi(Build.VERSION_CODES.O)
     override fun initView() {
         arFragment = childFragmentManager.findFragmentById(R.id.arFragment) as ArFragment
@@ -72,9 +74,10 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
         FirebaseApp.initializeApp(requireContext())
         val storage = FirebaseStorage.getInstance()
         // 파이어베이스 저장소에서 파일명으로 가져옴
-        val modelRef = storage.reference.child("sofa.glb")
-        // sofa.glb라는 빈파일 생성
-        val file = File.createTempFile("sofa", "glb")
+        val modelRef = storage.reference.child("${arGalleryFragmentViewModel.itemId}.glb")
+        Log.d("TAG", "initFirebase: ${arGalleryFragmentViewModel.itemId}.glb")
+        // prefix_{itemId}.glb라는 빈파일 생성
+        val file = File.createTempFile("prefix_${arGalleryFragmentViewModel.itemId}", "glb")
         // StorageReference에서 file에 파일을 비동기식으로 다운로드.
         writeFileFromFirebase(modelRef, file)
     }
@@ -87,7 +90,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
                 Log.d("suyong", "writeFileFromFirebase: ")
             }.addOnFailureListener { // 다운로드 실패
                 Log.d("suyong", "writeFileFromFirebase: fail")
-                Toast.makeText(context, "Failed to download", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "모델을 불러오지 못했습니다.", Toast.LENGTH_SHORT).show()
             }
     }
 
@@ -102,7 +105,8 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             .setSource(context, renderableSource)
             .setRegistryId(file.path).build()
             .thenAccept { modelRenderable ->
-                Toast.makeText(context, "Model built!", Toast.LENGTH_SHORT).show()
+                Snackbar.make(requireView(), "화면을 터치해서 배치하세요!", Snackbar.LENGTH_SHORT)
+                    .show()
                 renderable = modelRenderable
                 with(binding.btnCapture){
                     backgroundTintList = null
@@ -198,7 +202,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
 
             /* 캐시 디렉터리에서 images*/
             val cachePath = File(requireContext().cacheDir, "images")
-            Log.d("suyong", "${cachePath.path}")
+            Log.d("suyong", cachePath.path)
 
             /* cache/images 디렉터리가 없으면 생성 */
             cachePath.mkdirs()
@@ -207,7 +211,7 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
             /* bitmap -> png */
             bitmap?.compress(Bitmap.CompressFormat.PNG, 100, stream)
             stream.close()
-            navigate(ArFragmentDirections.actionArFragmentToArCaptureFragment(bitmap = bitmap!!, fundingItemId = arFragmentArgs.fundingItemId))
+            navigate(ArFragmentDirections.actionArFragmentToArCaptureFragment(bitmap = bitmap!!))
 
         } catch (e: IOException) {
             Log.d("suyong", "faild to sharing")
