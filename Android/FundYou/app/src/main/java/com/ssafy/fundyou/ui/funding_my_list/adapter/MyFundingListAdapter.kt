@@ -25,6 +25,10 @@ class MyFundingListAdapter : ListAdapter<MyFundingListUiModel, MyFundingListAdap
             binding.root.setOnClickListener {
                 clickEvent.invoke(funding.id)
             }
+
+            binding.rvFundingItemImg.setOnClickListener{
+                clickEvent.invoke(funding.id)
+            }
         }
     }
 
