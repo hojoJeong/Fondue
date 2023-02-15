@@ -1,6 +1,8 @@
 package com.ssafy.fundyou.ui.pay.model
 
 import com.ssafy.fundyou.domain.model.funding.FundingItemInfoModel
+import com.ssafy.fundyou.ui.funding_my_item_detail.model.toMyFundingItemDetailUiModel
+import com.ssafy.fundyou.util.extension.getFundingPercentage
 import kotlin.math.roundToInt
 
 data class FundingPayItemUiModel(
@@ -18,7 +20,7 @@ fun FundingItemInfoModel.toFundingPayItemUiModel() = FundingPayItemUiModel(
     img = this.info.img[0],
     brand = this.info.brand,
     title = this.info.title,
-    itemPrice = this.itemPrice,
-    fundingBalancePrice = this.itemPrice - this.currentFundingPrice,
-    percentage = (((this.currentFundingPrice).toDouble() / (this.itemPrice).toDouble()) * 100).roundToInt()
+    itemPrice = this.itemTotalPrice * this.itemCount,
+    fundingBalancePrice = (this.itemTotalPrice * this.itemCount) - this.currentFundingPrice,
+    percentage = getFundingPercentage(this.currentFundingPrice, this.itemTotalPrice)
 )

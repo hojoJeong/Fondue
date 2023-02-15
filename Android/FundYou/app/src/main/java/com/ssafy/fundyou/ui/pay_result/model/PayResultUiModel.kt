@@ -2,6 +2,8 @@ package com.ssafy.fundyou.ui.pay_result.model
 
 import android.os.Parcelable
 import com.ssafy.fundyou.domain.model.pay.PayAttendModel
+import com.ssafy.fundyou.ui.funding_my_item_detail.model.toMyFundingItemDetailUiModel
+import com.ssafy.fundyou.util.extension.getFundingPercentage
 import kotlinx.parcelize.Parcelize
 import kotlin.math.roundToInt
 
@@ -28,7 +30,6 @@ fun PayAttendModel.toPayResultUiModel() = PayResultUiModel(
     brand = this.fundingItemInfoModel?.info?.brand ?: "",
     title = this.fundingItemInfoModel?.info?.title ?: "",
     currentFundingPrice = this.fundingItemInfoModel?.currentFundingPrice ?: -1,
-    percentage = (((this.fundingItemInfoModel?.currentFundingPrice)?.toDouble()
-        ?.div(this.fundingItemInfoModel?.itemPrice?.toDouble() ?: 0.1))?.times(100))?.roundToInt() ?: 0,
-    itemTotalPrice = this.fundingItemInfoModel?.itemPrice ?: 0
+    percentage = getFundingPercentage(this.fundingItemInfoModel?.currentFundingPrice ?: 0, this.fundingItemInfoModel?.itemTotalPrice ?: 0),
+    itemTotalPrice = this.fundingItemInfoModel?.itemTotalPrice ?: 0
 )

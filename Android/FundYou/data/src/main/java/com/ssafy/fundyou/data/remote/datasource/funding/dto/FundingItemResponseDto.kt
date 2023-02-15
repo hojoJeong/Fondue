@@ -21,5 +21,7 @@ internal data class FundingItemResponseDto(
     @SerializedName("attendMemberCount")
     val participateCount: Int?,
     @SerializedName("item")
-    val itemInfo: ItemResponseDto
+    val itemInfo: ItemResponseDto,
+    @SerializedName("itemTotalPrice")
+    val itemTotalPrice : Int?
 )
