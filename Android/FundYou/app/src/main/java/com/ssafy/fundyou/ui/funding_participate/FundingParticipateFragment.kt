@@ -3,6 +3,7 @@ package com.ssafy.fundyou.ui.funding_participate
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
@@ -16,7 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class FundingParticipateFragment :
     BaseFragment<FragmentFundingParticipateBinding>(R.layout.fragment_funding_participate) {
 
-    private val fundingParticipateViewModel by viewModels<FundingParticipateViewModel>()
+    private val fundingParticipateViewModel by activityViewModels<FundingParticipateViewModel>()
     private val argument by navArgs<FundingParticipateFragmentArgs>()
     private lateinit var userName : String
     private val fundingItemAdapter = FundingParticipateItemAdapter().apply {
@@ -35,6 +36,7 @@ class FundingParticipateFragment :
     }
 
     override fun initView() {
+        fundingParticipateViewModel.setFundingId(argument.fundingId)
         fundingParticipateViewModel.getFundingHostInfo(argument.fundingId)
         fundingParticipateViewModel.getFundingItemList(argument.fundingId)
     }

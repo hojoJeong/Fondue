@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import com.ssafy.fundyou.data.remote.datasource.funding.dto.FundingItemResponseDto
 
 internal data class PayAttendResponseDto(
-    @SerializedName("body")
+    @SerializedName("data")
     val fundingItemResponse : FundingItemResponseDto?,
     @SerializedName("statusCode")
     val statusCode : Int?,

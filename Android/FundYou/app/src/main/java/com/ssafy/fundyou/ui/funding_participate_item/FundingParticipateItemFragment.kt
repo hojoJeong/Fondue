@@ -6,6 +6,7 @@ import android.view.View
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonSizeSpec
@@ -26,7 +27,6 @@ class FundingParticipateItemFragment :
 
     private val argument by navArgs<FundingParticipateItemFragmentArgs>()
     private val fundingParticipateItemViewModel by viewModels<FundingParticipateItemViewModel>()
-    private val itemDetailDescriptionInfoAdapter = ItemDetailDescriptionInfoAdapter()
     private lateinit var fundingItemInfo : FundingParticipateItemDetailUiModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,7 +74,12 @@ class FundingParticipateItemFragment :
                     binding.fundingItem = fundingItemInfo
                     if(fundingItemInfo.arRegistered) binding.tvIsAr.showAlignTop(makeBalloon())
                     initItemImgAdapter()
+
+                    val itemDetailDescriptionInfoAdapter = ItemDetailDescriptionInfoAdapter()
+                    binding.rvItemInfo.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+                    binding.rvItemInfo.setHasFixedSize(false)
                     binding.rvItemInfo.adapter = itemDetailDescriptionInfoAdapter
+                    
                     itemDetailDescriptionInfoAdapter.submitList(fundingItemInfo.itemInfo.description)
                 }
                 is ViewState.Error -> {

@@ -43,8 +43,7 @@ class SplashViewModel @Inject constructor(
         _refreshJWT.value = ViewState.Loading()
         try {
             val response = getJWTByRefreshTokenUseCase()
-            if (response.accessToken.isEmpty()) _refreshJWT.value =
-                ViewState.Error(AUTHORIZATION_ERROR)
+            if (response.statusMessage == "탈퇴된 계정입니다.") _refreshJWT.value = ViewState.Error(response.statusMessage)
             else _refreshJWT.value = ViewState.Success(response)
         } catch (e: Exception) {
             _refreshJWT.value = ViewState.Error("ERROR")

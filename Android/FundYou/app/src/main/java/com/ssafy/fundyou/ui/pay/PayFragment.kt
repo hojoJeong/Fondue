@@ -18,7 +18,7 @@ import com.ssafy.fundyou.databinding.FragmentPayBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.pay.model.FundingPayItemUiModel
 import com.ssafy.fundyou.ui.point.PointViewModel
-import com.ssafy.fundyou.util.addComma
+import com.ssafy.fundyou.util.extension.addComma
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.DecimalFormat
 

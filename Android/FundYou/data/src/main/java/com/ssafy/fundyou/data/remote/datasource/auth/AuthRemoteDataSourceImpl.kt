@@ -2,6 +2,7 @@ package com.ssafy.fundyou.data.remote.datasource.auth
 
 import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthRequestDto
 import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthResponseDto
+import com.ssafy.fundyou.data.remote.datasource.auth.dto.AuthSuccessResponseDto
 import com.ssafy.fundyou.data.remote.service.AuthApiService
 import javax.inject.Inject
 

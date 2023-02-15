@@ -4,16 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="fundingItem"
             type="com.ssafy.fundyou.ui.funding_participate_item.model.FundingParticipateItemDetailUiModel" />
     </data>
 
-
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -22,8 +20,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/ly_main"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="30dp"
-                android:layout_height="match_parent">
+                android:descendantFocusability="blocksDescendants">
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/vp_item_img"
@@ -136,13 +135,13 @@
                     android:id="@+id/rv_item_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:layout_constrainedHeight="true"
+                    app:layout_constraintVertical_bias="0.0"
                     android:layout_marginHorizontal="@dimen/base_horizontal_margin"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/bg_rect_hawkes_blue_transparent_radius0_stroke1_no_bottom"
                     android:orientation="vertical"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.285"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_item_info_title" />
 
@@ -179,5 +178,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.core.widget.NestedScrollView>
+
 
 </layout>
