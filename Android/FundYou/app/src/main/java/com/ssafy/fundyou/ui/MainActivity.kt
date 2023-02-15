@@ -1,5 +1,6 @@
 package com.ssafy.fundyou.ui
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -7,21 +8,28 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityMainBinding
+import com.ssafy.fundyou.domain.usecase.fcm.AddFcmTokenUseCase
 import com.ssafy.fundyou.ui.home.MainFragmentDirections
 import com.ssafy.fundyou.ui.home.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+    @Inject
+    lateinit var addFcmTokenUseCase: AddFcmTokenUseCase
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var navController: NavController
@@ -38,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         initFragmentByDeepLink()
         initSaveFundingInfoObserver()
         initBottomNavigation()
+        initGetFcmToken()
     }
 
     private fun initNavigation() {
@@ -271,6 +280,17 @@ class MainActivity : AppCompatActivity() {
 
                 }
             }
+        }
+    }
+
+    private fun initGetFcmToken() {
+        CoroutineScope(Dispatchers.Main).launch {
+            withContext(Dispatchers.Main) {
+                val token = FirebaseMessaging.getInstance().token.toString()
+                Log.d(TAG, "initFcm: FCM Token : $token")
+                addFcmTokenUseCase(token)
+            }
+            Log.d(TAG, "onNewToken: addToken success")
         }
     }
 }

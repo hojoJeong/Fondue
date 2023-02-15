@@ -62,12 +62,13 @@
     <string name="title_userinfo_cancel_membership">회원탈퇴</string>
 
     <!-- 알림 설정 -->
-    <string name="title_notisetting_all">전체 푸시 알림</string>
+    <string name="title_notisetting_all">알림 설정</string>
     <string name="title_notisetting_detail">상세 알림</string>
     <string name="title_notisetting_message">메세지 알림</string>
     <string name="title_notisetting_funding">펀딩 알림</string>
     <string name="title_notisetting_funding_close">펀딩 마감 알림</string>
     <string name="title_notisetting_funding_close_deadline">펀딩 마감 임박 알림</string>
+    <string name="content_notisetting_info">알림을 설정하면 내 퐁듀와 초대 받은 퐁듀가 마감되었을 때 푸쉬 알림을 받으실 수 있습니다. 참여한 퐁듀에서 펀딩 금액 상위 1등 ~ 3등 참여자에게는 별도의 알림이 발송됩니다.</string>
 
     <!-- 초대 받은 퐁듀 -->
     <string name="content_invited_fondue_name">from.%1$s</string>
