@@ -24,7 +24,7 @@ public class FcmController {
     public ResponseEntity setFirebaseToken(@RequestBody FcmCreateRequestDto fcmCreateRequestDto) throws IOException {
         // 토큰 저장
         Long memberId = firebaseCloudMessageService.saveFirebase(fcmCreateRequestDto.getTargetToken());
-        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success",memberId));
+        return ResponseEntity.status(200).body(BaseResponseBody.of(200, "토큰 저장 완료",memberId));
     }
 
     // 알림 상태값 수정
@@ -34,7 +34,12 @@ public class FcmController {
         // 토큰 저장
         Boolean status = firebaseCloudMessageService.changeFirebaseStatus();
         if (status != null){
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알림 상태 변경", status));
+            if(status == true) {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알림 상태 킴", 1));
+            }
+            else {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "알림 상태 끔", 0));
+            }
         }
         else {
             return ResponseEntity.status(403).body(BaseResponseBody.of(403, "토큰 정보가 없습니다",  null));
@@ -48,7 +53,12 @@ public class FcmController {
         Boolean status = firebaseCloudMessageService.getFirebaseStatus();
         // 알림 상태값을 찾았으면
         if(status != null){
-            return ResponseEntity.status(200).body(BaseResponseBody.of(200, "회원 알림 상태", status));
+            if(status == true) {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "회원 알림 상태", 1));
+            }
+            else {
+                return ResponseEntity.status(200).body(BaseResponseBody.of(200, "회원 알림 상태", 0));
+            }
         }
         // 알림 상태값이 없다면
         else {
