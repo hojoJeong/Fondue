@@ -7,8 +7,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
-import java.text.SimpleDateFormat
-import java.util.*
+import kotlin.math.roundToInt
 
 
 fun Context.showToast(message : String){
@@ -27,11 +26,6 @@ fun addComma(number: Int): String = if (number >= 0) {
 
 fun Context.getColorNoTheme(id : Int) = ResourcesCompat.getColor(resources, id, null)
 
-fun getFormattedCurrentTime(): String{
-    val formatter = SimpleDateFormat("yyyyMMdd_hhmmss_", Locale.KOREA)
-    return formatter.format(Date(System.currentTimeMillis()))
-}
-
 fun Dialog.showFullSize() {
     this.show()
     this.setCanceledOnTouchOutside(true)
@@ -40,3 +34,5 @@ fun Dialog.showFullSize() {
         WindowManager.LayoutParams.WRAP_CONTENT
     )
 }
+
+fun getFundingPercentage(currentFundingPrice : Int, itemTotalPrice : Int) = ((currentFundingPrice.toDouble() / (itemTotalPrice.toDouble()) * 100)).roundToInt()
