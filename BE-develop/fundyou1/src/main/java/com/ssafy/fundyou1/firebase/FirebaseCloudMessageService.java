@@ -95,6 +95,7 @@ public class FirebaseCloudMessageService {
             FirebaseToken newFirebase = FirebaseToken.builder()
                     .memberId(SecurityUtil.getCurrentMemberId())
                     .targetToken(targetToken)
+                    .status(false)
                     .build();
             firebaseRepository.save(newFirebase);
         }
@@ -102,9 +103,41 @@ public class FirebaseCloudMessageService {
         return memberId;
     }
 
+    // 회원 파이어베이스 알림 상태값 변경
+    @Transactional
+    public Boolean changeFirebaseStatus() {
+        //멤버 아이디로 파이어베이스 정보 찾기
+        Optional<FirebaseToken> firebaseToken = firebaseRepository.findByMemberId(SecurityUtil.getCurrentMemberId());
 
+        if (firebaseToken.isPresent()) {
+            // 만약에 알림이 꺼진상태라면 -> true
+            if(firebaseToken.get().getStatus() == false){
+                firebaseRepository.changeFirebaseStatus(SecurityUtil.getCurrentMemberId(), true);
+                return true;
+            }
+            else {
+                // 만약에 알림이 켜진 상태라면 -> false
+                firebaseRepository.changeFirebaseStatus(SecurityUtil.getCurrentMemberId(), false);
+                return false;
+            }
+        }
+        else {
+          return null;
+        }
+    }
 
+    // 회원 파이어베이스 알림 상태값 조회
+    public Boolean getFirebaseStatus() {
 
+        Optional<FirebaseToken> firebaseToken = firebaseRepository.findByMemberId(SecurityUtil.getCurrentMemberId());
 
+        if (firebaseToken.isPresent()) {
+            return firebaseToken.get().getStatus();
+        }
+        else {
+            return null;
+        }
+
+    }
 
 }

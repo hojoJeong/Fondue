@@ -16,7 +16,8 @@ import com.ssafy.fundyou.ui.funding_my.adapter.MyFundingItemListAdapter
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingInfoUiModel
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingItemListUiModel
 import com.ssafy.fundyou.ui.mypage.MyPageViewModel
-import com.ssafy.fundyou.util.showToast
+import com.ssafy.fundyou.util.extension.showFullSize
+import com.ssafy.fundyou.util.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,15 +27,15 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         addClickEvent { fundingItemId, status ->
             terminateFundingItemEvent(fundingItemId, status)
         }
-        addArButtonClickEvent { fundingItemId ->
-            navigate(
-                MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(
-                    fundingItemId
-                )
-            )
+        addArButtonClickEvent { fundingItemId, itemId ->
+            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(fundingItemId, itemId))
         }
     }
-    private val closedFundingItemAdapter = MyFundingItemListAdapter()
+    private val closedFundingItemAdapter = MyFundingItemListAdapter().apply {
+        addArButtonClickEvent { fundingItemId, itemId ->
+            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(fundingItemId, itemId))
+        }
+    }
     private val myPageViewModel by viewModels<MyPageViewModel>()
     private val args by navArgs<MyFundingFragmentArgs>()
     private val myFundingViewModel by viewModels<MyFundingViewModel>()
@@ -69,17 +70,11 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     }
 
     private fun showTerminateFundingItemDialog(id: Long, title: String, content: String) {
-        val dialog = CommonDialog(requireContext()).apply {
-            initDialog(id, title, content) { fundingItemId ->
+        CommonDialog(requireContext()).apply {
+            initDialog(id, title, content, positiveButtonText = "중단하기", negativeButtonText = "취소", positiveButtonVisibility = true) { fundingItemId ->
                 myFundingViewModel.terminateFundingItem(fundingItemId)
             }
-        }
-        dialog.show()
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
+        }.showFullSize()
     }
 
     private fun initTerminateFundingItemObserver() {
@@ -102,8 +97,8 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
 
     private fun initMyPageUserInfoObserver() {
         myPageViewModel.userInfo.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ViewState.Loading -> {
+            when(response){
+                is ViewState.Loading ->{
                     Log.d(TAG, "initMyPageUserInfoObserver: loading...")
                 }
                 is ViewState.Success -> {

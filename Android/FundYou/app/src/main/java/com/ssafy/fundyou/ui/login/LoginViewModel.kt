@@ -17,28 +17,14 @@ class LoginViewModel @Inject constructor(private val getKakaoAuthUseCase: GetKak
     private val _jwtByKakao = MutableLiveData<ViewState<JWTAuthModel>>()
     val jwt: LiveData<ViewState<JWTAuthModel>> get() = _jwtByKakao
 
-    private val _jwtByRefreshToken = MutableLiveData<ViewState<JWTAuthModel>>()
-    val jwtByRefreshToken: LiveData<ViewState<JWTAuthModel>> get() = _jwtByRefreshToken
-
     fun getJWTByKakao(accessToken: String) = viewModelScope.launch {
         _jwtByKakao.value = ViewState.Loading()
         try {
             val response = getKakaoAuthUseCase(accessToken)
-            if (response.accessToken.isEmpty()) _jwtByKakao.value = ViewState.Error("Empty Token")
+            if (response.statusMessage == "탈퇴된 계정입니다.") _jwtByKakao.value = ViewState.Error(response.statusMessage)
             else _jwtByKakao.value = ViewState.Success(response)
         } catch (e: Exception) {
             _jwtByKakao.value = ViewState.Error(e.message)
-        }
-    }
-
-    fun getJWTByRefreshToken(accessToken: String) = viewModelScope.launch {
-        _jwtByRefreshToken.value = ViewState.Loading()
-        try {
-            val response = getKakaoAuthUseCase(accessToken)
-            if (response.accessToken.isEmpty()) _jwtByKakao.value = ViewState.Error("Empty Token")
-            else _jwtByRefreshToken.value = ViewState.Success(response)
-        } catch (e: Exception) {
-            _jwtByRefreshToken.value = ViewState.Error(e.message)
         }
     }
 }

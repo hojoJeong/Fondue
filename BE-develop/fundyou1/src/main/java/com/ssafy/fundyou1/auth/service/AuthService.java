@@ -4,6 +4,7 @@ import com.ssafy.fundyou1.auth.domain.KakaoSocialLoginResponse;
 import com.ssafy.fundyou1.auth.domain.RefreshToken;
 import com.ssafy.fundyou1.auth.domain.RefreshTokenRepository;
 import com.ssafy.fundyou1.auth.infrastructure.TokenProvider;
+import com.ssafy.fundyou1.global.dto.BaseResponseBody;
 import com.ssafy.fundyou1.global.dto.TokenDto;
 import com.ssafy.fundyou1.global.dto.TokenRequestDto;
 import com.ssafy.fundyou1.global.exception.BusinessException;
@@ -85,7 +86,7 @@ public class AuthService {
     // 로그인 하는 로직 토큰발급
 
     @Transactional
-    public TokenDto login(MemberLoginRequestDto memberLoginRequestDto) {
+    public BaseResponseBody login(MemberLoginRequestDto memberLoginRequestDto) {
 
         // 1. Login ID/PW 를 기반으로 AuthenticationToken 생성
         UsernamePasswordAuthenticationToken authenticationToken = memberLoginRequestDto.toAuthentication();
@@ -106,7 +107,7 @@ public class AuthService {
         refreshTokenRepository.save(refreshToken);
 
         // 5. 토큰 발급
-        return tokenDto;
+        return new BaseResponseBody().of(200, "로그인 성공", tokenDto);
     }
 
     // 토큰 재발급 하는 로직

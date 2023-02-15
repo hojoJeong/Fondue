@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.ui.funding_my_detail
 
-import android.os.Build.VERSION_CODES.P
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,7 +15,7 @@ import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.funding_my_detail.adapter.FundingItemStateAdapter
 import com.ssafy.fundyou.ui.funding_my_detail.adapter.FundingParticipateUserAdapter
 import com.ssafy.fundyou.ui.funding_my_detail.model.FundingParticipateUserUiModel
-import com.ssafy.fundyou.util.getColorNoTheme
+import com.ssafy.fundyou.util.extension.getColorNoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

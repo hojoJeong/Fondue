@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.auth.controller;
 
 import com.ssafy.fundyou1.auth.domain.KakaoSocialLoginResponse;
 import com.ssafy.fundyou1.auth.service.AuthService;
+import com.ssafy.fundyou1.global.dto.BaseResponseBody;
 import com.ssafy.fundyou1.global.dto.TokenDto;
 import com.ssafy.fundyou1.global.dto.TokenRequestDto;
 import com.ssafy.fundyou1.global.exception.BusinessException;
@@ -35,14 +36,15 @@ public class AuthRestController {
 
     @Autowired
     MemberService memberService;
+
     // 일반 로그인 - 현재 클라이언트에는 카카오 로그인만 존재
     @PostMapping("/login")
     @ApiOperation(value = "일반 로그인", notes = "일반 로그인 API")
     @ApiResponses({
-        @ApiResponse(code = 401, message = "UNAUTHORIZED\n일치하지 않는 비밀번호(M04)"),
-        @ApiResponse(code = 404, message = "NOT FOUND\n존재하지 않는 로그인 아이디(M01)")
+            @ApiResponse(code = 401, message = "UNAUTHORIZED\n일치하지 않는 비밀번호(M04)"),
+            @ApiResponse(code = 404, message = "NOT FOUND\n존재하지 않는 로그인 아이디(M01)")
     })
-    public ResponseEntity<TokenDto> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) {
+    public ResponseEntity<BaseResponseBody> login(@RequestBody MemberLoginRequestDto memberLoginRequestDto) {
         return ResponseEntity.ok(authService.login(memberLoginRequestDto));
     }
 
@@ -50,7 +52,7 @@ public class AuthRestController {
     // 카카오 소셜 로그인
     @PostMapping("/social/kakao")
     @ApiOperation(value = "카카오 소셜 로그인", notes = "소셜 로그인 API")
-    public ResponseEntity<TokenDto> kakaoLogin(@RequestBody String accessToken, HttpServletResponse response){
+    public ResponseEntity<BaseResponseBody> kakaoLogin(@RequestBody String accessToken, HttpServletResponse response) {
         // 카카오 로그인 서비스 호출. 카카오 API response return.
         KakaoSocialLoginResponse rEntity = authService.kakaoLoginService(accessToken);
         // response의 body에 회원정보가 있다.
@@ -67,15 +69,17 @@ public class AuthRestController {
                 .password("fundyou" + rEntity.getId())
                 .mail(rEntity.getKakao_account().email)
                 .build());
-        if(memberService.findByLoginId(String.valueOf(rEntity.getId())).get().isStatus() == false){
-            throw new BusinessException(ErrorCode.valueOf("탈퇴된 계정입니다."));
+        if (memberService.findByLoginId(String.valueOf(rEntity.getId())).get().isStatus() == false) {
+            BaseResponseBody baseResponseBody =
+                    new BaseResponseBody().of(500, "탈퇴된 계정입니다.", null);
+            return ResponseEntity.ok(baseResponseBody);
         }
 
         //로그인 하고 토큰 발급받기
         MemberLoginRequestDto memberLoginRequestDto = MemberLoginRequestDto.builder()
-                        .loginId(kakaoId)
-                        .password(password)
-                        .build();
+                .loginId(kakaoId)
+                .password(password)
+                .build();
         return ResponseEntity.ok(authService.login(memberLoginRequestDto));
     }
 

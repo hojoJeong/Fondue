@@ -11,6 +11,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\multicampus\\Documents\\fondue_key.jks')
+            storePassword 'fondue202'
+            keyAlias 'key0'
+            keyPassword 'fondue202'
+        }
+    }
     namespace 'com.ssafy.fundyou'
     compileSdk 33
 

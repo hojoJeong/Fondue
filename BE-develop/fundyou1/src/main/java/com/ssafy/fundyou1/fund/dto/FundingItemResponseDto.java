@@ -13,6 +13,8 @@ import java.util.List;
 public class FundingItemResponseDto {
     private Long fundingItemId;
     private ItemResponseDto item;
+
+    private String hostName;
     private Long fundingId;
     // 참여자 수
     private int attendMemberCount;
@@ -29,10 +31,11 @@ public class FundingItemResponseDto {
     private List<String> arImgList;
 
     @Builder
-    public static FundingItemResponseDto createFundingItemDto(FundingItem fundingItem, int attendMemberCount, List<String> arImgList) {
+    public static FundingItemResponseDto createFundingItemDto(FundingItem fundingItem, int attendMemberCount, List<String> arImgList, String hostName) {
         return new FundingItemResponseDto(
                 fundingItem.getId(),
                 new ItemResponseDto(fundingItem.getItem(), false),
+                hostName,
                 fundingItem.getFunding().getId(),
                 attendMemberCount,
                 fundingItem.getItemTotalPrice(),

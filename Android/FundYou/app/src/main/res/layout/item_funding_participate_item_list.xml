@@ -93,6 +93,7 @@
             style="@style/base_font_bold_16_midnight_express"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="@{fundingItem.status ? View.VISIBLE : View.INVISIBLE}"
             android:layout_marginTop="2dp"
             app:addCommaText="@{fundingItem.possibleFundingPrice}"
             app:layout_constraintStart_toStartOf="@id/tv_item_name"
