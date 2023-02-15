@@ -103,6 +103,7 @@ public class FirebaseCloudMessageService {
         return memberId;
     }
 
+    // 회원 파이어베이스 알림 상태값 변경
     @Transactional
     public Boolean changeFirebaseStatus() {
         //멤버 아이디로 파이어베이스 정보 찾기
@@ -125,9 +126,18 @@ public class FirebaseCloudMessageService {
         }
     }
 
+    // 회원 파이어베이스 알림 상태값 조회
+    public Boolean getFirebaseStatus() {
 
+        Optional<FirebaseToken> firebaseToken = firebaseRepository.findByMemberId(SecurityUtil.getCurrentMemberId());
 
+        if (firebaseToken.isPresent()) {
+            return firebaseToken.get().getStatus();
+        }
+        else {
+            return null;
+        }
 
-
+    }
 
 }
