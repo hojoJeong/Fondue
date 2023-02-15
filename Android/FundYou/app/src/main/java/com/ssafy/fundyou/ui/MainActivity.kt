@@ -10,7 +10,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import com.ssafy.fundyou.R
@@ -248,6 +247,8 @@ class MainActivity : AppCompatActivity() {
     private fun initFragmentByDeepLink() {
         val itemId = intent.getStringExtra("item_id")
         val getFundingId = intent.getStringExtra("funding_id")
+        Log.d(TAG, "startMainActivity: fundingId : $getFundingId")
+
         fundingId = getFundingId
         if (!itemFlag) {
             if (itemId != null) {
@@ -258,6 +259,7 @@ class MainActivity : AppCompatActivity() {
                 )
             } else if (getFundingId != null) {
                 mainViewModel.saveFundingInfo(getFundingId.toLong())
+                navController.navigate(MainFragmentDirections.actionMainFragmentToFundingParticipateFragment(getFundingId.toLong()))
             }
         }
         itemFlag = true

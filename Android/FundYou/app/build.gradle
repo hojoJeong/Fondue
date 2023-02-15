@@ -11,14 +11,6 @@ plugins {
 }
 
 android {
-    signingConfigs {
-        debug {
-            storeFile file('C:\\Users\\SSAFY\\Documents\\카카오톡 받은 파일\\fondue_key.jks')
-            storePassword 'fondue202'
-            keyAlias 'key0'
-            keyPassword 'fondue202'
-        }
-    }
     namespace 'com.ssafy.fundyou'
     compileSdk 33
 
