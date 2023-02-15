@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">FundYou</string>
+    <string name="app_name">퐁듀</string>
 
     <!-- 로그인 -->
     <string name="content_login_balloon">가입하여 선물 펀딩하기</string>
