@@ -56,11 +56,6 @@
             android:value="required" />
 
         <activity
-            android:name=".ui.arcore.ArActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-
-        <activity
             android:name="com.kakao.sdk.auth.AuthCodeHandlerActivity"
             android:exported="true">
             <intent-filter>

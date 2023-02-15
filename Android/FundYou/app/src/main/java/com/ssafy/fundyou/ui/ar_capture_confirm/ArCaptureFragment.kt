@@ -15,8 +15,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArCaptureBinding
 import com.ssafy.fundyou.ui.ar_gallery.ArGalleryViewModel
 import com.ssafy.fundyou.ui.common.BaseFragment
-import com.ssafy.fundyou.ui.item_list.ItemListFragmentArgs
-import com.ssafy.fundyou.util.getFormattedCurrentTime
+import com.ssafy.fundyou.util.extension.getFormattedCurrentTime
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 
@@ -24,8 +23,8 @@ import java.io.ByteArrayOutputStream
 class ArCaptureFragment : BaseFragment<FragmentArCaptureBinding>(R.layout.fragment_ar_capture) {
     private lateinit var bitmap: Bitmap
     private val arCaptureFragmentArgs by navArgs<ArCaptureFragmentArgs>()
-    private val arCaptureViewModel by viewModels<ArCaptureViewModel>()
     private val arGalleryViewModel by activityViewModels<ArGalleryViewModel>()
+    private val arCaptureViewModel by activityViewModels<ArCaptureViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()

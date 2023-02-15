@@ -16,8 +16,8 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
-import com.ssafy.fundyou.util.addComma
-import com.ssafy.fundyou.util.getColorNoTheme
+import com.ssafy.fundyou.util.extension.addComma
+import com.ssafy.fundyou.util.extension.getColorNoTheme
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*

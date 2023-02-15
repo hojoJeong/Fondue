@@ -15,7 +15,7 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMenbershipWithdrawalBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.login.LoginActivity
-import com.ssafy.fundyou.util.showSnackBar
+import com.ssafy.fundyou.util.extension.showSnackBar
 
 class MembershipWithdrawalFragment :
     BaseFragment<FragmentMenbershipWithdrawalBinding>(R.layout.fragment_menbership_withdrawal) {

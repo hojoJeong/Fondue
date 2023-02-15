@@ -17,8 +17,10 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityLoginBinding
 import com.ssafy.fundyou.ui.MainActivity
+import com.ssafy.fundyou.ui.common.dialog.CommonDialog
 import com.ssafy.fundyou.ui.login.banner.adapter.LoginBannerAdapter
 import com.ssafy.fundyou.ui.login.banner.model.LoginBannerModel
+import com.ssafy.fundyou.util.extension.showFullSize
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -56,9 +58,17 @@ class LoginActivity : AppCompatActivity() {
                 }
                 is ViewState.Error -> {
                     Log.d(TAG, "initLoginViewModel: token error ${response.message}")
+                    if(response.message == "탈퇴된 계정입니다.") showCanceledUserDialog()
                 }
             }
         }
+    }
+
+    private fun showCanceledUserDialog(){
+        CommonDialog(this).apply {
+            initDialog(title = "탈퇴한 계정입니다.", content = "퐁듀서비스를 사용해주셔서 감사합니다.\n더 나은 서비스로 보답하겠습니다.",
+            positiveButtonVisibility = false, negativeButtonText = "확인"){}
+        }.showFullSize()
     }
 
     private fun startMainActivity() {

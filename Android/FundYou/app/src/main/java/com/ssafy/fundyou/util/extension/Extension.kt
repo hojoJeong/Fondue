@@ -1,8 +1,9 @@
-package com.ssafy.fundyou.util
+package com.ssafy.fundyou.util.extension
 
+import android.app.Dialog
 import android.content.Context
 import android.view.View
-import android.widget.ListAdapter
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.content.res.ResourcesCompat
 import com.google.android.material.snackbar.Snackbar
@@ -29,4 +30,13 @@ fun Context.getColorNoTheme(id : Int) = ResourcesCompat.getColor(resources, id, 
 fun getFormattedCurrentTime(): String{
     val formatter = SimpleDateFormat("yyyyMMdd_hhmmss_", Locale.KOREA)
     return formatter.format(Date(System.currentTimeMillis()))
+}
+
+fun Dialog.showFullSize() {
+    this.show()
+    this.setCanceledOnTouchOutside(true)
+    this.window?.setLayout(
+        WindowManager.LayoutParams.MATCH_PARENT,
+        WindowManager.LayoutParams.WRAP_CONTENT
+    )
 }
