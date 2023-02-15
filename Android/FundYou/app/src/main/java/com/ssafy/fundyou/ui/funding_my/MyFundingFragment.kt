@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
@@ -28,7 +27,11 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
             terminateFundingItemEvent(fundingItemId, status)
         }
         addArButtonClickEvent { fundingItemId ->
-            navigate(MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(fundingItemId))
+            navigate(
+                MyFundingFragmentDirections.actionMyFundingFragmentToArGalleryFragment(
+                    fundingItemId
+                )
+            )
         }
     }
     private val closedFundingItemAdapter = MyFundingItemListAdapter()
@@ -99,8 +102,8 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
 
     private fun initMyPageUserInfoObserver() {
         myPageViewModel.userInfo.observe(viewLifecycleOwner) { response ->
-            when(response){
-                is ViewState.Loading ->{
+            when (response) {
+                is ViewState.Loading -> {
                     Log.d(TAG, "initMyPageUserInfoObserver: loading...")
                 }
                 is ViewState.Success -> {
@@ -194,7 +197,7 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
         val kakaoMessageTool = KakaoMessageTool(requireContext())
         val myFundingInfo = myFundingViewModel.myFundingInfo.value?.value
         val myFundingImage =
-            myFundingViewModel.myFundingItem.value?.value?.myFundingOngoingList!![0].img
+            "https://postfiles.pstatic.net/MjAyMzAyMTVfMjY0/MDAxNjc2NDI1NTgwOTY5.qqQS9r9Bv-hx4soVZ5re5suO4RWXnjw9wb48e9RVVpcg.nHrKonU0kXwqX1JR7Nrj6d702f_tuW0YFTrNvVz2Zzwg.PNG.hojo0423/%EC%A0%9C%EB%AA%A9%EC%9D%84_%EC%9E%85%EB%A0%A5%ED%95%B4%EC%A3%BC%EC%84%B8%EC%9A%94_-001_(2).png?type=w580"
 
         binding.ivFundingShare.setOnClickListener {
             val feed = kakaoMessageTool.makeFeed(
