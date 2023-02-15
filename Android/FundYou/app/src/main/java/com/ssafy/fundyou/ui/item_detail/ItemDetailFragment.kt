@@ -17,21 +17,18 @@ import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel
 import com.ssafy.fundyou.ui.like.LikeItemViewModel
-import com.ssafy.fundyou.ui.splash.SplashViewModel
-import com.ssafy.fundyou.util.showToast
+import com.ssafy.fundyou.util.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.fragment_item_detail) {
     private val likeItemViewModel by activityViewModels<LikeItemViewModel>()
-    private val splashViewModel by activityViewModels<SplashViewModel>()
     private val relatedAdapter = ItemDetailRelatedAdapter().apply {
         addItemClickListener { itemId ->
             navigate(ItemDetailFragmentDirections.actionItemDetailFragmentSelf2(itemId))
         }
     }
     private lateinit var itemDetailInfo: ItemDetailModel
-
     private val itemDetailViewModel by viewModels<ItemDetailViewModel>()
     private val itemArgument by navArgs<ItemDetailFragmentArgs>()
     private lateinit var dialog: ItemAddBottomSheetFragment
@@ -57,7 +54,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
         initItemDetailViewModel()
         initMainViewModel()
         initAddWishListObserve()
-//        initResultAddLikeItemObserve()
     }
 
     private fun addItemInWishList() {
@@ -88,25 +84,6 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
                 }
             }
             Log.d(TAG, "addLikeItemClickListener 좋아요 누른 후 : $likeStatus")
-        }
-    }
-
-    private fun initResultAddLikeItemObserve() {
-        likeItemViewModel.resultModifyListItem.observe(viewLifecycleOwner) { response ->
-            when (response) {
-                is ViewState.Loading -> {
-                    Log.d(TAG, "initResultAddLikeItemObserve: Add Like Item Loading...")
-                }
-                is ViewState.Success -> {
-                    itemDetailViewModel.getItemDetailInfo(itemArgument.itemId)
-                }
-                is ViewState.Error -> {
-                    Log.d(
-                        TAG,
-                        "initResultAddLikeItemObserve: Add like Item Error...${response.message}"
-                    )
-                }
-            }
         }
     }
 

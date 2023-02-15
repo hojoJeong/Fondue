@@ -111,12 +111,12 @@
                     style="@style/base_font_medium_14_midnight_express"
                     android:layout_height="42dp"
                     android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
                     android:layout_marginEnd="@dimen/base_horizontal_margin"
                     android:background="@drawable/bg_rect_hawkes_blue_solitude_radius5_stroke1"
                     android:hint="@string/content_pay_input_funding_price"
                     android:inputType="number"
                     android:paddingStart="10dp"
-                    android:gravity="center_vertical"
                     android:textColor="@color/black"
                     android:textColorHint="@color/nobel"
                     android:textSize="16sp"
@@ -212,12 +212,12 @@
                     style="@style/base_font_medium_14_midnight_express"
                     android:layout_height="42dp"
                     android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"
                     android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
                     android:text="@{user.username}"
                     android:paddingStart="10dp"
                     android:textColor="@color/black"
                     android:textSize="16sp"
-                    android:gravity="center_vertical"
                     tools:text="asdfasdf"
                     app:layout_constraintEnd_toEndOf="@+id/edit_pay_funding_price"
                     app:layout_constraintStart_toStartOf="@+id/edit_pay_funding_price"
@@ -309,6 +309,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:elevation="0dp"
+                        android:stateListAnimator="@null"
                         android:background="@drawable/bg_point">
 
                         <TextView

@@ -11,7 +11,7 @@ import com.ssafy.fundyou.databinding.FragmentSearchBinding
 import com.ssafy.fundyou.ui.common.adapter.PopularSearchKeywordAdapter
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.search.adapter.SearchHistoryKeywordAdapter
-import com.ssafy.fundyou.util.showToast
+import com.ssafy.fundyou.util.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

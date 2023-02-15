@@ -31,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:gravity="center_horizontal"
             android:includeFontPadding="false"
             android:text="이미 펀딩된 금액만 포인트로 들어와요"
             app:layout_constraintEnd_toEndOf="parent"
@@ -64,7 +65,7 @@
             android:layout_marginStart="15dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="15dp"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="18dp"
             android:background="@drawable/bg_rect_transparent_solitude_radius4_stroke0"
             android:includeFontPadding="false"
             android:minHeight="0dp"
@@ -76,7 +77,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btn_positive" />
+            app:layout_constraintTop_toBottomOf="@id/btn_positive"
+            app:layout_goneMarginTop="28dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

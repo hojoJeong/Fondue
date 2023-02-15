@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.ui.funding_participate
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ssafy.fundyou.common.SingleLiveEvent
@@ -27,6 +28,9 @@ class FundingParticipateViewModel @Inject constructor(
     private val _fundingItemList = SingleLiveEvent<ViewState<List<FundingParticipateItemUiModel>>>()
     val fundingItemList: LiveData<ViewState<List<FundingParticipateItemUiModel>>> get() = _fundingItemList
 
+    private val _fundingId = MutableLiveData<Long>()
+    val fundingId : LiveData<Long> get() = _fundingId
+
     fun getFundingHostInfo(fundingId: Long) = viewModelScope.launch {
         _fundingHostInfo.postValue(ViewState.Loading())
         try {
@@ -45,5 +49,9 @@ class FundingParticipateViewModel @Inject constructor(
         } catch (e: Exception) {
             _fundingItemList.postValue(ViewState.Error(e.message))
         }
+    }
+
+    fun setFundingId(id : Long) {
+        _fundingId.value = id
     }
 }
