@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.ssafy.fundyou.R
@@ -17,7 +16,8 @@ import com.ssafy.fundyou.ui.funding_my.adapter.MyFundingItemListAdapter
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingInfoUiModel
 import com.ssafy.fundyou.ui.funding_my.model.MyFundingItemListUiModel
 import com.ssafy.fundyou.ui.mypage.MyPageViewModel
-import com.ssafy.fundyou.util.showToast
+import com.ssafy.fundyou.util.extension.showFullSize
+import com.ssafy.fundyou.util.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -66,17 +66,11 @@ class MyFundingFragment : BaseFragment<FragmentMyFundingBinding>(R.layout.fragme
     }
 
     private fun showTerminateFundingItemDialog(id: Long, title: String, content: String) {
-        val dialog = CommonDialog(requireContext()).apply {
-            initDialog(id, title, content) { fundingItemId ->
+        CommonDialog(requireContext()).apply {
+            initDialog(id, title, content, positiveButtonText = "중단하기", negativeButtonText = "취소", positiveButtonVisibility = true) { fundingItemId ->
                 myFundingViewModel.terminateFundingItem(fundingItemId)
             }
-        }
-        dialog.show()
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
+        }.showFullSize()
     }
 
     private fun initTerminateFundingItemObserver() {

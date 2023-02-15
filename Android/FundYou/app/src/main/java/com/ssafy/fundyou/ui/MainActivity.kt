@@ -9,6 +9,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.ActivityMainBinding
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
         initNavigation()
         initFragmentByDeepLink()
         initSaveFundingInfoObserver()
+        initBottomNavigation()
     }
 
     private fun initNavigation() {
@@ -87,13 +89,44 @@ class MainActivity : AppCompatActivity() {
                     setToolbarType(ToolbarType.TEXT, "찜 목록")
                     setBottomNavigationVisibility(View.VISIBLE)
                 }
+                R.id.myPageFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "마이페이지")
+                    setBottomNavigationVisibility(View.VISIBLE)
+                }
+                R.id.FundingParticipateListFragment -> {
+                    setToolbarType(ToolbarType.TEXT, "초대 받은 퐁듀")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.userInfoFragment -> {
+                    setToolbarType(ToolbarType.BACK_TEXT, "계정 기본 정보")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.notiSettingFragment -> {
+                    setToolbarType(ToolbarType.BACK_TEXT, "알림 설정")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.privacyFragment -> {
+                    setToolbarType(ToolbarType.BACK_TEXT, "개인정보 수집 방침")
+                    setBottomNavigationVisibility(View.GONE)
+                }
+                R.id.cancelMenbershipFragment -> {
+                    setToolbarType(ToolbarType.BACK_TEXT, "회원탈퇴")
+                    setBottomNavigationVisibility(View.GONE)
+                }
             }
         }
-        binding.bnvMain.setupWithNavController(navController)
     }
 
     private fun setBottomNavigationVisibility(visibility: Int) {
         binding.bnvMain.visibility = visibility
+    }
+
+    private fun initBottomNavigation(){
+        binding.bnvMain.setupWithNavController(navController)
+        binding.bnvMain.setOnItemReselectedListener { item ->
+            val reselectedDestinationId = item.itemId
+            navController.popBackStack(reselectedDestinationId, inclusive = false)
+        }
     }
 
     private fun setToolbarType(type: ToolbarType, title: String = "") {

@@ -1,4 +1,4 @@
-package com.ssafy.fundyou.ui.funding_invited_list
+package com.ssafy.fundyou.ui.funding_participate_list
 
 import android.os.Bundle
 import android.util.Log
@@ -9,6 +9,7 @@ import com.ssafy.fundyou.R
 import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentInvitedFondueListBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
+import com.ssafy.fundyou.ui.funding_invited_list.FundingParticipateListViewModel
 import com.ssafy.fundyou.ui.funding_invited_list.adapter.FundingParticipateListItemAdapter
 import com.ssafy.fundyou.ui.funding_invited_list.model.FundingParticipateListUiModel
 import dagger.hilt.android.AndroidEntryPoint

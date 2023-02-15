@@ -17,8 +17,7 @@ import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailImgAdapter
 import com.ssafy.fundyou.ui.item_detail.adapter.ItemDetailRelatedAdapter
 import com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel
 import com.ssafy.fundyou.ui.like.LikeItemViewModel
-import com.ssafy.fundyou.ui.splash.SplashViewModel
-import com.ssafy.fundyou.util.showToast
+import com.ssafy.fundyou.util.extension.showToast
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

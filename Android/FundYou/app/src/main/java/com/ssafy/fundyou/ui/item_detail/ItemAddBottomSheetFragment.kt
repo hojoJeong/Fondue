@@ -1,6 +1,5 @@
 package com.ssafy.fundyou.ui.item_detail
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,7 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentItemAddBinding
-import com.ssafy.fundyou.util.addComma
+import com.ssafy.fundyou.util.extension.addComma
 
 class ItemAddBottomSheetFragment(private val addItem: (Int, Int) -> Unit) :
     BottomSheetDialogFragment() {

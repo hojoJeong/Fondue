@@ -4,7 +4,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.navArgs
 import com.google.firebase.FirebaseApp
@@ -13,8 +12,7 @@ import com.google.firebase.storage.ktx.storage
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArCaptureBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
-import com.ssafy.fundyou.ui.item_list.ItemListFragmentArgs
-import com.ssafy.fundyou.util.getFormattedCurrentTime
+import com.ssafy.fundyou.util.extension.getFormattedCurrentTime
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
 

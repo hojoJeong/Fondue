@@ -21,7 +21,8 @@ import com.ssafy.fundyou.databinding.FragmentWishListBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.common.dialog.CommonDialog
 import com.ssafy.fundyou.ui.wishlist.model.WishListModel
-import com.ssafy.fundyou.util.addComma
+import com.ssafy.fundyou.util.extension.addComma
+import com.ssafy.fundyou.util.extension.showFullSize
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -63,18 +64,18 @@ class WishListFragment : BaseFragment<FragmentWishListBinding>(R.layout.fragment
     }
 
     private fun showFundingItemDialog() {
-        val dialog = CommonDialog(requireContext()).apply {
+        CommonDialog(requireContext()).apply {
             // 펀딩 추가
-            initDialog(title = "이미 진행중인 펀딩에 추가할까요?", content = "펀딩은 1개만 진행할 수 있어요.") {
+            initDialog(
+                title = "이미 진행중인 펀딩에 추가할까요?",
+                content = "펀딩은 1개만 진행할 수 있어요.",
+                positiveButtonVisibility = true,
+                negativeButtonText = "취소",
+                positiveButtonText = "추가하기"
+            ) {
                 wishListViewModel.addOngoingFunding()
             }
-        }
-        dialog.show()
-        dialog.setCanceledOnTouchOutside(true)
-        dialog.window?.setLayout(
-            WindowManager.LayoutParams.MATCH_PARENT,
-            WindowManager.LayoutParams.WRAP_CONTENT
-        )
+        }.showFullSize()
     }
 
     private fun initAddOngoingFundingItemObserver() {

@@ -12,7 +12,7 @@ import com.ssafy.fundyou.databinding.FragmentMyPageBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.login.LoginActivity
 import com.ssafy.fundyou.ui.point.PointViewModel
-import com.ssafy.fundyou.util.showSnackBar
+import com.ssafy.fundyou.util.extension.showSnackBar
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private val mypageViewModel by activityViewModels<MyPageViewModel>()
