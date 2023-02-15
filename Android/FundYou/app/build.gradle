@@ -13,7 +13,7 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\multicampus\\Documents\\fondue_key.jks')
+            storeFile file('C:\\Users\\SSAFY\\Documents\\카카오톡 받은 파일\\fondue_key.jks')
             storePassword 'fondue202'
             keyAlias 'key0'
             keyPassword 'fondue202'

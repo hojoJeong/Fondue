@@ -67,6 +67,9 @@
             app:destination="@id/itemDetailFragment"
             app:popUpTo="@id/itemDetailFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_itemDetailFragment_to_arFragment"
+            app:destination="@id/arFragment" />
     </fragment>
     <fragment
         android:id="@+id/itemListFragment"
@@ -342,6 +345,11 @@
         <action
             android:id="@+id/action_arFragment_to_arCaptureFragment"
             app:destination="@id/arCaptureFragment" />
+        <argument
+            android:name="itemId"
+            android:defaultValue="@null"
+            app:argType="string"
+            app:nullable="true" />
     </fragment>
     <fragment
         android:id="@+id/arCaptureFragment"
