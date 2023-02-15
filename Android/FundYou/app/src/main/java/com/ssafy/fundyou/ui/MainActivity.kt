@@ -1,6 +1,7 @@
 package com.ssafy.fundyou.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -154,20 +155,8 @@ class MainActivity : AppCompatActivity() {
     private fun initBottomNavigation() {
         binding.bnvMain.setupWithNavController(navController)
 
-        binding.bnvMain.apply {
-            navController.let { navController ->
-                NavigationUI.setupWithNavController(
-                    this,
-                    navController
-                )
-                setOnItemSelectedListener { item ->
-                    NavigationUI.onNavDestinationSelected(item, navController)
-                    true
-                }
-                setOnItemReselectedListener {
-                    navController.popBackStack(destinationId = it.itemId, inclusive = false)
-                }
-            }
+        binding.bnvMain.setOnItemReselectedListener { item ->
+
         }
     }
 
