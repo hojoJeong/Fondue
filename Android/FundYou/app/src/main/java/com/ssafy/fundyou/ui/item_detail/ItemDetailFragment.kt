@@ -46,8 +46,10 @@ class ItemDetailFragment : BaseFragment<FragmentItemDetailBinding>(R.layout.frag
 
         /** 아이템 랜덤 상품 */
         addKakaoShareButtonEvent()
-
         addItemInWishList()
+        binding.tvIsAr.setOnClickListener {
+            navigate(ItemDetailFragmentDirections.actionItemDetailFragmentToArFragment("${itemArgument.itemId}"))
+        }
     }
 
     override fun initViewModels() {

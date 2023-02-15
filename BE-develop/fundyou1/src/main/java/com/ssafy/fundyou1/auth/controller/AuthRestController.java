@@ -86,7 +86,7 @@ public class AuthRestController {
     //토큰 재발급
     @PostMapping("/reissue")
     @ApiOperation(value = "토큰 재발급", notes = "토큰을 재발급하는 API")
-    public ResponseEntity<TokenDto> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
+    public ResponseEntity<BaseResponseBody> reissue(@RequestBody TokenRequestDto tokenRequestDto) {
         return ResponseEntity.ok(authService.reissue(tokenRequestDto));
     }
 
