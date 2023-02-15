@@ -104,7 +104,7 @@
             app:destination="@id/myFundingFragment" />
         <action
             android:id="@+id/action_myPageFragment_to_pointLoadFragment"
-            app:destination="@id/pointLoadFragment" />
+            app:destination="@id/pointLoadFragment"/>
         <action
             android:id="@+id/action_myPageFragment_to_myFundingListFragment"
             app:destination="@id/myFundingListFragment" />
@@ -262,10 +262,15 @@
         android:name="com.ssafy.fundyou.ui.point.PointResultFragment"
         android:label="PointResultFragment">
         <action
-            android:id="@+id/action_pointResultFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:popUpTo="@id/mainFragment"
+            android:id="@+id/action_pointResultFragment_to_myPageFragment"
+            app:destination="@id/myPageFragment"
+            app:popUpTo="@id/myPageFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_pointResultFragment_to_payFragment"
+            app:destination="@id/payFragment"
+            app:popUpTo="@id/payFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
 
     <fragment

@@ -11,10 +11,12 @@ import com.ssafy.fundyou.common.ViewState
 import com.ssafy.fundyou.databinding.FragmentMyPageBinding
 import com.ssafy.fundyou.ui.common.BaseFragment
 import com.ssafy.fundyou.ui.login.LoginActivity
+import com.ssafy.fundyou.ui.point.PointViewModel
 import com.ssafy.fundyou.util.showSnackBar
 
 class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_page) {
     private val mypageViewModel by activityViewModels<MyPageViewModel>()
+    private val pointViewModel by activityViewModels<PointViewModel>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,6 +37,7 @@ class MyPageFragment : BaseFragment<FragmentMyPageBinding>(R.layout.fragment_my_
 
     private fun initLoadPointBtnListener() {
         binding.btnMypagePoint.setOnClickListener {
+            pointViewModel.setBeforeFragment("mypage")
             navigate(
                 MyPageFragmentDirections.actionMyPageFragmentToPointLoadFragment(
                     mypageViewModel.userInfo.value?.value?.point ?: 0
