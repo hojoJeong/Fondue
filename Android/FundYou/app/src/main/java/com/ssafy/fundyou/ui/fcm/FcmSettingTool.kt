@@ -72,7 +72,7 @@ class FcmSettingTool : FirebaseMessagingService() {
                 .setSmallIcon(com.ssafy.fundyou.R.drawable.ic_app_logo)
                 .setContentTitle(title)
                 .setContentText(content)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setPriority(NotificationCompat.PRIORITY_MAX)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
 

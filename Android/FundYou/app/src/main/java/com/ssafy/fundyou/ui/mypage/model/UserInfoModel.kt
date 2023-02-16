@@ -22,5 +22,5 @@ fun UserInfoDomainModel.toUiModel() = UserInfoModel(
   status = this.status,
   profileImg = this.profileImg,
   point = this.point,
-  email = this.email
+  email = this.email ?: ""
 )

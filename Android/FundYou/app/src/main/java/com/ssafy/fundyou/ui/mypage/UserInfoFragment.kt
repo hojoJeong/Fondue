@@ -17,6 +17,7 @@ class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment
     }
 
     override fun initView() {
+
         userInfo = userInfoViewModel.userInfo.value?.value!!
         binding.user = userInfo
         membershipWithdrawalClickListener()

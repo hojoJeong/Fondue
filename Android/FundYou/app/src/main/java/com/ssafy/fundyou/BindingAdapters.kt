@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.bitmap.DownsampleStrategy
 import com.bumptech.glide.request.target.Target
 import com.google.android.material.chip.Chip
 import com.ssafy.fundyou.util.extension.addComma
@@ -198,18 +199,28 @@ object BindingAdapters {
     @JvmStatic
     @BindingAdapter("setItemImage")
     fun ImageView.setItemImage(img: String?) {
-        Glide.with(context)
-            .load(img)
-            .into(this)
+        try {
+            Glide.with(context)
+                .load(img)
+                .downsample(DownsampleStrategy.AT_MOST)
+                .into(this)
+        } catch (e: Exception) {
+            this.setImageResource(R.drawable.ic_app_logo)
+        }
     }
 
     @JvmStatic
     @BindingAdapter("setFullSizeImage")
     fun ImageView.setFullSizeImage(imgSrc: String?) {
-        Glide.with(context)
-            .load(imgSrc)
-            .override(Target.SIZE_ORIGINAL)
-            .into(this)
+        try {
+            Glide.with(context)
+                .load(imgSrc)
+                .override(Target.SIZE_ORIGINAL)
+                .downsample(DownsampleStrategy.AT_MOST)
+                .into(this)
+        } catch (e: Exception) {
+            this.setImageResource(R.drawable.ic_app_logo)
+        }
     }
 
     @JvmStatic
@@ -266,7 +277,7 @@ object BindingAdapters {
 
     @JvmStatic
     @BindingAdapter(value = ["fundingHostUserName", "fundingName"])
-    fun TextView.setFundingTitle(fundingHostUserName : String, fundingName : String){
+    fun TextView.setFundingTitle(fundingHostUserName: String, fundingName: String) {
         text = "${fundingHostUserName}님의\n${fundingName}에 참여해주세요!"
     }
 }

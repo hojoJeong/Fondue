@@ -22,5 +22,5 @@ internal data class UserResponseDto(
     val point: Int,
 
     @SerializedName("mail")
-    val email: String
+    val email: String?
 )

@@ -3,7 +3,6 @@ package com.ssafy.fundyou.ui.ar
 import android.app.Activity
 import android.app.ActivityManager
 import android.content.Context
-
 import android.graphics.Bitmap
 import android.graphics.Rect
 import android.net.Uri
@@ -12,7 +11,10 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.util.Log
-import android.view.*
+import android.view.Gravity
+import android.view.MotionEvent
+import android.view.PixelCopy
+import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -20,13 +22,11 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
-
 import com.google.ar.core.Anchor
 import com.google.ar.core.HitResult
 import com.google.ar.core.Plane
 import com.google.ar.sceneform.AnchorNode
 import com.google.ar.sceneform.assets.RenderableSource
-
 import com.google.ar.sceneform.rendering.ModelRenderable
 import com.google.ar.sceneform.ux.ArFragment
 import com.google.ar.sceneform.ux.TransformableNode
@@ -35,7 +35,6 @@ import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.ssafy.fundyou.R
 import com.ssafy.fundyou.databinding.FragmentArBinding
-import com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureFragmentArgs
 import com.ssafy.fundyou.ui.ar_gallery.ArGalleryViewModel
 import com.ssafy.fundyou.ui.common.BaseFragment
 import java.io.File
@@ -146,8 +145,8 @@ class ArFragment : BaseFragment<FragmentArBinding>(R.layout.fragment_ar) {
         val transformableNode = TransformableNode(arFragment!!.transformationSystem)
         transformableNode.apply {
             setParent(node)
-            scaleController.maxScale = 1.0f
-            scaleController.minScale = 0.8f
+            scaleController.maxScale = 0.2f
+            scaleController.minScale = 0.05f
             renderable = modelRenderable
         }
 
