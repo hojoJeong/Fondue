@@ -41,8 +41,8 @@ public class ItemApiController {
     @ApiResponses({
             @ApiResponse(code = 409, message = "CONFLICT\n 상품 이름.브랜드 중복(I01)\n")
     })
-    public ResponseEntity saveItem(@RequestBody List<ItemSaveRequest> request){
-        for (ItemSaveRequest itemSaveRequest: request) {
+    public ResponseEntity saveItem(@RequestBody ItemListSaveRequestDto request){
+        for (ItemSaveRequest itemSaveRequest: request.getRequestList()) {
             itemService.saveItem(itemSaveRequest);
         }
         return ResponseEntity.status(200).body(BaseResponseBody.of(200, "Success", null));
