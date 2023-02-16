@@ -82,12 +82,19 @@ class SplashActivity : AppCompatActivity() {
         }
 
         //FCM 푸쉬 알림 눌렀을 때 Intent처리
-        val user = intent.getStringExtra("user")
+        var user = intent.getStringExtra("user")
         Log.d(TAG, "startMainActivity: user : ${user.toString()}")
+        if(user == null){
+            if(intent.extras?.getString("isHost").toString() == "true"){
+                user = "host"
+            } else if(intent.extras?.getString("isHost").toString() == "false"){
+                user = "participate"
+            }
+            Log.d(TAG, "startMainActivity: ${intent.extras?.getString("isHost")}")
+        }
         if(user != null){
             mainiIntent.putExtra("user", user)
         }
-
         startActivity(mainiIntent)
     }
 
