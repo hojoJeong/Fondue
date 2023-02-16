@@ -11,6 +11,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.ssafy.fundyou.ui.MainActivity
 import com.ssafy.fundyou.ui.splash.SplashActivity
 
 class FcmSettingTool : FirebaseMessagingService() {
@@ -52,13 +53,13 @@ class FcmSettingTool : FirebaseMessagingService() {
         Log.d(TAG, "onMessageReceived: $user")
 
         //사용자가 Foreground 상태일 때
-//        if(remoteMessage.notification != null){
-//            title = remoteMessage.notification!!.title.toString()
-//            content = remoteMessage.notification!!.body.toString()
-//            intent = Intent(this, MainActivity::class.java).apply {
-//                putExtra("user", user)
-//            }
-//        }
+        if(remoteMessage.notification != null){
+            title = remoteMessage.notification!!.title.toString()
+            content = remoteMessage.notification!!.body.toString()
+            intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("user", user)
+            }
+        }
 
         val pendingIntent = PendingIntent.getActivity(
             this,

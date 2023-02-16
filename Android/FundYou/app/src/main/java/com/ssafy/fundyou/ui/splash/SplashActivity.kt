@@ -67,7 +67,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun startMainActivity() {
         // CLEAR_TASK or NEW_TASK로 스택에 있는 액티비티 전부 제거
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val mainiIntent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
 
@@ -76,19 +76,19 @@ class SplashActivity : AppCompatActivity() {
         val fundingId = intent.data?.getQueryParameter("funding_id")
 
         if(itemId != null){
-            intent.putExtra("item_id", itemId)
+            mainiIntent.putExtra("item_id", itemId)
         } else if( fundingId != null){
-            intent.putExtra("funding_id", fundingId)
+            mainiIntent.putExtra("funding_id", fundingId)
         }
 
         //FCM 푸쉬 알림 눌렀을 때 Intent처리
         val user = intent.getStringExtra("user")
         Log.d(TAG, "startMainActivity: user : ${user.toString()}")
         if(user != null){
-            intent.putExtra("user", user)
+            mainiIntent.putExtra("user", user)
         }
 
-        startActivity(intent)
+        startActivity(mainiIntent)
     }
 
     private fun startLoginActivity() {
