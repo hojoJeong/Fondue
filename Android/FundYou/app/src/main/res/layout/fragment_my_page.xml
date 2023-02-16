@@ -52,13 +52,6 @@
                         app:setItemImage="@{user.profileImg}"
                         tools:src="@drawable/bg_banner_ssafylogo3" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/iv_mypage_profile_edit"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/iv_mypage_profile"
-                        app:layout_constraintEnd_toEndOf="@+id/iv_mypage_profile"
-                        android:src="@drawable/ic_edit"/>
                     <TextView
                         android:id="@+id/tv_mypage_name"
                         style="@style/base_font_bold_16"

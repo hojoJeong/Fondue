@@ -24,10 +24,10 @@ class ContainerPolicyFragment : BaseFragment<FragmentContainerPolicyBinding>(R.l
     private fun setContent(){
         when(policy.content){
             "privacy" -> {
-                binding.tvContainerPolicyContent.text = "개인정보 이용방침 페이지"
+                binding.tvContainerPolicyContent.text = getString(R.string.privacy)
             }
             "service" -> {
-                binding.tvContainerPolicyContent.text = "서비스 이용 약관 페이지"
+                binding.tvContainerPolicyContent.text = getString(R.string.service)
             }
         }
     }
