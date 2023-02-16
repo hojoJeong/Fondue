@@ -66,23 +66,29 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startMainActivity() {
+        // CLEAR_TASK or NEW_TASK로 스택에 있는 액티비티 전부 제거
+        val mainiIntent = Intent(this, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        }
+
         //링크 공유로 접근했을 때 받을 Id값
         val itemId = intent.data?.getQueryParameter("item_id")
         val fundingId = intent.data?.getQueryParameter("funding_id")
 
-        Log.d(TAG, "startMainActivity: fundingId : $fundingId")
-
-        // CLEAR_TASK or NEW_TASK로 스택에 있는 액티비티 전부 제거
-        val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-        }
-
         if(itemId != null){
-            intent.putExtra("item_id", itemId)
+            mainiIntent.putExtra("item_id", itemId)
         } else if( fundingId != null){
-            intent.putExtra("funding_id", fundingId)
+            mainiIntent.putExtra("funding_id", fundingId)
         }
-        startActivity(intent)
+
+        //FCM 푸쉬 알림 눌렀을 때 Intent처리
+        val user = intent.getStringExtra("user")
+        Log.d(TAG, "startMainActivity: user : ${user.toString()}")
+        if(user != null){
+            mainiIntent.putExtra("user", user)
+        }
+
+        startActivity(mainiIntent)
     }
 
     private fun startLoginActivity() {
@@ -91,6 +97,7 @@ class SplashActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
     companion object {
         private const val TAG = "SplashActivity..."
     }

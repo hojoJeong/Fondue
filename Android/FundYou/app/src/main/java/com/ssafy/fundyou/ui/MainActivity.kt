@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
         initSaveFundingInfoObserver()
         initBottomNavigation()
         initGetFcmToken()
+        initFragmentByFcmPush()
     }
 
     private fun initNavigation() {
@@ -265,6 +266,23 @@ class MainActivity : AppCompatActivity() {
         itemFlag = true
     }
 
+    private fun initFragmentByFcmPush(){
+        val user = intent.getStringExtra("user")
+        Log.d(TAG, "initFragmentByFcmPush: user :  ${user.toString()}")
+        Log.d(TAG, "initAccessFcmPush: $user")
+
+        if(user != null){
+            when(user){
+                "host" -> {
+                    navController.navigate(MainFragmentDirections.actionMainFragmentToMyFundingListFragment())
+                }
+                "participate" -> {
+                    navController.navigate(MainFragmentDirections.actionMainFragmentToFundingParticipateListFragment())
+                }
+            }
+        }
+    }
+
     private fun initSaveFundingInfoObserver() {
         mainViewModel.savedFundingId.observe(this) { response ->
             when (response) {
@@ -286,14 +304,16 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initGetFcmToken() {
-        CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.Main) {
-                val token = FirebaseMessaging.getInstance().token.toString()
-                Log.d(TAG, "initFcm: FCM Token : $token")
-                addFcmTokenUseCase(token)
+        FirebaseMessaging.getInstance().token.addOnSuccessListener { token ->
+            CoroutineScope(Dispatchers.Main).launch {
+                withContext(Dispatchers.Main) {
+                    Log.d(TAG, "initFcm: FCM Token : $token")
+                    addFcmTokenUseCase(token)
+                }
+                Log.d(TAG, "onNewToken: addToken success")
             }
-            Log.d(TAG, "onNewToken: addToken success")
         }
+
     }
 }
 
