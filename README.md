@@ -22,8 +22,20 @@
 
 ### 서비스 핵심 기능
 
-- AR로 상품 확인
-- 펀딩하기
+
+**AR로 물건확인하기**
+
+![image.gif](https://user-images.githubusercontent.com/72602912/219436055-0c560e4d-78e9-447f-90ec-0c06af9eb6bf.gif)
+
+
+**펀딩 통계 확인**
+
+![image.gif](https://user-images.githubusercontent.com/72602912/219436027-e479a25c-8e88-4230-a678-90887397b70a.gif)
+
+
+**펀딩 하기**
+
+![image.gif](https://user-images.githubusercontent.com/72602912/219436041-15fb0ca0-ac37-4f42-9b00-759cb030f122.gif)
 
 ### ************************************서비스 전체 기능************************************
 
