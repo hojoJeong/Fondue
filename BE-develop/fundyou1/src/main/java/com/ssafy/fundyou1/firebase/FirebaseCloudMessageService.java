@@ -36,11 +36,11 @@ public class FirebaseCloudMessageService {
     private String googleApplicationCredentials;
 
     // 메세지 보내는 로직, 회원 아이디(주최자), 제목, 바디 필요!
-    public void sendMessageTo(Long memberId, String title, String body) throws IOException {
+    public void sendMessageTo(Long memberId, String title, String body, boolean isHost) throws IOException {
         // 파이어 베이스
         Optional<FirebaseToken> firebaseToken = firebaseRepository.findByMemberId(memberId);
 
-        String message = makeMessage(firebaseToken.get().getToken(), title, body);
+        String message = makeMessage(firebaseToken.get().getToken(), title, body, isHost);
 
         OkHttpClient client = new OkHttpClient();
         RequestBody requestBody = RequestBody.create(message,
@@ -54,21 +54,18 @@ public class FirebaseCloudMessageService {
 
         Response response = client.newCall(request).execute();
 
-        System.out.println(response.body().string());
+        System.out.println("###############FCM response #####" + response.body().string());
     }
 
 
     // 알림 메세지 만드는 로직
-    public String makeMessage(String targetToken, String title, String body) throws JsonParseException, JsonProcessingException {
+    public String makeMessage(String targetToken, String title, String body, boolean isHost) throws JsonParseException, JsonProcessingException {
+        FcmMessage.Data data = new FcmMessage.Data(isHost, title, body);
         FcmMessage fcmMessage = FcmMessage.builder()
                 .message(FcmMessage.Message.builder()
                         .token(targetToken)
-                        .notification(FcmMessage.Notification.builder()
-                                .title(title)
-                                .body(body)
-                                .image(null)
-                                .build()
-                        ).build()).validateOnly(false).build();
+                        .data(data)
+                        .build()).validateOnly(false).build();
         return objectMapper.writeValueAsString(fcmMessage);
     }
 

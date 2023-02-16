@@ -50,7 +50,6 @@ public class Funding {
 
     //==연관 메서드 ==//
 
-
     @Builder
     public Funding(Long id, Member member, Long startDate, Long endDate) {
         this.id = id;

@@ -1,6 +1,7 @@
 package com.ssafy.fundyou1.firebase;
 
 
+
 import lombok.*;
 
 @Builder
@@ -14,16 +15,16 @@ public class FcmMessage {
     @AllArgsConstructor
     @Getter
     public static class Message {
-        private Notification notification;
+        private Data data;
         private String token;
     }
 
     @Builder
     @AllArgsConstructor
-    @Getter
-    public static class Notification {
+    @Getter @Setter
+    public static class Data {
+        private boolean isHost;
         private String title;
         private String body;
-        private String image;
     }
 }

@@ -26,15 +26,9 @@ import java.util.List;
 @Api(tags = {"펀딩"})
 public class FundingApiController {
     @Autowired
-    private FundingRepository fundingRepository;
+     FundingService fundingService;
     @Autowired
-    private MemberRepository memberRepository;
-    @Autowired
-    private FundingService fundingService;
-    @Autowired
-    private InvitedMemberService invitedMemberService;
-    @Autowired
-    private FundingItemMemberService fundingItemMemberService;
+     InvitedMemberService invitedMemberService;
 
 
     // 펀딩 개설

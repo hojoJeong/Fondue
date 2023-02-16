@@ -5,9 +5,11 @@ import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemAttendedMemberResponseDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
+import com.ssafy.fundyou1.fund.dto.FundingResultMemberDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
+import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
@@ -20,9 +22,11 @@ import com.ssafy.fundyou1.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,20 +37,20 @@ import java.util.Optional;
 public class FundingItemService {
     private final ArImageRepository arImageRepository;
     private final FundingRepository fundingRepository;
-    @Autowired
-    InvitedMemberRepository invitedMemberRepository;
+
     @Autowired
     FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
     FundingItemRepository fundingItemRepository;
-    @Autowired
-    MemberService memberService;
+
     @Autowired
     MemberRepository memberRepository;
 
     @Autowired
     FirebaseCloudMessageService firebaseCloudMessageService;
 
+    @Lazy
+    FundingService fundingService;
 
     // 펀딩 참여(돈 보내기)
     @Transactional
@@ -125,19 +129,34 @@ public class FundingItemService {
         fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
 
         // 해당 펀딩에 모든 펀딩 상품이 종료될 경우 해당 펀딩 종료시킴
-        Long fundingId = fundingItemRepository.findByFundingItemId(fundingItemId).getFunding().getId();
+        FundingItem fundingItem = fundingItemRepository.findByFundingItemId(fundingItemId);
+        Long fundingId = fundingItem.getFunding().getId();
 
         // 모두 종료이면
         if (!fundingItemRepository.findByFundingIdAndFundingItemStatus(fundingId, true)){
             fundingRepository.updateStatus(fundingId, false);
         }
 
-
         // 확인
         // 펀딩 진행 중이면 (펀딩이 종료 안되었으면)
         if (fundingItemRepository.findByFundingItemId(fundingItemId).isFundingItemStatus()){
             return false;
         }else{
+            try {
+                // 펀딩 완료 푸시 알림 : 주최자
+                firebaseCloudMessageService.sendMessageTo(fundingItem.getFunding().getMember().getId(), "펀딩 종료","이제 선물 받을 수 있어요!", true);
+
+                // 펀딩 참여한 사람 리스트
+
+                List<FundingResultMemberDto> invitedFundingMemberList = fundingService.fundingResultMemberDtoList(fundingId);
+                for (FundingResultMemberDto invitedMember:invitedFundingMemberList) {
+                    Long memberId = invitedMember.getMemberId();
+                    firebaseCloudMessageService.sendMessageTo(memberId, "펀딩 종료",fundingItem.getFunding().getMember().getUsername() + "님의 펀딩이 종료되었습니다.\n 참여해주셔서 감사합니다😊", false);
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
             return true;
         }
 
