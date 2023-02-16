@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ssafy.fundyou.common.ViewState
@@ -66,22 +65,27 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun startMainActivity() {
-        //링크 공유로 접근했을 때 받을 Id값
-        val itemId = intent.data?.getQueryParameter("item_id")
-        val fundingId = intent.data?.getQueryParameter("funding_id")
-
-        Log.d(TAG, "startMainActivity: fundingId : $fundingId")
-
         // CLEAR_TASK or NEW_TASK로 스택에 있는 액티비티 전부 제거
         val intent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         }
+
+        //링크 공유로 접근했을 때 받을 Id값
+        val itemId = intent.data?.getQueryParameter("item_id")
+        val fundingId = intent.data?.getQueryParameter("funding_id")
 
         if(itemId != null){
             intent.putExtra("item_id", itemId)
         } else if( fundingId != null){
             intent.putExtra("funding_id", fundingId)
         }
+
+        //FCM 푸쉬 알림 눌렀을 때 Intent처리
+        val user = intent.getStringExtra("user")
+        if(user != null){
+            intent.putExtra("user", user)
+        }
+
         startActivity(intent)
     }
 
@@ -91,6 +95,7 @@ class SplashActivity : AppCompatActivity() {
         }
         startActivity(intent)
     }
+
     companion object {
         private const val TAG = "SplashActivity..."
     }

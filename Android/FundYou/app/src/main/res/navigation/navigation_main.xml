@@ -27,6 +27,12 @@
         <action
             android:id="@+id/action_mainFragment_to_FundingParticipateFragment"
             app:destination="@id/fundingParticipateFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_FundingParticipateListFragment"
+            app:destination="@id/FundingParticipateListFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_myFundingListFragment"
+            app:destination="@id/myFundingListFragment" />
     </fragment>
 
     <fragment
