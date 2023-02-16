@@ -279,7 +279,7 @@ public class FundingService {
         }
 
         // 펀딩 완료 푸시 알림 : 주최자
-        firebaseCloudMessageService.sendMessageTo(SecurityUtil.getCurrentMemberId(), "펀딩 종료","이제 선물 받을 수 있어요!");
+        firebaseCloudMessageService.sendMessageTo(SecurityUtil.getCurrentMemberId(), "펀딩 종료!","이제 선물 받을 수 있어요!");
 
         return true;
 
