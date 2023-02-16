@@ -3,6 +3,7 @@ package com.ssafy.fundyou1.fund.service;
 import com.ssafy.fundyou1.ar.repository.ArImageRepository;
 import com.ssafy.fundyou1.cart.entity.Cart;
 import com.ssafy.fundyou1.cart.repository.CartRepository;
+import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.*;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
@@ -20,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -43,6 +45,9 @@ public class FundingService {
     private MemberService memberService;
     @Autowired
     private FundingItemService fundingItemService;
+
+    @Autowired
+    private FirebaseCloudMessageService firebaseCloudMessageService;
 
     // 펀딩 개설
     @Transactional
@@ -252,7 +257,7 @@ public class FundingService {
 
     // 펀딩 종료 버튼 클릭
     @Transactional
-    public Boolean terminateFunding(Long fundingId) {
+    public Boolean terminateFunding(Long fundingId) throws IOException {
 
         // 펀딩 종료
         fundingRepository.updateStatus(fundingId, false);
@@ -272,6 +277,9 @@ public class FundingService {
                 return false;
             }
         }
+
+        // 펀딩 완료 푸시 알림 : 주최자
+        firebaseCloudMessageService.sendMessageTo(SecurityUtil.getCurrentMemberId(), "펀딩 종료!","이제 선물 받을 수 있어요!");
 
         return true;
 
