@@ -19,6 +19,7 @@ public interface InvitedMemberRepository extends JpaRepository<InvitedMember, Lo
     Boolean checkExistByMemberIdAndFundingId(@Param("memberId") Long memberId, @Param("fundingId") Long fundingId);
 
 
+    @Transactional
     @Query(value = "select * from invited_member where funding_id = :fundingId", nativeQuery = true)
     List<InvitedMember> findAllByFundingId(@Param("fundingId") Long fundingId);
 }

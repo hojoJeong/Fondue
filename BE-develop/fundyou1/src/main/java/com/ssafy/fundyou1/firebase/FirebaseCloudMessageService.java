@@ -4,8 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.common.net.HttpHeaders;
+import com.google.firebase.messaging.Notification;
 import com.google.gson.JsonParseException;
 import com.ssafy.fundyou1.firebase.Repository.FirebaseRepository;
+import com.ssafy.fundyou1.firebase.dto.FcmMessage;
 import com.ssafy.fundyou1.firebase.entity.FirebaseToken;
 import com.ssafy.fundyou1.global.security.SecurityUtil;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -36,7 +40,7 @@ public class FirebaseCloudMessageService {
     private String googleApplicationCredentials;
 
     // 메세지 보내는 로직, 회원 아이디(주최자), 제목, 바디 필요!
-    public void sendMessageTo(Long memberId, String title, String body, boolean isHost) throws IOException {
+    public void sendMessageTo(Long memberId, String title, String body, String isHost) throws IOException {
         // 파이어 베이스
         Optional<FirebaseToken> firebaseToken = firebaseRepository.findByMemberId(memberId);
 
@@ -59,11 +63,15 @@ public class FirebaseCloudMessageService {
 
 
     // 알림 메세지 만드는 로직
-    public String makeMessage(String targetToken, String title, String body, boolean isHost) throws JsonParseException, JsonProcessingException {
-        FcmMessage.Data data = new FcmMessage.Data(isHost, title, body);
+    public String makeMessage(String targetToken, String title, String body, String isHost) throws JsonParseException, JsonProcessingException {
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("title", title);
+        data.put("body", body);
+        data.put("isHost", isHost);
         FcmMessage fcmMessage = FcmMessage.builder()
                 .message(FcmMessage.Message.builder()
                         .token(targetToken)
+                        .notification(new FcmMessage.Notification(title, body))
                         .data(data)
                         .build()).validateOnly(false).build();
         return objectMapper.writeValueAsString(fcmMessage);

@@ -1,4 +1,4 @@
-package com.ssafy.fundyou1.firebase;
+package com.ssafy.fundyou1.firebase.dto;
 
 import lombok.Data;
 

@@ -30,7 +30,7 @@ public class Funding {
     private Long id; // PK
     @Column(name = "funding_name")
     private String fundingName;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="member_id")
     @JsonIgnore
     private Member member; // FK

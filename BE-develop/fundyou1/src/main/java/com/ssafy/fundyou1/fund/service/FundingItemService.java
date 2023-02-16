@@ -70,7 +70,7 @@ public class FundingItemService {
         // 1. 펀딩 금액 추가
         fundingItemRepository.addCurrentFundingPrice(attendFundingDto.getFundingItemId(), attendFundingDto.getPoint());
         // 1-1.펀딩 금액 완료인지 확인 (=> 펀딩 완료시 => 펀딩 상태 False로 변경)
-        if (fundingItem.getCurrentFundingPrice() == fundingItem.getItemTotalPrice()){
+        if (fundingItem.getCurrentFundingPrice() + attendFundingDto.getPoint() == fundingItem.getItemTotalPrice()){
             fundingItemRepository.changeFundingStatus(fundingItem.getId());
         }
         // 2. 펀딩 참여자 수 + 1
@@ -127,6 +127,7 @@ public class FundingItemService {
     public Boolean terminateFundingItem(Long fundingItemId) {
 
         // 펀딩 상품 종료
+
         fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
 
         // 해당 펀딩에 모든 펀딩 상품이 종료될 경우 해당 펀딩 종료시킴
@@ -138,6 +139,7 @@ public class FundingItemService {
             fundingRepository.updateStatus(fundingId, false);
         }
 
+
         // 확인
         // 펀딩 진행 중이면 (펀딩이 종료 안되었으면)
         if (fundingItemRepository.findByFundingItemId(fundingItemId).isFundingItemStatus()){
@@ -145,19 +147,22 @@ public class FundingItemService {
         }else{
             try {
                 // 펀딩 완료 푸시 알림 : 주최자
-                firebaseCloudMessageService.sendMessageTo(fundingItem.getFunding().getMember().getId(), "펀딩 종료","이제 선물 받을 수 있어요!", true);
+                firebaseCloudMessageService.sendMessageTo(fundingItem.getFunding().getMember().getId(), "펀딩 종료","이제 선물 받을 수 있어요!", "true");
 
                 // 펀딩 참여한 사람 리스트
-
+                System.out.println("\n#######################################1");
                 List<InvitedMember> invitedFundingMemberList = invitedMemberRepository.findAllByFundingId(fundingId);
+                System.out.println("\n#######################################2");
                 for (InvitedMember invitedMember:invitedFundingMemberList) {
+                    System.out.println("\n#######################################3" + invitedMember.toString());
                     Long memberId = invitedMember.getMember().getId();
-                    firebaseCloudMessageService.sendMessageTo(memberId, "펀딩 종료",fundingItem.getFunding().getMember().getUsername() + "님의 펀딩이 종료되었습니다.\n 참여해주셔서 감사합니다😊", false);
+                    System.out.println("\n#######################################4");
+                    firebaseCloudMessageService.sendMessageTo(memberId, "펀딩 종료",fundingItem.getFunding().getMember().getUsername() + "님의 펀딩이 종료되었습니다.\n 참여해주셔서 감사합니다😊", "false");
+                    System.out.println("\n#######################################5");
                 }
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-
             return true;
         }
 

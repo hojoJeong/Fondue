@@ -1,5 +1,6 @@
 package com.ssafy.fundyou1.firebase;
 
+import com.ssafy.fundyou1.firebase.dto.FcmCreateRequestDto;
 import com.ssafy.fundyou1.global.dto.BaseResponseBody;
 
 import io.swagger.annotations.Api;

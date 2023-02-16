@@ -1,8 +1,11 @@
-package com.ssafy.fundyou1.firebase;
+package com.ssafy.fundyou1.firebase.dto;
 
 
 
+import com.google.firebase.messaging.Notification;
 import lombok.*;
+
+import java.util.Map;
 
 @Builder
 @AllArgsConstructor
@@ -13,18 +16,20 @@ public class FcmMessage {
 
     @Builder
     @AllArgsConstructor
-    @Getter
-    public static class Message {
-        private Data data;
-        private String token;
-    }
-
-    @Builder
-    @AllArgsConstructor
     @Getter @Setter
-    public static class Data {
-        private boolean isHost;
+    public static class Message {
+        private String token;
+        private Notification notification;
+        private Map<String, String> data;
+
+    }
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    public static class Notification {
         private String title;
         private String body;
     }
+
+
 }
