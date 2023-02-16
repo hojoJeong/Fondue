@@ -11,7 +11,6 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.ssafy.fundyou.ui.MainActivity
 import com.ssafy.fundyou.ui.splash.SplashActivity
 
 class FcmSettingTool : FirebaseMessagingService() {
@@ -26,8 +25,9 @@ class FcmSettingTool : FirebaseMessagingService() {
 
         Log.d(
             TAG,
-            "onMessageReceived: FCM data : ${remoteMessage.data["title"]}, ${remoteMessage.data["body"]}"
+            "onMessageReceived: FCM data : ${remoteMessage.data["title"]}, ${remoteMessage.data["body"]}, ${remoteMessage.data["isHost"]}"
         )
+        Log.d(TAG, "onMessageReceived: FCM notification : ${remoteMessage.notification?.title} , ${remoteMessage.notification?.body}")
 
         builder = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             if (notificationManager.getNotificationChannel(CHANNEL_ID) == null) {
@@ -43,24 +43,26 @@ class FcmSettingTool : FirebaseMessagingService() {
 
         var title = remoteMessage.data["title"].toString()
         var content = remoteMessage.data["body"].toString()
-        val isHost = remoteMessage.data["isHost"] ?: false
-        val user = if(isHost == true) "host" else "participate"
+        val isHost = remoteMessage.data["isHost"].toString()
+        val user = if(isHost == "true") "host" else "participate"
         var intent = Intent(this, SplashActivity::class.java).apply {
             putExtra("user", user)
         }
 
+        Log.d(TAG, "onMessageReceived: $user")
+
         //사용자가 Foreground 상태일 때
-        if(remoteMessage.notification != null){
-            title = remoteMessage.notification!!.title.toString()
-            content = remoteMessage.notification!!.body.toString()
-            intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("user", user)
-            }
-        }
+//        if(remoteMessage.notification != null){
+//            title = remoteMessage.notification!!.title.toString()
+//            content = remoteMessage.notification!!.body.toString()
+//            intent = Intent(this, MainActivity::class.java).apply {
+//                putExtra("user", user)
+//            }
+//        }
 
         val pendingIntent = PendingIntent.getActivity(
             this,
-            REQUEST_CODE,
+            0,
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )

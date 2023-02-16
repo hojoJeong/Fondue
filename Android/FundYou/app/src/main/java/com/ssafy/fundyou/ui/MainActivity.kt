@@ -268,6 +268,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragmentByFcmPush(){
         val user = intent.getStringExtra("user")
+        Log.d(TAG, "initFragmentByFcmPush: user :  ${user.toString()}")
         Log.d(TAG, "initAccessFcmPush: $user")
 
         if(user != null){

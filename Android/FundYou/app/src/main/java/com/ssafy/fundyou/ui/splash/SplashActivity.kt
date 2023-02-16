@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.ssafy.fundyou.common.ViewState
@@ -82,6 +83,7 @@ class SplashActivity : AppCompatActivity() {
 
         //FCM 푸쉬 알림 눌렀을 때 Intent처리
         val user = intent.getStringExtra("user")
+        Log.d(TAG, "startMainActivity: user : ${user.toString()}")
         if(user != null){
             intent.putExtra("user", user)
         }
