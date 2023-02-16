@@ -70,14 +70,14 @@ public class FundingItemService {
         // 1. 펀딩 금액 추가
         fundingItemRepository.addCurrentFundingPrice(attendFundingDto.getFundingItemId(), attendFundingDto.getPoint());
         // 1-1.펀딩 금액 완료인지 확인 (=> 펀딩 완료시 => 펀딩 상태 False로 변경)
-        if (fundingItem.getCurrentFundingPrice() + attendFundingDto.getPoint() == fundingItem.getItemTotalPrice()){
-            fundingItemRepository.changeFundingStatus(fundingItem.getId());
-        }
         // 2. 펀딩 참여자 수 + 1
         fundingItemRepository.addParticipantsCount(fundingItem.getId());
 
         // 4. 사용자 point 차감
         memberRepository.minusPoint(member.get().getId(), attendFundingDto.getPoint());
+        if (fundingItem.getCurrentFundingPrice() + attendFundingDto.getPoint() == fundingItem.getItemTotalPrice()){
+            terminateFundingItem(fundingItem.getId());
+        }
 
         return getFundingItem(attendFundingDto.getFundingItemId());
 
