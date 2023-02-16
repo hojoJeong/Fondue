@@ -181,7 +181,7 @@
 
 ### 아키텍처 구조
 
-![Untitled](README%20ea2748c7cb294066b5a24086cb863585/Untitled%203.png)
+![Untitled](https://user-images.githubusercontent.com/72602912/219439602-d925781b-7802-4f3e-a819-b60364c2e2f2.png)
 
 ## 📟BackEnd
 
@@ -209,87 +209,24 @@
 ### 패키지 구조
 
 ```markdown
-├── 📂app
-│   ├── 📂ui
-│   │   ├──📂 ar
-│   │   ├── 📂ar_capture_confirm
-│   │   ├── 📂ar_gallery
-│   │   ├── 📂common
-│   │   ├── 📂funding_my
-│   │   ├── 📂funding_my_detail
-│   │   ├── 📂funding_my_item_detail
-│   │   ├── 📂funding_my_list
-│   │   ├── 📂funding_participate
-│   │   ├── 📂funding_participate_item
-│   │   ├── 📂funding_participate_list
-│   │   ├── 📂home
-│   │   ├── 📂item_detail
-│   │   ├── 📂item_list
-│   │   ├── 📂like
-│   │   ├── 📂login
-│   │   ├── 📂mypage
-│   │   ├── 📂pay
-│   │   ├── 📂pay_result
-│   │   ├── 📂point
-│   │   ├── 📂search
-│   │   ├── 📂splash
-│   │   ├── 📂wishlist
-│   │   └── MainActivity.kt
-│   ├── 📂util
-│   └── GlobalApplication.kt
-├── 📂domain
-│   ├── 📂model
-│   │   ├── 📂ar
-│   │   ├── 📂auth
-│   │   ├── 📂funding
-│   │   ├── 📂item
-│   │   ├── 📂pay
-│   │   ├── 📂search
-│   │   ├── 📂user
-│   │   └── 📂wishlist
-│   ├── 📂repository(interface)
-│   │   ├── ArRepository.kt
-│   │   ├── AuthRepository.kt
-│   │   ├── FcmRepository.kt
-│   │   ├── FundingRepository.kt
-│   │   ├── ItemRepository.kt
-│   │   ├── PayRepository.kt
-│   │   ├── SearchRepository.kt
-│   │   ├── UserRepository.kt
-│   │   └── WishListReposiroty.kt
-│   └── 📂usecase
-│   │   ├── 📂ar
-│   │   ├── 📂auth
-│   │   ├── 📂funding
-│   │   ├── 📂item
-│   │   ├── 📂pay
-│   │   ├── 📂search
-│   │   ├── 📂user
-│   │   └── 📂wishlist
-├── 📂data
-│   ├── 📂local.prefs
-│   │   ├── AuthSharedPreference.kt
-│   │   └── SearchKeywordPreference.kt
-│   ├── 📂remote
-│   │   │   ├── 📂datasource
-│   │   │   ├── 📂ar
-│   │   │   ├── 📂auth
-│   │   │   ├── 📂funding
-│   │   │   ├── 📂item
-│   │   │   ├── 📂pay
-│   │   │   ├── 📂search
-│   │   │   ├── 📂user
-│   │   │   └── 📂wishlist
-│   │   ├── 📂di
-│   │   │   ├── DataSourceModule.kt
-│   │   │   ├── NetworkModule.kt
-│   │   │   ├── RepositoryModule.kt
-│   │   │   ├── ServiceModule.kt
-│   │   │   └── SharedPreferenceModule.kt
-│   │   ├── 📂mappers
-│   │   ├── 📂reposiroty(implements)
-│   │   └── 📂service
-└── 📂common
+├── 📂ar
+│   ├── 📂api
+│   ├── 📂dto
+│   ├── 📂entity
+│   ├── 📂repository
+│   ├── 📂service
+├── 📂auth
+├── 📂cart
+├── 📂category
+├── 📂firebase
+├── 📂fund
+├── 📂global
+├── 📂item
+├── 📂like
+├── 📂member
+├── 📂scheduler
+├── 📂search
+└── Fundyou1Application.java
 ```
 
 ## 🛠저희 팀을 소개할게요
