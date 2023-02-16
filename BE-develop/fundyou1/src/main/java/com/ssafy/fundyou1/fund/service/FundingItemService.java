@@ -5,9 +5,11 @@ import com.ssafy.fundyou1.firebase.FirebaseCloudMessageService;
 import com.ssafy.fundyou1.fund.dto.AttendFundingDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemAttendedMemberResponseDto;
 import com.ssafy.fundyou1.fund.dto.FundingItemResponseDto;
+import com.ssafy.fundyou1.fund.dto.FundingResultMemberDto;
 import com.ssafy.fundyou1.fund.entity.Funding;
 import com.ssafy.fundyou1.fund.entity.FundingItem;
 import com.ssafy.fundyou1.fund.entity.FundingItemMember;
+import com.ssafy.fundyou1.fund.entity.InvitedMember;
 import com.ssafy.fundyou1.fund.repository.FundingItemMemberRepository;
 import com.ssafy.fundyou1.fund.repository.FundingItemRepository;
 import com.ssafy.fundyou1.fund.repository.FundingRepository;
@@ -20,9 +22,11 @@ import com.ssafy.fundyou1.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,14 +43,15 @@ public class FundingItemService {
     FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
     FundingItemRepository fundingItemRepository;
-    @Autowired
-    MemberService memberService;
+
     @Autowired
     MemberRepository memberRepository;
 
     @Autowired
     FirebaseCloudMessageService firebaseCloudMessageService;
 
+    @Lazy
+    FundingService fundingService;
 
     // 펀딩 참여(돈 보내기)
     @Transactional
@@ -65,14 +70,14 @@ public class FundingItemService {
         // 1. 펀딩 금액 추가
         fundingItemRepository.addCurrentFundingPrice(attendFundingDto.getFundingItemId(), attendFundingDto.getPoint());
         // 1-1.펀딩 금액 완료인지 확인 (=> 펀딩 완료시 => 펀딩 상태 False로 변경)
-        if (fundingItem.getCurrentFundingPrice() == fundingItem.getItemTotalPrice()){
-            fundingItemRepository.changeFundingStatus(fundingItem.getId());
-        }
         // 2. 펀딩 참여자 수 + 1
         fundingItemRepository.addParticipantsCount(fundingItem.getId());
 
         // 4. 사용자 point 차감
         memberRepository.minusPoint(member.get().getId(), attendFundingDto.getPoint());
+        if (fundingItem.getCurrentFundingPrice() + attendFundingDto.getPoint() == fundingItem.getItemTotalPrice()){
+            terminateFundingItem(fundingItem.getId());
+        }
 
         return getFundingItem(attendFundingDto.getFundingItemId());
 
@@ -122,10 +127,12 @@ public class FundingItemService {
     public Boolean terminateFundingItem(Long fundingItemId) {
 
         // 펀딩 상품 종료
+
         fundingItemRepository.updateFundingItemStatusByFundingItemId(fundingItemId, false);
 
         // 해당 펀딩에 모든 펀딩 상품이 종료될 경우 해당 펀딩 종료시킴
-        Long fundingId = fundingItemRepository.findByFundingItemId(fundingItemId).getFunding().getId();
+        FundingItem fundingItem = fundingItemRepository.findByFundingItemId(fundingItemId);
+        Long fundingId = fundingItem.getFunding().getId();
 
         // 모두 종료이면
         if (!fundingItemRepository.findByFundingIdAndFundingItemStatus(fundingId, true)){
@@ -138,6 +145,19 @@ public class FundingItemService {
         if (fundingItemRepository.findByFundingItemId(fundingItemId).isFundingItemStatus()){
             return false;
         }else{
+            try {
+                // 펀딩 완료 푸시 알림 : 주최자
+                firebaseCloudMessageService.sendMessageTo(fundingItem.getFunding().getMember().getId(), "펀딩 종료","이제 선물 받을 수 있어요!", "true");
+
+                // 펀딩 참여한 사람 리스트
+                List<InvitedMember> invitedFundingMemberList = invitedMemberRepository.findAllByFundingId(fundingId);
+                for (InvitedMember invitedMember:invitedFundingMemberList) {
+                    Long memberId = invitedMember.getMember().getId();
+                    firebaseCloudMessageService.sendMessageTo(memberId, "펀딩 종료",fundingItem.getFunding().getMember().getUsername() + "님의 펀딩이 종료되었습니다.\n 참여해주셔서 감사합니다😊", "false");
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
             return true;
         }
 

@@ -13,6 +13,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 @EntityScan
+@ToString
 public class InvitedMember {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

@@ -30,7 +30,7 @@ public class Funding {
     private Long id; // PK
     @Column(name = "funding_name")
     private String fundingName;
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name="member_id")
     @JsonIgnore
     private Member member; // FK
@@ -49,7 +49,6 @@ public class Funding {
     private List<FundingItem> fundingItems = new ArrayList<>(); // funding_order_item table의 fundingBaseOrder 의해 mapping
 
     //==연관 메서드 ==//
-
 
     @Builder
     public Funding(Long id, Member member, Long startDate, Long endDate) {
