@@ -8,9 +8,12 @@ import com.ssafy.fundyou1.item.entity.Item;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
+
 import java.util.List;
 
-@Getter
+@Getter @Setter
+
 public class ItemSaveRequest {
 
     @JsonProperty("price")
