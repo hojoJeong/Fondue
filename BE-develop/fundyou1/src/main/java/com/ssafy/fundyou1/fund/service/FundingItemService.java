@@ -37,7 +37,8 @@ import java.util.Optional;
 public class FundingItemService {
     private final ArImageRepository arImageRepository;
     private final FundingRepository fundingRepository;
-
+    @Autowired
+    InvitedMemberRepository invitedMemberRepository;
     @Autowired
     FundingItemMemberRepository fundingItemMemberRepository;
     @Autowired
@@ -148,9 +149,9 @@ public class FundingItemService {
 
                 // 펀딩 참여한 사람 리스트
 
-                List<FundingResultMemberDto> invitedFundingMemberList = fundingService.fundingResultMemberDtoList(fundingId);
-                for (FundingResultMemberDto invitedMember:invitedFundingMemberList) {
-                    Long memberId = invitedMember.getMemberId();
+                List<InvitedMember> invitedFundingMemberList = invitedMemberRepository.findAllByFundingId(fundingId);
+                for (InvitedMember invitedMember:invitedFundingMemberList) {
+                    Long memberId = invitedMember.getMember().getId();
                     firebaseCloudMessageService.sendMessageTo(memberId, "펀딩 종료",fundingItem.getFunding().getMember().getUsername() + "님의 펀딩이 종료되었습니다.\n 참여해주셔서 감사합니다😊", false);
                 }
             } catch (IOException e) {
