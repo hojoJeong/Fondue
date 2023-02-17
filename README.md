@@ -234,9 +234,10 @@
 
 ### Frontend(Mobile)
 
-![image.png](https://user-images.githubusercontent.com/72602912/219434368-9e7414e6-a391-4ea3-b754-89801bc2cddd.png)
+![image](https://user-images.githubusercontent.com/72602912/219528566-6a5091ea-4b3a-48f9-a343-5efb21998190.png)
 
 
 ### Backend(Spring boot)
 
-![image.png](https://user-images.githubusercontent.com/72602912/219435011-6e7e62c5-62aa-4310-9050-a79870ab5e85.png)
+![image](https://user-images.githubusercontent.com/72602912/219528378-dabc506f-18d7-4227-942f-f48854ef2cc5.png)
+
