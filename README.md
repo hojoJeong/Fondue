@@ -190,22 +190,19 @@
 
 | 이름 | 설명 |
 | --- | --- |
-| firebase-storage | 이미지 저장을 위한 FirebaseRTDB |
-| firebase-messaging | FCM 기능 구현 |
-| ar-core | AR 기능 구현을 위한 오픈소스 라이브러리 |
-| ar-sceneform | OpenGL을 편리하게 활용하여 3D 모델링 |
-| hilt | DI 라이브러리 |
-| kakao-sdk | 카카오 로그인, 링크를 위한 라이브러리 |
-| databinding | XML에 데이터를 직접 바인딩하기 위한 라이브러리 |
-| navigation | 프래그먼트 탐색을 위한 Jetpack 라이브러리 |
-| circleIndicator3 | ViewPager의 인디케이터를 위한 라이브러리 |
-| retrofit2 | HTTP 통신 라이브러리 |
-| Spinkit | Loading Dialog를 위한 라이브러리 |
-| okhttp3 | http logging과 interceptor를 위한 라이브러리 |
-| balloon | 말풍선 라이브러리 |
-| MPAndroidChart | Pie Chart를 위한 라이브러리 |
-| circleimageview | 원형 이미지를 위한 라이브러리 |
-| glide | URL형식의 이미지처리를 위한 라이브러리 |
+| java-jwt                   | jwt 사용 위한 라이브러리                                     |
+| google-api-client          | FCM 사용위한 라이브러리                                      |
+| jjwt                       | jwt 사용 위한 라이브러리                                     |
+| firebase-admin             | 파이어베이스에서 온 인증 토큰 검증하는 라이브러리            |
+| okhttp                     | http 통신을 편리하게 사용할 수 있도록 도와주는 라이브러리    |
+| spring.fox                 | spring과 연동하는 자동 문서화 라이브러리                     |
+| qeuryDsl                   | SQL과 같은 쿼리를 생성할 수 있도록 해주는 프레임워크         |
+| spring-boot-starter-tomcat | 톰캣 (웹서버)                                                |
+| spring-boot-starter        | 프로젝트에 설정해야 할 다수의 의존성들을 사전에 미리 정의해서 의존성 조합 제공 |
+| jdbc-driver                | 이미지 저장을 위한 FirebaseRTDB                              |
+| firebase-messaging         | FCM 기능 구현                                                |
+| jackson                    | Java Object 형태의 값을 데이터 구조를 표현하는 방식인 XML 또는 JSON 형태로 만들어 보낼 때 사용 |
+| lombok                     | 컴파일 타임 코드 자동 생성기                                 |
 
 ### 패키지 구조
 
