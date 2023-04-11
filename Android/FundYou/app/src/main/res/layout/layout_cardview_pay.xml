@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cdv_layout_pay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg_point" />
+
+            <TextView
+                android:id="@+id/tv_layout_pay_title"
+                style="@style/base_font_medium_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_horizontal_margin"
+                android:layout_marginTop="@dimen/base_vertical_margin"
+                android:text="@string/title_fondue_pay"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_layout_pay_logo"
+                android:layout_width="50dp"
+                android:layout_height="36dp"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="14dp"
+                android:layout_marginBottom="14dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:src="@drawable/bg_banner_ssafylogo" />
+
+            <TextView
+                android:id="@+id/tv_layout_pay_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                app:layout_constraintEnd_toStartOf="@+id/btn_layout_pay_load"
+                app:layout_constraintBottom_toBottomOf="@+id/iv_layout_pay_logo"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="10dp"
+                tools:text="잔액 : 100,000원"
+                style="@style/base_font_medium_16"
+                android:textColor="@color/black" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_layout_pay_load"
+                android:layout_width="32dp"
+                android:layout_height="20dp"
+                android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+                android:text="충전"
+                android:textColor="@color/razzmatazz"
+                android:textAlignment="center"
+                android:textSize="10sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_layout_pay_balance"
+                app:layout_constraintTop_toTopOf="@+id/tv_layout_pay_balance"
+                android:layout_marginEnd="14dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

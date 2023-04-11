@@ -1,16 +1,23 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.google.dagger.hilt.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-android'
+    id 'com.google.gms.google-services'
+    id 'androidx.navigation.safeargs.kotlin'
+    // kapt는 항상 맨 아래로
+    id 'kotlin-kapt'
 }
 
 android {
     namespace 'com.ssafy.fundyou'
-    compileSdk 32
+    compileSdk 33
 
     defaultConfig {
         applicationId "com.ssafy.fundyou"
-        minSdk 21
-        targetSdk 32
+        minSdk 24
+        targetSdk 33
         versionCode 1
         versionName "1.0"
 
@@ -24,21 +31,64 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '11'
+    }
+    dataBinding {
+        enabled = true
+    }
+    viewBinding {
+        enabled = true
     }
 }
 
 dependencies {
+    implementation(project(":common"))
+    implementation(project(":domain"))
+    implementation(project(":data"))
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    testImplementation 'junit:junit:4.13.2'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    implementation libs.ar.core
+    implementation libs.ar.sceneform
+    implementation libs.ar.sceneform.ux
+    implementation libs.bundles.navigation
+    implementation libs.bundles.androidx
+    implementation libs.android.material
+    implementation libs.hilt
+    implementation libs.databinding
+
+    implementation libs.bundles.retrofit.bundles
+    implementation libs.bundles.okhttp3.bundles
+
+    implementation libs.shawnlin013.numberpicker
+    implementation libs.skydoves.balloon
+    implementation libs.circleindicator
+    implementation libs.mp.android.chart
+
+    implementation libs.kakao.sdk
+
+    implementation libs.google.auth
+    implementation platform (libs.google.firebase)
+    implementation libs.google.firebase.analytics
+    implementation libs.google.firebase.storage
+    implementation libs.ar.sceneform.assets
+
+    //glide
+    implementation (libs.glide)
+    annotationProcessor (libs.glide.compiler)
+    implementation 'com.google.ar.sceneform:rendering:1.17.1'
+    testImplementation libs.junit
+
+    androidTestImplementation libs.android.test.junit
+    androidTestImplementation libs.android.test.espresso
+
+    kapt libs.hilt.compiler
+
+    implementation libs.circleimageview
+}
+
+kapt {
+    correctErrorTypes true
 }

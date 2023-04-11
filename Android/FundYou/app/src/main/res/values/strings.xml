@@ -1,3 +1,147 @@
 <resources>
     <string name="app_name">FundYou</string>
+
+    <!-- 로그인 -->
+    <string name="content_login_balloon">가입하여 선물 펀딩하기</string>
+    <string name="content_login_banner_1">선물을 펀딩으로 받아보세요!</string>
+    <string name="content_login_banner_2">받고 싶은 선물을 선택한 후,\n링크를 공유해 보세요.</string>
+    <string name="content_login_banner_3">링크를 통해,\n친구들이 선물을 펀딩 할 거에요.</string>
+    <string name="content_kakao_login">카카오톡으로 로그인</string>
+    <string name="content_google_login">구글로 로그인</string>
+
+    <!-- 홈 -->
+    <string name="content_searchbar">찾으시는 선물을 검색해보세요</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="content_banner_indicator">%1$d / %2$d</string>
+    <string name="title_category">어떤 상품을 찾고 있나요?</string>
+    <string name="title_rank">앗 뜨거! 퐁듀에서 핫한 아이템!</string>
+    <string name="title_random">오늘의 퐁듀</string>
+    <string name="content_random_btn">더보기</string>
+    <string name="title_popular_search">많이 검색한 키워드</string>
+    <string name="title_AR_btn">AR</string>
+    <string name="title_category_all">전체</string>
+    <string name="title_category_digital">디지털/가전</string>
+    <string name="title_category_living">리빙/인테리어</string>
+    <string name="title_category_kitchen">주방용품</string>
+    <string name="title_category_etc">기타</string>
+    <string name="title_rank_price_default">상품 가격대를 설정해주세요</string>
+    <string name="title_rank_price_range">%1$d만원 ~ %2$d만원</string>
+    <string name="title_rank_startprice">0원</string>
+    <string name="title_rank_endprice">100만원</string>
+
+    <!-- 검색 -->
+    <string name="title_search_recent_keyword_title">최근 검색어</string>
+    <string name="title_search_recent_delete_keyword">모두 지우기</string>
+    <string name="title_search_popular_keyword_title">인기 검색어</string>
+    <string name="content_search_input_hint">찾으시는 선물을 검색해 보세요.</string>
+    <string name="content_search_no_keyword">검색기록이 없습니다.</string>
+
+    <!-- 퐁듀페이 CardView -->
+    <string name="title_fondue_pay">퐁듀Pay</string>
+    <string name="content_fondue_pay_balance">잔액 : %1$d원</string>
+
+    <!-- 마이페이지 -->
+    <string name="title_mypage_invited_fondue">초대 받은 퐁듀</string>
+    <string name="title_mypage_my_fondue">내 퐁듀</string>
+    <string name="title_mypage_favorite">찜</string>
+    <string name="title_mypage_user_information">계정 기본 정보</string>
+    <string name="title_mypage_notification_setting">알림 설정</string>
+    <string name="title_mypage_app_version">앱버전</string>
+    <string name="title_mypage_developer_information">개발자 정보</string>
+    <string name="title_mypage_privacy">개인정보 수집 및 이용 방침</string>
+    <string name="title_mypage_terms_of_service">서비스 이용약관</string>
+    <string name="title_mypage_logout">로그아웃</string>
+    <string name="title_mypage_fondue_pay_charge">퐁듀Pay 충전</string>
+    <string name="content_mypage_app_version">v1.0.0</string>
+
+    <!-- 계정 기본 정보 -->
+    <string name="title_userinfo_email">이메일</string>
+    <string name="title_userinfo_name">이름</string>
+    <string name="title_userinfo_phone">연락처</string>
+    <string name="title_userinfo_login_info">SNS 연동</string>
+    <string name="title_userinfo_cancel_membership">회원탈퇴</string>
+
+    <!-- 알림 설정 -->
+    <string name="title_notisetting_all">전체 푸시 알림</string>
+    <string name="title_notisetting_detail">상세 알림</string>
+    <string name="title_notisetting_message">메세지 알림</string>
+    <string name="title_notisetting_funding">펀딩 알림</string>
+    <string name="title_notisetting_funding_close">펀딩 마감 알림</string>
+    <string name="title_notisetting_funding_close_deadline">펀딩 마감 임박 알림</string>
+
+    <!-- 초대 받은 퐁듀 -->
+    <string name="content_invited_fondue_name">from.%1$s</string>
+    <string name="content_invited_fondue_period">%1$s ~ %2$s</string>
+    <string name="content_invited_fondue_join">참여</string>
+    <string name="content_invited_fondue_ongoing">진행중</string>
+    <string name="content_invited_fondue_done">종료</string>
+    <string name="content_invited_fondue_non_join">미참여</string>
+    <string name="content_invited_fondue_category_ongoing">진행 중인 펀딩</string>
+    <string name="content_invited_fondue_category_done">종료된 펀딩</string>
+    <string name="content_invited_fondue_category_non_join">미참여한 펀딩</string>
+    <string name="content_invited_fondue_category_join">참여한 펀딩</string>
+    <string name="content_invited_fondue_pay">%1$d원 펀딩</string>
+    <string name="title_invited_fondue_appbar">선물 리스트</string>
+    <string name="content_invited_fondue_message">김싸피님 집들이를 축하해 주세요!\n센스있는 집들이 선물을 기다리고 있습니다</string>
+
+    <!-- 탈퇴하기 -->
+    <string name="content_cancel_membership_username">%1$s님,</string>
+    <string name="content_cancel_membership_top_message">만족스러운 서비스를 제공해드리지 못해 대단히 죄송합니다. 퐁듀를 떠나시려는 이유를 알려주세요😥</string>
+    <string name="title_cancel_membership_reason_menu">탈퇴 사유를 선택해주세요</string>
+    <string name="category_cancel_membership_reason_cancel_1">기록 삭제 목적</string>
+    <string name="category_cancel_membership_reason_cancel_2">이용이 불편하고 오류가 많아서</string>
+    <string name="category_cancel_membership_reason_cancel_3">사고싶은 상품이 없어서</string>
+    <string name="category_cancel_membership_reason_cancel_4">알림이 너무 자주 울려서</string>
+    <string name="category_cancel_membership_reason_cancel_5">기타</string>
+    <string name="content_cancel_membership_solution_3_title">퐁듀가 알아서 상품을 추천해드릴게요!</string>
+    <string name="content_cancel_membership_solution_3_content">랜덤과 검색 순위로 다양하고 인기있는 있는 상품을 추천 받아보세요.</string>
+    <string name="content_cancel_membership_solution_btn"><u>%1$s 바로가기</u></string>
+    <string name="content_cancel_membership_solution_4_title">서비스별로 알림을 설정해보세요!</string>
+    <string name="content_cancel_membership_solution_4_content">알림 설정을 통해 받고싶은 알림만 받아보세요.</string>
+    <string name="content_cancel_membership_final_message_title">탈퇴하기 버튼을 누르면 복구가 불가능합니다.</string>
+    <string name="content_cancel_membership_final_message_content">탈퇴 즉시 모든 개인정보가 삭제되며 퐁듀 서비스 및 혜택을 받으실 수 없습니다.</string>
+    <string name="title_cancel_membership_btn_back">돌아가기</string>
+    <string name="title_cancel_membership_btn_withdraw">탈퇴하기</string>
+    <string-array name="menu_withdrawal_membership_reason">
+        <item>@string/category_cancel_membership_reason_cancel_1</item>
+        <item>@string/category_cancel_membership_reason_cancel_2</item>
+        <item>@string/category_cancel_membership_reason_cancel_3</item>
+        <item>@string/category_cancel_membership_reason_cancel_4</item>
+        <item>@string/category_cancel_membership_reason_cancel_5</item>
+    </string-array>
+
+    <!-- 결제하기 -->
+    <string name="title_pay_gift_item">선물 항목</string>
+    <string name="content_pay_remain">남았어요!</string>
+    <string name="content_pay_input_funding_price">펀딩할 금액 입력</string>\
+    <string name="title_pay_btn_all">퐁듀하기</string>
+    <string name="title_pay_btn_10000">+ 10,000</string>
+    <string name="title_pay_btn_50000">+ 50,000</string>
+    <string name="title_pay_btn_all_describtion">남은 금액 전부 펀딩</string>
+    <string name="title_pay_input_info">정보 입력</string>
+    <string name="title_pay_sender">보내는 사람</string>
+    <string name="title_pay_message">메시지</string>
+    <string name="title_pay_payment_option">결제 수단</string>
+    <string name="title_pay_fondue_pay">퐁듀Pay 머니</string>
+    <string name="title_pay_funding">%1$d원 펀딩하기</string>
+    <string name="title_pay_success">%1$s님의 퐁듀를\n완료하였습니다.</string>
+
+    <!-- 위시리스트 -->
+    <string name="title_wishlist_funding_info">펀딩 생성 정보</string>
+    <string name="title_wishlist_item_price">상품 총액</string>
+    <string name="title_wishlist_item_count">수량</string>
+    <string name="title_wishlist_funding_period">펀딩 기간</string>
+    <string name="content_wishlist_balloon">친구들과 펀딩 정보를 공유할 수 있어요</string>
+    <string name="title_wishlist_calendar">펀딩 기간을 설정해주세요</string>
+    <string name="content_wishlist_funding_period">%1$s ~ %2$s</string>
+
+    <!-- 카테고리 -->
+    <string-array name="category_num">
+        <item>전체</item>
+        <item>인테리어</item>
+        <item>디지털/가전</item>
+        <item>주방용품</item>
+        <item>기타</item>
+    </string-array>
+
 </resources>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.ssafy.fundyou.ui.search.model.SearchItemModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="55dp">
+
+        <ImageView
+            android:id="@+id/iv_item_img"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_back_arrow_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setItemImage="@{item.itemImg}" />
+
+        <ImageView
+            android:id="@+id/iv_item_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            android:src="@drawable/ic_item_like"
+            app:favoriteImage="@{item.isFavorite}"
+            app:layout_constraintBottom_toBottomOf="@id/iv_item_img"
+            app:layout_constraintEnd_toEndOf="@id/iv_item_img" />
+
+        <TextView
+            android:id="@+id/tv_brand"
+            style="@style/base_font_medium_12_link_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@{item.brand}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/iv_item_img"
+            tools:text="브랜드 이름 영역입니다." />
+
+        <TextView
+            android:id="@+id/tv_item_name"
+            style="@style/base_font_medium_14_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@{item.name}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_brand"
+            tools:text="상품 이름 영역입니다." />
+
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="29dp"
+            app:addCommaText="@{item.price}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+            tools:text="100,000" />
+
+        <TextView
+            android:id="@+id/tv_is_ar"
+            style="@style/base_font_medium_14_franch_rose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+            android:paddingHorizontal="19dp"
+            android:paddingVertical="4dp"
+            app:arVisibility="@{item.isAr}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_price"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_price"
+            tools:text="AR" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

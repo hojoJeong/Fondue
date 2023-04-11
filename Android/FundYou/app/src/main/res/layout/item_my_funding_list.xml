@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="fundingItem"
+            type="com.ssafy.fundyou.ui.funding_my_list.model.MyFundingListUiModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:background="@drawable/bg_rect_link_water_transparent_radius4_stroke1"
+        android:padding="13dp">
+
+        <TextView
+            android:id="@+id/tv_funding_sequence"
+            style="@style/base_font_medium_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{fundingItem.fundingName}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1번째 펀딩" />
+
+        <TextView
+            android:id="@+id/tv_funding_time"
+            style="@style/base_font_medium_12_link_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            app:endDate="@{fundingItem.endDate}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_funding_sequence"
+            app:layout_constraintStart_toEndOf="@id/tv_funding_sequence"
+            app:startDate="@{fundingItem.startDate}"
+            tools:text="2022.11.15 ~ 2022.12.15" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_funding_item_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_funding_time"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <TextView
+            android:id="@+id/tv_funding_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            style="@style/base_font_bold_20_franch_rose"
+            app:layout_constraintTop_toBottomOf="@id/rv_funding_item_img"
+            app:percentage="@{fundingItem.percentage}"
+            app:styleByStatus="@{fundingItem.status}"
+            tools:text="100%" />
+
+        <ProgressBar
+            android:id="@+id/pb_funding"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="@{fundingItem.percentage}"
+            android:progressDrawable="@{fundingItem.status ? @drawable/bg_progress_funding : @drawable/bg_progress_end_funding }"
+            android:scaleY="0.5"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_funding_progress"
+            tools:progress="100" />
+
+
+        <TextView
+            android:id="@+id/tv_current_funding_price"
+            style="@style/base_font_medium_12_raven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/tv_funding_progress"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:setPrice="@{fundingItem.currentFundingPrice}"
+            tools:text="60,000" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

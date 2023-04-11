@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="price"
+            type="Integer" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ly_item_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bg_rect_hawkes_blue_transparent_raidus2_storke1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/iv_minus"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_minus"
+                android:layout_marginHorizontal="6dp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/tv_count"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                style="@style/base_font_medium_14_midnight_express"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rect_hawkes_blue_transparent_radius0_stroke1_no_bottom"
+                android:gravity="center"
+                android:paddingVertical="10dp"
+                android:text="1"
+                app:layout_constraintHorizontal_weight="19"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/iv_plus"
+                app:layout_constraintStart_toEndOf="@id/iv_minus"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/iv_plus"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:src="@drawable/ic_plus"
+                android:layout_marginHorizontal="6dp"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tv_count"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_total_price_title"
+            style="@style/base_font_medium_14_echo_blue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="12dp"
+            android:text="총금액"
+            app:layout_constraintBottom_toBottomOf="@id/tv_total_price"
+            app:layout_constraintEnd_toStartOf="@id/tv_total_price"
+            app:layout_constraintTop_toTopOf="@id/tv_total_price" />
+
+        <TextView
+            android:id="@+id/tv_total_price"
+            style="@style/base_font_bold_26_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            app:addCommaText="@{price}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_won"
+            app:layout_constraintEnd_toStartOf="@id/tv_won"
+            app:layout_constraintTop_toTopOf="@id/tv_won"
+            tools:text="100,000" />
+
+        <TextView
+            android:id="@+id/tv_won"
+            style="@style/base_font_medium_15_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:text="원"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ly_item_count" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_item"
+            style="@style/base_font_medium_16_white"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="28dp"
+            android:background="@drawable/bg_rect_transparent_midnight_express_radius8_stroke0"
+            android:paddingVertical="18dp"
+            android:text="선물 추가"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_total_price"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
