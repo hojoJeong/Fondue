@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/mainFragment"
+        android:icon="@drawable/sc_check_home"
+        android:title="홈"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/sc_check_search"
+        android:title="검색"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/myFundingFragment"
+        android:icon="@drawable/ic_favorite_border_24"
+        android:title="퐁듀"
+        app:showAsAction="always" />
+    <!-- 찜 구현 후 id 수정 -->
+    <item
+        android:id="@+id/itemDetailFragment"
+        android:icon="@drawable/sc_check_favorite"
+        android:title="찜"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/myPageFragment"
+        android:icon="@drawable/sc_check_mypage"
+        android:title="마이페이지"
+        app:showAsAction="always" />
+</menu>

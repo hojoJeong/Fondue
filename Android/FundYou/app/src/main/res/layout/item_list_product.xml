@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <import type="android.view.View" />
+        <variable
+            name="product"
+            type="com.ssafy.fundyou.domain.model.item.ProductItemModel" />
+        <variable
+            name="favorite_visibility"
+            type="Boolean" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/iv_item_list_product"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@drawable/bg_rect_whisper_white_round5_stroke1"
+            android:padding="4dp"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_item_list_product_favorite"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_margin="6dp"
+            android:scaleType="centerInside"
+            app:favoriteImage="@{product.favorite}"
+            android:visibility="@{favorite_visibility ? View.VISIBLE : View.GONE, default = visible}"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_item_list_product"
+            app:layout_constraintEnd_toEndOf="@+id/iv_item_list_product"
+            tools:src="@drawable/ic_favorite" />
+
+        <TextView
+            android:id="@+id/tv_item_list_product_ranking"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_brand"
+            app:layout_constraintTop_toTopOf="@+id/iv_item_list_product"
+            tools:text="1위"/>
+
+        <TextView
+            android:id="@+id/tv_item_list_product_brand"
+            style="@style/base_font_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="6dp"
+            android:text="@{product.name}"
+            android:textColor="@color/link_water"
+            app:layout_constraintStart_toEndOf="@+id/iv_item_list_product"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_ranking"
+            tools:text="삼성" />
+
+        <TextView
+            android:id="@+id/tv_item_list_product_name"
+            style="@style/base_font_medium_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_between_tv"
+            android:text="@{product.brand}"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_brand"
+            tools:text="상품 이름" />
+
+        <TextView
+            android:id="@+id/tv_item_list_product_price"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_item_between_tv"
+            android:textColor="@color/black"
+            app:addCommaText="@{product.price}"
+            app:layout_constraintStart_toStartOf="@+id/tv_item_list_product_ranking"
+            app:layout_constraintTop_toBottomOf="@+id/tv_item_list_product_name"
+            tools:text="2,890,000원" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_item_list_product_ar"
+            style="@style/base_font_medium"
+            android:layout_width="50dp"
+            android:layout_height="26dp"
+            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+            android:text="@string/title_AR_btn"
+            android:textColor="@color/franch_rose"
+            app:arVisibility="@{product.ar}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_item_list_cancel"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/ic_cancel"
+            android:visibility="@{favorite_visibility ? View.GONE : View.VISIBLE, default=visible}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tv_item_list_product_ranking"
+            tools:visibility="visible" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

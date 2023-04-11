@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <EditText
+                android:id="@+id/edit_search"
+                style="@style/base_font_medium_15_midnight_express"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+                android:layout_marginTop="22dp"
+                android:background="@drawable/bg_rect_midnight_express_transparent_radius10_stroke1"
+                android:drawableStart="@drawable/ic_search_unselected"
+                android:drawablePadding="8dp"
+                android:hint="@string/content_search_input_hint"
+                android:imeOptions="actionSearch"
+                android:inputType="text"
+                android:paddingVertical="14dp"
+                android:paddingStart="18dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_recent_search_keyword_title"
+                style="@style/base_font_bold_16_midnight_express"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_horizontal_margin"
+                android:layout_marginTop="40dp"
+                android:text="@string/title_search_recent_keyword_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_search" />
+
+            <TextView
+                android:id="@+id/tv_all_delete_recent_keyword"
+                style="@style/base_font_medium_12_hawkes_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/base_horizontal_margin"
+                android:text="@string/title_search_recent_delete_keyword"
+                app:layout_constraintBottom_toBottomOf="@id/tv_recent_search_keyword_title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/tv_recent_search_keyword_title" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_recent_search_keyword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recent_search_keyword_title" />
+
+            <include
+                android:id="@+id/ly_search_no_keyword"
+                layout="@layout/content_search_no_keyword"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/rv_recent_search_keyword"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_recent_search_keyword_title"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/tv_popular_keyword_title"
+                style="@style/base_font_bold_16_midnight_express"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_horizontal_margin"
+                android:layout_marginTop="100dp"
+                android:text="@string/title_search_popular_keyword_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ly_search_no_keyword" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_popular_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/base_horizontal_margin"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_popular_keyword_title"
+                app:spanCount="2" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</layout>

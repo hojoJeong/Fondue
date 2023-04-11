@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.FundYou" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="Theme.FundYou" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
@@ -10,7 +10,213 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:statusBarColor">@color/razzmatazz</item>
         <!-- Customize your theme here. -->
+    </style>
+
+    <!-- base type -->
+    <style name="base_font_bold">
+        <item name="android:fontFamily">@font/notosanskr_bold</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <style name="base_font_medium">
+        <item name="android:fontFamily">@font/notosanskr_medium</item>
+        <item name="android:includeFontPadding">false</item>
+    </style>
+
+    <!-- bold size -->
+    <style name="base_font_bold_12" parent="base_font_bold">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="base_font_bold_14" parent="base_font_bold">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="base_font_bold_16" parent="base_font_bold">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="base_font_bold_20" parent="base_font_bold">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="base_font_bold_26" parent="base_font_bold">
+        <item name="android:textSize">26sp</item>
+    </style>
+
+    <style name="base_font_bold_32" parent="base_font_bold">
+        <item name="android:textSize">32sp</item>
+    </style>
+
+    <!-- medium size -->
+    <style name="base_font_medium_12" parent="base_font_medium">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="base_font_medium_14" parent="base_font_medium">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="base_font_medium_15" parent="base_font_medium">
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="base_font_medium_16" parent="base_font_medium">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="base_font_medium_18" parent="base_font_medium">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- medium size color -->
+    <style name="base_font_medium_12_hawkes_blue" parent="base_font_medium_12">
+        <item name="android:textColor">@color/hawkes_blue</item>
+    </style>
+
+    <style name="base_font_medium_12_link_water" parent="base_font_medium_12">
+        <item name="android:textColor">@color/link_water</item>
+    </style>
+
+    <style name="base_font_medium_12_raven" parent="base_font_medium_12">
+        <item name="android:textColor">@color/raven</item>
+    </style>
+
+    <style name="base_font_medium_12_tomato" parent="base_font_medium_12">
+        <item name="android:textColor">@color/tomato</item>
+    </style>
+
+    <style name="base_font_medium_12_black" parent="base_font_medium_12">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_medium_12_matter_horn" parent="base_font_medium_12">
+        <item name="android:textColor">@color/matter_horn</item>
+    </style>
+
+    <style name="base_font_medium_14_midnight_express" parent="base_font_medium_14">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <style name="base_font_medium_14_raven" parent="base_font_medium_14">
+        <item name="android:textColor">@color/raven</item>
+    </style>
+
+    <style name="base_font_medium_14_black" parent="base_font_medium_14">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_medium_14_franch_rose" parent="base_font_medium_14">
+        <item name="android:textColor">@color/franch_rose</item>
+    </style>
+
+    <style name="base_font_medium_14_white" parent="base_font_medium_14">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="base_font_medium_15_midnight_express" parent="base_font_medium_15">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <style name="base_font_medium_16_black" parent="base_font_medium_16">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_medium_16_white" parent="base_font_medium_16">
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="base_font_medium_18_midnight_express" parent="base_font_medium_18">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <!-- bold size color -->
+    <style name="base_font_bold_12_raven" parent="base_font_bold_12">
+        <item name="android:textColor">@color/raven</item>
+    </style>
+
+    <style name="base_font_bold_14_black" parent="base_font_bold_14">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_bold_14_echo_blue" parent="base_font_bold_14">
+        <item name="android:textColor">@color/echo_blue</item>
+    </style>
+
+    <style name="base_font_bold_16_black" parent="base_font_bold_16">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="base_font_bold_16_midnight_express" parent="base_font_bold_16">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <style name="base_font_bold_20_franch_rose" parent="base_font_bold_20">
+        <item name="android:textColor">@color/franch_rose</item>
+    </style>
+
+    <style name="base_font_bold_20_matter_horn" parent="base_font_bold_20">
+        <item name="android:textColor">@color/matter_horn</item>
+    </style>
+
+    <style name="base_font_bold_26_midnight_express" parent="base_font_bold_26">
+        <item name="android:textColor">@color/midnight_express</item>
+    </style>
+
+    <style name="base_font_bold_32_black" parent="base_font_bold_32">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <!-- set slider in main-->
+    <style name="slider_color_list" parent="Theme.MaterialComponents">
+        <item name="colorPrimary">@color/franch_rose</item>
+        <item name="colorOnPrimary">@color/franch_rose</item>
+        <item name="colorOnSurface">@color/pig_pink</item>
+    </style>
+
+    <style name="Widget.App.Tooltip" parent="Widget.Material3.Tooltip">
+        <item name="android:textAppearance">@style/TextAppearance.App.Tooltip</item>
+        <item name="backgroundTint">@color/white</item>
+    </style>
+
+    <style name="TextAppearance.App.Tooltip" parent="TextAppearance.Material3.BodySmall">
+        <item name="android:textColor">@color/franch_rose</item>
+        <item name="fontFamily">@font/notosanskr_light</item>
+        <item name="android:fontFamily">@font/notosanskr_light</item>
+    </style>
+
+    <style name="main_slider" parent="Widget.MaterialComponents.Slider">
+        <item name="materialThemeOverlay">@style/slider_color_list</item>
+        <item name="labelStyle">@style/Widget.App.Tooltip</item>
+    </style>
+
+    <!-- custom chip -->
+    <style name="custom_chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="chipBackgroundColor">@color/chip_background</item>
+        <item name="chipStrokeColor">@color/chip_stroke</item>
+        <item name="android:textColor">@color/chip_text</item>
+    </style>
+
+    <!-- custom dropdown menu -->
+    <style name="custom_dropdown_menu" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu">
+        <item name="background">@drawable/bg_rect_gradient_white_round10_stroke1</item>
+        <item name="color">@style/base_font_medium_14</item>
+        <item name="chipStrokeWidth">1dp</item>
+    </style>
+
+    <!-- Collapsing Toolbar -->
+    <style name="expandedBarTextStyle" parent="Theme.FundYou">
+        <item name="android:textColor">@android:color/transparent</item>
+        <item name="android:textSize">0sp</item>
+    </style>
+
+    <!-- Callendar -->
+    <style name="custom_calendar" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
+        <item name="colorPrimary">@color/pig_pink</item>
+        <item name="colorOnPrimary">@color/razzmatazz</item>
+        <item name="colorContainer">@color/pig_pink</item>
+        <!-- 상단 컨테이너 색상 -->
     </style>
 </resources>
