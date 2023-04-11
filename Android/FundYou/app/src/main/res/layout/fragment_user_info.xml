@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="user"
+            type="com.ssafy.fundyou.ui.mypage.model.UserInfoModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.mypage.UserInfoFragment">
+
+        <TextView
+            android:id="@+id/tv_userinfo_email_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/title_userinfo_email"
+            style="@style/base_font_bold_16"
+            android:textColor="@color/black"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:layout_marginStart="@dimen/base_horizontal_margin"/>
+        <TextView
+            android:id="@+id/tv_userinfo_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_userinfo_email_title"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_userinfo_email_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            tools:text="ssafy@naver.com"
+            style="@style/base_font_medium_16"
+            android:textColor="@color/nobel"/>
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dv_userinfo_under_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/base_vertical_item_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userinfo_email_title"
+            app:layout_constraintBottom_toTopOf="@+id/tv_userinfo_name_title"/>
+
+        <TextView
+            android:id="@+id/tv_userinfo_name_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_userinfo_email_title"
+            app:layout_constraintTop_toBottomOf="@+id/dv_userinfo_under_email"
+            app:layout_constraintBottom_toTopOf="@+id/dv_userinfo_under_name"
+            android:text="@string/title_userinfo_name"
+            style="@style/base_font_bold_16"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tv_userinfo_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_userinfo_name_title"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_userinfo_name_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:text="@{user.userName}"
+            tools:text="김싸피"
+            style="@style/base_font_medium_16"
+            android:textColor="@color/nobel"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dv_userinfo_under_name"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_divider_thick_6"
+            android:layout_marginVertical="@dimen/base_vertical_item_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/tv_userinfo_login_info_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userinfo_name_title"/>
+
+        <TextView
+            android:id="@+id/tv_userinfo_login_info_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_userinfo_email_title"
+            app:layout_constraintTop_toBottomOf="@+id/dv_userinfo_under_name"
+            app:layout_constraintBottom_toTopOf="@+id/dv_userinfo_under_login_info"
+            android:text="@string/title_userinfo_login_info"
+            style="@style/base_font_bold_16"
+            android:textColor="@color/black"/>
+        <ImageView
+            android:id="@+id/tv_userinfo_login_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/tv_userinfo_login_info_title"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_userinfo_login_info_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:src="@drawable/ic_kakao"
+            />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:id="@+id/dv_userinfo_under_login_info"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_divider_thick_6"
+            android:layout_marginTop="@dimen/base_vertical_item_list"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_userinfo_login_info_title"
+            app:layout_constraintBottom_toTopOf="@+id/tv_userinfo_cancel_membership_title"/>
+
+        <TextView
+            android:id="@+id/tv_userinfo_cancel_membership_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/tv_userinfo_email_title"
+            app:layout_constraintTop_toBottomOf="@+id/dv_userinfo_under_login_info"
+            android:text="@string/title_userinfo_cancel_membership"
+            android:paddingVertical="@dimen/base_vertical_item_list"
+            android:paddingStart="@dimen/base_horizontal_margin"
+            style="@style/base_font_bold_16"
+            android:textColor="@color/black"/>
+
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

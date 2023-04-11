@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="participateMessage"
+            type="com.ssafy.fundyou.ui.funding_my_item_detail.model.MyFundingParticipateMessageModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        android:background="@drawable/bg_rect_hawks_blue_transparent_radius8_stroke1">
+
+        <TextView
+            android:id="@+id/tv_from_title"
+            style="@style/base_font_bold_12_raven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="22dp"
+            android:text="FROM"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_from_name"
+            style="@style/base_font_medium_14_midnight_express"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="7dp"
+            android:text="@{participateMessage.senderName}"
+            app:layout_constraintBottom_toBottomOf="@id/tv_from_title"
+            app:layout_constraintStart_toEndOf="@id/tv_from_title"
+            tools:text="홍길님" />
+
+        <TextView
+            android:id="@+id/tv_message"
+            style="@style/base_font_medium_14_black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:paddingBottom="6dp"
+            android:layout_marginEnd="22dp"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/bg_rect_solitude_transparent_radius0_stroke1_no_top_left_right"
+            android:text="@{participateMessage.message}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@id/tv_from_title"
+            app:layout_constraintTop_toBottomOf="@id/tv_from_name"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="축하해~" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

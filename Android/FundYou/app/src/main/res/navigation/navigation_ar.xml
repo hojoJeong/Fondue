@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_ar"
+    app:startDestination="@id/arGalleryFragment">
+
+    <fragment
+        android:id="@+id/arFragment"
+        android:name="com.ssafy.fundyou.ui.ar.ArFragment"
+        android:label="ArFragment" >
+        <action
+            android:id="@+id/action_arFragment_to_arCaptureFragment"
+            app:destination="@id/arCaptureFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/arGalleryFragment"
+        android:name="com.ssafy.fundyou.ui.ar_gallery.ArGalleryFragment"
+        android:label="ArGalleryFragment" >
+        <action
+            android:id="@+id/action_arGalleryFragment_to_arFragment"
+            app:destination="@id/arFragment" />
+        <action
+            android:id="@+id/action_arGalleryFragment_to_galleryDetailFragment"
+            app:destination="@id/galleryDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/arCaptureFragment"
+        android:name="com.ssafy.fundyou.ui.ar_capture_confirm.ArCaptureFragment"
+        android:label="fragment_ar_capture"
+        tools:layout="@layout/fragment_ar_capture">
+        <argument
+            android:name="arg1"
+            app:argType="android.graphics.Bitmap"
+            app:nullable="false"
+            />
+        <action
+            android:id="@+id/action_arCaptureFragment_to_arGalleryFragment"
+            app:destination="@id/arGalleryFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/galleryDetailFragment"
+        android:name="com.ssafy.fundyou.ui.ar_gallery.GalleryDetailFragment"
+        android:label="fragment_gallery_detail"
+        tools:layout="@layout/fragment_gallery_detail" >
+        <action
+            android:id="@+id/action_galleryDetailFragment_to_arGalleryFragment"
+            app:destination="@id/arGalleryFragment" />
+        <argument
+            android:name="arg1"
+            app:argType="string"
+            app:nullable="false"
+            />
+    </fragment>
+</navigation>

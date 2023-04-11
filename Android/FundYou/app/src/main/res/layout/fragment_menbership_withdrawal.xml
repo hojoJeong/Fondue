@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/base_horizontal_margin"
+        tools:context=".ui.mypage.MembershipWithdrawalFragment">
+
+        <TextView
+            android:id="@+id/tv_cancel_membership_name"
+            style="@style/base_font_bold_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:text="김싸피님,"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_cancel_membership_question"
+            style="@style/base_font_medium_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/content_cancel_membership_top_message"
+            android:textColor="@color/charcol"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cancel_membership_name" />
+
+        <!--        <Spinner-->
+        <!--            android:id="@+id/menu_cancel_membership_reason"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="20dp"-->
+        <!--            android:layout_marginTop="@dimen/base_vertical_item_list"-->
+        <!--            android:hint="@string/title_cancel_membership_reason_menu"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintTop_toBottomOf="@+id/tv_cancel_membership_question"/>-->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/menu_cancel_membership_reason"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_vertical_item_list"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cancel_membership_question"
+            app:boxStrokeWidth="0dp"
+            app:boxStrokeWidthFocused="0dp"
+            app:boxBackgroundColor="@color/white_smoke"
+            app:endIconTint="@color/charcol">
+
+            <AutoCompleteTextView
+                android:id="@+id/menu_cancel_membership_reason_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
+                android:inputType="none"
+                android:singleLine="true"
+                android:text="@string/title_cancel_membership_reason_menu"
+                android:textColor="@color/nobel"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cstl_cancel_membership_solution"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rect_white_smoke_round5_stroke0"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="10dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/menu_cancel_membership_reason"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/tv_cancel_membership_solution_title"
+                style="@style/base_font_bold_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/franch_rose"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="@string/content_cancel_membership_solution_3_title" />
+
+            <TextView
+                android:id="@+id/tv_cancel_membership_solution_content"
+                style="@style/base_font_medium_14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cancel_membership_solution_title"
+                tools:text="@string/content_cancel_membership_solution_3_content" />
+
+            <TextView
+                android:id="@+id/tv_cancel_membership_solution_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_cancel_membership_solution_content"
+                tools:text="알림 설정 바로가기" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/tv_cancel_membership_message_title"
+            style="@style/base_font_bold_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/content_cancel_membership_final_message_title"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cstl_cancel_membership_solution" />
+
+        <TextView
+            android:id="@+id/tv_cancel_membership_message_content"
+            style="@style/base_font_medium_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/content_cancel_membership_final_message_content"
+            android:textColor="@color/nobel"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tv_cancel_membership_message_title" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancel_membership_back"
+            style="@style/base_font_bold_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/bg_rect_arapawa_round5_stroke0"
+            android:text="@string/title_cancel_membership_btn_back"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_cancel_membership_withdrawal"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_cancel_membership_withdrawal"
+            style="@style/base_font_bold_16"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_rect_white_smoke_round5_stroke0"
+            android:text="@string/title_cancel_membership_btn_withdraw"
+            android:textColor="@color/nobel"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/btn_cancel_membership_back" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

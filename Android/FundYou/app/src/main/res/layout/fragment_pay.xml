@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="item"
+            type="com.ssafy.fundyou.ui.pay.model.FundingPayModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.pay.PayFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_pay_gift_item_title"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+                    android:text="@string/title_pay_gift_item"
+                    android:textColor="@color/raven"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/iv_pay_gift_item"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="@dimen/base_vertical_item_list"
+                    app:setFundingItemImage="@{item.productImg}"
+                    android:background="@drawable/bg_rect_hawkes_blue_solitude_radius0_stroke1"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_gift_item_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pay_gift_item_title" />
+
+                <TextView
+                    android:id="@+id/tv_pay_gift_item_brand"
+                    style="@style/base_font_medium_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_vertical_item_list"
+                    android:textColor="@color/nobel"
+                    app:layout_constraintStart_toEndOf="@+id/iv_pay_gift_item"
+                    app:layout_constraintTop_toTopOf="@+id/iv_pay_gift_item"
+                    tools:text="삼성"
+                    android:text="@{item.brand}"/>
+
+                <TextView
+                    android:id="@+id/tv_pay_gift_item_name"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_item_between_tv"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_gift_item_brand"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pay_gift_item_brand"
+                    tools:text="상품명상품명상품명상품명"
+                    android:text="@{item.name}"/>
+
+                <TextView
+                    android:id="@+id/tv_pay_gift_item_price"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/nobel"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_gift_item_brand"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pay_gift_item_name"
+                    tools:text="63,000"
+                    app:setFundingItemPrice="@{item.price}"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_pay_gify_balance"
+                    style="@style/base_font_bold_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_vertical_item_list"
+                    android:textColor="@color/black"
+                    android:textSize="22sp"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_gift_item_title"
+                    app:layout_constraintTop_toBottomOf="@+id/iv_pay_gift_item"
+                    tools:text="10,000원 남았어요"
+                    app:setBalanceFundingPrice="@{item.balance}"/>
+
+                <EditText
+                    android:id="@+id/edit_pay_funding_price"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:background="@drawable/bg_rect_hawkes_blue_solitude_radius5_stroke1"
+                    android:hint="@string/content_pay_input_funding_price"
+                    android:textSize="16sp"
+                    android:paddingStart="10dp"
+                    android:inputType="number"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/nobel"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_gift_item_title"
+                    app:layout_constraintTop_toBottomOf="@id/tv_pay_gify_balance" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_pay_funding_all"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="4dp"
+                    android:background="@drawable/bg_rect_arapawa_round5_stroke0"
+                    android:text="@string/title_pay_btn_all"
+                    android:textColor="@color/white"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_pay_funding_10000"
+                    app:layout_constraintStart_toStartOf="@+id/edit_pay_funding_price"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_pay_funding_price" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_pay_funding_10000"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginHorizontal="2dp"
+                    android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
+                    android:text="@string/title_pay_btn_10000"
+                    android:textColor="@color/raven"
+                    app:layout_constraintEnd_toStartOf="@+id/btn_pay_funding_50000"
+                    app:layout_constraintStart_toEndOf="@+id/btn_pay_funding_all"
+                    app:layout_constraintTop_toTopOf="@+id/btn_pay_funding_all" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_pay_funding_50000"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
+                    android:text="@string/title_pay_btn_50000"
+                    android:textColor="@color/raven"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_pay_funding_price"
+                    app:layout_constraintStart_toEndOf="@+id/btn_pay_funding_10000"
+                    app:layout_constraintTop_toTopOf="@+id/btn_pay_funding_all" />
+
+                <TextView
+                    android:id="@+id/tv_pay_funding_all"
+                    style="@style/base_font_medium_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/title_pay_btn_all_describtion"
+                    android:textColor="@color/nobel"
+                    app:layout_constraintStart_toStartOf="@+id/btn_pay_funding_all"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_pay_funding_all" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/dv_pay_on_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_thick_6"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pay_funding_all" />
+
+                <TextView
+                    android:id="@+id/tv_pay_input_info_title"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:text="@string/title_pay_input_info"
+                    android:textColor="@color/raven"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_gift_item_title"
+                    app:layout_constraintTop_toBottomOf="@+id/dv_pay_on_info" />
+
+                <TextView
+                    android:id="@+id/tv_pay_input_info_sender"
+                    style="@style/base_font_medium_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:text="@string/title_pay_sender"
+                    android:textColor="@color/nobel"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_input_info_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pay_input_info_title" />
+
+                <TextView
+                    android:id="@+id/tv_pay_input_info_essential"
+                    style="@style/base_font_bold_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="필수"
+                    android:textColor="@color/raven"
+                    android:textSize="10sp"
+                    android:layout_marginStart="14dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_pay_input_info_sender"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_pay_input_info_sender"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_input_info_sender"
+                    />
+                <EditText
+                    android:id="@+id/edit_pay_input_info_sender"
+                    android:layout_width="0dp"
+                    android:layout_height="42dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
+                    android:hint="홍길동"
+                    android:textSize="16sp"
+                    android:paddingStart="10dp"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_pay_funding_price"
+                    app:layout_constraintStart_toStartOf="@+id/edit_pay_funding_price"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pay_input_info_sender" />
+
+                <TextView
+                    android:id="@+id/tv_pay_input_info_message"
+                    style="@style/base_font_medium_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:text="@string/title_pay_message"
+                    android:textColor="@color/nobel"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_input_info_sender"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_pay_input_info_sender" />
+
+                <TextView
+                    android:id="@+id/tv_pay_input_info_optional"
+                    style="@style/base_font_bold_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="선택"
+                    android:textColor="@color/raven"
+                    android:textSize="10sp"
+                    android:layout_marginStart="14dp"
+                    app:layout_constraintStart_toEndOf="@+id/tv_pay_input_info_message"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_pay_input_info_message"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/tv_pay_input_info_message"
+                    />
+
+                <EditText
+                    android:id="@+id/edit_pay_input_info_message"
+                    android:layout_width="0dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
+                    android:gravity="top"
+                    android:maxLength="50"
+                    android:padding="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:inputType="textMultiLine"
+                    android:scrollHorizontally="false"
+                    android:hint="축하 메세지를 전해보세요."
+                    app:layout_constraintEnd_toEndOf="@id/edit_pay_input_info_sender"
+                    app:layout_constraintStart_toStartOf="@+id/edit_pay_input_info_sender"
+                    app:layout_constraintTop_toBottomOf="@id/tv_pay_input_info_message" />
+
+                <TextView
+                    android:id="@+id/tv_pay_input_info_message_indicator"
+                    style="@style/base_font_medium_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="0 / 50"
+                    android:textColor="@color/raven"
+                    app:layout_constraintBottom_toBottomOf="@id/edit_pay_input_info_message"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_pay_input_info_message" />
+
+                <com.google.android.material.divider.MaterialDivider
+                    android:id="@+id/dv_pay_on_pay"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_divider_thick_6"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_pay_input_info_message" />
+
+                <TextView
+                    android:id="@+id/tv_pay_payment_method"
+                    style="@style/base_font_bold_14"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:text="@string/title_pay_payment_option"
+                    android:textColor="@color/raven"
+                    app:layout_constraintStart_toStartOf="@+id/tv_pay_input_info_message"
+                    app:layout_constraintTop_toBottomOf="@+id/dv_pay_on_pay" />
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cdv_pay"
+                    android:layout_width="0dp"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_pay_payment_method"
+                    app:layout_constraintEnd_toEndOf="@id/edit_pay_input_info_message"
+                    app:layout_constraintStart_toStartOf="@+id/edit_pay_input_info_message">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/bg_point">
+
+                        <TextView
+                            android:id="@+id/tv_layout_pay_title"
+                            style="@style/base_font_medium_16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="@dimen/base_horizontal_margin"
+                            android:layout_marginTop="@dimen/base_vertical_margin"
+                            android:text="@string/title_fondue_pay"
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:id="@+id/iv_layout_pay_logo"
+                            android:layout_width="50dp"
+                            android:layout_height="36dp"
+                            android:layout_gravity="bottom"
+                            android:layout_marginStart="14dp"
+                            android:layout_marginBottom="14dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:src="@drawable/bg_banner_ssafylogo" />
+
+                        <TextView
+                            android:id="@+id/tv_layout_pay_balance"
+                            style="@style/base_font_medium_16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom|end"
+                            android:layout_marginEnd="4dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="@color/black"
+                            app:layout_constraintBottom_toBottomOf="@+id/iv_layout_pay_logo"
+                            app:layout_constraintEnd_toStartOf="@+id/btn_layout_pay_load"
+                            tools:text="잔액 : 100,000원"
+                            app:setRemainPoint="@{item.remainPoint}"/>
+
+                        <androidx.appcompat.widget.AppCompatButton
+                            android:id="@+id/btn_layout_pay_load"
+                            android:layout_width="32dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="14dp"
+                            android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+                            android:text="충전"
+                            android:textAlignment="center"
+                            android:textColor="@color/razzmatazz"
+                            android:textSize="10sp"
+                            app:layout_constraintBottom_toBottomOf="@+id/tv_layout_pay_balance"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/tv_layout_pay_balance" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+                
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_pay_funding"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/cdv_pay"
+                    android:background="@color/arapawa"
+                    android:layout_marginTop="@dimen/base_vertical_margin"
+                    android:text="펀딩하기"
+                    android:textColor="@color/white"
+                    style="@style/base_font_bold_16"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

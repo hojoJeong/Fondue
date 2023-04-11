@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="point"
+            type="com.ssafy.fundyou.ui.point.model.PointModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.point.PointLoadFragment">
+
+        <TextView
+            android:id="@+id/tv_point_load_balance_title"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:text="현재 잔여 포인트"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_point_load_balance"
+            style="@style/base_font_bold_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:textColor="@color/raven"
+            app:addCommaText="@{point.balance}"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_point_load_balance_title"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_point_load_balance_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="10,000" />
+
+        <TextView
+            android:id="@+id/tv_point_load_loading_title"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/base_vertical_margin"
+            android:text="충전 포인트"
+            app:layout_constraintStart_toStartOf="@+id/tv_point_load_balance_title"
+            app:layout_constraintTop_toBottomOf="@+id/tv_point_load_balance_title" />
+
+        <EditText
+            android:id="@+id/edit_point_load"
+            android:layout_width="0dp"
+            android:layout_height="42dp"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius5_stroke1"
+            android:hint="충전할 금액 입력"
+            android:inputType="number"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/nobel"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_point_load_loading_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/tv_point_load_loading_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_point_load_loading_title" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_point_load_10000"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintStart_toStartOf="@+id/edit_point_load"
+            app:layout_constraintTop_toBottomOf="@+id/edit_point_load"
+            app:layout_constraintEnd_toStartOf="@+id/btn_point_load_50000"
+            android:layout_marginEnd="2dp"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
+            android:text="@string/title_pay_btn_10000"
+            android:textColor="@color/raven"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_point_load_50000"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="@+id/edit_point_load"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_point_load_10000"
+            app:layout_constraintStart_toEndOf="@+id/btn_point_load_10000"
+            android:background="@drawable/bg_rect_nobel_white_smoke_round5_stroke1"
+            android:text="@string/title_pay_btn_50000"
+            android:textColor="@color/raven"
+            android:layout_marginStart="2dp"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_point_load_result_title"
+            style="@style/base_font_bold_16_black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginBottom="40dp"
+            android:text="충전 후 포인트"
+            app:layout_constraintBottom_toTopOf="@+id/btn_point_load_cancel"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_point_load_result"
+            style="@style/base_font_bold_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:textColor="@color/raven"
+            app:layout_constraintBaseline_toBaselineOf="@+id/tv_point_load_result_title"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_point_load_result_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="10,000"
+            app:addCommaText="@{point.resultPoint}"/>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_point_load_cancel"
+            style="@style/base_font_bold_16"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="@dimen/base_horizontal_margin"
+            android:layout_marginEnd="4dp"
+            android:layout_marginBottom="@dimen/base_vertical_margin"
+            android:background="@drawable/bg_rect_hawkes_blue_solitude_radius5_stroke1"
+            android:text="취소"
+            android:textColor="@color/raven"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btn_point_load_confirm"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_point_load_confirm"
+            style="@style/base_font_bold_16"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginEnd="@dimen/base_horizontal_margin"
+            android:background="@drawable/bg_rect_arapawa_round5_stroke0"
+            android:text="확인"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_point_load_cancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btn_point_load_cancel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

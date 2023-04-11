@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="productInfo"
+            type="com.ssafy.fundyou.ui.item_detail.model.ItemDetailModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- 담기 버튼 -->
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ly_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_item_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="400dp"
+                    android:scaleType="fitCenter"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_item_img_page"
+                    style="@style/base_font_medium_14_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="12dp"
+                    android:background="@drawable/bg_rect_transparent_raven_trans_40_radius10_stroke0"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="4dp"
+                    app:layout_constraintBottom_toBottomOf="@id/vp_item_img"
+                    app:layout_constraintEnd_toEndOf="@id/vp_item_img"
+                    app:layout_constraintStart_toStartOf="@id/vp_item_img"
+                    tools:text="1 / 2" />
+
+                <TextView
+                    android:id="@+id/tv_is_ar"
+                    style="@style/base_font_medium_14_franch_rose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:background="@drawable/bg_rect_gradient_white_round10_stroke1"
+                    android:paddingHorizontal="19dp"
+                    android:paddingVertical="4dp"
+                    app:arVisibility="@{productInfo.isAr}"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_item_img_page"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_item_img_page"
+                    tools:text="AR" />
+
+                <TextView
+                    android:id="@+id/tv_brand"
+                    style="@style/base_font_medium_12_raven"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="12dp"
+                    android:text="@{productInfo.brand}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/vp_item_img"
+                    tools:text="브랜드" />
+
+                <ImageView
+                    android:id="@+id/btn_item_like"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/base_horizontal_margin"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_item_like"
+                    app:favoriteImage="@{productInfo.favorite}"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_brand"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/tv_brand" />
+
+                <ImageButton
+                    android:id="@+id/btn_item_share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="14dp"
+                    android:background="@color/transparent"
+                    android:src="@drawable/ic_share"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_brand"
+                    app:layout_constraintEnd_toStartOf="@id/btn_item_like"
+                    app:layout_constraintTop_toTopOf="@id/tv_brand" />
+
+
+                <TextView
+                    android:id="@+id/tv_item_name"
+                    style="@style/base_font_medium_18_midnight_express"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="12dp"
+                    android:text="@{productInfo.title}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_brand"
+                    tools:text="상품 제목 영역 입니다." />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    style="@style/base_font_bold_26_midnight_express"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="25dp"
+                    app:addCommaText="@{productInfo.price}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_item_name"
+                    tools:text="100,000" />
+
+                <TextView
+                    android:id="@+id/tv_won"
+                    style="@style/base_font_medium_15_midnight_express"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:text="원"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_price"
+                    app:layout_constraintStart_toEndOf="@id/tv_price"
+                    app:layout_constraintTop_toTopOf="@id/tv_price" />
+
+                <View
+                    android:id="@+id/div_info"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="25dp"
+                    android:background="@color/solitude"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_price" />
+
+                <TextView
+                    android:id="@+id/tv_item_info_title"
+                    style="@style/base_font_medium_14_midnight_express"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="25dp"
+                    android:text="상품정보"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/div_info" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_item_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bg_rect_hawkes_blue_transparent_radius0_stroke1_no_bottom"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.285"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_item_info_title" />
+
+                <View
+                    android:id="@+id/div_item_info_img_line"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="37dp"
+                    android:background="@color/hawkes_blue"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rv_item_info" />
+
+                <View
+                    android:id="@+id/div_item_info_img_base"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:background="@color/solitude"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/div_item_info_img_line" />
+
+                <ImageView
+                    android:id="@+id/iv_item_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/div_item_info_img_base"
+                    app:setFullSizeImage="@{productInfo.descriptionImg}" />
+
+                <TextView
+                    android:id="@+id/tv_related_item_title"
+                    style="@style/base_font_medium_15_midnight_express"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="32dp"
+                    android:text="연관 추천 선물"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/iv_item_info" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_related_item_list"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/base_horizontal_margin"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="100dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_related_item_title"
+                    app:layout_constraintVertical_bias="0.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_add_cart"
+            style="@style/base_font_medium_16_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/arapawa"
+            android:paddingVertical="22dp"
+            android:text="선물 추가"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
