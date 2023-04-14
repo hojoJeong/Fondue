@@ -25,7 +25,7 @@ public class SchedulerService {
 
 
     @Transactional
-    @Scheduled(cron = "* 48 13 * * *", zone = "Asia/Seoul")
+    @Scheduled(cron = "* * 0 * * *", zone = "Asia/Seoul")
     public void run() throws IOException {
         Long nowDate = System.currentTimeMillis();
 

@@ -30,6 +30,7 @@ public class FundingItemResponseDto {
     private boolean fundingItemStatus;
     private List<String> arImgList;
 
+
     @Builder
     public static FundingItemResponseDto createFundingItemDto(FundingItem fundingItem, int attendMemberCount, List<String> arImgList, String hostName) {
         return new FundingItemResponseDto(
